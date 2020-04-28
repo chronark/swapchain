@@ -1,9 +1,13 @@
 <div align="center">
-<img src="https://raw.githubusercontent.com/chronark/swapchain/master/.github/logo.svg?sanitized=true"></img>
-
-<a href="https://github.com/chronark/swapchain/blob/master/LICENSE">
-<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square"></img>
-</a>
+    <img
+        width="200%"
+        src="https://raw.githubusercontent.com/chronark/swapchain/master/.github/logo.svg?sanitized=true">
+    </img>
+    <a href="https://github.com/chronark/swapchain/blob/master/LICENSE">
+        <img 
+            src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square">
+        </img>
+    </a>
 </div>
 
 > Swapchain is an application for performing ACCS (atomic cross chain swaps) via HTLCs (hash-time-locked contracts).
