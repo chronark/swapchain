@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://raw.githubusercontent.com/chronark/swapchain/master/.github/logo.png?sanitized=true"></img>
+<img src="https://raw.githubusercontent.com/chronark/swapchain/master/.github/logo.svg?sanitized=true"></img>
 
 <a href="https://github.com/chronark/swapchain/blob/master/LICENSE">
 <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square"></img>
