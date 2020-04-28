@@ -23,3 +23,4 @@
 ## License
 
 This project is [MIT](https://github.com/chronark/swapchain/blob/master/LICENSE) licensed.
+
