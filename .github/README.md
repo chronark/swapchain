@@ -1,7 +1,7 @@
 <div align="center">
     <img
         width="200%"
-        src="https://raw.githubusercontent.com/chronark/swapchain/master/.github/logo.svg?sanitized=true">
+        src="https://raw.githubusercontent.com/chronark/swapchain/master/.github/Logo_Swapchain_Bold_Wide.svg?sanitized=true">
     </img>
     <a href="https://github.com/chronark/swapchain/blob/master/LICENSE">
         <img 
