@@ -47,13 +47,11 @@
   },
   "lint-staged": {
     "**/*.{json,md}": [
-      "npm run fmt",
-      "git add"
+      "npm run fmt"
     ],
     "*.{ts,js}": [
       "npm run fmt",
-      "jest --bail --findRelatedTests",
-      "git add"
+      "jest --bail --findRelatedTests"
     ]
   }
 }
