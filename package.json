@@ -1,0 +1,33 @@
+{
+  "name": "swapchain",
+  "version": "0.0.1",
+  "description": "Swapchain is an application for performing ACCS (atomic cross chain swaps) via HTLCs (hash-time-locked contracts).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chronark/swapchain.git"
+  },
+  "keywords": [
+    "blockchain",
+    "htlc",
+    "accs"
+  ],
+  "author": [
+    "David Joab",
+    "Fehn Katharina",
+    "Jordt Mads",
+    "Kohler Kevin",
+    "Koustas Spyridon",
+    "Steffener Julia",
+    "Thomas Andreas",
+    "Webersinke Nicolas"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chronark/swapchain/issues"
+  },
+  "homepage": "https://github.com/chronark/swapchain#readme"
+}
