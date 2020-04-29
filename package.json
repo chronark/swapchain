@@ -41,7 +41,7 @@
     "typescript": "^3.8.3"
   },
   "husky": {
-    "hook": {
+    "hooks": {
       "pre-commit": "lint-staged"
     }
   },
