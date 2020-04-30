@@ -1,6 +1,8 @@
 const jsdocRules = {
   "jsdoc/require-param-type": "off",
   "jsdoc/require-returns-type": "off",
+  "jsdoc/no-types": "error",
+  "jsdoc/require-jsdoc": "error",
 }
 
 module.exports = {
