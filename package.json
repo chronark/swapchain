@@ -1,0 +1,60 @@
+{
+  "name": "swapchain",
+  "version": "0.0.1",
+  "description": "Swapchain is an application for performing ACCS (atomic cross chain swaps) via HTLCs (hash-time-locked contracts).",
+  "main": "index.js",
+  "scripts": {
+    "fmt": "eslint --fix --ext .ts ./ && prettier --write ./**/*.{js,ts,json} --loglevel warn",
+    "test": "jest",
+    "build": "tsc",
+    "docs:build": "typedoc && cd docs && npm run && npm run build",
+    "docs:show": "typedoc && cd docs && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chronark/swapchain.git"
+  },
+  "keywords": [
+    "blockchain",
+    "htlc",
+    "accs"
+  ],
+  "author": "David Joab, Fehn Katharina, Jordt Mads, Kohler Kevin, Koustas Spyridon, Steffener Julia, Thomas Andreas, Webersinke Nicolas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chronark/swapchain/issues"
+  },
+  "homepage": "https://github.com/chronark/swapchain#readme",
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "@typescript-eslint/eslint-plugin": "^2.30.0",
+    "@typescript-eslint/parser": "^2.30.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-jest": "^23.8.2",
+    "eslint-plugin-jsdoc": "^24.0.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "husky": "^4.2.5",
+    "jest": "^25.5.1",
+    "lint-staged": "^10.2.0",
+    "prettier": "^2.0.5",
+    "standard": "^14.3.3",
+    "ts-jest": "^25.4.0",
+    "typedoc": "^0.17.6",
+    "typedoc-plugin-markdown": "^2.2.17",
+    "typescript": "^3.8.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && jest"
+    }
+  },
+  "lint-staged": {
+    "**/*.{json,md, yml}": [
+      "npm run fmt"
+    ],
+    "*.{ts,js}": [
+      "npm run fmt"
+    ]
+  }
+}
