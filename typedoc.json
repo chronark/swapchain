@@ -1,9 +1,0 @@
-{
-  "hideGenerator": true,
-  "mode": "file",
-  "name": "swapchain documentation",
-  "out": "./docs/docs/typedoc",
-  "readme": "./README.md",
-  "theme": "docusaurus2",
-  "plugin": ["typedoc-plugin-markdown"]
-}
