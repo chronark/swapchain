@@ -18,7 +18,7 @@
 
 ## Development setup
 
-Please see our [contribution guidelines](https://github.com/chronark/swapchain/blob/master/.github/CONTRIBUTING.md)
+... to be added once code style is agreed upon
 
 ## License
 
