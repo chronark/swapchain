@@ -42,7 +42,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && jest"
     }
   },
   "lint-staged": {
@@ -50,8 +50,7 @@
       "npm run fmt"
     ],
     "*.{ts,js}": [
-      "npm run fmt",
-      "jest --bail --findRelatedTests"
+      "npm run fmt"
     ]
   }
 }
