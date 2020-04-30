@@ -46,7 +46,7 @@
     }
   },
   "lint-staged": {
-    "**/*.{json,md}": [
+    "**/*.{json,md, yml}": [
       "npm run fmt"
     ],
     "*.{ts,js}": [
