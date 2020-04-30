@@ -1,6 +1,7 @@
 module.exports = {
-  title: "My Site",
-  tagline: "The tagline of my site",
+  title: "swapchain documentation",
+  tagline:
+    "Swapchain is an application for performing ACCS (atomic cross chain swaps) via HTLCs (hash-time-locked contracts",
   url: "https://chronark.github.io/swapchain",
   baseUrl: "/",
   favicon: "img/favicon.ico",
@@ -8,10 +9,10 @@ module.exports = {
   projectName: "swapchain",
   themeConfig: {
     navbar: {
-      title: "My Site",
+      title: "Home",
       logo: {
         alt: "My Site Logo",
-        src: "img/logo.svg",
+        src: "img/Logo_Swapchain_Bold_Subline.svg",
       },
       links: [
         {
@@ -20,9 +21,9 @@ module.exports = {
           label: "Docs",
           position: "left",
         },
-        { to: "blog", label: "Blog", position: "left" },
+        { to: "docs/typedoc/globals", label: "Modules", position: "left" },
         {
-          href: "https://github.com/facebook/docusaurus",
+          href: "https://github.com/chronark/swapchain",
           label: "GitHub",
           position: "right",
         },
@@ -44,30 +45,26 @@ module.exports = {
             },
           ],
         },
-        {
-          title: "Community",
-          items: [
-            {
-              label: "Stack Overflow",
-              href: "https://stackoverflow.com/questions/tagged/docusaurus",
-            },
-            {
-              label: "Discord",
-              href: "https://discordapp.com/invite/docusaurus",
-            },
-            {
-              label: "Twitter",
-              href: "https://twitter.com/docusaurus",
-            },
-          ],
-        },
+        // {
+        //   title: "Community",
+        //   items: [
+        //     {
+        //       label: "Stack Overflow",
+        //       href: "https://stackoverflow.com/questions/tagged/docusaurus",
+        //     },
+        //     {
+        //       label: "Discord",
+        //       href: "https://discordapp.com/invite/docusaurus",
+        //     },
+        //     {
+        //       label: "Twitter",
+        //       href: "https://twitter.com/docusaurus",
+        //     },
+        //   ],
+        // },
         {
           title: "More",
           items: [
-            {
-              label: "Blog",
-              to: "blog",
-            },
             {
               label: "GitHub",
               href: "https://github.com/facebook/docusaurus",
@@ -75,7 +72,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: "", //`Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
     },
   },
   presets: [
@@ -85,12 +82,12 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl: "https://github.com/facebook/docusaurus/edit/master/website/",
+          editUrl: "https://github.com/chronark/swapchain/edit/master/website/",
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl: "https://github.com/facebook/docusaurus/edit/master/website/blog/",
+          editUrl: "https://github.com/chronark/swapchain/edit/master/website/blog/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),

@@ -6,7 +6,9 @@
   "scripts": {
     "fmt": "eslint --fix --ext .ts ./ && prettier --write ./**/*.{js,ts,json} --loglevel warn",
     "test": "jest",
-    "build": "tsc"
+    "build": "tsc",
+    "docs:build": "typedoc && cd docs && npm run && npm run build",
+    "docs:show": "typedoc && cd docs && npm run start"
   },
   "repository": {
     "type": "git",
@@ -38,6 +40,8 @@
     "prettier": "^2.0.5",
     "standard": "^14.3.3",
     "ts-jest": "^25.4.0",
+    "typedoc": "^0.17.6",
+    "typedoc-plugin-markdown": "^2.2.17",
     "typescript": "^3.8.3"
   },
   "husky": {
