@@ -12,10 +12,12 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install and Build
+      - name: Install
         run: |
           npm install
-          npm run docs:build
+          cd ./docs && npm install
+      - name: build
+        run: npm run docs:build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
