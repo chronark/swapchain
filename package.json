@@ -6,7 +6,7 @@
   "scripts": {
     "fmt": "eslint --fix --ext .ts ./ && prettier --write ./**/*.{js,ts,json} --loglevel warn",
     "test": "jest",
-    "build": "tsc",
+    "build": "./node_modules/.bin/tsc",
     "docs:build": "typedoc && cd docs && npm run && npm run build",
     "docs:show": "typedoc && cd docs && npm run start"
   },
