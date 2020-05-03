@@ -1,5 +1,5 @@
 import supertest from "supertest"
-import { app } from "./index"
+import { app } from "./app"
 const req = supertest(app)
 const jsonData = {
   asset1: "BTC",

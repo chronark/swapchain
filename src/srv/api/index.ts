@@ -1,13 +1,17 @@
-import express from "express"
-export const app = express()
-
-app.use(express.json())
+import { app } from "./app"
+import { AddressInfo } from "net"
+export const port = 3000
 
 /**
- * API endpoint listening for http POST JSON messages
- *
- * @returns JSON message
+ * Start API and listen at port
  */
-app.post("/", (req: express.Request, res: express.Response) => {
-  return res.json(req.body)
-})
+const server = app.listen(port)
+
+/**
+ * Stop API
+ */
+export const stopApp = () => {
+  server.close()
+}
+
+export const address = server.address() as AddressInfo
