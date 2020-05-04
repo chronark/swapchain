@@ -32,7 +32,9 @@ You can read more over at [atlassian.com](https://www.atlassian.com/git/tutorial
         git checkout -b feature/my-new-feature
 
 3.  Add your feature, tests and documentation.
+
 4.  Push your branch to github.
+
 5.  Submit a pull request into `dev`
 
 ## Programming style
