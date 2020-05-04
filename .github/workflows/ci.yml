@@ -27,6 +27,9 @@ jobs:
         run: npm install
       - name: lint and format
         run: npm run fmt
+      - name: Hadolint
+        run: |
+          docker run --rm -i hadolint/hadolint < ./src/srv/Dockerfile
   tests:
     strategy:
       matrix:
