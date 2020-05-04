@@ -29,8 +29,7 @@ jobs:
         run: npm run fmt
       - name: Hadolint
         run: |
-          docker run --rm -i hadolint/hadolint < ./service/Dockerfile
-          docker run --rm -i hadolint/hadolint < ./service/rsyslog/Dockerfile
+          docker run --rm -i hadolint/hadolint < ./src/srv/Dockerfile
   tests:
     strategy:
       matrix:
