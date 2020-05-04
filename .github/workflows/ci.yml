@@ -68,3 +68,10 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+  docker:
+    runs-on: ubuntu-latest
+    name: Build docker
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: docker-compose build
