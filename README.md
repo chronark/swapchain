@@ -1,0 +1,2 @@
+# swapchain
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/57ed43d0a4904188bb9501e1302d04bd)](https://app.codacy.com/manual/chronark/swapchain?utm_source=github.com&utm_medium=referral&utm_content=chronark/swapchain&utm_campaign=Badge_Grade_Settings)
