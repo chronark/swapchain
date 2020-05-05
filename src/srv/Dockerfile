@@ -11,6 +11,7 @@ COPY package-lock.json .
 COPY tsconfig.json . 
 
 COPY ./src/srv/${SERVICE_NAME} ./src/srv/
+COPY ./src/mocks ./src/
 RUN npm install
 
 RUN npm run build
