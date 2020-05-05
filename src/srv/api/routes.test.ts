@@ -9,8 +9,9 @@ describe("Test the API endpoint", () => {
     mocked(fetch).mockImplementation(
       (): Promise<any> => {
         return Promise.resolve({
+          status: 200,
           json() {
-            return Promise.resolve(JSON.stringify({ capitalizedText: "HELLO" }))
+            return Promise.resolve(JSON.stringify({ capitalizedText: "HELLO WORLD" }))
           },
         })
       },
@@ -24,8 +25,10 @@ describe("Test the API endpoint", () => {
 
     const mockExpressRes = (): express.Response => {
       const res: express.Response = express.response
-      res.status = () => res
-      res.json = () => res
+
+      res.status = jest.fn().mockImplementation((code: number): express.Response => res)
+
+      res.json = jest.fn().mockImplementation((body?: any): express.Response => res)
       return res
     }
 
@@ -34,7 +37,10 @@ describe("Test the API endpoint", () => {
     await handler(mockExpressReq(), response)
 
     expect(fetch).toHaveBeenCalledTimes(1)
-    expect(response.status).toBe(200)
-    expect(response.json).toEqual(JSON.stringify({ capitalizedText: "HELLO" }))
+
+    expect(response.status).toHaveBeenCalledTimes(1)
+    expect(response.status).toHaveBeenCalledWith(200)
+    expect(response.json).toHaveBeenCalledTimes(1)
+    expect(response.json).toHaveBeenCalledWith(JSON.stringify({ capitalizedText: "HELLO WORLD" }))
   })
 })
