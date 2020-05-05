@@ -12,3 +12,15 @@ services:
       - "3000:3000"
     environment:
       - SERVICE_NAME=toUpper
+
+  swapchain-srv-api:
+    hostname: swapchain-srv-api
+    build:
+      context: .
+      dockerfile: ./src/srv/Dockerfile
+    container_name: swapchain-srv-api
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - SERVICE_NAME=api
