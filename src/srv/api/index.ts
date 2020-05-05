@@ -1,17 +1,9 @@
-import { app } from "./app"
-import { AddressInfo } from "net"
-export const port = 3000
+import app from "./app"
+const port = process.env.PORT || 3000
 
 /**
  * Start API and listen at port
  */
-const server = app.listen(port)
-
-/**
- * Stop API
- */
-export const stopApp = () => {
-  server.close()
-}
-
-export const address = server.address() as AddressInfo
+app.listen(port, () => {
+  console.log(`app is running on port :${port}`)
+})
