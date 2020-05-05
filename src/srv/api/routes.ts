@@ -9,11 +9,11 @@ import fetch from "node-fetch"
  * @param req - The incoming express Request
  * @param res - The outgoing express Response
  */
-export const handler = async (req: express.Request, res: express.Response) => {
+export const handler = async (req: express.Request, res: express.Response): Promise<void> => {
   const port = 3000
   const params = {
     method: "POST",
-    body: JSON.stringify(req.body),
+    body: req.body,
     headers: { "Content-Type": "application/json" },
   }
 
@@ -22,5 +22,5 @@ export const handler = async (req: express.Request, res: express.Response) => {
   const status = resSrv.status
 
   res.status(status)
-  res.json(json)
+  res.json(JSON.parse(json))
 }

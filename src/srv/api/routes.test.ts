@@ -1,46 +1,54 @@
-import fetch from "node-fetch"
 import { handler } from "./routes"
-import express from "express"
-import { mocked } from "ts-jest/utils"
+import { mockFetch } from "../../mocks/mockFetch"
+import { mockExpress } from "../../mocks/mockExpress"
+import fetch from "node-fetch"
+
 jest.mock("node-fetch", () => jest.fn())
 
+beforeEach(() => {
+  jest.resetAllMocks()
+})
+
 describe("Test the API endpoint", () => {
-  it("should reply to POST with 200 and return capitalized json message", async () => {
-    mocked(fetch).mockImplementation(
-      (): Promise<any> => {
-        return Promise.resolve({
-          status: 200,
-          json() {
-            return Promise.resolve(JSON.stringify({ capitalizedText: "HELLO WORLD" }))
-          },
-        })
+  const testCases = [
+    {
+      name: "should reply to POST with 400 and return error message",
+      input: { text: "" },
+      want: {
+        status: 400,
+        body: JSON.stringify({ error: "HELLO WORLD" }),
       },
-    )
+    },
+    {
+      name: "should reply to POST with 200 and return capitalized json message",
+      input: { text: "hello not world" },
+      want: {
+        status: 200,
+        body: JSON.stringify({ capitalizedText: "HELLO WORLD" }),
+      },
+    },
+  ]
 
-    const mockExpressReq = (): express.Request => {
-      const req: express.Request = express.request
-      req.body = JSON.stringify({ text: "hello world" })
-      return req
-    }
+  testCases.forEach((tc) => {
+    it(tc.name, async () => {
+      jest.resetAllMocks()
+      mockFetch(tc.want.status, tc.want.body)
 
-    const mockExpressRes = (): express.Response => {
-      const res: express.Response = express.response
+      const { req, res } = mockExpress(tc.input)
+      await handler(req, res)
 
-      res.status = jest.fn().mockImplementation((code: number): express.Response => res)
+      expect(fetch).toHaveBeenCalledTimes(1)
+      expect(fetch).toHaveBeenCalledWith("http://swapchain-srv-toupper:3000/upper", {
+        body: JSON.stringify(tc.input),
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+      })
 
-      res.json = jest.fn().mockImplementation((body?: any): express.Response => res)
-      return res
-    }
+      expect(res.status).toHaveBeenCalledTimes(1)
+      expect(res.status).toHaveBeenCalledWith(tc.want.status)
 
-    const response = mockExpressRes()
-
-    await handler(mockExpressReq(), response)
-
-    expect(fetch).toHaveBeenCalledTimes(1)
-
-    expect(response.status).toHaveBeenCalledTimes(1)
-    expect(response.status).toHaveBeenCalledWith(200)
-    expect(response.json).toHaveBeenCalledTimes(1)
-    expect(response.json).toHaveBeenCalledWith(JSON.stringify({ capitalizedText: "HELLO WORLD" }))
+      expect(res.json).toHaveBeenCalledTimes(1)
+      expect(res.json).toHaveBeenCalledWith(tc.want.body)
+    })
   })
 })
