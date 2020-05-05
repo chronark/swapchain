@@ -9,7 +9,7 @@ beforeEach(() => {
   jest.resetAllMocks()
 })
 
-describe("Test the API endpoint", () => {
+describe("Test the API handler", () => {
   const testCases = [
     {
       name: "should reply to POST with 400 and return error message",
