@@ -27,6 +27,9 @@ jobs:
         run: npm install
       - name: lint and format
         run: npm run fmt
+      - name: Hadolint
+        run: |
+          docker run --rm -i hadolint/hadolint < ./src/srv/Dockerfile
   tests:
     strategy:
       matrix:
@@ -65,3 +68,10 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+  docker:
+    runs-on: ubuntu-latest
+    name: Build docker
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: docker-compose build

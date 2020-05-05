@@ -4,11 +4,16 @@
   "description": "Swapchain is an application for performing ACCS (atomic cross chain swaps) via HTLCs (hash-time-locked contracts).",
   "main": "index.js",
   "scripts": {
-    "fmt": "eslint --fix --ext .ts ./ && prettier --write ./**/*.{js,ts,json} --loglevel warn",
-    "test": "jest",
     "build": "./node_modules/.bin/tsc",
-    "docs:build": "typedoc && cd docs && npm run && npm run build",
-    "docs:show": "typedoc && cd docs && npm run start"
+    "docker:up": "docker-compose build && docker-compose up",
+    "docs:build": "./node_modules/.bin/typedoc && cd docs && npm run && npm run build",
+    "docs:show": "./node_modules/.bin/typedoc && cd docs && npm run start",
+    "eslint": "./node_modules/.bin/eslint --fix --ext .ts ./",
+    "fmt": "npm run lint && npm run prettier",
+    "lint:docker": "docker run --rm -i hadolint/hadolint < ./src/srv/Dockerfile",
+    "lint": "npm run lint:docker && npm run eslint",
+    "prettier": "./node_modules/.bin/prettier --write ./**/*.{js,ts,json} --loglevel warn",
+    "test": "./node_modules/.bin/jest"
   },
   "repository": {
     "type": "git",
@@ -29,6 +34,7 @@
     "@types/express": "^4.17.6",
     "@types/jest": "^25.2.1",
     "@types/node": "^13.13.4",
+    "@types/node-fetch": "^2.5.7",
     "@types/supertest": "^2.0.9",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
@@ -58,12 +64,11 @@
     "**/*.{json,md, yml}": [
       "npm run fmt"
     ],
-    "*.{ts,js}": [
+    "**/*.{ts,js}": [
       "npm run fmt"
     ]
   },
   "dependencies": {
-    "@types/node-fetch": "^2.5.7",
     "express": "^4.17.1",
     "node-fetch": "^2.6.0"
   }
