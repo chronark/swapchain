@@ -14,7 +14,7 @@ interface ReqRes {
 export function mockExpress(payload: Record<string, string>): ReqRes {
   const mockExpressReq = (): express.Request => {
     const req: express.Request = express.request
-    req.body = JSON.stringify(payload)
+    req.body = payload
     return req
   }
 

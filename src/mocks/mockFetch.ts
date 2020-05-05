@@ -14,7 +14,7 @@ export function mockFetch(code: number, payload: string): void {
       return Promise.resolve({
         status: code,
         json() {
-          return Promise.resolve(JSON.stringify(payload))
+          return Promise.resolve(payload)
         },
       })
     },

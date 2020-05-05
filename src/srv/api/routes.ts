@@ -13,7 +13,7 @@ export const handler = async (req: express.Request, res: express.Response): Prom
   const port = 3000
   const params = {
     method: "POST",
-    body: req.body,
+    body: JSON.stringify(req.body),
     headers: { "Content-Type": "application/json" },
   }
 
@@ -22,5 +22,5 @@ export const handler = async (req: express.Request, res: express.Response): Prom
   const status = resSrv.status
 
   res.status(status)
-  res.json(JSON.parse(json))
+  res.json(json)
 }
