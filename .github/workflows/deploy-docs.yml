@@ -23,5 +23,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.DEPLOY_DOCS_TOKEN }}
-          BRANCH: master
+          BRANCH: gh-pages
           FOLDER: docs/build
