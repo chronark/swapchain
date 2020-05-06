@@ -3,9 +3,16 @@
         width="200%"
         src="https://raw.githubusercontent.com/chronark/swapchain/master/.github/Logo_Swapchain_Bold_Wide.svg?sanitized=true">
     </img>
-    <a href="https://github.com/chronark/swapchain/blob/master/LICENSE">
+    <a 
+        href="https://github.com/chronark/swapchain/blob/master/LICENSE">
         <img 
             src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square">
+        </img>
+    </a>
+    <a 
+        href="https://github.com/chronark/swapchain/actions">
+        <img 
+            src="https://github.com/chronark/swapchain/workflows/CI/badge.svg?branch=master">
         </img>
     </a>
 </div>
@@ -23,4 +30,3 @@
 ## License
 
 This project is [MIT](https://github.com/chronark/swapchain/blob/master/LICENSE) licensed.
-
