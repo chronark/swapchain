@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  swapchain-srv-toupper:
+    hostname: swapchain-srv-toupper
+    build:
+      context: .
+      dockerfile: ./src/srv/Dockerfile
+      args:
+          SERVICE: toUpper
+    container_name: swapchain-srv-toupper
+    restart: always
+    ports:
+      - "3000:3000"
+
+  swapchain-srv-api:
+    hostname: swapchain-srv-api
+    build:
+      context: .
+      dockerfile: ./src/srv/Dockerfile
+      args:
+          SERVICE: api
+    container_name: swapchain-srv-api
+    restart: always
+    ports:
+      - "80:3000"
