@@ -69,6 +69,7 @@
     ]
   },
   "dependencies": {
+    "bcoin": "git+https://github.com/bcoin-org/bcoin.git#semver:~2.0.0",
     "express": "^4.17.1",
     "node-fetch": "^2.6.0"
   }
