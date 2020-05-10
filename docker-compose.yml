@@ -24,3 +24,14 @@ services:
     restart: always
     ports:
       - "80:3000"
+  
+  swapchain-srv-bcoin:
+    hostname: swapchain-srv-bcoin
+    build:
+      context: .
+      dockerfile: ./src/srv/Dockerfile
+      args:
+          SERVICE: bcoin
+    container_name: swapchain-srv-bcoin
+    restart: always
+  
