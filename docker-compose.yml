@@ -33,5 +33,4 @@ services:
       args:
           SERVICE: bcoin
     container_name: swapchain-srv-bcoin
-    restart: always
   
