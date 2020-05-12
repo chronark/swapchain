@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/chronark/swapchain#readme",
   "devDependencies": {
+    "@types/bitcoinjs-lib": "^5.0.0",
     "@types/crypto-js": "^3.1.45",
     "@types/crypto-random-string": "^2.0.0",
     "@types/express": "^4.17.6",
@@ -71,6 +72,7 @@
     ]
   },
   "dependencies": {
+    "bitcoinjs-lib": "^5.1.7",
     "crypto-js": "^4.0.0",
     "crypto-random-string": "^3.2.0",
     "express": "^4.17.1",
