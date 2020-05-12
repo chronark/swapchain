@@ -19,6 +19,13 @@
 
 > Swapchain is an application for performing ACCS (atomic cross chain swaps) via HTLCs (hash-time-locked contracts).
 
+## Documentation
+
+Documentation is a [docusaurus](https://docusaurus.io/) application hosted on [netlify](https://netlify.com). You can see the stable and development versions here:
+
+- [stable](swapchain.netlify.app)
+- [dev](swapchain-dev.netlify.app)
+
 ## Installation
 
 ... to be added.
