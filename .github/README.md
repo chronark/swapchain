@@ -21,10 +21,10 @@
 
 ## Documentation
 
-Documentation is a [docusaurus](https://docusaurus.io/) application hosted on [netlify](https://netlify.com). You can see the stable and development versions here:
+You can see the stable and development versions here:
 
-- [stable](swapchain.netlify.app)
-- [dev](swapchain-dev.netlify.app)
+- [stable](https://swapchain.netlify.app)
+- [dev](https://swapchain-dev.netlify.app)
 
 ## Installation
 
