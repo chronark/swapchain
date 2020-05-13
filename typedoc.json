@@ -5,5 +5,6 @@
   "out": "./docs/docs/typedoc",
   "readme": "./README.md",
   "theme": "docusaurus2",
-  "plugin": ["typedoc-plugin-markdown"]
+  "plugin": ["typedoc-plugin-markdown"],
+  "exclude": "**/*.test.ts"
 }
