@@ -1,15 +1,21 @@
 import * as bitcoin from "bitcoinjs-lib"
 
+/**
+ * An interface for a privatekey/address pair
+ */
 export interface BTCAddress {
   privateKey: string
   address: string
 }
 
 /**
- * @param network
+ * A function for generating a random Bitcoin address with its corresponding private key
+ *
+ * @param network A string with the requested network type
+ * @returns A BTCAddress interface with a privatekey/address pair
  */
 export function getBTCAddress(network: string): BTCAddress {
-  const net = (network: string): bitcoin.networks.Network => {
+  const net = (network: string): bitcoin.Network => {
     switch (network) {
       case "bitcoin":
         return bitcoin.networks.bitcoin
