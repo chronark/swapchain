@@ -15,4 +15,3 @@ import { getSecret } from "./secret"
       expect(secretObj.secret).not.toBe(secretObj2.secret)
     })
 })
-
