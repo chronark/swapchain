@@ -1,6 +1,5 @@
 import * as bitcoin from "bitcoinjs-lib"
 import { getBTCAddress } from "./address"
-
 describe("BTC address generator", () => {
   const addressPair = getBTCAddress("bitcoin")
   const addressPair2 = getBTCAddress("testnet")
@@ -15,5 +14,18 @@ describe("BTC address generator", () => {
     const address = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey, network: bitcoin.networks.bitcoin }).address
 
     expect(address).toBe(addressPair.address)
+  })
+
+  it("throws when p2pkh.address is undefined", () => {
+    jest.spyOn(bitcoin.payments, "p2pkh").mockImplementation(
+      (a: bitcoin.payments.Payment, opts?: bitcoin.payments.PaymentOpts): bitcoin.payments.Payment => {
+        return {}
+      },
+    )
+
+    const t = () => {
+      getBTCAddress("regtest")
+    }
+    expect(t).toThrow(Error)
   })
 })
