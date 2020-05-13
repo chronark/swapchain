@@ -1,6 +1,5 @@
 import * as bitcoin from "bitcoinjs-lib"
 import { getBTCAddress } from "./address"
-
 describe("BTC address generator", () => {
   const addressPair = getBTCAddress("bitcoin")
   const addressPair2 = getBTCAddress("testnet")
