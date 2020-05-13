@@ -7,7 +7,7 @@ import express from "express"
  * @param req - The incoming express Request
  * @param res - The outgoing express Response
  */
-export const toUpper = (req: express.Request, res: express.Response) => {
+export const toUpper = (req: express.Request, res: express.Response): void => {
   if (typeof req.body.text === "undefined" || req.body.text === "") {
     res.status(400)
     res.json({ error: "You must specify 'text' in the request body" })
