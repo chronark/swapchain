@@ -2,18 +2,18 @@ FROM node:14 AS build-stage
 WORKDIR /swapchain
 
 
-COPY package.json .
-COPY package-lock.json .
-COPY tsconfig.json . 
+COPY package.json package-lock.json tsconfig.json tsconfig.prod.json ./
 
-COPY ./src .
+COPY ./srv .
+COPY ./pkg .
 
 RUN npm install
 RUN npm run build
 
+RUN ls -al ./dist
+
 FROM node:14
 ARG SERVICE
-
 WORKDIR /swapchain
 
 # RUN apt-get update && apt-get install -y --no-install-recommends git && \
@@ -21,8 +21,7 @@ WORKDIR /swapchain
 #     rm -rf /var/lib/apt/lists/*
 
 COPY package.json .
-COPY --from=build-stage /swapchain/build/mocks/* ./mocks/
-COPY --from=build-stage /swapchain/build/srv/${SERVICE}/* ./service/
+COPY --from=build-stage /swapchain/dist/${SERVICE}/* ./service/
 
 ENV NODE_ENV production
 RUN npm install

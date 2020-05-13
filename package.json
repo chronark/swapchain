@@ -4,13 +4,13 @@
   "description": "Swapchain is an application for performing ACCS (atomic cross chain swaps) via HTLCs (hash-time-locked contracts).",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/tsc",
+    "build": "./node_modules/.bin/tsc -p ./tsconfig.prod.json --pretty",
     "docker:up": "docker-compose build && docker-compose up",
     "docs:build": "./node_modules/.bin/typedoc && cd docs && npm run && npm run build",
     "docs:show": "./node_modules/.bin/typedoc && cd docs && npm run start",
     "eslint": "./node_modules/.bin/eslint --fix --ext .ts ./",
     "fmt": "npm run lint && npm run prettier",
-    "lint:docker": "docker run --rm -i hadolint/hadolint < ./src/srv/Dockerfile",
+    "lint:docker": "docker run --rm -i hadolint/hadolint < ./build/Dockerfile",
     "lint": "npm run lint:docker && npm run eslint",
     "prettier": "./node_modules/.bin/prettier --write ./**/*.{js,ts,json} --loglevel warn",
     "test": "./node_modules/.bin/jest"
