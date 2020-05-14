@@ -1,6 +1,6 @@
 import { handler } from "./routes"
-import { mockFetch } from "../../mocks/mockFetch"
-import { mockExpress } from "../../mocks/mockExpress"
+import { mockFetch } from "../../test/mocks/mockFetch"
+import { mockExpress } from "../../test/mocks/mockExpress"
 import fetch from "node-fetch"
 
 jest.mock("node-fetch", () => jest.fn())
