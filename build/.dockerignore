@@ -1,0 +1,7 @@
+.github/
+build/
+coverage/
+docs/
+node_modules/
+test/
+tmp/
