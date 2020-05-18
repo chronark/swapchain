@@ -6,5 +6,5 @@
  * Dummy function, see file header.
  */
 const helloWorld = (): void => {
-    console.log("Hello World")
+  console.log("Hello World")
 }
