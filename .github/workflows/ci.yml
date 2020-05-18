@@ -29,7 +29,9 @@ jobs:
         run: npm run fmt
       - name: Hadolint
         run: |
-          docker run --rm -i hadolint/hadolint < ./build/Dockerfile
+          docker run --rm -i hadolint/hadolint < ./build/Dockerfile.build
+          docker run --rm -i hadolint/hadolint < ./build/Dockerfile.service
+          docker run --rm -i hadolint/hadolint < ./srv/bcoin/Dockerfile
   tests:
     strategy:
       matrix:
@@ -74,4 +76,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        run: docker-compose -f ./build/docker-compose.yml build
+        run: npm run docker:build
