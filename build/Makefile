@@ -11,3 +11,6 @@ build: build-base-image
 up: build
 	docker-compose up
 
+
+daemon: build
+	docker-compose up -d
