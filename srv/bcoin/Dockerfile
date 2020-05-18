@@ -1,5 +1,5 @@
 ARG BASE_IMAGE
-
+# hadolint ignore=DL3006
 FROM ${BASE_IMAGE} AS base
 
 FROM node:14 AS service
