@@ -18,4 +18,4 @@ jobs:
           cd swapchain
           docker-compose -f build/docker-compose.yml down
           git pull
-          npm run docker:up
+          make -C ./build daemon
