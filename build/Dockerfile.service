@@ -1,0 +1,14 @@
+ARG BASE_IMAGE
+
+FROM ${BASE_IMAGE} AS base
+
+FROM node:14-alpine3.10 AS service
+ARG SERVICE
+
+WORKDIR /swapchain
+
+COPY --from=base /swapchain/node_modules ./node_modules/
+COPY --from=base /swapchain/dist/pkg ./pkg/
+COPY --from=base /swapchain/dist/srv/${SERVICE} ./srv/service/
+
+CMD ["node", "./srv/service/index.js"]

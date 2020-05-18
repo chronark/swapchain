@@ -1,0 +1,20 @@
+FROM node:14 AS compile
+# compile all code to vanilla js
+
+WORKDIR /swapchain
+
+COPY . .
+
+RUN npm install
+RUN npm run build
+FROM node:14 AS install
+# Create a small package with only compiled code and production dependencies
+
+WORKDIR /swapchain
+
+COPY package.json package-lock.json ./
+COPY --from=compile /swapchain/dist/srv ./dist/srv/
+COPY --from=compile /swapchain/dist/pkg ./dist/pkg/
+
+ENV NODE_ENV production
+RUN npm install
