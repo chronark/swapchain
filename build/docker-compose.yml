@@ -4,9 +4,10 @@ services:
   swapchain-srv-toupper:
     hostname: swapchain-srv-toupper
     build:
-      context: .
-      dockerfile: ./src/srv/Dockerfile
+      context: ..
+      dockerfile: ./build/Dockerfile.service
       args:
+          BASE_IMAGE: ${BASE_IMAGE}
           SERVICE: toUpper
     container_name: swapchain-srv-toupper
     restart: always
@@ -16,9 +17,10 @@ services:
   swapchain-srv-api:
     hostname: swapchain-srv-api
     build:
-      context: .
-      dockerfile: ./src/srv/Dockerfile
+      context: ..
+      dockerfile: ./build/Dockerfile.service
       args:
+          BASE_IMAGE: ${BASE_IMAGE}
           SERVICE: api
     container_name: swapchain-srv-api
     restart: always
@@ -28,9 +30,9 @@ services:
   swapchain-srv-bcoin:
     hostname: swapchain-srv-bcoin
     build:
-      context: .
-      dockerfile: ./src/srv/Dockerfile
+      context: ..
+      dockerfile: ./srv/bcoin/Dockerfile
       args:
-          SERVICE: bcoin
+          BASE_IMAGE: ${BASE_IMAGE}
     container_name: swapchain-srv-bcoin
   

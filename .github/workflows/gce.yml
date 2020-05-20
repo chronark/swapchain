@@ -1,0 +1,21 @@
+name: GCE deployment
+on:
+  push:
+    branches:
+      - dev
+jobs:    
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to GCE
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.GCE_IP }}
+        username: ${{ secrets.GCE_USERNAME }}
+        key: ${{ secrets.GCE_SSH_PRIVATE_KEY }}
+        script: |
+          cd swapchain
+          docker-compose -f build/docker-compose.yml down
+          git pull
+          make -C ./build daemon
