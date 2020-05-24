@@ -5,6 +5,6 @@
 /**
  * Dummy function, see file header.
  */
-export const helloWorld = (): void => {
+const helloWorld = (): void => {
   console.log("Hello World")
 }
