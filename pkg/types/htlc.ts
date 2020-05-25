@@ -1,7 +1,6 @@
 /**
  * Contains all necessary information to crate an HTLC on a blockchain
  *
- * @export
  * @interface HTLCConfig
  */
 export interface HTLCConfig {
