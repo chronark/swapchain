@@ -1,6 +1,6 @@
 import { Apis as btsWebsocketApi } from "bitsharesjs-ws"
 import { ChainStore, FetchChain, TransactionBuilder } from "bitsharesjs"
-import { getSecret } from "../../../tmp/secret"
+import { getSecret, Secret } from "../../../tmp/secret"
 import { HTLCConfig, HTLCCreator } from "../../../pkg/types/htlc"
 
 /**
@@ -11,22 +11,16 @@ import { HTLCConfig, HTLCCreator } from "../../../pkg/types/htlc"
  */
 export default class BitsharesHTLC implements HTLCCreator {
   private node: string
-  // TODO: find type from source code
-  private websocket: any
+  private websocket: Promise<void> | null
   /**
    * Creates an instance of BitsharesHTLC.
    *
-   * @param node
+   * @param node - The Bitshares node you want to connect to.
    * @memberof BitsharesHTLC
    */
   constructor(node: string) {
     this.node = node
     this.websocket = null
-
-    // Open the socket
-    // This is asynchronous and may not finish before you try to access the ChainStore by calling `create()`
-    // Nevertheless opening the websocket as soon as possible can speed up the process for the user.
-    this.openSocket(node)
   }
 
   /**
@@ -49,7 +43,7 @@ export default class BitsharesHTLC implements HTLCCreator {
    * @returns Success or failure.
    * @memberof BitsharesHTLC
    */
-  public async create(config: HTLCConfig): Promise<boolean> {
+  public async create(config: HTLCConfig): Promise<{ success: boolean; secret: Secret }> {
     if (this.websocket === null) {
       await this.openSocket(this.node)
     }
@@ -63,16 +57,14 @@ export default class BitsharesHTLC implements HTLCCreator {
    * That's because the websocket must be open before creating an HTLC.
    *
    * @private
-   * @param config
-   * @returns Success status. Can be used for user feedback.
+   * @param config - Configuration object for the HTLC.
+   * @returns Success status and secret. Can be used for user feedback.
    * @memberof BitsharesHTLC
    */
-  private async createHTLC(config: HTLCConfig): Promise<boolean> {
+  private async createHTLC(config: HTLCConfig): Promise<{ success: boolean; secret: Secret }> {
     // TODO: Requires proper error handling. Right now it always returns true.
-
     const { sender, receiver, amount, asset, time, privateKey } = config
     await ChainStore.init(false)
-
     const preimage = getSecret(32)
 
     const [senderAccount, toAccount, sendAsset] = await Promise.all([
@@ -97,6 +89,6 @@ export default class BitsharesHTLC implements HTLCCreator {
     tr.add_signer(privateKey)
     tr.broadcast()
 
-    return true
+    return { success: true, secret: preimage }
   }
 }
