@@ -1,35 +1,30 @@
-/* eslint-disable @typescript-eslint/camelcase */
-import { Apis } from "bitsharesjs-ws"
-import { ChainStore, FetchChain, TransactionBuilder } from "bitsharesjs"
-import { getSecret } from "./secret"
+import BitsharesHTLC from "../srv/bitshares/htlc/btsHTLC"
+import { Secret } from "./secret"
+import { HTLCConfig } from "../pkg/types/htlc"
+
+const privateKey = "YYY"
+
+const config = {
+  sender: "amos",
+  receiver: "amos2",
+  amount: 1,
+  asset: "TEST",
+  time: 600,
+}
+
+const secret: Secret = {
+  secret: "fYXtFWlRUEtqfFtaaCzQWTk5yCnp9qIM",
+  hash: "e149f1a5e0a971ff1d07c6ba66613c5c3645344c58b0ae73c5f6aacd37f23b51",
+}
 
 /**
- * Redeems an HTLC
- *
- * @param to The Bitshares account to which is sent.
- * @param pKey A private key of the sender account.
- * @param node The websocket address of a Bitshares node.
- * @param htlcObject The HTLC that is about to be unlocked.
+ * @param config -
+ * @param privateKey -
+ * @param secret -
  */
-export async function btsRedeemHtlc(to: string, pKey: string, node: string, htlcObject: string): Promise<void> {
-  await Apis.instance(node, true).init_promise
-
-  await ChainStore.init(false)
-
-  const preimage = getSecret(32) // wir brauchen genau das Preimage, was bei Nico im createHtlc schon erstellt wird
-
-  const res: any = await Promise.all([FetchChain("getAccount", to), FetchChain("getObject", htlcObject)])
-
-  const [toAccount, transaction] = res
-
-  const tr = new TransactionBuilder()
-  tr.add_type_operation("htlc_redeem", {
-    to: toAccount.get("id"),
-    preimage_secret: [2, preimage.secret],
-    htlc_id: transaction.get("id"), // For sure not the right ID but a start ;-)
-  })
-
-  await tr.set_required_fees()
-  tr.add_signer(pKey)
-  tr.broadcast()
+async function redeem(config: HTLCConfig, privateKey: string, secret: Secret): Promise<void> {
+  const htlc = new BitsharesHTLC("wss://testnet.dex.trading")
+  await htlc.redeem(config, privateKey, secret)
 }
+
+redeem(config, privateKey, secret)
