@@ -59,6 +59,21 @@ describe("btsHTLC", () => {
     expect(FetchChain).toHaveBeenCalledTimes(3)
   })
 
+  it("creates 2 HTLCs using the same websocket", async () => {
+    const htlc = new BitsharesHTLC("node")
+    await htlc.create(htlcTestConfig, privateKey, testSecret)
+
+    expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
+    expect(ChainStore.init).toHaveBeenCalledTimes(1)
+    expect(FetchChain).toHaveBeenCalledTimes(3)
+
+    await htlc.create(htlcTestConfig, privateKey, testSecret)
+
+    expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
+    expect(ChainStore.init).toHaveBeenCalledTimes(2)
+    expect(FetchChain).toHaveBeenCalledTimes(6)
+  })
+
   it("redeems a single HTLC", async () => {
     /* eslint-disable @typescript-eslint/camelcase */
     btsWebsocketApi.history.get_relative_account_history = jest.fn().mockImplementation(
@@ -96,6 +111,51 @@ describe("btsHTLC", () => {
     expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
     expect(ChainStore.init).toHaveBeenCalledTimes(1)
     expect(FetchChain).toHaveBeenCalledTimes(1)
+  })
+
+  it("redeems 2 HTLCs using the same websocket", async () => {
+    /* eslint-disable @typescript-eslint/camelcase */
+    btsWebsocketApi.history.get_relative_account_history = jest.fn().mockImplementation(
+      async (receiver: string, start: number, limit: number, stop: number): Promise<any[]> => {
+        return [
+          {
+            id: "1.11.1337",
+            op: [
+              49,
+              {
+                fee: [{}],
+                from: "1.1.1",
+                to: "1.1.2",
+                amount: [{}],
+                preimage_hash: [2, "testHash"],
+                preimage_size: 32,
+                claim_period_seconds: 30,
+                extensions: [],
+              },
+            ],
+            result: [1, "1.16.111"],
+            block_num: 1337,
+            trx_in_block: 0,
+            op_in_trx: 0,
+            virtual_op: 0,
+          },
+        ]
+      },
+    )
+    /* eslint-enable @typescript-eslint/camelcase */
+
+    const htlc = new BitsharesHTLC("node")
+    await htlc.redeem(htlcTestConfig, privateKey, testSecret)
+
+    expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
+    expect(ChainStore.init).toHaveBeenCalledTimes(1)
+    expect(FetchChain).toHaveBeenCalledTimes(1)
+
+    await htlc.redeem(htlcTestConfig, privateKey, testSecret)
+
+    expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
+    expect(ChainStore.init).toHaveBeenCalledTimes(2)
+    expect(FetchChain).toHaveBeenCalledTimes(2)
   })
 
   describe("Throws error because HTLC was not found", () => {
@@ -209,21 +269,6 @@ describe("btsHTLC", () => {
     })
   })
 
-  it("creates 2 HTLCs using the same websocket", async () => {
-    const htlc = new BitsharesHTLC("node")
-    await htlc.create(htlcTestConfig, privateKey, testSecret)
-
-    expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
-    expect(ChainStore.init).toHaveBeenCalledTimes(1)
-    expect(FetchChain).toHaveBeenCalledTimes(3)
-
-    await htlc.create(htlcTestConfig, privateKey, testSecret)
-
-    expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
-    expect(ChainStore.init).toHaveBeenCalledTimes(2)
-    expect(FetchChain).toHaveBeenCalledTimes(6)
-  })
-
   it("calls FetchChain with the correct parameters", async () => {
     const htlc = new BitsharesHTLC("node")
     await htlc.create(htlcTestConfig, privateKey, testSecret)
@@ -279,7 +324,7 @@ describe("btsHTLC", () => {
     expect(broadcastMock).toHaveBeenCalledTimes(1)
   })
 
-  it("returns status and secret", async () => {
+  it("returns status", async () => {
     const htlc = new BitsharesHTLC("node")
     const success = await htlc.create(htlcTestConfig, privateKey, testSecret)
 
