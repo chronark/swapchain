@@ -1,6 +1,6 @@
 import BitsharesHTLC from "./btsHTLC"
 import { Apis as btsWebsocketApi } from "bitsharesjs-ws"
-import { ChainStore, FetchChain, TransactionBuilder } from "bitsharesjs"
+import { ChainStore, FetchChain, TransactionBuilder, PrivateKey } from "bitsharesjs"
 import { mocked } from "ts-jest/utils"
 import { getSecret } from "../../../tmp/secret"
 
@@ -19,13 +19,42 @@ const htlcTestConfig = {
   amount: 1,
   asset: "TEST",
   time: 30,
-  privateKey: "testPrivateKey",
 }
+
+const privateKey = "5JWd27Ff5iofr741ewr4CdHzxgENXzobBaxtZNBBjRZBvsZ9SZ6"
 
 beforeEach(() => {
   jest.resetAllMocks()
   mocked(btsWebsocketApi.instance).mockImplementation(async (node: string, connect: boolean): Promise<void> => {})
+  /*
+  mocked(btsWebsocketApi.db.get_accounts).mockImplementation(async (array: Array<string>): Promise<Array<string>> => {
+    return ["1.1.1", "1.1.2"]
+  })
 
+  mocked(btsWebsocketApi.history.get_relative_account_history).mockImplementation(async (receiver: string, start: number, limit: number, stop: number): Promise<Array<any>> => {
+    return [{
+        id: '1.11.1337',
+        op: [
+          49,
+          {
+            fee: [{}],
+            from: '1.1.1',
+            to: '1.1.2',
+            amount: [{}],
+            preimage_hash: [2, "testHash"],
+            preimage_size: 32,
+            claim_period_seconds: 30,
+            extensions: []
+          }
+        ],
+        result: [ 1, '1.16.111' ],
+        block_num: 1337,
+        trx_in_block: 0,
+        op_in_trx: 0,
+        virtual_op: 0
+      }]
+  })
+  */
   mocked(ChainStore.init).mockImplementation(async (c: boolean): Promise<void> => {})
 
   mocked(getSecret).mockImplementation((): { secret: string; hash: string } => {
@@ -44,22 +73,31 @@ beforeEach(() => {
 describe("btsHTLC", () => {
   it("creates a single HTLC", async () => {
     const htlc = new BitsharesHTLC("node")
-    await htlc.create(htlcTestConfig)
+    await htlc.create(htlcTestConfig, privateKey, testSecret)
 
     expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
     expect(ChainStore.init).toHaveBeenCalledTimes(1)
     expect(FetchChain).toHaveBeenCalledTimes(3)
   })
-
+  /** 
+  it("redeems a single HTLC", async () => {
+    const htlc = new BitsharesHTLC("node")
+    await htlc.redeem(htlcTestConfig, privateKey, testSecret)
+   
+    expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
+    expect(ChainStore.init).toHaveBeenCalledTimes(1)
+    expect(FetchChain).toHaveBeenCalledTimes(1)
+  })
+   */
   it("creates 2 HTLCs using the same websocket", async () => {
     const htlc = new BitsharesHTLC("node")
-    await htlc.create(htlcTestConfig)
+    await htlc.create(htlcTestConfig, privateKey, testSecret)
 
     expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
     expect(ChainStore.init).toHaveBeenCalledTimes(1)
     expect(FetchChain).toHaveBeenCalledTimes(3)
 
-    await htlc.create(htlcTestConfig)
+    await htlc.create(htlcTestConfig, privateKey, testSecret)
 
     expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
     expect(ChainStore.init).toHaveBeenCalledTimes(2)
@@ -68,7 +106,7 @@ describe("btsHTLC", () => {
 
   it("calls FetchChain with the correct parameters", async () => {
     const htlc = new BitsharesHTLC("node")
-    await htlc.create(htlcTestConfig)
+    await htlc.create(htlcTestConfig, privateKey, testSecret)
 
     expect(FetchChain).toHaveBeenCalledTimes(3)
     expect(FetchChain.mock.calls[0][0]).toEqual("getAccount")
@@ -84,7 +122,7 @@ describe("btsHTLC", () => {
   it("calls transactionBuilder with the correct parameters", async () => {
     const addTypeOperationMock = jest.spyOn(TransactionBuilder.prototype, "add_type_operation")
     const htlc = new BitsharesHTLC("node")
-    await htlc.create(htlcTestConfig)
+    await htlc.create(htlcTestConfig, privateKey, testSecret)
 
     expect(TransactionBuilder).toHaveBeenCalledTimes(1)
     expect(addTypeOperationMock).toHaveBeenCalledTimes(1)
@@ -105,17 +143,17 @@ describe("btsHTLC", () => {
   it("calls signs the transaction with the correct key", async () => {
     const addSignerMock = jest.spyOn(TransactionBuilder.prototype, "add_signer")
     const htlc = new BitsharesHTLC("node")
-    await htlc.create(htlcTestConfig)
+    await htlc.create(htlcTestConfig, privateKey, testSecret)
 
     expect(TransactionBuilder).toHaveBeenCalledTimes(1)
     expect(addSignerMock).toHaveBeenCalledTimes(1)
-    expect(addSignerMock).toHaveBeenCalledWith(htlcTestConfig.privateKey)
+    expect(addSignerMock).toHaveBeenCalledWith(PrivateKey.fromWif(privateKey))
   })
 
   it("broadcasts the transaction", async () => {
     const broadcastMock = jest.spyOn(TransactionBuilder.prototype, "broadcast")
     const htlc = new BitsharesHTLC("node")
-    await htlc.create(htlcTestConfig)
+    await htlc.create(htlcTestConfig, privateKey, testSecret)
 
     expect(TransactionBuilder).toHaveBeenCalledTimes(1)
     expect(broadcastMock).toHaveBeenCalledTimes(1)
@@ -123,9 +161,8 @@ describe("btsHTLC", () => {
 
   it("returns status and secret", async () => {
     const htlc = new BitsharesHTLC("node")
-    const { success, secret } = await htlc.create(htlcTestConfig)
+    const success = await htlc.create(htlcTestConfig, privateKey, testSecret)
 
     expect(success).toBe(true)
-    expect(secret).toEqual(testSecret)
   })
 })
