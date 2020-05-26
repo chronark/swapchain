@@ -154,6 +154,7 @@ export default class BitsharesHTLC implements HTLCCreator {
    *
    * Only for internal purposes.
    * The HTLC ID is necessary to redeem an HTLC.
+   * Websocket must be open.
    *
    * @private
    * @param sender - The sender of the HTLC.
@@ -164,7 +165,7 @@ export default class BitsharesHTLC implements HTLCCreator {
    */
   private async getID(sender: string, receiver: string, preimage: Secret): Promise<string> {
     // TODO: Requires proper error handling.
-    const limit = 100 // TODO: Is 100 appropriate?
+    const limit = 100 // TODO: Is 100 appropriate? -> Increase if not found
 
     const [senderAccount, toAccount] = await btsWebsocketApi.db.get_accounts([sender, receiver])
 
