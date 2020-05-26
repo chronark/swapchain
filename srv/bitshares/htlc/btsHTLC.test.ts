@@ -27,13 +27,14 @@ beforeEach(() => {
   jest.resetAllMocks()
   mocked(btsWebsocketApi)
 
-  btsWebsocketApi.instance = jest.fn().mockImplementation(async (node: string, connect: boolean): Promise<void> => { })
+  btsWebsocketApi.instance = jest.fn().mockImplementation(async (node: string, connect: boolean): Promise<void> => {})
+  /* eslint-disable @typescript-eslint/camelcase */
   btsWebsocketApi.db.get_accounts = jest
     .fn()
     .mockImplementation(async (s: string[]): Promise<Record<string, string>[]> => [{ id: "1.1.1" }, { id: "1.1.2" }])
+  /* eslint-enable @typescript-eslint/camelcase */
 
-
-  mocked(ChainStore.init).mockImplementation(async (c: boolean): Promise<void> => { })
+  mocked(ChainStore.init).mockImplementation(async (c: boolean): Promise<void> => {})
 
   mocked(getSecret).mockImplementation((): { secret: string; hash: string } => {
     return testSecret
@@ -58,9 +59,10 @@ describe("btsHTLC", () => {
     expect(FetchChain).toHaveBeenCalledTimes(3)
   })
 
-  it.skip("redeems a single HTLC", async () => {
+  it("redeems a single HTLC", async () => {
+    /* eslint-disable @typescript-eslint/camelcase */
     btsWebsocketApi.history.get_relative_account_history = jest.fn().mockImplementation(
-      async (receiver: string, start: number, limit: number, stop: number): Promise<Array<any>> => {
+      async (receiver: string, start: number, limit: number, stop: number): Promise<any[]> => {
         return [
           {
             id: "1.11.1337",
@@ -86,7 +88,7 @@ describe("btsHTLC", () => {
         ]
       },
     )
-
+    /* eslint-enable @typescript-eslint/camelcase */
 
     const htlc = new BitsharesHTLC("node")
     await htlc.redeem(htlcTestConfig, privateKey, testSecret)
@@ -96,12 +98,9 @@ describe("btsHTLC", () => {
     expect(FetchChain).toHaveBeenCalledTimes(1)
   })
 
-
-
-
-  describe("Throws error because HTLC was not found", async () => {
-
+  describe("Throws error because HTLC was not found", () => {
     // All these test cases will throw an error.
+    /* eslint-disable @typescript-eslint/camelcase */
     const testCases = [
       {
         name: "element.result[1] is not a string",
@@ -118,8 +117,9 @@ describe("btsHTLC", () => {
             ],
             result: [1, 2],
           },
-        ]
-      }, {
+        ],
+      },
+      {
         name: "element.result[1] does not start with <1.16.>",
         mockReturn: [
           {
@@ -134,8 +134,9 @@ describe("btsHTLC", () => {
             ],
             result: [1, "2.16.111"],
           },
-        ]
-      }, {
+        ],
+      },
+      {
         name: "element.op[1].from is not correct",
         mockReturn: [
           {
@@ -150,8 +151,9 @@ describe("btsHTLC", () => {
             ],
             result: [1, "1.16.111"],
           },
-        ]
-      }, {
+        ],
+      },
+      {
         name: "element.op[1].to is not correct",
         mockReturn: [
           {
@@ -166,9 +168,11 @@ describe("btsHTLC", () => {
             ],
             result: [1, "1.16.111"],
           },
-        ]
-      }, {
-        name: "element.op[1].preimage_hash[1] is not correct", mockReturn: [
+        ],
+      },
+      {
+        name: "element.op[1].preimage_hash[1] is not correct",
+        mockReturn: [
           {
             id: "1.11.1337",
             op: [
@@ -181,27 +185,22 @@ describe("btsHTLC", () => {
             ],
             result: [1, "1.16.111"],
           },
-        ]
-      }
+        ],
+      },
     ]
+    /* eslint-enable @typescript-eslint/camelcase */
 
-
-    testCases.forEach(tc => {
-
+    testCases.forEach((tc) => {
       it(tc.name, async () => {
+        /* eslint-disable-next-line @typescript-eslint/camelcase */
         btsWebsocketApi.history.get_relative_account_history = jest.fn().mockImplementation(
-          async (receiver: string, start: number, limit: number, stop: number): Promise<Array<any>> => {
+          async (receiver: string, start: number, limit: number, stop: number): Promise<Record<string, any>[]> => {
             return tc.mockReturn
-          })
-        console.error(tc.mockReturn)
+          },
+        )
         const htlc = new BitsharesHTLC("node")
 
-        try {
-          await htlc.redeem(htlcTestConfig, privateKey, testSecret)
-        } catch (e) {
-          expect(e).toEqual(new Error("HTCL not found in the last 100 transactions."))
-        }
-
+        await expect(() => htlc.redeem(htlcTestConfig, privateKey, testSecret)).rejects.toThrow()
 
         expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
         expect(ChainStore.init).toHaveBeenCalledTimes(1)
@@ -209,11 +208,6 @@ describe("btsHTLC", () => {
       })
     })
   })
-
-
-
-
-
 
   it("creates 2 HTLCs using the same websocket", async () => {
     const htlc = new BitsharesHTLC("node")
