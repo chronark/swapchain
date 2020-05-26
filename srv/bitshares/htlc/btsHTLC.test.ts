@@ -25,37 +25,15 @@ const privateKey = "5JWd27Ff5iofr741ewr4CdHzxgENXzobBaxtZNBBjRZBvsZ9SZ6"
 
 beforeEach(() => {
   jest.resetAllMocks()
-  mocked(btsWebsocketApi.instance).mockImplementation(async (node: string, connect: boolean): Promise<void> => {})
-  /*
-  mocked(btsWebsocketApi.db.get_accounts).mockImplementation(async (array: Array<string>): Promise<Array<string>> => {
-    return ["1.1.1", "1.1.2"]
-  })
+  mocked(btsWebsocketApi)
 
-  mocked(btsWebsocketApi.history.get_relative_account_history).mockImplementation(async (receiver: string, start: number, limit: number, stop: number): Promise<Array<any>> => {
-    return [{
-        id: '1.11.1337',
-        op: [
-          49,
-          {
-            fee: [{}],
-            from: '1.1.1',
-            to: '1.1.2',
-            amount: [{}],
-            preimage_hash: [2, "testHash"],
-            preimage_size: 32,
-            claim_period_seconds: 30,
-            extensions: []
-          }
-        ],
-        result: [ 1, '1.16.111' ],
-        block_num: 1337,
-        trx_in_block: 0,
-        op_in_trx: 0,
-        virtual_op: 0
-      }]
-  })
-  */
-  mocked(ChainStore.init).mockImplementation(async (c: boolean): Promise<void> => {})
+  btsWebsocketApi.instance = jest.fn().mockImplementation(async (node: string, connect: boolean): Promise<void> => { })
+  btsWebsocketApi.db.get_accounts = jest
+    .fn()
+    .mockImplementation(async (s: string[]): Promise<Record<string, string>[]> => [{ id: "1.1.1" }, { id: "1.1.2" }])
+
+
+  mocked(ChainStore.init).mockImplementation(async (c: boolean): Promise<void> => { })
 
   mocked(getSecret).mockImplementation((): { secret: string; hash: string } => {
     return testSecret
@@ -79,16 +57,164 @@ describe("btsHTLC", () => {
     expect(ChainStore.init).toHaveBeenCalledTimes(1)
     expect(FetchChain).toHaveBeenCalledTimes(3)
   })
-  /** 
-  it("redeems a single HTLC", async () => {
+
+  it.skip("redeems a single HTLC", async () => {
+    btsWebsocketApi.history.get_relative_account_history = jest.fn().mockImplementation(
+      async (receiver: string, start: number, limit: number, stop: number): Promise<Array<any>> => {
+        return [
+          {
+            id: "1.11.1337",
+            op: [
+              49,
+              {
+                fee: [{}],
+                from: "1.1.1",
+                to: "1.1.2",
+                amount: [{}],
+                preimage_hash: [2, "testHash"],
+                preimage_size: 32,
+                claim_period_seconds: 30,
+                extensions: [],
+              },
+            ],
+            result: [1, "1.16.111"],
+            block_num: 1337,
+            trx_in_block: 0,
+            op_in_trx: 0,
+            virtual_op: 0,
+          },
+        ]
+      },
+    )
+
+
     const htlc = new BitsharesHTLC("node")
     await htlc.redeem(htlcTestConfig, privateKey, testSecret)
-   
+
     expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
     expect(ChainStore.init).toHaveBeenCalledTimes(1)
     expect(FetchChain).toHaveBeenCalledTimes(1)
   })
-   */
+
+
+
+
+  describe("Throws error because HTLC was not found", async () => {
+
+    // All these test cases will throw an error.
+    const testCases = [
+      {
+        name: "element.result[1] is not a string",
+        mockReturn: [
+          {
+            id: "1.11.1337",
+            op: [
+              49, // random number not required for this test
+              {
+                from: "1.1.1",
+                to: "1.1.2",
+                preimage_hash: [2, "testHash"],
+              },
+            ],
+            result: [1, 2],
+          },
+        ]
+      }, {
+        name: "element.result[1] does not start with <1.16.>",
+        mockReturn: [
+          {
+            id: "1.11.1337",
+            op: [
+              49, // random number not required for this test
+              {
+                from: "1.1.1",
+                to: "1.1.2",
+                preimage_hash: [2, "testHash"],
+              },
+            ],
+            result: [1, "2.16.111"],
+          },
+        ]
+      }, {
+        name: "element.op[1].from is not correct",
+        mockReturn: [
+          {
+            id: "1.11.1337",
+            op: [
+              49, // random number not required for this test
+              {
+                from: "Hans Wurst 1.1.1",
+                to: "1.1.2",
+                preimage_hash: [2, "testHash"],
+              },
+            ],
+            result: [1, "1.16.111"],
+          },
+        ]
+      }, {
+        name: "element.op[1].to is not correct",
+        mockReturn: [
+          {
+            id: "1.11.1337",
+            op: [
+              49, // random number not required for this test
+              {
+                from: "1.1.1",
+                to: "amos",
+                preimage_hash: [2, "testHash"],
+              },
+            ],
+            result: [1, "1.16.111"],
+          },
+        ]
+      }, {
+        name: "element.op[1].preimage_hash[1] is not correct", mockReturn: [
+          {
+            id: "1.11.1337",
+            op: [
+              49, // random number not required for this test
+              {
+                from: "1.1.1",
+                to: "1.1.2",
+                preimage_hash: [2, "wrongHash"],
+              },
+            ],
+            result: [1, "1.16.111"],
+          },
+        ]
+      }
+    ]
+
+
+    testCases.forEach(tc => {
+
+      it(tc.name, async () => {
+        btsWebsocketApi.history.get_relative_account_history = jest.fn().mockImplementation(
+          async (receiver: string, start: number, limit: number, stop: number): Promise<Array<any>> => {
+            return tc.mockReturn
+          })
+        console.error(tc.mockReturn)
+        const htlc = new BitsharesHTLC("node")
+
+        try {
+          await htlc.redeem(htlcTestConfig, privateKey, testSecret)
+        } catch (e) {
+          expect(e).toEqual(new Error("HTCL not found in the last 100 transactions."))
+        }
+
+
+        expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
+        expect(ChainStore.init).toHaveBeenCalledTimes(1)
+        expect(FetchChain).toHaveBeenCalledTimes(1)
+      })
+    })
+  })
+
+
+
+
+
+
   it("creates 2 HTLCs using the same websocket", async () => {
     const htlc = new BitsharesHTLC("node")
     await htlc.create(htlcTestConfig, privateKey, testSecret)
