@@ -4,7 +4,7 @@ import { Secret } from "../../../tmp/secret"
 import { HTLCConfig, HTLCCreator } from "../../../pkg/types/htlc"
 
 /**
- * Handler to crate HTLCs on the bitshares blockchain using a specified node.
+ * Handler to create HTLCs on the bitshares blockchain using a specified node.
  *
  * @class BitsharesHTLC
  * @implements {HTLCCreator}
@@ -169,7 +169,6 @@ export default class BitsharesHTLC implements HTLCCreator {
     const [senderAccount, toAccount] = await btsWebsocketApi.db.get_accounts([sender, receiver])
 
     const history = await btsWebsocketApi.history.get_relative_account_history(receiver, 0, limit, 0)
-
     const htlc = history.filter((element: any) => {
       return (
         typeof element.result[1] === "string" &&
@@ -179,6 +178,9 @@ export default class BitsharesHTLC implements HTLCCreator {
         element.op[1].preimage_hash[1] === preimage.hash
       )
     })
+    if (htlc.length === 0) {
+      throw new Error(`HTCL not found in the last ${limit} transactions.`)
+    }
 
     return htlc[0].result[1]
   }
