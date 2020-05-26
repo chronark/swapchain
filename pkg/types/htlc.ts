@@ -1,3 +1,5 @@
+import { Secret } from "../../tmp/secret"
+
 /**
  * Contains all necessary information to crate an HTLC on a blockchain
  *
@@ -38,15 +40,8 @@ export interface HTLCConfig {
    * @memberof HTLCConfig
    */
   time: number
-
-  /**
-   * Private key for authorization of the sender.
-   *
-   * @memberof HTLCConfig
-   */
-  privateKey: string
 }
 
 export interface HTLCCreator {
-  create(config: HTLCConfig): void
+  create(config: HTLCConfig, privateKey: string, preimage: Secret): void
 }

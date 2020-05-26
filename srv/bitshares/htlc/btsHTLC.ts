@@ -1,6 +1,6 @@
 import { Apis as btsWebsocketApi } from "bitsharesjs-ws"
-import { ChainStore, FetchChain, TransactionBuilder } from "bitsharesjs"
-import { getSecret, Secret } from "../../../tmp/secret"
+import { ChainStore, FetchChain, TransactionBuilder, PrivateKey } from "bitsharesjs"
+import { Secret } from "../../../tmp/secret"
 import { HTLCConfig, HTLCCreator } from "../../../pkg/types/htlc"
 
 /**
@@ -40,14 +40,34 @@ export default class BitsharesHTLC implements HTLCCreator {
    * Wrapper function to open the websocket if necessary.
    *
    * @param config - HTLC information.
+   * @param privateKey - Private key of the creator in WIF format.
+   * @param preimage - Secret object.
    * @returns Success or failure.
    * @memberof BitsharesHTLC
    */
-  public async create(config: HTLCConfig): Promise<{ success: boolean; secret: Secret }> {
+  public async create(config: HTLCConfig, privateKey: string, preimage: Secret): Promise<boolean> {
     if (this.websocket === null) {
       await this.openSocket(this.node)
     }
-    return this.createHTLC(config)
+
+    return this.createHTLC(config, privateKey, preimage)
+  }
+
+  /**
+   * Wrapper function to open the websocket if necessary.
+   *
+   * @param config - HTLC information.
+   * @param privateKey - Private key of the redeemer in WIF format.
+   * @param preimage - Secret object.
+   * @returns Success or failure.
+   * @memberof BitsharesHTLC
+   */
+  public async redeem(config: HTLCConfig, privateKey: string, preimage: Secret): Promise<boolean> {
+    if (this.websocket === null) {
+      await this.openSocket(this.node)
+    }
+
+    return this.redeemHTLC(config, privateKey, preimage)
   }
 
   /**
@@ -58,14 +78,15 @@ export default class BitsharesHTLC implements HTLCCreator {
    *
    * @private
    * @param config - Configuration object for the HTLC.
-   * @returns Success status and secret. Can be used for user feedback.
+   * @param privateKey - Private key of the creator in WIF format.
+   * @param preimage - Secret object.
+   * @returns Success status. Can be used for user feedback.
    * @memberof BitsharesHTLC
    */
-  private async createHTLC(config: HTLCConfig): Promise<{ success: boolean; secret: Secret }> {
+  private async createHTLC(config: HTLCConfig, privateKey: string, preimage: Secret): Promise<boolean> {
     // TODO: Requires proper error handling. Right now it always returns true.
-    const { sender, receiver, amount, asset, time, privateKey } = config
+    const { sender, receiver, amount, asset, time } = config
     await ChainStore.init(false)
-    const preimage = getSecret(32)
 
     const [senderAccount, toAccount, sendAsset] = await Promise.all([
       FetchChain("getAccount", sender),
@@ -86,9 +107,79 @@ export default class BitsharesHTLC implements HTLCCreator {
     /* eslint-enable @typescript-eslint/camelcase */
 
     await tr.set_required_fees()
-    tr.add_signer(privateKey)
+    tr.add_signer(PrivateKey.fromWif(privateKey))
     tr.broadcast()
 
-    return { success: true, secret: preimage }
+    return true
+  }
+
+  /**
+   * Redeem the actual HTLC.
+   *
+   * Never call this function directly but use `redeem()` instead.
+   * That's because the websocket must be open before redeeming an HTLC.
+   *
+   * @private
+   * @param config - Configuration object for the HTLC.
+   * @param privateKey - Private key of the redeemer in WIF format.
+   * @param preimage - Secret object.
+   * @returns Success status. Can be used for user feedback.
+   * @memberof BitsharesHTLC
+   */
+  private async redeemHTLC(config: HTLCConfig, privateKey: string, preimage: Secret): Promise<boolean> {
+    // TODO: Requires proper error handling. Right now it always returns true.
+    await ChainStore.init(false)
+
+    const [toAccount] = await Promise.all([FetchChain("getAccount", config.receiver)])
+
+    const tr = new TransactionBuilder()
+    /* eslint-disable @typescript-eslint/camelcase */
+    tr.add_type_operation("htlc_redeem", {
+      preimage: Buffer.from(preimage.secret).toString("hex"),
+      htlc_id: await this.getID(config.sender, config.receiver, preimage),
+      redeemer: toAccount.get("id"),
+      extensions: null,
+    })
+    /* eslint-enable @typescript-eslint/camelcase */
+
+    await tr.set_required_fees()
+    tr.add_signer(PrivateKey.fromWif(privateKey))
+    tr.broadcast()
+
+    return true
+  }
+
+  /**
+   * Get the HTLC BitShares ID.
+   *
+   * Only for internal purposes.
+   * The HTLC ID is necessary to redeem an HTLC.
+   *
+   * @private
+   * @param sender - The sender of the HTLC.
+   * @param receiver - The receiver of the HTLC.
+   * @param preimage - Secret object.
+   * @returns HTLC ID as string.
+   * @memberof BitsharesHTLC
+   */
+  private async getID(sender: string, receiver: string, preimage: Secret): Promise<string> {
+    // TODO: Requires proper error handling.
+    const limit = 100 // TODO: Is 100 appropriate?
+
+    const [senderAccount, toAccount] = await btsWebsocketApi.db.get_accounts([sender, receiver])
+
+    const history = await btsWebsocketApi.history.get_relative_account_history(receiver, 0, limit, 0)
+
+    const htlc = history.filter((element: any) => {
+      return (
+        typeof element.result[1] === "string" &&
+        element.result[1].startsWith("1.16.") &&
+        element.op[1].from === senderAccount.id &&
+        element.op[1].to === toAccount.id &&
+        element.op[1].preimage_hash[1] === preimage.hash
+      )
+    })
+
+    return htlc[0].result[1]
   }
 }
