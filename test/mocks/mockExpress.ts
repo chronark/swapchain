@@ -11,7 +11,7 @@ interface ReqRes {
  * @returns - {req, res} object
  * @param payload - Payload object for the POST request.
  */
-export function mockExpress(payload: Record<string, string>): ReqRes {
+export function mockExpress(payload: Record<any, any>): ReqRes {
   const mockExpressReq = (): express.Request => {
     const req: express.Request = express.request
     req.body = payload
