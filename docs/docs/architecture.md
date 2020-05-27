@@ -122,21 +122,25 @@ Figure 4: Deployment Diagram (Swapchain, 2020) [4]
 All services will be running in docker containers at first and orchestrated by docker-compose for simplicity sake. As Swapchain gets closer to mid-term release, the project team will be moving to a Kubernetes deployment on GCE. [1][2]
 
 Frontend:
+
 - JavaScript, CSS, HTML
 - React.js
 - Nginx container
 
 Backend:
+
 - Microservice architecture
 - TypeScript, Node.js, Express
 - Communication is JSON over HTTP
 - Docker / Kubernetes
 
 Orderbook:
+
 - Node.js express REST API
 - External API to get exchange rates
 
 Blockchain Gateway:
+
 - Bitcoin libraries:
   - Bcoin (Zipkin, 2020)
   - Bitcoinjs (junderw, 2020)
@@ -147,9 +151,11 @@ Blockchain Gateway:
   - Can also house the key generation and hashing modules as they are required for all chains
 
 HTLC/XXX:
+
 - Creates the HTLC on its own blockchain
 
 Database:
+
 - Postgres, MySQL
   Logging:
 - To be decided by ChainSquad if it gets outsourced to a dedicated SaaS

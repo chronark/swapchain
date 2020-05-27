@@ -24,4 +24,13 @@ module.exports = {
   rules: {
     ...jsdocRules,
   },
+  overrides: [
+    {
+      files: ["*.test.ts"],
+      rules: {
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-empty-function": "off",
+      },
+    },
+  ],
 }
