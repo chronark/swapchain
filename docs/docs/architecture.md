@@ -18,18 +18,18 @@ The Swapchain platform is being developed by a group of students from Friedrich-
 
 ### 1.3 Definitions, Acronyms, Abbreviations
 
-AMOS - Agile methods and Open-Source Software
-ACCS - Atomic cross-chain swaps
-HTLC - Hash time locked contract
-ECDSA - Elliptic Curve Digital Signature Algorithm
-BTC - Bitcoin
-BTS - Bitshare
-OTC - Over the counter
-REST - Representational State Transfer
-API - Application Programming Interface
-UI - User Interface
-BOM - Bill of materials
-GCE - Google Compute Engine
+AMOS - Agile methods and Open-Source Software  
+ACCS - Atomic cross-chain swaps  
+HTLC - Hash time locked contract  
+ECDSA - Elliptic Curve Digital Signature Algorithm  
+BTC - Bitcoin  
+BTS - Bitshare  
+OTC - Over the counter  
+REST - Representational State Transfer  
+API - Application Programming Interface  
+UI - User Interface  
+BOM - Bill of materials  
+GCE - Google Compute Engine  
 SaaS - Software as a Service
 
 ### 1.4 Overview
@@ -40,7 +40,7 @@ The report will present a detailed analysis of the architecture of a platform en
 
 Swapchain offers a web application that follows the Clean architecture pattern. Main reason to use this pattern is to separate functions into layers thus improve the maintainability and reusability. Figure 1 visualizes the Clean Architecture by using color-coded schemes.
 
-![Clean Architecture](CleanArchitecture,jpg)
+![](CleanArchitecture.jpg)
 Figure 1: The Clean Architecture (Martin, 2020) [3]
 
 So, in the context of our application:
@@ -72,7 +72,7 @@ The Verification contains the signature verification sub-component which is cons
 
 ### 3.1. UML Diagram
 
-![Logical and Code Component Overview](UML.png)
+![](UML.png)
 Figure 2: UML Diagram (Swapchain, 2020) [4]
 
 ## 4. Use Case
@@ -81,20 +81,14 @@ The use case diagram is used to visualize the Swapchain application and its acto
 
 ### 4.1. Use Case Diagram
 
-![Use Case Diagram](UseCase.png)
+![](UseCase.png)
 Figure 3: Use Case Diagram (Swapchain, 2020) [4]
 
 ### 4.2. Use Case Description
 
-| Use Case Name | ----- | Atomic cross-chain swap |
-| Scenario | ----- | Two users want to exchange BTC and BTS |
-| Triggering Event | ----- | The user submits an exchange order |
-| Actors | ----- | User 1 and User 2 |
-| Related Use Case | ----- | None |
-| Predoncitions | ----- | - Users should be in possession of the cryptocurrency that is desired by the other party - Users should open a HTLC in their respective Blockchains |
-| Post Conditions | ----- | - Validating the user - Hash and time lock conditions should be met |
-| Flow of Events | ----- | - Check order book - Submit desired order - Start a HTLC - Fund and redeem a swap - Key pair generator - Verification process of validity between private and public keys - Transaction successful or funds are refunded |
-| Exception Conditions | ----- | - Network failure - App crashing - Too much market volatility |
+| Use Case Name           | Scenario                               | Triggering Event                   | Actors            | Related Use Case | Preconditions                                                                                                                                       | Post Conditions                                                     | Flow of Events                                                                                                                                                                                                           | Exception Conditions                                          |
+| ----------------------- | -------------------------------------- | ---------------------------------- | ----------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
+| Atomic cross-chain swap | Two users want to exchange BTC and BTS | The user submits an exchange order | User 1 and User 2 | None             | - Users should be in possession of the cryptocurrency that is desired by the other party - Users should open a HTLC in their respective Blockchains | - Validating the user - Hash and time lock conditions should be met | - Check order book - Submit desired order - Start a HTLC - Fund and redeem a swap - Key pair generator - Verification process of validity between private and public keys - Transaction successful or funds are refunded | - Network failure - App crashing - Too much market volatility |
 
 ## 5. Architectural Goals and Constraints
 
@@ -114,7 +108,7 @@ This web application is a system which is hosted in an API. The database will be
 
 Figure 4 follows the Clean Architecture principle. The frontend and database depict the outer blue layer. The orderbook and Blockchain gateway function as controllers and hence, begin the green layer. The HTLC blocks below the Blockchain gateway depict the red layer as they are use cases. The ACCS itself depicts the yellow layer at the core of the Clean Architecture.
 
-![Deployment](Deployment.png)
+![](Deployment.png)
 Figure 4: Deployment Diagram (Swapchain, 2020) [4]
 
 ### 6.2. Technology Stack Description
@@ -157,7 +151,9 @@ HTLC/XXX:
 Database:
 
 - Postgres, MySQL
-  Logging:
+
+Logging:
+
 - To be decided by ChainSquad if it gets outsourced to a dedicated SaaS
 
 ## 7. Implementation
@@ -166,7 +162,7 @@ The implementation diagram is used to visualize the flow of control and the impl
 
 ### 7.1. Implementation Diagram
 
-![Implementation](Implementation.png)
+![](Implementation.png)
 Figure 5: Implementation Diagram (Swapchain, 2020) [4]
 
 ### 7.2. Implementation Description
