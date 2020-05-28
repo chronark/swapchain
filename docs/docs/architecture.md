@@ -40,7 +40,7 @@ The report will present a detailed analysis of the architecture of a platform en
 
 Swapchain offers a web application that follows the Clean architecture pattern. Main reason to use this pattern is to separate functions into layers thus improve the maintainability and reusability. Figure 1 visualizes the Clean Architecture by using color-coded schemes.
 
-![](CleanArchitecture.jpg)
+![](./relative/path/to/CleanArchitecture.jpg)
 Figure 1: The Clean Architecture (Martin, 2020) [3]
 
 So, in the context of our application:
@@ -72,7 +72,7 @@ The Verification contains the signature verification sub-component which is cons
 
 ### 3.1. UML Diagram
 
-![](UML.png)
+![](./relative/path/to/UML.png)
 Figure 2: UML Diagram (Swapchain, 2020) [4]
 
 ## 4. Use Case
@@ -81,7 +81,7 @@ The use case diagram is used to visualize the Swapchain application and its acto
 
 ### 4.1. Use Case Diagram
 
-![](UseCase.png)
+![](./relative/path/to/UseCase.png)  
 Figure 3: Use Case Diagram (Swapchain, 2020) [4]
 
 ### 4.2. Use Case Description
@@ -108,8 +108,8 @@ This web application is a system which is hosted in an API. The database will be
 
 Figure 4 follows the Clean Architecture principle. The frontend and database depict the outer blue layer. The orderbook and Blockchain gateway function as controllers and hence, begin the green layer. The HTLC blocks below the Blockchain gateway depict the red layer as they are use cases. The ACCS itself depicts the yellow layer at the core of the Clean Architecture.
 
-![](Deployment.png)
-Figure 4: Deplopyment Diagram (Swapchain, 2020) [4]
+![](./relative/path/to/Deployment.png)
+Figure 4: Deployment Diagram (Swapchain, 2020) [4]
 
 ### 6.2. Technology Stack Description
 
@@ -162,7 +162,7 @@ The implementation diagram is used to visualize the flow of control and the impl
 
 ### 7.1. Implementation Diagram
 
-![](Implementation.png)
+![](./relative/path/to/Implementation.png)
 Figure 5: Implementation Diagram (Swapchain, 2020) [4]
 
 ### 7.2. Implementation Description
@@ -193,10 +193,10 @@ The software architecture supports the following quality requirements:
 
 1. Github. (2020, May 2). Github swapchain repository. Retrieved from https://github.com/chronark/swapchain
 
-2) junderw. (2020, May 5). Github bitcoinjs-lib. Retrieved from https://github.com/bitcoinjs/bitcoinjs-lib
+2. junderw. (2020, May 5). Github bitcoinjs-lib. Retrieved from https://github.com/bitcoinjs/bitcoinjs-lib
 
 3. Martin, R. C. (2020, May 4). The Clean Code Blog. Retrieved from https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
-4) Swapchain. (2020, May 4). draw.io. Retrieved from https://www.draw.io/
+4. Swapchain. (2020, May 4). draw.io. Retrieved from https://www.draw.io/
 
 5. Zipkin, M. (2020, May 3). bcoin. Retrieved from https://bcoin.io/guides/swaps.html
