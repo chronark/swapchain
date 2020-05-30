@@ -108,8 +108,13 @@ This web application is a system which is hosted in an API. The database will be
 
 Figure 4 follows the Clean Architecture principle. The frontend and database depict the outer blue layer. The orderbook and Blockchain gateway function as controllers and hence, begin the green layer. The HTLC blocks below the Blockchain gateway depict the red layer as they are use cases. The ACCS itself depicts the yellow layer at the core of the Clean Architecture.
 
+<<<<<<< HEAD
 ![](./relative/path/to/Deployment.png)
-Figure 4: Deployment Diagram (Swapchain, 2020) [4]
+=======
+![](Deployment.png)
+
+> > > > > > > 1b64ac6fb91bc5393146f911b064d94bca7e88ce
+> > > > > > > Figure 4: Deployment Diagram (Swapchain, 2020) [4]
 
 ### 6.2. Technology Stack Description
 
