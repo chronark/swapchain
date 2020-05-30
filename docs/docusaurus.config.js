@@ -16,9 +16,9 @@ module.exports = {
       },
       links: [
         {
-          to: "docs/architecture",
+          to: "docs/doc1",
           activeBasePath: "docs",
-          label: "Architecture",
+          label: "Docs",
           position: "left",
         },
         { to: "docs/typedoc/globals", label: "Modules", position: "left" },

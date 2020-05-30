@@ -1,11 +1,11 @@
-name: CD
+name: GCE deployment
 on:
   push:
     branches:
       - dev
 jobs:    
   deploy:
-    name: GCE cloud deployment
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
     - name: Deploy to GCE
