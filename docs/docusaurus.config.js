@@ -18,7 +18,7 @@ module.exports = {
         {
           to: "docs/architecture",
           activeBasePath: "docs",
-          label: "Architecture",
+          label: "SW Architecture",
           position: "left",
         },
         { to: "docs/typedoc/globals", label: "Modules", position: "left" },
