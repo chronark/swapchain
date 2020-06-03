@@ -36,3 +36,15 @@ services:
           BASE_IMAGE: ${BASE_IMAGE}
     container_name: swapchain-srv-bcoin
   
+   
+  swapchain-srv-btc-timelock:
+    hostname: swapchain-srv-btc-timelock
+    build:
+      context: ..
+      dockerfile: ./srv/bitcoin/timelockBackend/Dockerfile
+    container_name: swapchain-srv-btc-timelock
+    environment: 
+      PORT: 3000
+    ports:
+      - "13000:3000"
+  
