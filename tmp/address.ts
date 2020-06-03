@@ -1,12 +1,9 @@
 import * as bitcoin from "bitcoinjs-lib"
-import { PrivateKey, key } from "bitsharesjs"
-import { ChainConfig } from "bitsharesjs-ws"
-import crypto from "crypto-random-string"
 
 /**
  * An interface for a privatekey/address pair
  */
-export interface Address {
+export interface BTCAddress {
   privateKey: string
   address: string
 }
@@ -17,7 +14,7 @@ export interface Address {
  * @param network A string with the requested network type
  * @returns A BTCAddress interface with a privatekey/address pair
  */
-export function getBTCAddress(network: string): Address {
+export function getBTCAddress(network: string): BTCAddress {
   const net = (network: string): bitcoin.Network => {
     switch (network) {
       case "bitcoin":
@@ -41,30 +38,6 @@ export function getBTCAddress(network: string): Address {
 
   return {
     privateKey,
-    address,
-  }
-}
-
-/**
- * A function for generating a random Bitshares address (PublicKey) with its corresponding private key
- *
- * @returns An Address interface with a private key and address
- * @param network
- */
-export function getBTSAddress(network: string): Address {
-  if (network === "bitshares") {
-    ChainConfig.setChainId("4018d7844c78f6a6c41c6a552b898022310fc5dec06da467ee7905a8dad512c8")
-  } else if (network === "testnet") {
-    ChainConfig.setChainId("39f5e2ede1f8bc1a3a54a7914414e3779e33193f1f5693510e73cb7a87617447")
-  } else {
-    throw new Error("Invalid network name. Choose bitshares or testnet.")
-  }
-
-  const privateKey = PrivateKey.fromSeed(key.normalize_brainKey(crypto({ length: 64, type: "base64" })))
-  const address = privateKey.toPublicKey().toAddressString()
-
-  return {
-    privateKey: privateKey.toWif(),
     address,
   }
 }
