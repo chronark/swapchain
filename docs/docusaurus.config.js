@@ -18,7 +18,13 @@ module.exports = {
         {
           to: "docs/architecture",
           activeBasePath: "docs",
-          label: "Architecture",
+          label: "SW Architecture",
+          position: "left",
+        },
+        {
+          to: "docs/product-documentation",
+          activeBasePath: "docs",
+          label: "Product Documentation",
           position: "left",
         },
         { to: "docs/typedoc/globals", label: "Modules", position: "left" },
@@ -31,37 +37,7 @@ module.exports = {
     },
     footer: {
       style: "dark",
-      links: [
-        {
-          title: "Docs",
-          items: [
-            {
-              label: "Style Guide",
-              to: "docs/doc1",
-            },
-            {
-              label: "Second Doc",
-              to: "docs/doc2",
-            },
-          ],
-        },
-        // {
-        //   title: "Community",
-        //   items: [
-        //     {
-        //       label: "Stack Overflow",
-        //       href: "https://stackoverflow.com/questions/tagged/docusaurus",
-        //     },
-        //     {
-        //       label: "Discord",
-        //       href: "https://discordapp.com/invite/docusaurus",
-        //     },
-        //     {
-        //       label: "Twitter",
-        //       href: "https://twitter.com/docusaurus",
-        //     },
-        //   ],
-        // },
+      links: [  
         {
           title: "More",
           items: [

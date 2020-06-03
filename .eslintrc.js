@@ -22,6 +22,7 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
+    "@typescript-eslint/no-non-null-assertion": "off",
     ...jsdocRules,
   },
   overrides: [
