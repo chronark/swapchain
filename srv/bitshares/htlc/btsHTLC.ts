@@ -1,6 +1,6 @@
 import { Apis as btsWebsocketApi } from "bitsharesjs-ws"
 import { ChainStore, FetchChain, TransactionBuilder, PrivateKey } from "bitsharesjs"
-import { Secret } from "../../../tmp/secret"
+import { Secret } from "../../../pkg/secret/secret"
 import { HTLCConfig, HTLCCreator } from "../../../pkg/types/htlc"
 
 /**

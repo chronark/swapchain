@@ -49,7 +49,6 @@ export class Reaper {
     if (res.height) {
       return res.height
     }
-    return undefined
   }
 
   /**

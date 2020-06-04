@@ -11,7 +11,7 @@
     "docs:show": "./node_modules/.bin/typedoc && cd docs && npm run start",
     "eslint": "./node_modules/.bin/eslint --fix --ext .ts ./",
     "fmt": "npm run lint && npm run prettier",
-    "lint:docker": "docker run --rm -i hadolint/hadolint < ./build/Dockerfile.build && docker run --rm -i hadolint/hadolint < ./build/Dockerfile.service && docker run --rm -i hadolint/hadolint < ./srv/bcoin/Dockerfile",
+    "lint:docker": "docker run --rm -i hadolint/hadolint < ./srv/bitcoin/timelockBackend/Dockerfile",
     "lint": "npm run lint:docker && npm run eslint",
     "prettier": "./node_modules/.bin/prettier --write ./**/*.{js,ts,json} --loglevel warn",
     "test": "./node_modules/.bin/jest"
