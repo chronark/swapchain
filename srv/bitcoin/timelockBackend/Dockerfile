@@ -13,7 +13,7 @@ WORKDIR /swapchain
 
 COPY package.json .
 COPY --from=compile /swapchain/dist/srv/bitcoin/timelockBackend ./srv/bitcoin/timelockBackend/
-RUN npm install
+RUN npm install --only=production
 
 
 CMD ["node", "./srv/bitcoin/timelockBackend/index.js"]
