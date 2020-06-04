@@ -1,5 +1,6 @@
 import server from "./server"
 import mongoose from "mongoose"
+import { Reaper } from "./reaper"
 const port = process.env.PORT || 3000
 const mongoPort = process.env.MONGO_PORT || 27017
 const dbName = process.env.DB_NAME || "test"
@@ -11,4 +12,5 @@ mongoose
     server.listen(port, () => {
       console.log(`Listening on ${port}`)
     })
+    new Reaper(10, "testnet").run()
   })
