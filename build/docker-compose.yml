@@ -1,16 +1,6 @@
 version: '3'
 
-services: 
-  swapchain-srv-bcoin:
-    hostname: swapchain-srv-bcoin
-    build:
-      context: ..
-      dockerfile: ./srv/bcoin/Dockerfile
-      args:
-          BASE_IMAGE: ${BASE_IMAGE}
-    container_name: swapchain-srv-bcoin
-  
-   
+services:   
   swapchain-srv-btc-timelock:
     hostname: swapchain-srv-btc-timelock
     build:
