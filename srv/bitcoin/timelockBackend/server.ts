@@ -27,15 +27,17 @@ server.post(
     }
 
     const tx = new HexTransaction({ hex: hex, validAfterBlockHeight: validAfterBlockHeight })
-    await tx.save({}, (err: any, product: HexTransactionType) => {
-      if (err) {
-        res.status(400)
-        res.json({
-          success: false,
-          message: err.code === 11000 ? "Duplicate entry" : err.message + ": " + err.code,
-        })
-      }
-    })
+
+    try {
+      await tx.save()
+    } catch {
+      res.status(400)
+      res.json({
+        success: false,
+        message: "Duplicate entry",
+      })
+      return
+    }
     res.json({
       success: true,
       message: "Successfully added transaction hex to database",
