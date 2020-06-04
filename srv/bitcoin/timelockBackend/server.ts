@@ -1,6 +1,6 @@
 import express from "express"
 
-import HexTransaction from "./HexTransaction.model"
+import HexTransaction, { HexTransactionType } from "./HexTransaction.model"
 import { validateLocaleAndSetLanguage } from "typescript"
 
 const server = express()
@@ -27,8 +27,15 @@ server.post(
     }
 
     const tx = new HexTransaction({ hex: hex, validAfterBlockHeight: validAfterBlockHeight })
-    await tx.save()
-
+    await tx.save({}, (err: any, product: HexTransactionType) => {
+      if (err) {
+        res.status(400)
+        res.json({
+          success: false,
+          message: err.code === 11000 ? "Duplicate entry" : err.message + ": " + err.code,
+        })
+      }
+    })
     res.json({
       success: true,
       message: "Successfully added transaction hex to database",
