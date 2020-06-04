@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose"
 
-export interface HexTransaction extends Document {
+export interface HexTransactionType extends Document {
   hex: string
   validAfterBlockHeight: number
 }
@@ -18,4 +18,4 @@ const hexTransactionSchema = new Schema({
   },
 })
 
-export default mongoose.model<HexTransaction>("HexTransaction", hexTransactionSchema)
+export default mongoose.model<HexTransactionType>("HexTransaction", hexTransactionSchema)
