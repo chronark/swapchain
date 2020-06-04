@@ -61,11 +61,12 @@ describe("HexTransaction", () => {
     const tx = await HexTransactionModel.findOne({
       validAfterBlockHeight: 2,
     })
+    if (tx) {
+      await HexTransactionModel.deleteOne({ _id: tx._id })
 
-    await HexTransactionModel.deleteOne({ _id: tx?._id })
-
-    expect(await HexTransactionModel.findOne({ _id: tx?._id })).toBeNull()
-    expect((await HexTransactionModel.find()).length).toBe(9)
+      expect(await HexTransactionModel.findOne({ _id: tx._id })).toBeNull()
+      expect((await HexTransactionModel.find()).length).toBe(9)
+    }
   })
 
   it("creates and saves a HexTransaction successfully", async () => {
