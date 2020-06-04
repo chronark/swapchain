@@ -46,7 +46,10 @@ export class Reaper {
     url += this.network === "testnet" ? "test3" : "main"
 
     const res = await fetch(url).then((res) => res.json())
-    return res?.height
+    if (res.height) {
+      return res.height
+    }
+    return undefined
   }
 
   /**
@@ -57,12 +60,13 @@ export class Reaper {
    * @returns The transactionID of the pushed transaction.
    * @memberof BitcoinHTLC
    */
-  private async publishTX(hex: string): Promise<string> {
+  private async publishTX(hex: string): Promise<string | void> {
     const res = await fetch("https://testnet-api.smartbit.com.au/v1/blockchain/pushtx", {
       method: "POST",
       body: JSON.stringify({ hex }),
     }).then((res) => res.json())
-
-    return res?.txid
+    if (res.txid) {
+      return res.txid
+    }
   }
 }
