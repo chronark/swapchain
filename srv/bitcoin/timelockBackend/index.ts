@@ -1,11 +1,14 @@
 import server from "./server"
-import { connect } from "./connection"
+import mongoose from "mongoose"
 const port = process.env.PORT || 3000
+const mongoPort = process.env.MONGO_PORT || 27017
+const dbName = process.env.DB_NAME || "test"
 
-server.listen(port, () => {
-  console.log(`Listening on ${port}`)
-})
-
-connect().then(() => {
-  console.log("MongoDb connected")
-})
+mongoose
+  .connect(`mongodb://mongo:${mongoPort}/${dbName}`, { useUnifiedTopology: true, useNewUrlParser: true })
+  .then(() => {
+    console.log("MongoDB connected")
+    server.listen(port, () => {
+      console.log(`Listening on ${port}`)
+    })
+  })
