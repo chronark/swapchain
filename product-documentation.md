@@ -99,7 +99,7 @@ The user interface design principles established for Swapchain can be listed as 
 Simplicity:  
 Despite the complexity of its underlying technology and the expected skill level of its users regarding cryptocurrencies, the design of the Swapchain interface is held in a minimalistic, unclogged structure. This is due to the fact that for ACCS, an uncluttered orderbook providing overview over transactions, a few input fields for private keys etc. and a small number of possible notification push-apps should suffice for the first. Of course, within the application's settings more preferences can be adjusted, however these options are not imposed onto those users only wanting to swap cryptocurrencies in a time-efficient and secure way.
 
-Intuivity:  
+Intuitivity:  
 Second, the Swapchain application is expected to provide an intuitive, easy-to-use interface. While related to the first aspect (simplicity), ease-of-use also includes the necessity of aspects such as obvious calls to action, for example if users needs to register for an account first or want to quickly browse existing swap offers. Moreover, users must be enabled to give input into the application without circumstances, which could for instance appear in the form of autofill patterns if they repeatedly want to set up the same swap offer. Moreover, barrier-free accessibility is also an important topic to be covered, however this functionality makes sense to be rolled out only when all other basic features have been implemented. Then, voice commands (of course excluding sensitive parts such as private keys) could prove viable support for impaired people.
 
 Adaptability:  
@@ -110,7 +110,7 @@ The user interface must clearly inform the user about any important event regard
 
 #### 2.2.1. User personas
 
-!(Description of user persona pathway)[https://raw.githubusercontent.com/chronark/swapchain/dev/docs/static/img/UserPersona.jpg]
+!(Description of user persona pathway)[static/img/UserPersona.jpg]
 Figure 1: User Persona Pathway Diagram (Swapchain, 2020a) [3]
 
 A typical user persona for the Swapchain would be Bob/Alice. Bob/Alice, 27 years old, just recently graduated from his/her (technological) studies at a university with a degree. Two months ago, he/she entered professional life in a corporation where he/she is in an occupation situated at the interface between tech and business, such as technical procurement or process optimisation. As he/she just recently began to earn a regular wage summing up to 47.000 € gross salary annually, he/she is now looking for investment opportunities - and as a tech-savvy person also interested in stocks, exchange rate gains and comparable investments, cryptocurrencies have (besides the technology itself) sparked his/her interest. Nonetheless, he/she is self-explanatory a responsible person that does not want to invest his/her first few wages in sketchy investment options risking to lose it all. Therefore, a sufficient level of security is inevitable to persuade Bob/Alice to invest in these assets and the underlying ACCS technology. Moreover, Bob/Alice is concerned with data protection and thus convinced that even when it comes to web-based transactions, as much information as possible should remain in his/her area of influence without being forwarded to third parties without prior consent.
@@ -145,7 +145,7 @@ The user documentation is intended to explain in the shortest way possible how t
 
 ### 3.1. Product feature description
 
-!(Description of product feature)[https://raw.githubusercontent.com/chronark/swapchain/dev/docs/static/img/Features.jpg]
+!(Description of product feature)[static/img/Features.jpg]
 Figure 2: Product feature diagram (Swapchain, 2020c) [5]
 
 ### 3.2. Tutorials

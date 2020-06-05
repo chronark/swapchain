@@ -37,7 +37,7 @@ module.exports = {
     },
     footer: {
       style: "dark",
-      links: [  
+      links: [
         {
           title: "More",
           items: [
