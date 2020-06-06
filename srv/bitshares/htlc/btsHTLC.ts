@@ -41,16 +41,16 @@ export default class BitsharesHTLC implements HTLCCreator {
    *
    * @param config - HTLC information.
    * @param privateKey - Private key of the creator in WIF format.
-   * @param preimage - Secret object.
+   * @param secret - Secret object.
    * @returns Success or failure.
    * @memberof BitsharesHTLC
    */
-  public async create(config: HTLCConfig, privateKey: string, preimage: Secret): Promise<boolean> {
+  public async create(config: HTLCConfig, privateKey: string, secret: Secret): Promise<boolean> {
     if (this.websocket === null) {
       await this.openSocket(this.node)
     }
 
-    return this.createHTLC(config, privateKey, preimage)
+    return this.createHTLC(config, privateKey, secret)
   }
 
   /**
@@ -58,16 +58,16 @@ export default class BitsharesHTLC implements HTLCCreator {
    *
    * @param config - HTLC information.
    * @param privateKey - Private key of the redeemer in WIF format.
-   * @param preimage - Secret object.
+   * @param secret - Secret object.
    * @returns Success or failure.
    * @memberof BitsharesHTLC
    */
-  public async redeem(config: HTLCConfig, privateKey: string, preimage: Secret): Promise<boolean> {
+  public async redeem(config: HTLCConfig, privateKey: string, secret: Secret): Promise<boolean> {
     if (this.websocket === null) {
       await this.openSocket(this.node)
     }
 
-    return this.redeemHTLC(config, privateKey, preimage)
+    return this.redeemHTLC(config, privateKey, secret)
   }
 
   /**
@@ -79,7 +79,7 @@ export default class BitsharesHTLC implements HTLCCreator {
    * @private
    * @param config - Configuration object for the HTLC.
    * @param privateKey - Private key of the creator in WIF format.
-   * @param preimage - Secret object.
+   * @param secret - Secret object.
    * @returns Success status. Can be used for user feedback.
    * @memberof BitsharesHTLC
    */
@@ -122,7 +122,7 @@ export default class BitsharesHTLC implements HTLCCreator {
    * @private
    * @param config - Configuration object for the HTLC.
    * @param privateKey - Private key of the redeemer in WIF format.
-   * @param preimage - Secret object.
+   * @param secret - Secret object.
    * @returns Success status. Can be used for user feedback.
    * @memberof BitsharesHTLC
    */
@@ -159,7 +159,7 @@ export default class BitsharesHTLC implements HTLCCreator {
    * @private
    * @param sender - The sender of the HTLC.
    * @param receiver - The receiver of the HTLC.
-   * @param preimage - Secret object.
+   * @param secret - Secret object.
    * @returns HTLC ID as string.
    * @memberof BitsharesHTLC
    */
