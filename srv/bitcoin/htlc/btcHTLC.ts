@@ -221,7 +221,8 @@ export default class BitcoinHTLC {
    */
   private async getBalance(address: string, transactionID: string): Promise<number> {
     const tx = await this.getTransaction(transactionID)
-    return tx.outputs.filter((output: { value: number; addresses: string[] }) => {
+
+    return tx.outputs.filter((output) => {
       return output.addresses[0] === address
     })[0].value
   }
@@ -253,7 +254,6 @@ export default class BitcoinHTLC {
    */
   private async sendToP2WSHAddress(p2wsh: bitcoin.Payment, transactionID: string): Promise<string> {
     const p2wpkFromSender = this.getWitnessPublicKeyHash(this.sender)
-
     const balance = await this.getBalance(p2wpkFromSender.address!, transactionID)
     const amountToKeep = balance - this.amount - this.fee
 
@@ -286,11 +286,11 @@ export default class BitcoinHTLC {
   }
 
   /**
-   * Pushes a transaction hex to the blockchain.
+   * Pushes a transaction hex to the blockchain. Return empty string in case of failure
    *
    * @private
    * @param hex - A transaction encoded as hex.
-   * @returns The transactionID of the pushed transaction.
+   * @returns The transactionID of the pushed transaction or empty string caused by a failure.
    * @memberof BitcoinHTLC
    */
   private async pushTX(hex: string): Promise<string> {
@@ -299,7 +299,7 @@ export default class BitcoinHTLC {
       body: JSON.stringify({ hex }),
     }).then((res) => res.json())
     if (!res.success) {
-      throw new Error(JSON.stringify(res.error))
+      return ""
     }
     return res.txid
   }
@@ -365,32 +365,36 @@ export default class BitcoinHTLC {
   public async create(transactionID: string): Promise<void> {
     const p2wsh = this.getP2WSH()
 
-    // move funds to p2wsh address
+    // Funding
     const p2wpkHex = await this.sendToP2WSHAddress(p2wsh, transactionID)
-    // Wait for the transaction to be broadcasted
     const fundingTransactionID = await this.pushTX(p2wpkHex)
 
+    // Wait for the transaction to be broadcasted
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
+    // Redeeming
+    const redeemHex = await this.getRedeemHex(fundingTransactionID, p2wsh)
+    const redeemTransaction = await this.pushTX(redeemHex)
+
+    // No reason to create a refund transaction if bob already redeemed the funds
+    if (redeemTransaction.length > 0) {
+      return
+    }
+
+    // Refunding
     const refundHex = await this.getRefundHex(fundingTransactionID, p2wsh)
     const blockHeight = (await this.getTransaction(fundingTransactionID)).block_height
+
     const payload = { hex: refundHex, validAfterBlockHeight: blockHeight + this.sequence }
+    const res = await fetch("http://localhost:13000", { method: "POST", body: JSON.stringify(payload) }).then((res) =>
+      res.json(),
+    )
 
-    // Make call to database
-    // const res = await fetch("http://localhost:13000", { method: "POST", body: JSON.stringify(payload) }).then((res) =>
-    //  res.json(),
-    // )
-
-    // if (!res.success) {
-    //  console.error("Error posting refundHex to database.")
-    //  console.log("Hex for refund transaction: " + refundHex)
-    // }
-
-    const redeemHex = await this.getRedeemHex(fundingTransactionID, p2wsh)
-    // Wait for the transaction to be broadcasted
-    console.log("refundHex: " + refundHex)
-    console.log("redeemHex: " + redeemHex)
-    await this.pushTX(refundHex)
+    if (!res.success) {
+      console.error("Error posting refundHex to database.")
+      console.log("Hex for refund transaction: " + refundHex)
+      // TODO: Notify user in UI
+    }
   }
 
   /**
