@@ -176,11 +176,11 @@ export default class BitsharesHTLC implements HTLCCreator {
         element.result[1].startsWith("1.16.") &&
         element.op[1].from === senderAccount.id &&
         element.op[1].to === toAccount.id &&
-        element.op[1].preimage_hash[1] === secret.hash
+        element.op[1].preimage_hash[1].equals(secret.hash)
       )
     })
     if (htlc.length === 0) {
-      throw new Error(`HTCL not found in the last ${limit} transactions.`)
+      throw new Error(`HTLC not found in the last ${limit} transactions.`)
     }
 
     return htlc[0].result[1]
