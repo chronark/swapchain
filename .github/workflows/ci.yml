@@ -29,9 +29,7 @@ jobs:
         run: npm run fmt
       - name: Hadolint
         run: |
-          docker run --rm -i hadolint/hadolint < ./build/Dockerfile.build
-          docker run --rm -i hadolint/hadolint < ./build/Dockerfile.service
-          docker run --rm -i hadolint/hadolint < ./srv/bcoin/Dockerfile
+          docker run --rm -i hadolint/hadolint < ./srv/bitcoin/timelockBackend/Dockerfile
   tests:
     strategy:
       matrix:

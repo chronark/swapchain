@@ -2,11 +2,11 @@ import BitsharesHTLC from "./btsHTLC"
 import { Apis as btsWebsocketApi } from "bitsharesjs-ws"
 import { ChainStore, FetchChain, TransactionBuilder, PrivateKey } from "bitsharesjs"
 import { mocked } from "ts-jest/utils"
-import { getSecret } from "../../../tmp/secret"
+import { getSecret } from "../../../pkg/secret/secret"
 
 jest.mock("bitsharesjs")
 jest.mock("bitsharesjs-ws")
-jest.mock("../../../tmp/secret")
+jest.mock("../../../pkg/secret/secret")
 
 const testSecret = {
   secret: "1234567890abcdefghijklmnopqrstuv",
