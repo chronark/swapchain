@@ -9,8 +9,8 @@ jest.mock("bitsharesjs-ws")
 jest.mock("../../../pkg/secret/secret")
 
 const testSecret = {
-  secret: "1234567890abcdefghijklmnopqrstuv",
-  hash: "testHash",
+  preimage: "1234567890abcdefghijklmnopqrstuv",
+  hash: Buffer.from("testHash"),
 }
 
 const htlcTestConfig = {
@@ -36,7 +36,7 @@ beforeEach(() => {
 
   mocked(ChainStore.init).mockImplementation(async (c: boolean): Promise<void> => {})
 
-  mocked(getSecret).mockImplementation((): { secret: string; hash: string } => {
+  mocked(getSecret).mockImplementation((): { preimage: string; hash: Buffer } => {
     return testSecret
   })
 
@@ -88,7 +88,7 @@ describe("btsHTLC", () => {
                 from: "1.1.1",
                 to: "1.1.2",
                 amount: [{}],
-                preimage_hash: [2, "testHash"],
+                preimage_hash: [2, Buffer.from("testHash")],
                 preimage_size: 32,
                 claim_period_seconds: 30,
                 extensions: [],
@@ -127,7 +127,7 @@ describe("btsHTLC", () => {
                 from: "1.1.1",
                 to: "1.1.2",
                 amount: [{}],
-                preimage_hash: [2, "testHash"],
+                preimage_hash: [2, Buffer.from("testHash")],
                 preimage_size: 32,
                 claim_period_seconds: 30,
                 extensions: [],
@@ -172,7 +172,7 @@ describe("btsHTLC", () => {
               {
                 from: "1.1.1",
                 to: "1.1.2",
-                preimage_hash: [2, "testHash"],
+                preimage_hash: [2, Buffer.from("testHash")],
               },
             ],
             result: [1, 2],
@@ -189,7 +189,7 @@ describe("btsHTLC", () => {
               {
                 from: "1.1.1",
                 to: "1.1.2",
-                preimage_hash: [2, "testHash"],
+                preimage_hash: [2, Buffer.from("testHash")],
               },
             ],
             result: [1, "2.16.111"],
@@ -206,7 +206,7 @@ describe("btsHTLC", () => {
               {
                 from: "Hans Wurst 1.1.1",
                 to: "1.1.2",
-                preimage_hash: [2, "testHash"],
+                preimage_hash: [2, Buffer.from("testHash")],
               },
             ],
             result: [1, "1.16.111"],
@@ -223,7 +223,7 @@ describe("btsHTLC", () => {
               {
                 from: "1.1.1",
                 to: "amos",
-                preimage_hash: [2, "testHash"],
+                preimage_hash: [2, Buffer.from("testHash")],
               },
             ],
             result: [1, "1.16.111"],
@@ -240,7 +240,7 @@ describe("btsHTLC", () => {
               {
                 from: "1.1.1",
                 to: "1.1.2",
-                preimage_hash: [2, "wrongHash"],
+                preimage_hash: [2, Buffer.from("wrongHash")],
               },
             ],
             result: [1, "1.16.111"],
@@ -299,7 +299,7 @@ describe("btsHTLC", () => {
       },
       claim_period_seconds: 30,
       from: "BruceWayneIsBatman",
-      preimage_hash: [2, "testHash"],
+      preimage_hash: [2, Buffer.from("testHash")],
       preimage_size: 32,
       to: "BruceWayneIsBatman",
     })

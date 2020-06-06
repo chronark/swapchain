@@ -1,12 +1,12 @@
-import { SHA256 } from "crypto-js"
+import * as bitcoin from "bitcoinjs-lib"
 import crypto from "crypto-random-string"
 
 /**
  * An interface for a secret/hash pair
  */
 export interface Secret {
-  secret: string
-  hash: string
+  preimage: string
+  hash: Buffer
 }
 
 /**
@@ -17,10 +17,10 @@ export interface Secret {
  *
  */
 export function getSecret(length: number): Secret {
-  const secret = crypto({ length, type: "base64" })
-  const hash = SHA256(secret).toString()
+  const preimage = crypto({ length, type: "base64" })
+  const hash = bitcoin.crypto.sha256(Buffer.from(preimage))
   return {
-    secret,
+    preimage,
     hash,
   }
 }

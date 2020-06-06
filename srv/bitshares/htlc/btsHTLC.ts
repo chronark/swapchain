@@ -41,16 +41,16 @@ export default class BitsharesHTLC implements HTLCCreator {
    *
    * @param config - HTLC information.
    * @param privateKey - Private key of the creator in WIF format.
-   * @param preimage - Secret object.
+   * @param secret - Secret object.
    * @returns Success or failure.
    * @memberof BitsharesHTLC
    */
-  public async create(config: HTLCConfig, privateKey: string, preimage: Secret): Promise<boolean> {
+  public async create(config: HTLCConfig, privateKey: string, secret: Secret): Promise<boolean> {
     if (this.websocket === null) {
       await this.openSocket(this.node)
     }
 
-    return this.createHTLC(config, privateKey, preimage)
+    return this.createHTLC(config, privateKey, secret)
   }
 
   /**
@@ -58,16 +58,16 @@ export default class BitsharesHTLC implements HTLCCreator {
    *
    * @param config - HTLC information.
    * @param privateKey - Private key of the redeemer in WIF format.
-   * @param preimage - Secret object.
+   * @param secret - Secret object.
    * @returns Success or failure.
    * @memberof BitsharesHTLC
    */
-  public async redeem(config: HTLCConfig, privateKey: string, preimage: Secret): Promise<boolean> {
+  public async redeem(config: HTLCConfig, privateKey: string, secret: Secret): Promise<boolean> {
     if (this.websocket === null) {
       await this.openSocket(this.node)
     }
 
-    return this.redeemHTLC(config, privateKey, preimage)
+    return this.redeemHTLC(config, privateKey, secret)
   }
 
   /**
@@ -79,11 +79,11 @@ export default class BitsharesHTLC implements HTLCCreator {
    * @private
    * @param config - Configuration object for the HTLC.
    * @param privateKey - Private key of the creator in WIF format.
-   * @param preimage - Secret object.
+   * @param secret - Secret object.
    * @returns Success status. Can be used for user feedback.
    * @memberof BitsharesHTLC
    */
-  private async createHTLC(config: HTLCConfig, privateKey: string, preimage: Secret): Promise<boolean> {
+  private async createHTLC(config: HTLCConfig, privateKey: string, secret: Secret): Promise<boolean> {
     // TODO: Requires proper error handling. Right now it always returns true.
     const { sender, receiver, amount, asset, time } = config
     await ChainStore.init(false)
@@ -100,8 +100,8 @@ export default class BitsharesHTLC implements HTLCCreator {
       from: senderAccount.get("id"),
       to: toAccount.get("id"),
       amount: { amount: amount, asset_id: sendAsset.get("id") },
-      preimage_hash: [2, preimage.hash],
-      preimage_size: preimage.secret.length,
+      preimage_hash: [2, secret.hash],
+      preimage_size: secret.preimage.length,
       claim_period_seconds: time,
     })
     /* eslint-enable @typescript-eslint/camelcase */
@@ -122,11 +122,11 @@ export default class BitsharesHTLC implements HTLCCreator {
    * @private
    * @param config - Configuration object for the HTLC.
    * @param privateKey - Private key of the redeemer in WIF format.
-   * @param preimage - Secret object.
+   * @param secret - Secret object.
    * @returns Success status. Can be used for user feedback.
    * @memberof BitsharesHTLC
    */
-  private async redeemHTLC(config: HTLCConfig, privateKey: string, preimage: Secret): Promise<boolean> {
+  private async redeemHTLC(config: HTLCConfig, privateKey: string, secret: Secret): Promise<boolean> {
     // TODO: Requires proper error handling. Right now it always returns true.
     await ChainStore.init(false)
 
@@ -135,8 +135,8 @@ export default class BitsharesHTLC implements HTLCCreator {
     const tr = new TransactionBuilder()
     /* eslint-disable @typescript-eslint/camelcase */
     tr.add_type_operation("htlc_redeem", {
-      preimage: Buffer.from(preimage.secret).toString("hex"),
-      htlc_id: await this.getID(config.sender, config.receiver, preimage),
+      preimage: secret.preimage.toString(),
+      htlc_id: await this.getID(config.sender, config.receiver, secret),
       redeemer: toAccount.get("id"),
       extensions: null,
     })
@@ -159,11 +159,11 @@ export default class BitsharesHTLC implements HTLCCreator {
    * @private
    * @param sender - The sender of the HTLC.
    * @param receiver - The receiver of the HTLC.
-   * @param preimage - Secret object.
+   * @param secret - Secret object.
    * @returns HTLC ID as string.
    * @memberof BitsharesHTLC
    */
-  private async getID(sender: string, receiver: string, preimage: Secret): Promise<string> {
+  private async getID(sender: string, receiver: string, secret: Secret): Promise<string> {
     // TODO: Requires proper error handling.
     const limit = 100 // TODO: Is 100 appropriate? -> Increase if not found
 
@@ -176,11 +176,11 @@ export default class BitsharesHTLC implements HTLCCreator {
         element.result[1].startsWith("1.16.") &&
         element.op[1].from === senderAccount.id &&
         element.op[1].to === toAccount.id &&
-        element.op[1].preimage_hash[1] === preimage.hash
+        element.op[1].preimage_hash[1].equals(secret.hash)
       )
     })
     if (htlc.length === 0) {
-      throw new Error(`HTCL not found in the last ${limit} transactions.`)
+      throw new Error(`HTLC not found in the last ${limit} transactions.`)
     }
 
     return htlc[0].result[1]
