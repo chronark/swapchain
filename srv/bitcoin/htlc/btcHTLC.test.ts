@@ -1,4 +1,4 @@
-import BtcHTLC from "./btcHTLC"
+import BitcoinHTLC from "./btcHTLC"
 import * as bitcoin from "bitcoinjs-lib"
 import { mocked } from "ts-jest/utils"
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -9,6 +9,13 @@ const fetchMock = require("node-fetch")
 jest.setTimeout(10000)
 const alice = bitcoin.ECPair.fromWIF("cU3CS1SGfFQ5FvCHTWyo7JEBjWWEAcqMM84JJwGnQg9Deugj8Skw", bitcoin.networks.testnet)
 const bob = bitcoin.ECPair.fromWIF("cNaEjitvA19JZxWAFyCFMsm16TvGEmVAW3AkPnVr8E9vgwdZWMGV", bitcoin.networks.testnet)
+const bobCompressed = bitcoin.ECPair.fromPrivateKey(bob.privateKey!, { compressed: true })
+const aliceCompressed = bitcoin.ECPair.fromPrivateKey(alice.privateKey!, { compressed: true })
+
+const secret = {
+  preimage: "TOPSECRET",
+  hash: bitcoin.crypto.sha256(Buffer.from("TOPSECRET")),
+}
 
 beforeEach(() => {
   fetchMock.mockClear()
@@ -28,9 +35,7 @@ beforeEach(() => {
   bitcoin.Psbt.prototype.finalizeAllInputs = jest.fn().mockImplementation(() => bitcoin.Psbt.prototype)
   bitcoin.Psbt.prototype.extractTransaction = jest.fn().mockImplementation(() => bitcoin.Psbt.prototype)
 
-  bitcoin.Psbt.prototype.toHex = jest.fn().mockImplementation(() => "myFavouriteHex")
-
-  bitcoin.payments.p2sh = jest.fn().mockImplementation(
+  bitcoin.payments.p2wsh = jest.fn().mockImplementation(
     (a: bitcoin.payments.Payment): bitcoin.payments.Payment => {
       return {
         network: {
@@ -98,13 +103,12 @@ const testCases = [
   },
 ]
 testCases.forEach((tc) => {
-  it("getTimeLockHex returns the correct hex for a transaction with", async () => {
-    const htlc = new BtcHTLC()
+  it("create method calls methods", async () => {
+    const htlc = new BitcoinHTLC(1_000, bitcoin.networks.testnet, secret, 1, aliceCompressed, bobCompressed, 99_000)
 
-    const hashLockTransactionID = "4a2d7af13070119a0b8a36082df0a03c17e60059250598b100260b0a6949a9ee"
-    const hex = await htlc.getTimeLockHex(alice, bob, hashLockTransactionID, tc.value, tc.sequence)
-    expect(hex).toBe("myFavouriteHex")
-    expect(bitcoin.payments.p2sh).toHaveBeenCalledTimes(1)
+    const transactionID = "4a2d7af13070119a0b8a36082df0a03c17e60059250598b100260b0a6949a9ee"
+    await htlc.create(transactionID)
+    expect(bitcoin.payments.p2wsh).toHaveBeenCalledTimes(1)
 
     expect(bitcoin.Psbt.prototype.signInput).toHaveBeenCalledTimes(2)
     expect(bitcoin.Psbt.prototype.validateSignaturesOfInput).toHaveBeenCalledTimes(1)

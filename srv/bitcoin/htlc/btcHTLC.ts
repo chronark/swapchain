@@ -1,6 +1,8 @@
 import * as bitcoin from "bitcoinjs-lib"
 import fetch from "node-fetch"
-import { csvGetFinalScripts } from "./csvGetFinal"
+import { Secret } from "../../../pkg/secret/secret"
+import { PsbtInput } from "bip174/src/lib/interfaces"
+import { witnessStackToScriptWitness } from "./witnessStack"
 
 /**
  * This is a subset of a real transaction but we do not require the rest yet.
@@ -10,6 +12,10 @@ import { csvGetFinalScripts } from "./csvGetFinal"
 interface Transaction {
   hash: string
   hex: string
+  block_height: number
+  input: {
+    witness: string[]
+  }[]
   outputs: {
     value: number
     addresses: string[]
@@ -19,60 +25,189 @@ interface Transaction {
 /**
  * Handler to create HTLCs on the bitcoin blockchain.
  *
- * @class BitcoinHTLC
+ * @param inputIndex
+ * @param input
+ * @param script
+ * @param isSegwit
+ * @param isP2SH
+ * @param isP2WSH
  */
 export default class BitcoinHTLC {
+  private amount: number
   private fee: number
   private network: bitcoin.Network
+  private receiver: bitcoin.ECPairInterface
+  private secret: Secret
+  private sender: bitcoin.ECPairInterface
+  private sequence: number
   /**
    * Creates an instance of BitcoinHTLC.
    *
    * @memberof BitcoinHTLC
    * @param fee - The fee to leave behind on every transaction. In Satoshis.
    * @param network - mainnet, testnet, or regtest.
+   * @param secret - The secret to redeem the HTLC.
+   * @param sequence - How many blocks need to be mined before Alice can refund the time lock.
+   * @param sender - Sender keypair.
+   * @param receiver - Receiver keypair.
+   * @param amount - The amount of satoshi to exchange.
    */
-  constructor(fee = 1_000, network: bitcoin.Network = bitcoin.networks.testnet) {
+  constructor(
+    fee = 1_000,
+    network: bitcoin.Network = bitcoin.networks.testnet,
+    secret: Secret,
+    sequence: number,
+    sender: bitcoin.ECPairInterface,
+    receiver: bitcoin.ECPairInterface,
+    amount: number,
+  ) {
     this.fee = fee
     this.network = network
+    this.secret = secret
+    this.sequence = sequence
+    this.sender = sender
+    this.receiver = receiver
+    this.amount = amount
   }
 
   /**
    * Create the redeem script in bitcoin's scripting language.
    *
    * @private
-   * @param  sender - Alice's keypair.
-   * @param  receiver - Bob's keypair.
-   * @param  sequence - How many blocks need to be mined before Alice can refund the time lock.
    * @returns  A bitcoin script.
    * @memberof BitcoinHTLC
    */
-  private redeemScript(sender: bitcoin.ECPairInterface, receiver: bitcoin.ECPairInterface, sequence: number): Buffer {
+  private redeemScript(): Buffer {
     return bitcoin.script.compile([
       bitcoin.opcodes.OP_IF,
-      bitcoin.script.number.encode(sequence),
+      bitcoin.opcodes.OP_SHA256,
+      this.secret.hash,
+      bitcoin.opcodes.OP_EQUALVERIFY,
+      this.receiver.publicKey,
+      bitcoin.opcodes.OP_CHECKSIG,
+      bitcoin.opcodes.OP_ELSE,
+      bitcoin.script.number.encode(this.sequence),
       bitcoin.opcodes.OP_CHECKSEQUENCEVERIFY,
       bitcoin.opcodes.OP_DROP,
-
-      bitcoin.opcodes.OP_ELSE,
-      receiver.publicKey,
-      bitcoin.opcodes.OP_CHECKSIGVERIFY,
-      bitcoin.opcodes.OP_ENDIF,
-
-      sender.publicKey,
+      this.sender.publicKey,
       bitcoin.opcodes.OP_CHECKSIG,
+      bitcoin.opcodes.OP_ENDIF,
     ])
+  }
+
+  /**
+   * Finalize an HTLC refund transaction using PSBT.
+   *
+   * @param inputIndex - The index in the input array.
+   * @param input - The array of transaction inputs.
+   * @param script - P2WSH redeemscript.
+   * @param isSegwit - Included only for bitcoinjs-lib compatible reasons.
+   * @param isP2SH - Included only for bitcoinjs-lib compatible reasons.
+   * @param isP2WSH - Included only for bitcoinjs-lib compatible reasons.
+   * @returns A function to finalize and serialize the scripts.
+   */
+  private getFinalScriptsRefund = (
+    inputIndex: number,
+    input: PsbtInput,
+    script: Buffer,
+    isSegwit: boolean,
+    isP2SH: boolean,
+    isP2WSH: boolean,
+  ): { finalScriptSig: Buffer | undefined; finalScriptWitness: Buffer | undefined } => {
+    // TODO
+    // Step 1: Check to make sure the meaningful script matches what you expect.
+    const decompiled = bitcoin.script.decompile(script)
+    // Checking if first OP is OP_IF... should do better check in production!
+    // You may even want to check the public keys in the script against a
+    // whitelist depending on the circumstances!!!
+    // You also want to check the contents of the input to see if you have enough
+    // info to actually construct the scriptSig and Witnesses.
+    if (!decompiled || decompiled[0] !== bitcoin.opcodes.OP_IF) {
+      throw new Error(`Can not finalize input #${inputIndex}`)
+    }
+
+    const payment = bitcoin.payments.p2wsh({
+      network: this.network,
+      redeem: {
+        output: script,
+        input: bitcoin.script.compile([input.partialSig![0].signature, bitcoin.opcodes.OP_FALSE]),
+      },
+    })
+
+    if (!payment.witness || payment.witness.length === 0) {
+      throw new Error("Witness undefined.")
+    }
+
+    return {
+      finalScriptSig: undefined,
+      finalScriptWitness: witnessStackToScriptWitness(payment.witness),
+    }
+  }
+
+  /**
+   * Finalize an HTLC redeem transaction using PSBT.
+   *
+   * @param inputIndex - The index in the input array.
+   * @param input - The array of transaction inputs.
+   * @param script - P2WSH redeemscript.
+   * @param isSegwit - Included only for bitcoinjs-lib compatible reasons.
+   * @param isP2SH - Included only for bitcoinjs-lib compatible reasons.
+   * @param isP2WSH - Included only for bitcoinjs-lib compatible reasons.
+   * @returns A function to finalize and serialize the scripts.
+   */
+  private getFinalScriptsRedeem = (
+    inputIndex: number,
+    input: PsbtInput,
+    script: Buffer,
+    isSegwit: boolean,
+    isP2SH: boolean,
+    isP2WSH: boolean,
+  ): { finalScriptSig: Buffer | undefined; finalScriptWitness: Buffer | undefined } => {
+    // TODO
+    // Step 1: Check to make sure the meaningful script matches what you expect.
+    const decompiled = bitcoin.script.decompile(script)
+    // Checking if first OP is OP_IF... should do better check in production!
+    // You may even want to check the public keys in the script against a
+    // whitelist depending on the circumstances!!!
+    // You also want to check the contents of the input to see if you have enough
+    // info to actually construct the scriptSig and Witnesses.
+    if (!decompiled || decompiled[0] !== bitcoin.opcodes.OP_IF) {
+      throw new Error(`Can not finalize input #${inputIndex}`)
+    }
+
+    const payment = bitcoin.payments.p2wsh({
+      network: this.network,
+      redeem: {
+        output: script,
+        input: bitcoin.script.compile([
+          input.partialSig![0].signature,
+          Buffer.from(this.secret.preimage),
+          bitcoin.opcodes.OP_TRUE,
+        ]),
+      },
+    })
+
+    if (!payment.witness || payment.witness.length === 0) {
+      throw new Error("Witness undefined.")
+    }
+
+    return {
+      finalScriptSig: undefined,
+      finalScriptWitness: witnessStackToScriptWitness(payment.witness),
+    }
   }
 
   /**
    * Helperfunction to get the public key from an ECPair
    *
    * @private
-   * @param  wallet - A wallet initialized as ECPair.
-   * @returns A public address of the wallet.
+   * @param  keyPair - A keyPair initialized as ECPair.
+   * @returns A p2wpkh object.
    * @memberof BitcoinHTLC
    */
-  private getPublicKey(wallet: bitcoin.ECPairInterface): string {
-    return bitcoin.payments.p2pkh({ pubkey: wallet.publicKey, network: this.network }).address!
+  private getWitnessPublicKeyHash(keyPair: bitcoin.ECPairInterface): bitcoin.payments.Payment {
+    // TODO
+    return bitcoin.payments.p2wpkh({ pubkey: keyPair.publicKey, network: this.network })
   }
 
   /**
@@ -92,109 +227,62 @@ export default class BitcoinHTLC {
   }
 
   /**
-   * Calculate the p2sh to send our money to before creating the timelock refund operation.
+   * Calculate the p2wsh to send our money to before creating the timelock refund operation.
    *
    * @private
-   * @param  sender - Sender keypair.
-   * @param  receiver - Receiver keypair.
-   * @param  sequence - How many blocks to wait before refunding is allowed.
    * @returns The pay-to-scripthash object.
    * @memberof BitcoinHTLC
    */
-  private getP2SH(
-    sender: bitcoin.ECPairInterface,
-    receiver: bitcoin.ECPairInterface,
-    sequence: number,
-  ): bitcoin.Payment {
-    return bitcoin.payments.p2sh({
+  private getP2WSH(): bitcoin.Payment {
+    return bitcoin.payments.p2wsh({
       redeem: {
-        output: this.redeemScript(sender, receiver, sequence),
+        output: this.redeemScript(),
       },
       network: this.network,
     })
   }
 
   /**
-   * Creates a partially signed bitcoin transaction.
+   * Send funds to a pay2witnessScripthash address to be used in the timelock refund operation.
    *
    * @private
-   * @param hash - Transaction hash with unspent funds.
-   * @param sender - The wallet where the funds are coming from.
-   * @param sequence - How many blocks you want to wait before redeeming is possible.
-   * @param outputs - Where the funds go.
-   * @param [redeemScript] - Bitcoin script to manage redemption.
-   * @returns The transaction hex to be pushed to the chain.
-   * @memberof BitcoinHTLC
-   */
-  private async createPsbt(
-    hash: string,
-    sender: bitcoin.ECPairInterface,
-    sequence: number,
-    outputs: { address: string; value: number }[],
-    redeemScript?: Buffer,
-  ): Promise<string> {
-    const senderPublicKey = this.getPublicKey(sender)
-
-    const { vout, nonWitnessUtxo } = await this.getUtxo(hash, senderPublicKey)
-
-    const psbt = new bitcoin.Psbt({ network: this.network })
-
-    let inputParams = {
-      hash,
-      index: vout,
-      sequence,
-      nonWitnessUtxo,
-    }
-    if (typeof redeemScript !== "undefined") {
-      inputParams = Object.assign(inputParams, { redeemScript })
-    }
-
-    psbt.addInput(inputParams)
-
-    psbt.addOutputs(outputs)
-
-    psbt.signInput(0, sender)
-    psbt.validateSignaturesOfInput(0)
-    psbt.finalizeAllInputs()
-    return psbt.extractTransaction().toHex()
-  }
-
-  /**
-   * Send funds to a pay2scripthash address to be used in the timelock refund operation.
-   *
-   * @private
-   * @param sender - Origin wallet.
-   * @param p2sh - Pay-to-script-hash object.
-   * @param hashLockTransactionID - A Transaction id with unspent funds.
-   * @param amountToSend - How many satoshis do you want to send.
-   * @param sequence - How many blocks you want to wait before redemption.
+   * @param p2wsh - Pay-to-witness-script-hash object.
+   * @param transactionID - A Transaction id with unspent funds.
    * @returns The hex-coded transaction. This needs to be pushed to the chain using `this.pushTX`
    * @memberof BitcoinHTLC
    */
-  private async sendToP2SHAddress(
-    sender: bitcoin.ECPairInterface,
-    p2sh: bitcoin.Payment,
-    hashLockTransactionID: string,
-    amountToSend: number,
-    sequence: number,
-  ): Promise<string> {
-    const senderPublicKey = this.getPublicKey(sender)
+  private async sendToP2WSHAddress(p2wsh: bitcoin.Payment, transactionID: string): Promise<string> {
+    const p2wpkFromSender = this.getWitnessPublicKeyHash(this.sender)
 
-    const balance = await this.getBalance(senderPublicKey, hashLockTransactionID)
-    const amountToKeep = balance - amountToSend - this.fee
+    const balance = await this.getBalance(p2wpkFromSender.address!, transactionID)
+    const amountToKeep = balance - this.amount - this.fee
 
     const outputs = [
       {
-        address: senderPublicKey,
+        address: p2wpkFromSender.address!,
         value: amountToKeep,
       },
       {
-        address: p2sh.address!,
-        value: amountToSend,
+        address: p2wsh.address!,
+        value: this.amount,
       },
     ]
 
-    return this.createPsbt(hashLockTransactionID, sender, sequence, outputs)
+    const { vout, witnessUtxo } = await this.getWitnessUtxo(transactionID, p2wpkFromSender)
+
+    const psbt = new bitcoin.Psbt({ network: this.network })
+      .setVersion(2)
+      .addInput({
+        hash: transactionID,
+        index: vout,
+        witnessUtxo,
+      })
+      .addOutputs(outputs)
+      .signInput(0, this.sender)
+
+    psbt.validateSignaturesOfInput(0)
+    psbt.finalizeAllInputs()
+    return psbt.extractTransaction().toHex()
   }
 
   /**
@@ -235,79 +323,128 @@ export default class BitcoinHTLC {
    *
    * @private
    * @param transactionID - Transaction id you want to use.
-   * @param targetAddress - Target address must be in the output of the transaction to get a valid `vout` id.
-   * @returns vout and nonWitnessUtxo.
+   * @param target - p2wsh or p2wpk.
+   * @returns vout and witnessUtxo.
    * @memberof BitcoinHTLC
    */
-  private async getUtxo(
+  private async getWitnessUtxo(
     transactionID: string,
-    targetAddress: string,
-  ): Promise<{ vout: number; nonWitnessUtxo: Buffer }> {
+    target: bitcoin.payments.Payment,
+  ): Promise<{ vout: number; witnessUtxo: { script: Buffer; value: number } }> {
     const tx = await this.getTransaction(transactionID)
     let vout = -1
     for (let i = 0; i < tx.outputs.length; i++) {
-      if (tx.outputs[i].addresses.includes(targetAddress)) {
+      if (tx.outputs[i].addresses.includes(target.address!)) {
         vout = i
         break
       }
     }
+
     if (vout < 0) {
       throw new Error("Could not find vout")
     }
-    const nonWitnessUtxo = Buffer.from(tx.hex, "hex")
+
+    const witnessUtxo = {
+      script: target.output!,
+      value: tx.outputs[vout].value,
+    }
 
     return {
       vout,
-      nonWitnessUtxo,
+      witnessUtxo,
     }
   }
 
   /**
+   * Creates an HTLC.
    *
-   *
-   * @param  sender - Alice.
-   * @param receiver - Bob.
-   * @param  hashLockTransactionID - The transaction id from the preceeding hashlock-transaction.
-   * @param  amount - How much you want to send in Satoshis.
-   * @param  sequence - How long you have to wait before refunding. In blocks.
+   * @param  transactionID - The transaction id from the preceeding transaction.
    * @returns Hex-coded transaction to be published to the chain.
    * @memberof BitcoinHTLC
    */
-  public async getTimeLockHex(
-    sender: bitcoin.ECPairInterface,
-    receiver: bitcoin.ECPairInterface,
-    hashLockTransactionID: string,
-    amount: number,
-    sequence: number,
-  ): Promise<string> {
-    const p2sh = this.getP2SH(sender, receiver, sequence)
+  public async create(transactionID: string): Promise<void> {
+    const p2wsh = this.getP2WSH()
 
-    // move funds to p2sh address
-    const p2shHex = await this.sendToP2SHAddress(sender, p2sh, hashLockTransactionID, amount, 0)
-    const txID = await this.pushTX(p2shHex)
-
+    // move funds to p2wsh address
+    const p2wpkHex = await this.sendToP2WSHAddress(p2wsh, transactionID)
     // Wait for the transaction to be broadcasted
-    await new Promise((resolve) => setTimeout(resolve, 5000))
+    const fundingTransactionID = await this.pushTX(p2wpkHex)
 
-    // refund transaction
-    const { vout, nonWitnessUtxo } = await this.getUtxo(txID, p2sh.address!)
+    await new Promise((resolve) => setTimeout(resolve, 2000))
+
+    const refundHex = await this.getRefundHex(fundingTransactionID, p2wsh)
+    const blockHeight = (await this.getTransaction(fundingTransactionID)).block_height
+    const payload = { hex: refundHex, validAfterBlockHeight: blockHeight + this.sequence }
+
+    // Make call to database
+    // const res = await fetch("http://localhost:13000", { method: "POST", body: JSON.stringify(payload) }).then((res) =>
+    //  res.json(),
+    // )
+
+    // if (!res.success) {
+    //  console.error("Error posting refundHex to database.")
+    //  console.log("Hex for refund transaction: " + refundHex)
+    // }
+
+    const redeemHex = await this.getRedeemHex(fundingTransactionID, p2wsh)
+    // Wait for the transaction to be broadcasted
+    console.log("refundHex: " + refundHex)
+    console.log("redeemHex: " + redeemHex)
+    await this.pushTX(refundHex)
+  }
+
+  /**
+   * Refunds the HTLC to sender.
+   *
+   * @param transactionID - The transaction id from the funding transaction.
+   * @param p2wsh - Pay-to-witness-script-hash object.
+   */
+  private async getRefundHex(transactionID: string, p2wsh: bitcoin.payments.Payment): Promise<string> {
+    const { vout, witnessUtxo } = await this.getWitnessUtxo(transactionID, p2wsh)
 
     const psbt = new bitcoin.Psbt({ network: this.network })
+      .setVersion(2)
       .addInput({
-        hash: txID,
+        hash: transactionID,
         index: vout,
-        sequence,
-        redeemScript: p2sh.redeem!.output!,
-        nonWitnessUtxo,
+        sequence: this.sequence,
+        witnessUtxo,
+        witnessScript: p2wsh.redeem!.output!,
       })
       .addOutput({
-        address: this.getPublicKey(receiver),
-        value: amount, // in satoshi
+        address: this.getWitnessPublicKeyHash(this.sender).address!,
+        value: this.amount - this.fee,
       })
-      .signInput(0, sender)
-      .finalizeInput(0, csvGetFinalScripts)
-      .extractTransaction()
+      .signInput(0, this.sender)
+      .finalizeInput(0, this.getFinalScriptsRefund)
 
-    return psbt.toHex()
+    return psbt.extractTransaction().toHex()
+  }
+
+  /**
+   * Redeems the HTLC.
+   *
+   * @param transactionID - The transaction id from the funding transaction.
+   * @param p2wsh - Pay-to-witness-script-hash object.
+   */
+  private async getRedeemHex(transactionID: string, p2wsh: bitcoin.payments.Payment): Promise<string> {
+    const { vout, witnessUtxo } = await this.getWitnessUtxo(transactionID, p2wsh)
+
+    const psbt = new bitcoin.Psbt({ network: this.network })
+      .setVersion(2)
+      .addInput({
+        hash: transactionID,
+        index: vout,
+        witnessUtxo,
+        witnessScript: p2wsh.redeem!.output!,
+      })
+      .addOutput({
+        address: this.getWitnessPublicKeyHash(this.receiver).address!,
+        value: this.amount - this.fee,
+      })
+      .signInput(0, this.receiver)
+      .finalizeInput(0, this.getFinalScriptsRedeem)
+
+    return psbt.extractTransaction().toHex()
   }
 }
