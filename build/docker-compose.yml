@@ -1,38 +1,28 @@
 version: '3'
 
-services:
-  swapchain-srv-toupper:
-    hostname: swapchain-srv-toupper
+services:   
+  swapchain-srv-btc-timelock:
+    hostname: swapchain-srv-btc-timelock
     build:
       context: ..
-      dockerfile: ./build/Dockerfile.service
-      args:
-          BASE_IMAGE: ${BASE_IMAGE}
-          SERVICE: toUpper
-    container_name: swapchain-srv-toupper
-    restart: always
+      dockerfile: ./srv/bitcoin/timelockBackend/Dockerfile
+    container_name: swapchain-srv-btc-timelock
+    environment: 
+      PORT: 3000
     ports:
-      - "3000:3000"
-
-  swapchain-srv-api:
-    hostname: swapchain-srv-api
-    build:
-      context: ..
-      dockerfile: ./build/Dockerfile.service
-      args:
-          BASE_IMAGE: ${BASE_IMAGE}
-          SERVICE: api
-    container_name: swapchain-srv-api
+      - "13000:3000"
+    depends_on: 
+      - mongo
     restart: always
+  
+  mongo:
+    container_name: mongo
+    image: mongo
+    # volumes:
+    #   - ../database:/data/db
     ports:
-      - "80:3000"
-  
-  swapchain-srv-bcoin:
-    hostname: swapchain-srv-bcoin
-    build:
-      context: ..
-      dockerfile: ./srv/bcoin/Dockerfile
-      args:
-          BASE_IMAGE: ${BASE_IMAGE}
-    container_name: swapchain-srv-bcoin
-  
+      - 27017:27017
+    environment: 
+      MONGO_PORT: 27017
+      DB_NAME: "timelocks"
+    restart: always

@@ -114,3 +114,5 @@ dist
 dist/
 coverage/
 src/srv/bcoin/types/
+
+build/billofmaterials.tsv
