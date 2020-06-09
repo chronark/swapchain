@@ -1,4 +1,4 @@
-import { Secret } from "../../tmp/secret"
+import { Secret } from "../secret/secret"
 
 /**
  * Contains all necessary information to crate an HTLC on a blockchain
