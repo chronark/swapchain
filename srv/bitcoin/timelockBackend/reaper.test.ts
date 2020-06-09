@@ -1,8 +1,8 @@
 import mongoose from "mongoose"
 import { MongoMemoryServer } from "mongodb-memory-server"
 import HexTransactionModel, { HexTransactionType } from "./HexTransaction.model"
-import { Reaper } from "./reaper"
-import { clearTimeout } from "timers"
+import Reaper from "./reaper"
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 jest.mock("node-fetch", () => require("fetch-mock-jest").sandbox())
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -59,7 +59,7 @@ afterAll(async () => {
 
 describe("Reaper", () => {
   it("should redeem all valid transactions", async () => {
-    const r = new Reaper(10, "testnet")
+    const r = new Reaper("testnet")
     await r.redeemAllValid()
 
     expect((await HexTransactionModel.find()).length).toBe(45)

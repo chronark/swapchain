@@ -373,8 +373,8 @@ export default class BitcoinHTLC {
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
     // Redeeming
-    const redeemHex = await this.getRedeemHex(fundingTransactionID, p2wsh)
-    const redeemTransaction = await this.pushTX(redeemHex)
+    // const redeemHex = await this.getRedeemHex(fundingTransactionID, p2wsh)
+    const redeemTransaction = "" // await this.pushTX(redeemHex)
 
     // No reason to create a refund transaction if bob already redeemed the funds
     if (redeemTransaction.length > 0) {

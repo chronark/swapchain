@@ -134,6 +134,6 @@ testCases.forEach((tc) => {
     expect(bitcoin.Psbt.prototype.extractTransaction).toHaveBeenCalledTimes(2)
     expect(toHex).toHaveBeenCalledTimes(2)
 
-    expect(fetchMock).toHaveReturnedTimes(5)
+    expect(fetchMock).toHaveReturnedTimes(6)
   })
 })
