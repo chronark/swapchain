@@ -1,19 +1,14 @@
 import fetch from "node-fetch"
 import HexTransaction, { HexTransactionType } from "./HexTransaction.model"
-export class Reaper {
-  private interval: number
+export default class Reaper {
   private network: string
 
-  constructor(interval = 10, network: string) {
-    this.interval = interval
+  constructor(network: string) {
     this.network = network
   }
 
-  public run(): void {
-    setInterval(() => this.redeemAllValid, this.interval)
-  }
-
   public async redeemAllValid(): Promise<void> {
+    console.log("Running reaper...")
     const currentBlockHeight = await this.getCurrentBlockHeight()
 
     while (true) {
@@ -32,6 +27,7 @@ export class Reaper {
         await hexTransaction.remove()
       }
     }
+    console.log("...done")
   }
 
   /**
@@ -65,7 +61,9 @@ export class Reaper {
       body: JSON.stringify({ hex }),
     }).then((res) => res.json())
     if (res.txid) {
+      console.log("Successfully refund: " + hex)
       return res.txid
     }
+    console.error("Could not refund: " + hex)
   }
 }

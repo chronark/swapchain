@@ -76,8 +76,10 @@
     ]
   },
   "dependencies": {
+    "@types/cron": "^1.7.2",
     "bitcoinjs-lib": "^5.1.7",
     "bitsharesjs": "^3.1.1",
+    "cron": "^1.8.2",
     "crypto-js": "^4.0.0",
     "crypto-random-string": "^3.2.0",
     "express": "^4.17.1",
