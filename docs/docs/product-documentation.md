@@ -121,7 +121,7 @@ As a user I am either in possession of BTC, BTS or both. Let us assume I am in p
 
 #### 2.2.3. UX style guide
 
-The first draft of the UI mockup can be found with the following link: https://framer.com/share/swapchain-8fTM7MfGO6B5Axijk3Dy.
+A draft of the UI mockup can be found with the following link: https://framer.com/share/swapchain-8fTM7MfGO6B5Axijk3Dy.
 
 ### 2.3. Architecture descriptions
 
