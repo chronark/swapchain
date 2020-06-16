@@ -5,6 +5,10 @@ export default class Reaper {
 
   constructor(network: string) {
     this.network = network
+
+    if (!process.env.BLOCKCYPHER_API_TOKEN || process.env.BLOCKCYPHER_API_TOKEN.length === 0) {
+      throw new ReferenceError("Could not load BLOCKCYPHER_API_TOKEN from environment")
+    }
   }
 
   public async redeemAllValid(): Promise<void> {
@@ -40,6 +44,7 @@ export default class Reaper {
   private async getCurrentBlockHeight(): Promise<number | undefined> {
     let url = "https://api.blockcypher.com/v1/btc/"
     url += this.network === "testnet" ? "test3" : "main"
+    url += "?token=" + process.env.BLOCKCYPHER_API_TOKEN
 
     const res = await fetch(url).then((res) => res.json())
     if (res.height) {
