@@ -76,6 +76,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        run: npm run docker:build
-        env:
-          BLOCKCYPHER_API_TOKEN: "I_LOOK_LIKE_A_TOKEN"
+        run: |
+          echo "BLOCKCYPHER_API_TOKEN=I_LOOK_LIKE_A_TOKEN" > .env
+          npm run docker:build
+          
