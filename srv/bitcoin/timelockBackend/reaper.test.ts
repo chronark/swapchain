@@ -34,7 +34,7 @@ const clearDatabase = async (): Promise<void> => {
 
 beforeAll(async () => {
   await connect()
-  fetchMock.get("https://api.blockcypher.com/v1/btc/test3", {
+  fetchMock.get("begin:https://api.blockcypher.com/v1/btc/test3", {
     height: 54,
   })
 

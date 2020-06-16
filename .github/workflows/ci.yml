@@ -49,6 +49,8 @@ jobs:
         run: npm ci
       - name: Unittests
         run: npm run test
+        env:
+          BLOCKCYPHER_API_TOKEN: "I_LOOK_LIKE_A_TOKEN"
   build:
     strategy:
       matrix:
@@ -74,4 +76,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        run: npm run docker:build
+        run: |
+          echo "BLOCKCYPHER_API_TOKEN=I_LOOK_LIKE_A_TOKEN" > .env
+          npm run docker:build
+          

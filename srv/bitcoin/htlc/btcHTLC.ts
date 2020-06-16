@@ -68,6 +68,10 @@ export default class BitcoinHTLC {
     this.sender = sender
     this.receiver = receiver
     this.amount = amount
+
+    if (!process.env.BLOCKCYPHER_API_TOKEN || process.env.BLOCKCYPHER_API_TOKEN.length === 0) {
+      throw new ReferenceError("Could not load BLOCKCYPHER_API_TOKEN from environment")
+    }
   }
 
   /**
@@ -313,9 +317,9 @@ export default class BitcoinHTLC {
    * @memberof BitcoinHTLC
    */
   private async getTransaction(transactionID: string): Promise<Transaction> {
-    return fetch(`https://api.blockcypher.com/v1/btc/test3/txs/${transactionID}?limit=50&includeHex=true`).then((res) =>
-      res.json(),
-    )
+    return fetch(
+      `https://api.blockcypher.com/v1/btc/test3/txs/${transactionID}?limit=50&includeHex=true&token=${process.env.BLOCKCYPHER_API_TOKEN}`,
+    ).then((res) => res.json())
   }
 
   /**
