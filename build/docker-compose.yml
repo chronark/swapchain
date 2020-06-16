@@ -7,6 +7,7 @@ services:
       context: ..
       dockerfile: ./srv/bitcoin/timelockBackend/Dockerfile
     container_name: swapchain-srv-btc-timelock
+    env_file: ../.env
     environment: 
       PORT: 3000
     ports:
