@@ -2,7 +2,7 @@ import BitsharesHTLC from "./btsHTLC"
 import { Apis as btsWebsocketApi } from "bitsharesjs-ws"
 import { ChainStore, FetchChain, TransactionBuilder, PrivateKey } from "bitsharesjs"
 import { mocked } from "ts-jest/utils"
-import { getSecret } from "../../../pkg/secret/secret"
+import { getSecret } from "../../secret/secret"
 
 jest.mock("bitsharesjs")
 jest.mock("bitsharesjs-ws")
@@ -260,7 +260,7 @@ describe("btsHTLC", () => {
         )
         const htlc = new BitsharesHTLC("node")
 
-        await expect(() => htlc.redeem(htlcTestConfig, privateKey, testSecret)).rejects.toThrow()
+        await expect(htlc.redeem(htlcTestConfig, privateKey, testSecret)).rejects.toThrow()
 
         expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
         expect(ChainStore.init).toHaveBeenCalledTimes(1)
