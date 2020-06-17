@@ -2,6 +2,9 @@ import mongoose from "mongoose"
 import { MongoMemoryServer } from "mongodb-memory-server"
 import HexTransactionModel, { HexTransactionType } from "./HexTransaction.model"
 import Reaper from "./reaper"
+import dotenv from "dotenv"
+
+dotenv.config()
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 jest.mock("node-fetch", () => require("fetch-mock-jest").sandbox())
