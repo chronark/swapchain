@@ -157,7 +157,7 @@ export default (props: Props) => {
 
 
         <div className="flex flex-col lg:flex-row">
-            <nav className="justify-between flex-grow p-4 pb-10 bg-white border-b border-gray-400 lg:pb-0 lg:max-w-xs lg:border-r">
+            <nav className="justify-between flex-grow p-4 pb-10 bg-white border-b border-gray-400 lg:pb-0 lg:max-w-xs lg:border-r lg:border-b-0">
                 <div>
                     <span className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase ">Address</span>
 
