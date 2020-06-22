@@ -13,8 +13,8 @@ FROM node:14-alpine3.10
 WORKDIR /swapchain
 
 COPY package.json .
-COPY --from=compile /swapchain/dist/srv/bitcoin/timelockBackend ./srv/bitcoin/timelockBackend/
+COPY --from=compile /swapchain/dist/srv/bitcoinTimelockBackend ./srv/bitcoinTimelockBackend/
 RUN npm install --only=production
 
 
-CMD ["node", "./srv/bitcoin/timelockBackend/index.js"]
+CMD ["node", "./srv/bitcoinTimelockBackend/index.js"]
