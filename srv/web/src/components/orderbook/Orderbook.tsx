@@ -159,19 +159,19 @@ export default (props: Props) => {
         <div className="flex flex-col lg:flex-row">
             <nav className="justify-between flex-grow p-4 pb-10 bg-white border-b border-gray-400 lg:pb-0 lg:max-w-xs lg:border-r lg:border-b-0">
                 <div>
-                    <span className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase ">Address</span>
+                    <span className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase">Address</span>
 
-                    <div className="relative mt-2 ml-4 ">
+                    <div className="relative mt-2 ml-4">
                         <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-                            <QRCode className="w-6 h-6 text-gray-600" ></QRCode>
+                            <QRCode className="w-6 h-6 text-gray-600"></QRCode>
                         </span>
                         <input className="block w-full py-1 pl-10 text-gray-900 placeholder-gray-600 bg-gray-100 border border-gray-400 rounded" placeholder={hash(Math.random().toString()).substring(0, 15) + "..."} onChange={handleAddressChange}></input>
                     </div>
                 </div>
                 <div className="flex flex-col sm:items-center sm:justify-between sm:flex-row lg:flex-col lg:items-start">
                     <div className="mt-8">
-                        <span className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase ">Status</span>
-                        <div className="mt-2 ml-2 ">
+                        <span className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase">Status</span>
+                        <div className="mt-2 ml-2">
 
                             {[status.active, status.expired, status.fulfilled].map((s, k) => {
                                 return (
