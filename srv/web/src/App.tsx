@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import Orderbook from "./components/orderbook/Orderbook"
 import { orderFactory} from "./components/orderbook/Orderbook"
 

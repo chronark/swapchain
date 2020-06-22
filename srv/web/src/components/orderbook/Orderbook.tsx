@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react"
 import { ReactComponent as QRCode } from "../../icons/qrcode.svg"
 import { Table } from "./Table"
 import Modal from "./Modal"
-import * as bitcoin from "bitcoinjs-lib"
 import { FilterButton } from "./FilterButton"
 import crypto from "crypto"
 
@@ -126,7 +125,7 @@ export default (props: Props) => {
 
 
         setVisibleOrders(filteredOrders)
-    }, [statusFilter, addressFilter, assetFilter])
+    }, [statusFilter, addressFilter, assetFilter, orders])
 
 
     const selectOrder = (order: Order): void => {
