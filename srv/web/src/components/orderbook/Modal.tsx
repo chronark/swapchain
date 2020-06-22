@@ -19,11 +19,8 @@ export default (props: Props) => {
             <div className="absolute inset-0 z-10 flex items-center justify-center">
                 <div className="bg-white rounded-sm">
                     <div className="p-12">
-                        <header className="flex items-center justify-between">
-                            <span className={`py-2 px-4 uppercase font-semibold rounded-sm bg-${order.status.color}-200 text-${order.status.color}-900`}>
-                                {order.status.label}
-                            </span>
-                            <X className="w-8 h-8 text-gray-500 duration-500 ease-in-out hover:text-gray-800" onClick={close}></X>
+                        <header className="flex flex-row-reverse">
+                            <X className="w-8 h-8 text-gray-300 duration-500 ease-in-out hover:text-gray-800" onClick={close}></X>
                         </header>
                         <div className="flex items-center justify-around mt-8">
                             <div className="flex flex-col items-center mx-8">
@@ -42,7 +39,7 @@ export default (props: Props) => {
                                         <span>{order.give.asset}</span>
                                     </div>
                                 </div>
-                                <ArrowRight className="h-12 mx-20 -mt-2 text-gray-900"></ArrowRight>
+                                <ArrowRight className="h-12 mx-20 -mt-2 text-gray-600"></ArrowRight>
                             </div>
                             <div className="flex flex-col items-center mx-8">
                                 <span className="text-sm font-semibold text-gray-500">{order.receive.asset}</span>
@@ -61,12 +58,17 @@ export default (props: Props) => {
                             </span>
                         </div>
                         <footer className="flex items-center justify-around pt-12 mt-8 text-center border-t border-gray-300">
-                            <button className="inline-flex items-center px-4 py-2 font-bold text-gray-800 bg-gray-300 rounded-sm hover:bg-gray-400">
+                            {(order.status.label === "active") ? 
+                            <button className={`inline-flex py-2 px-4 uppercase font-semibold rounded-sm bg-${order.status.color}-200 text-${order.status.color}-900 rounded-sm hover:bg-gray-400`}>
                                 <Refresh className="w-6 h-6"></Refresh>
                                 <span className="ml-2">
                                     Trade
                            </span>
                             </button>
+                    :  <span className={`py-2 px-4 uppercase font-semibold rounded-sm bg-${order.status.color}-200 text-${order.status.color}-900`}>
+                    {order.status.label}
+                </span>   
+                    }
 
                         </footer>
                     </div>
