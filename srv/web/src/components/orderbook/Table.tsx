@@ -3,6 +3,7 @@ import { Order } from "./Orderbook"
 import { Row } from "./Row"
 import { ReactComponent as ChevronDown } from "../../icons/chevron-down.svg"
 import { ReactComponent as ChevronUp } from "../../icons/chevron-up.svg"
+import { ReactComponent as Exclamation } from "../../icons/exclamation.svg"
 
 type Props = {
     orders: Order[],
@@ -79,12 +80,17 @@ export const Table = (props: Props) => {
         <div className="w-full bg-white ">
             <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                    <h2 className="p-6 text-2xl text-gray-700">
-                        Orderbook</h2>
+                    <h2 className="p-6 text-2xl text-gray-700">Orderbook</h2>
                     <span className="px-2 text-sm text-gray-700 bg-gray-200 rounded-sm">{orders.length}</span>
                 </div>
-
+                <div className={` flex items-center px-4 py-2 mr-8 bg-yellow-100 rounded-sm transition duration-300 transform ease-in-out ${orders.length > 0 ? "opacity-0 translate-x-20" : "opacity-100"}`}>
+                    <Exclamation className="w-4 h-4 text-orange-700"></Exclamation>
+                    <span className="ml-3 text-xs font-bold text-orange-900">
+                        Looks like there is nothing here, try removing some filters.
+                        </span>
+                    </div>
             </div>
+
             <table className="min-w-full table-auto">
                 <thead className="border-b border-gray-300">
                     <tr>
