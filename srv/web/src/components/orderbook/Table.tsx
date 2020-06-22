@@ -15,6 +15,8 @@ export const Table = (props: Props) => {
 
 
     const [sortedByDate, setSortedByDate] = useState(0)
+    const [sortedByRate, setSortedByRate] = useState(0)
+    const [sortedByAmountYouPay, setSortedByAmountYouPay] = useState(0)
 
 
     const toggleSortByDate = () => {
@@ -24,7 +26,7 @@ export const Table = (props: Props) => {
                 setSortedByDate(1)
                 break;
             case 0:
-                orders.sort((a: Order, b: Order) => { return a.created.getTime() - b.created.getTime() })
+                orders.sort((a: Order, b: Order) => { return b.created.getTime() - a.created.getTime() })
                 setSortedByDate(1)
                 break;
             case 1:
@@ -34,6 +36,42 @@ export const Table = (props: Props) => {
 
         }
     }
+    const toggleSortByRate = () => {
+        switch (sortedByRate) {
+            case -1:
+                orders.reverse()
+                setSortedByRate(1)
+                break;
+            case 0:
+                orders.sort((a: Order, b: Order) => { return b.exchangeRate - a.exchangeRate })
+                setSortedByRate(1)
+                break;
+            case 1:
+                orders.reverse()
+                setSortedByRate(-1)
+                break;
+
+        }
+    }
+    const toggleSortByAmountYouPay = () => {
+        switch (sortedByAmountYouPay) {
+            case -1:
+                orders.reverse()
+                setSortedByAmountYouPay(1)
+                break;
+            case 0:
+                orders.sort((a: Order, b: Order) => { return b.give.value - a.give.value })
+                setSortedByAmountYouPay(1)
+                break;
+            case 1:
+                orders.reverse()
+                setSortedByAmountYouPay(-1)
+                break;
+
+        }
+    }
+
+
 
 
 
@@ -50,33 +88,45 @@ export const Table = (props: Props) => {
             <table className="min-w-full table-auto">
                 <thead className="border-b border-gray-300">
                     <tr>
-
-                        < th className="flex px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-700 uppercase bg-white-100">
-                            <span>
-                                Created
-                                </span>
-                            {sortedByDate === 1 ?
-                                <ChevronUp onClick={toggleSortByDate} className="w-4 h-4 ml-1 text-gray-600 hover:text-gray-900"></ChevronUp>
-                                :
-                                <ChevronDown onClick={toggleSortByDate} className="w-4 h-4 ml-1 text-gray-600 hover:text-gray-900"></ChevronDown>
-                            }
+                        < th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-700 uppercase bg-white-100">
+                            <div className="flex">
+                                <span>Created</span>
+                                {sortedByDate === 1 ?
+                                    <ChevronUp onClick={toggleSortByDate} className="w-4 h-4 ml-1 text-gray-600 hover:text-gray-900"></ChevronUp>
+                                    :
+                                    <ChevronDown onClick={toggleSortByDate} className="w-4 h-4 ml-1 text-gray-600 hover:text-gray-900"></ChevronDown>
+                                }
+                            </div>
+                        </th>
+                        <th className="flex px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-700 uppercase bg-white-100">
+                            Status
                         </th>
                         <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-700 uppercase bg-white-100">
-                            Status
-                </th>
+                            <div className="flex">
+                                <span>Amount You Pay</span>
+                                {sortedByRate === 1 ?
+                                    <ChevronUp onClick={toggleSortByAmountYouPay} className="w-4 h-4 ml-1 text-gray-600 hover:text-gray-900"></ChevronUp>
+                                    :
+                                    <ChevronDown onClick={toggleSortByAmountYouPay} className="w-4 h-4 ml-1 text-gray-600 hover:text-gray-900"></ChevronDown>
+                                }
+                            </div>
+                        </th>
                         <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-700 uppercase bg-white-100">
-                            Amount you pay
-            </th>
-                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-700 uppercase bg-white-100">
-                            Rate
-        </th>
-
+                            <div className="flex">
+                                <span>Rate</span>
+                                {sortedByRate === 1 ?
+                                    <ChevronUp onClick={toggleSortByRate} className="w-4 h-4 ml-1 text-gray-600 hover:text-gray-900"></ChevronUp>
+                                    :
+                                    <ChevronDown onClick={toggleSortByRate} className="w-4 h-4 ml-1 text-gray-600 hover:text-gray-900"></ChevronDown>
+                                }
+                            </div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody className="bg-white">
-                    {orders.map((order) => {
+                    {orders.map((order, key) => {
                         return (
-                            <Row order={order} onClick={onRowClick}></Row>
+                            <Row key={key} order={order} onClick={onRowClick}></Row>
                         )
                     })}
                 </tbody>

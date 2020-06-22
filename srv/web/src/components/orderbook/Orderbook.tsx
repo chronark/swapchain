@@ -1,9 +1,22 @@
-import React, { useState } from "react"
-import crypto from "crypto-random-string"
+import React, { useState, useEffect } from "react"
+import { ReactComponent as QRCode } from "../../icons/qrcode.svg"
 import { Table } from "./Table"
 import Modal from "./Modal"
 import * as bitcoin from "bitcoinjs-lib"
-import { ReactComponent as LeftArrow } from "../../icons/arrow-left.svg"
+import { FilterButton } from "./FilterButton"
+import crypto from "crypto"
+
+
+
+
+
+
+
+
+const hash= (s: string): string => {
+    return crypto.createHash("SHA256").update(s).digest("hex")
+}
+
 
 export const status = {
     active: {
@@ -23,7 +36,7 @@ export const status = {
 
 export interface Order {
     selected: boolean,
-    address: string
+    addressHash: string
     created: Date
     validUntil: Date
     status: { label: string, color: string }
@@ -46,7 +59,7 @@ export const orderFactory = (count: number): Order[] => {
         const validUntil = new Date(new Date().getTime() + 86_400_000 * (Math.random() - 0.1) * 7)
         orders.push({
             selected: false,
-            address: bitcoin.crypto.sha256(Buffer.from(crypto({ length: 64, type: "base64" }))).toString(),
+            addressHash: hash(Math.random().toString()),
             created: new Date(),
             validUntil,
             status: (validUntil < new Date()) ? status.expired : (rng > 0.5) ? status.active : status.fulfilled,
@@ -62,7 +75,9 @@ export const orderFactory = (count: number): Order[] => {
         })
     }
 
-    orders[0].address = "abcd"
+    orders[0].addressHash = hash("helloamos")
+    orders[1].addressHash = hash("helloamos")
+
 
     return orders
 }
@@ -77,48 +92,110 @@ type Props = {
 export default (props: Props) => {
     const { orders } = props
     const [modalOpen, setModalOpen] = useState(false)
-    const [menuOpen, setMenuOpen] = useState(true)
+
     const [selectedOrder, setSelectedOrder] = useState(orders[0])
+
+    const [statusFilter, setStatusFilter] = useState<string[]>([])
+    const [assetFilter, setAssetFilter] = useState<string[]>([])
+    const [addressFilter, setAddressFilter] = useState("")
+
+
+    const [visibleOrders, setVisibleOrders] = useState(orders)
+
+
+    useEffect(() => {
+        // Create new list to filter in the following steps
+        let filteredOrders = orders.map((x) => x)
+
+        // Filter by status
+        if (statusFilter.length > 0) {
+            filteredOrders = filteredOrders.filter((order: Order) => {
+                return statusFilter.includes(order.status.label)
+            })
+        }
+        if (assetFilter.length > 0) {
+            filteredOrders = filteredOrders.filter((order: Order) => {
+                return assetFilter.includes(order.give.asset)
+            })
+        }
+        if (addressFilter !== "") {
+            filteredOrders = filteredOrders.filter((order: Order) => {
+                return order.addressHash === hash(addressFilter)
+            })
+        }
+
+
+        setVisibleOrders(filteredOrders)
+    }, [statusFilter, addressFilter, assetFilter])
+
 
     const selectOrder = (order: Order): void => {
         setSelectedOrder(order)
         setModalOpen(true)
     }
 
+    const toggleStatusFilter = (label: string): void => {
+        if (statusFilter.includes(label)) {
+            setStatusFilter(statusFilter.filter((filter: string) => filter !== label))
+        } else {
+            setStatusFilter([...statusFilter, label])
+        }
+    }
+    const toggleAssetFilter = (asset: string): void => {
+        if (assetFilter.includes(asset)) {
+            setAssetFilter(assetFilter.filter((filter: string) => filter !== asset))
+        } else {
+            setAssetFilter([...assetFilter, asset])
+        }
+    }
+
+    const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        setAddressFilter(e.currentTarget.value)
+    }
+
 
     return (
 
 
-        <div className="flex">
-            <nav className="p-4 bg-white border-r border-gray-400 w-max-sm">
-                <div className="flex flex-col ">
-                    <span className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase ">Status</span>
-                    <div>
+        <div className="flex flex-col md:flex-row">
+            <nav className="p-4 bg-white border-r border-gray-400 md:w-max-md">
+                <div>
+                    <span className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase ">Address</span>
 
-                        {[status.active, status.expired, status.fulfilled].map(s => {
+                    <div className="relative mt-2 ml-4">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+                            <QRCode className="w-6 h-6 text-gray-600" ></QRCode>
+                        </span>
+                        <input className="block py-1 pl-10 text-gray-900 placeholder-gray-600 border border-gray-400 rounded-md" placeholder="Address" onChange={handleAddressChange}></input>
+                    </div>
+                </div>
+                <div className="mt-8">
+                    <span className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase ">Status</span>
+                    <div className="mt-2 ml-2 ">
+
+                        {[status.active, status.expired, status.fulfilled].map((s, k) => {
                             return (
-                                <button className="px-2 py-1 mx-2 text-xs font-semibold text-gray-800 uppercase bg-gray-100 rounded-sm hover:bg-gray-300 hover:text-gray-900">{s.label}</button>
+                                <FilterButton key={s.label + k} label={s.label} onClick={toggleStatusFilter}></FilterButton>
                             )
                         })}
                     </div>
                 </div>
                 <div className="mt-8">
-                    <span className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase ">Address</span>
+                    <span className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase">asset you pay</span>
+                    <div className="mt-2 ml-2">
 
-                    <div className="relative ml-4">
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                            <svg className="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </span>
-                        <input className="block py-3 pl-10 text-gray-900 placeholder-gray-600 border border-gray-400 rounded-md" placeholder="Address"></input>
+                        {["BTC", "BTS"].map((s, key) => {
+                            return (
+                                <FilterButton key={key} label={s} onClick={toggleAssetFilter}></FilterButton>
+                            )
+                        })}
                     </div>
                 </div>
 
             </nav>
             <div className="flex-grow">
 
-                <Table orders={orders} onRowClick={selectOrder} ></Table>
+                <Table orders={visibleOrders} onRowClick={selectOrder} ></Table>
 
             </div>
 
