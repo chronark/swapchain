@@ -24,13 +24,13 @@ export const Row = (props: Props) => {
                 </div>
             </td>
             <td className="px-6 py-4 text-left whitespace-no-wrap border-b border-gray-200">
-                <span className={`px-2 text-xs uppercase font-semibold rounded-sm bg-${order.status.color}-100 text-${order.status.color}-800`}>
+                <span className={`px-2 text-xs uppercase font-semibold rounded bg-${order.status.color}-100 text-${order.status.color}-800`}>
                     {order.status.label}
                 </span>
             </td>
             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                 <div className="flex items-center">
-                    <span className="inline-flex px-2 text-xs font-semibold uppercase bg-gray-300 rounded-sm ">
+                    <span className="inline-flex px-2 text-xs font-semibold uppercase bg-gray-300 rounded ">
                         {order.give.asset}
 
                     </span>

@@ -18,7 +18,7 @@ export default (props: Props) => {
         <div className={open ? "" : "hidden"}>
             <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
             <div className="absolute inset-0 z-10 flex items-center justify-center">
-                <div className="max-w-xs p-12 bg-white rounded-sm sm:max-w-sm md:max-w-md lg:max-w-xl">
+                <div className="max-w-xs p-12 bg-white rounded sm:max-w-sm md:max-w-md lg:max-w-xl">
                     <header className="flex flex-row-reverse">
                         <X className="w-8 h-8 text-gray-400 duration-200 ease-in-out hover:text-gray-800" onClick={close}></X>
                     </header>
@@ -65,13 +65,13 @@ export default (props: Props) => {
                     </div>
                     <footer className="flex items-center justify-around pt-12 mt-8 text-center border-t border-gray-300">
                         {(order.status.label === "active") ?
-                            <button className={`inline-flex py-2 px-4 uppercase font-semibold rounded-sm bg-${order.status.color}-200 text-${order.status.color}-900 rounded-sm hover:bg-gray-400`}>
+                            <button className={`inline-flex py-2 px-4 uppercase font-semibold rounded bg-${order.status.color}-200 text-${order.status.color}-900 rounded hover:bg-gray-400`}>
                                 <Refresh className="w-6 h-6"></Refresh>
                                 <span className="ml-2">
                                     Trade
                            </span>
                             </button>
-                            : <span className={`py-2 px-4 uppercase font-semibold rounded-sm bg-${order.status.color}-200 text-${order.status.color}-900`}>
+                            : <span className={`py-2 px-4 uppercase font-semibold rounded bg-${order.status.color}-200 text-${order.status.color}-900`}>
                                 {order.status.label}
                             </span>
                         }

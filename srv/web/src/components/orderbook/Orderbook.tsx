@@ -165,7 +165,7 @@ export default (props: Props) => {
                         <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                             <QRCode className="w-6 h-6 text-gray-600" ></QRCode>
                         </span>
-                        <input className="block w-full py-1 pl-10 text-gray-900 placeholder-gray-600 border border-gray-400 rounded-lg" placeholder="Address" onChange={handleAddressChange}></input>
+                        <input className="block w-full py-1 pl-10 text-gray-900 placeholder-gray-600 border border-gray-400 rounded" placeholder={hash(Math.random().toString()).substring(0, 32) + "..."} onChange={handleAddressChange}></input>
                     </div>
                 </div>
                 <div className="flex flex-col sm:items-center sm:justify-between sm:flex-row lg:flex-col lg:items-start">

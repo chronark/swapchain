@@ -81,9 +81,9 @@ export const Table = (props: Props) => {
             <div className="flex items-center justify-between">
                 <div className="flex items-center">
                     <h2 className="p-6 text-2xl text-gray-700">Orderbook</h2>
-                    <span className="px-2 text-sm text-gray-700 bg-gray-200 rounded-sm">{orders.length}</span>
+                    <span className="px-2 text-sm text-gray-700 bg-gray-200 rounded">{orders.length}</span>
                 </div>
-                <div className={` flex items-center px-4 py-2 mr-8 bg-yellow-100 rounded-sm transition duration-300 transform ease-in-out ${orders.length > 0 ? "opacity-0 translate-x-20" : "opacity-100"}`}>
+                <div className={` flex items-center px-4 py-2 mr-8 bg-yellow-100 rounded transition duration-300 transform ease-in-out ${orders.length > 0 ? "opacity-0 translate-x-20" : "opacity-100"}`}>
                     <Exclamation className="w-4 h-4 text-orange-700"></Exclamation>
                     <span className="ml-3 text-xs font-bold text-orange-900">
                         Looks like there is nothing here, try removing some filters.
