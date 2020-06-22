@@ -1,7 +1,8 @@
-import React from "react"
+import React, { useState } from "react"
 import { Order } from "./Orderbook"
 import { Row } from "./Row"
-
+import { ReactComponent as ChevronDown } from "../../icons/chevron-down.svg"
+import { ReactComponent as ChevronUp } from "../../icons/chevron-up.svg"
 
 type Props = {
     orders: Order[],
@@ -10,10 +11,35 @@ type Props = {
 
 
 export const Table = (props: Props) => {
-    const {orders, onRowClick} = props
+    const { orders, onRowClick } = props
+
+
+    const [sortedByDate, setSortedByDate] = useState(0)
+
+
+    const toggleSortByDate = () => {
+        switch (sortedByDate) {
+            case -1:
+                orders.reverse()
+                setSortedByDate(1)
+                break;
+            case 0:
+                orders.sort((a: Order, b: Order) => { return a.created.getTime() - b.created.getTime() })
+                setSortedByDate(1)
+                break;
+            case 1:
+                orders.reverse()
+                setSortedByDate(-1)
+                break;
+
+        }
+    }
+
+
+
     return (
         <div className="w-full bg-white ">
-             <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between">
                 <div className="flex items-center">
                     <h2 className="p-6 text-2xl text-gray-700">
                         Orderbook</h2>
@@ -24,12 +50,27 @@ export const Table = (props: Props) => {
             <table className="min-w-full table-auto">
                 <thead className="border-b border-gray-300">
                     <tr>
-                        
-                        {["Created", "Status", "Amount you pay", "Rate"].map(heading => {
-                            return (<th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-700 uppercase bg-white-100">
-                                {heading}
-                            </th>)
-                        })}
+
+                        < th className="flex px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-700 uppercase bg-white-100">
+                            <span>
+                                Created
+                                </span>
+                            {sortedByDate === 1 ?
+                                <ChevronUp onClick={toggleSortByDate} className="w-4 h-4 ml-1 text-gray-600 hover:text-gray-900"></ChevronUp>
+                                :
+                                <ChevronDown onClick={toggleSortByDate} className="w-4 h-4 ml-1 text-gray-600 hover:text-gray-900"></ChevronDown>
+                            }
+                        </th>
+                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-700 uppercase bg-white-100">
+                            Status
+                </th>
+                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-700 uppercase bg-white-100">
+                            Amount you pay
+            </th>
+                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-700 uppercase bg-white-100">
+                            Rate
+        </th>
+
                     </tr>
                 </thead>
                 <tbody className="bg-white">
@@ -41,6 +82,6 @@ export const Table = (props: Props) => {
                 </tbody>
             </table>
 
-        </div>
+        </div >
     )
 }
