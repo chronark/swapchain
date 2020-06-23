@@ -3,6 +3,7 @@ import { render } from '@testing-library/react'
 import  ACCS from './ACCS'
 import React from 'react'
  
+
 describe('StartingPage', () => {
 test('matches the mobile snapshot', () => {
     const { container: isTabletOrMobileDevice } = render(

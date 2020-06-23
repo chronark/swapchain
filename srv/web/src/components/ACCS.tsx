@@ -3,29 +3,6 @@ import logo from './assets/Logo_Swapchain_Bold_Subline.svg'
 import { useMediaQuery } from 'react-responsive'
 import { Project } from "./StartingPage";
 
- 
-/*
-export interface Props {
-  todo: Sample_values
-}
-
-export type Sample_values = {
-  text: string
-  completion:boolean
-}
-
-export const Todolist: React.FC<Props> = ( {todo} ) => {
-   return(
-     <li>
-       <label>
-         <input type="checkbox" checked ={todo.completion} />
-         {todo.text}
-       </label>
-     </li>
-   )
-
-}
-*/
 
 export function Home() {
     window.location.href = 'StartingPage.tsx';

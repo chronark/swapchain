@@ -1,8 +1,9 @@
 import { Context } from 'react-responsive'
-import { render, getByLabelText } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import StartingPage from './StartingPage'
 import React from 'react'
  
+
 describe('StartingPage', () => {
 test('matches the mobile snapshot', () => {
     const { container: isTabletOrMobileDevice } = render(
@@ -21,13 +22,5 @@ test('matches the mobile snapshot', () => {
     )
     expect(isDesktopOrLaptop).toMatchSnapshot()
   })
-
-  test('renders text', () => {
-    const { getByRole } = render(<StartingPage />)
-
-
-  }
-  
-  )
 
 })

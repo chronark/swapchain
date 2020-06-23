@@ -1,29 +1,7 @@
 import React from "react"
 import swapchain_gif from './assets/swapchain_gif.gif'
 import { useMediaQuery } from 'react-responsive'
- 
-/*
-export interface Props {
-  todo: Sample_values
-}
 
-export type Sample_values = {
-  text: string
-  completion:boolean
-}
-
-export const Todolist: React.FC<Props> = ( {todo} ) => {
-   return(
-     <li>
-       <label>
-         <input type="checkbox" checked ={todo.completion} />
-         {todo.text}
-       </label>
-     </li>
-   )
-
-}
-*/
 
 export function Orderbook() {
   window.location.href = 'Orderbook.tsx'
