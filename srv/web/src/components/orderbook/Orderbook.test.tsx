@@ -32,3 +32,4 @@ it("renders correctly", () => {
   const tree = renderer.create(<Orderbook orders={orders}></Orderbook>).toJSON()
   expect(tree).toMatchSnapshot()
 })
+ 
