@@ -24,3 +24,4 @@ test('matches the mobile snapshot', () => {
   })
 
 })
+
