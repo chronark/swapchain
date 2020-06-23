@@ -104,7 +104,7 @@ exports[`renders correctly if selected 1`] = `
         <span
           className="text-sm font-semibold"
         >
-          22 Jun 2020, 18:38
+          1 Jan 1970, 01:00
         </span>
       </div>
       <footer
@@ -225,7 +225,7 @@ exports[`renders correctly if selected 2`] = `
         <span
           className="text-sm font-semibold"
         >
-          22 Jun 2020, 18:38
+          1 Jan 1970, 01:00
         </span>
       </div>
       <footer
