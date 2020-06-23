@@ -14,3 +14,4 @@ export async function getFeesBTC(): Promise<number[]>{
  
     return feeEstimate.map((value)=> value * transactionSize)
     }
+    
