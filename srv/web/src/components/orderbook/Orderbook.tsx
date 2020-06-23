@@ -70,38 +70,8 @@ export const orderFactory = (count: number): Order[] => {
   }
 
   orders[0].addressHash = hash("helloamos")
-  orders[1].addressHash = hash("helloamos")
-  orders[2].addressHash = hash("helloamos")
 
   return orders
-}  
-    let orders: Order[] = []
-    for (let i = 0; i < count; i++) {
-        const value = Number((Math.random() / 1_000).toFixed(10));
-        const rng = Math.random()
-        const validUntil = new Date(new Date().getTime() + 86_400_000 * (Math.random() - 0.1) * 7)
-        orders.push({
-            selected: false,
-            addressHash: hash(Math.random().toString()),
-            created: new Date(),
-            validUntil,
-            status: (validUntil < new Date()) ? status.expired : (rng > 0.5) ? status.active : status.fulfilled,
-            give: {
-                asset: (rng > 0.5) ? "BTC" : "BTS",
-                value: value,
-            },
-            exchangeRate: rng + 0.5,
-            receive: {
-                asset: (rng > 0.5) ? "BTS" : "BTC",
-                value: value * (rng + 0.5),
-            }
-        })
-    }
-
-    orders[0].addressHash = hash("helloamos")
-
-
-    return orders
 }
 
 type Props = {
@@ -244,4 +214,3 @@ export default (props: Props) => {
     </div>
   )
 }
- 
