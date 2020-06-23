@@ -1,6 +1,7 @@
 import React from 'react';
 import {Row} from './Row';
 import renderer from 'react-test-renderer';
+import {Order} from "./Orderbook"
 jest.spyOn(Math, "random").mockImplementation(() => 1)
 jest.spyOn(Date, "now").mockImplementation(() => 0)
 it('renders correctly', () => {
