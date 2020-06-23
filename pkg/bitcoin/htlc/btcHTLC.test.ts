@@ -1,10 +1,14 @@
 import BitcoinHTLC from "./btcHTLC"
 import * as bitcoin from "bitcoinjs-lib"
 import { mocked } from "ts-jest/utils"
+
+import dotenv from "dotenv"
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 jest.mock("node-fetch", () => require("fetch-mock-jest").sandbox())
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fetchMock = require("node-fetch")
+dotenv.config()
+
 const toHex = jest.fn()
 jest.setTimeout(10000)
 const alice = bitcoin.ECPair.fromWIF("cU3CS1SGfFQ5FvCHTWyo7JEBjWWEAcqMM84JJwGnQg9Deugj8Skw", bitcoin.networks.testnet)
