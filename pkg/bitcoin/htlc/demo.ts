@@ -1,6 +1,6 @@
 import BitcoinHTLC from "./btcHTLC"
 import * as bitcoin from "bitcoinjs-lib"
-import { getSecret } from "../../../pkg/secret/secret"
+import { getSecret } from "../../secret/secret"
 
 const network = bitcoin.networks.testnet
 const secret = {
