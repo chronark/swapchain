@@ -1,0 +1,243 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly if selected 1`] = `
+<div
+  className=""
+>
+  <div
+    className="absolute inset-0 bg-gray-500 opacity-75"
+  />
+  <div
+    className="absolute inset-0 z-10 flex items-center justify-center"
+  >
+    <div
+      className="max-w-xs p-12 bg-white rounded sm:max-w-sm md:max-w-md lg:max-w-xl"
+    >
+      <header
+        className="flex flex-row-reverse"
+      >
+        <svg
+          className="w-8 h-8 text-gray-400 duration-200 ease-in-out hover:text-gray-800"
+          onClick={[Function]}
+        >
+          x.svg
+        </svg>
+      </header>
+      <div
+        className="flex flex-col items-center justify-around md:flex-row "
+      >
+        <div
+          className="flex flex-col mx-8 md:items-center"
+        >
+          <span
+            className="text-sm font-semibold text-gray-400"
+          >
+            BTC
+          </span>
+          <span
+            className="font-mono text-lg text-gray-700"
+          >
+            1.0000000000
+          </span>
+        </div>
+        <div
+          className="flex flex-col items-center justify-around font-mono text-gray-600 "
+        >
+          <svg
+            className="h-12 text-gray-400 md:hidden"
+          >
+            chevron-down.svg
+          </svg>
+          <div
+            className="flex flex-row items-center hidden md:block"
+          >
+            <div
+              className="flex items-center"
+            >
+              <span>
+                1.0000
+              </span>
+              <div
+                className="flex flex-col ml-1 text-xs tracking-tight text-gray-500"
+              >
+                <span>
+                  BTS
+                </span>
+                <div
+                  className="border-t border-gray-400 "
+                />
+                <span>
+                  BTC
+                </span>
+              </div>
+            </div>
+          </div>
+          <svg
+            className="hidden h-12 text-gray-400 md:block"
+          >
+            arrow-narrow-right.svg
+          </svg>
+        </div>
+        <div
+          className="flex flex-col mx-8 md:items-center"
+        >
+          <span
+            className="text-sm font-semibold text-gray-400"
+          >
+            BTS
+          </span>
+          <span
+            className="font-mono text-lg text-gray-700"
+          >
+            1.0000000000
+          </span>
+        </div>
+      </div>
+      <div
+        className="flex flex-col items-center mt-8 text-gray-500"
+      >
+        <span
+          className="text-xs"
+        >
+          Valid until:
+        </span>
+        <span
+          className="text-sm font-semibold"
+        >
+          IAmADate
+        </span>
+      </div>
+      <footer
+        className="flex items-center justify-around pt-12 mt-8 text-center border-t border-gray-300"
+      >
+        <span
+          className="py-2 px-4 uppercase font-semibold rounded bg-red-200 text-red-900"
+        >
+          label
+        </span>
+      </footer>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly if selected 2`] = `
+<div
+  className="hidden"
+>
+  <div
+    className="absolute inset-0 bg-gray-500 opacity-75"
+  />
+  <div
+    className="absolute inset-0 z-10 flex items-center justify-center"
+  >
+    <div
+      className="max-w-xs p-12 bg-white rounded sm:max-w-sm md:max-w-md lg:max-w-xl"
+    >
+      <header
+        className="flex flex-row-reverse"
+      >
+        <svg
+          className="w-8 h-8 text-gray-400 duration-200 ease-in-out hover:text-gray-800"
+          onClick={[Function]}
+        >
+          x.svg
+        </svg>
+      </header>
+      <div
+        className="flex flex-col items-center justify-around md:flex-row "
+      >
+        <div
+          className="flex flex-col mx-8 md:items-center"
+        >
+          <span
+            className="text-sm font-semibold text-gray-400"
+          >
+            BTC
+          </span>
+          <span
+            className="font-mono text-lg text-gray-700"
+          >
+            1.0000000000
+          </span>
+        </div>
+        <div
+          className="flex flex-col items-center justify-around font-mono text-gray-600 "
+        >
+          <svg
+            className="h-12 text-gray-400 md:hidden"
+          >
+            chevron-down.svg
+          </svg>
+          <div
+            className="flex flex-row items-center hidden md:block"
+          >
+            <div
+              className="flex items-center"
+            >
+              <span>
+                1.0000
+              </span>
+              <div
+                className="flex flex-col ml-1 text-xs tracking-tight text-gray-500"
+              >
+                <span>
+                  BTS
+                </span>
+                <div
+                  className="border-t border-gray-400 "
+                />
+                <span>
+                  BTC
+                </span>
+              </div>
+            </div>
+          </div>
+          <svg
+            className="hidden h-12 text-gray-400 md:block"
+          >
+            arrow-narrow-right.svg
+          </svg>
+        </div>
+        <div
+          className="flex flex-col mx-8 md:items-center"
+        >
+          <span
+            className="text-sm font-semibold text-gray-400"
+          >
+            BTS
+          </span>
+          <span
+            className="font-mono text-lg text-gray-700"
+          >
+            1.0000000000
+          </span>
+        </div>
+      </div>
+      <div
+        className="flex flex-col items-center mt-8 text-gray-500"
+      >
+        <span
+          className="text-xs"
+        >
+          Valid until:
+        </span>
+        <span
+          className="text-sm font-semibold"
+        >
+          IAmADate
+        </span>
+      </div>
+      <footer
+        className="flex items-center justify-around pt-12 mt-8 text-center border-t border-gray-300"
+      >
+        <span
+          className="py-2 px-4 uppercase font-semibold rounded bg-red-200 text-red-900"
+        >
+          label
+        </span>
+      </footer>
+    </div>
+  </div>
+</div>
+`;
