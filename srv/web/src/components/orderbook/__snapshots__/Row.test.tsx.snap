@@ -14,12 +14,12 @@ exports[`renders correctly 1`] = `
       <span
         className="text-gray-700"
       >
-        01:00:00
+        IAmADate
       </span>
       <span
         className="text-xs text-gray-500"
       >
-        1 Jan
+        IAmADate
       </span>
     </div>
   </td>

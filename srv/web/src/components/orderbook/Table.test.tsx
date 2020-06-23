@@ -4,14 +4,16 @@ import {Table} from "./Table"
 import renderer from 'react-test-renderer';
 
 jest.spyOn(Math, "random").mockImplementation(() => 1)
-jest.spyOn(Date, "now").mockImplementation(() => 0)
+jest.spyOn(Date.prototype, "toLocaleString").mockImplementation(() => "IAmADate")
+jest.spyOn(Date.prototype, "toLocaleTimeString").mockImplementation(() => "IAmADate")
+
 
 it('renders correctly', () => {
     const order: Order = {
         selected: true,
         addressHash: "asdf",
-        created: new Date(1),
-        validUntil: new Date(1),
+        created: new Date(),
+        validUntil: new Date(),
         status: { label: "label", color: "red" },
         give: {
             asset: "BTC",

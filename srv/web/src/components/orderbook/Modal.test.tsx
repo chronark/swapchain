@@ -2,15 +2,18 @@ import React from 'react';
 import Modal from './Modal';
 import renderer from 'react-test-renderer';
 import { Order } from './Orderbook';
-import { networkInterfaces } from 'os';
+
 
 jest.spyOn(Math, "random").mockImplementation(() => 1)
+jest.spyOn(Date.prototype, "toLocaleString").mockImplementation(() => "IAmADate")
+jest.spyOn(Date.prototype, "toLocaleTimeString").mockImplementation(() => "IAmADate")
+
 it('renders correctly if selected', () => {
     const order: Order = {
         selected: true,
         addressHash: "asdf",
-        created: new Date(1),
-        validUntil: new Date(1),
+        created: new Date(),
+        validUntil: new Date(),
         status: { label: "label", color: "red" },
         give: {
             asset: "BTC",
