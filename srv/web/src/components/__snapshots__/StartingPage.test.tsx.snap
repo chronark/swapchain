@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StartingPage matches the desktop snapshot 1`] = `
+<div>
+  <div />
+</div>
+`;
+
+exports[`StartingPage matches the mobile snapshot 1`] = `
+<div>
+  <div />
+</div>
+`;
