@@ -1,4 +1,4 @@
-import { getFeesBTC } from "./BTCtxfees"
+import { getFeesBTC } from "./btcTxFees"
 
 const useMock = jest.fn(() => {})
 
