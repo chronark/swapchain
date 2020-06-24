@@ -75,7 +75,6 @@ export const orderFactory = (count: number): Order[] => {
     }
 
     orders[0].addressHash = hash("helloamos")
-    orders[1].addressHash = hash("helloamos")
 
 
     return orders
