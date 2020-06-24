@@ -15,11 +15,11 @@ describe("mocking getFeesBTC()", () => {
 
 describe("Test without mocking getFeeBTC()", () => {
   test("compares the values of the Fee estimates provided by the API", async () => {
-    const value = await getFeesBTC()
-    expect(value.length).toBe(5)
-    expect(value[0]).toBeGreaterThanOrEqual(value[1])
-    expect(value[1]).toBeGreaterThanOrEqual(value[2])
-    expect(value[2]).toBeGreaterThanOrEqual(value[3])
-    expect(value[3]).toBeGreaterThanOrEqual(value[4])
+    const values = await getFeesBTC()
+    expect(values.length).toBe(5)
+    expect(values[0]).toBeGreaterThanOrEqual(values[1])
+    expect(values[1]).toBeGreaterThanOrEqual(values[2])
+    expect(values[2]).toBeGreaterThanOrEqual(values[3])
+    expect(values[3]).toBeGreaterThanOrEqual(values[4])
   })
 })

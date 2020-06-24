@@ -12,5 +12,5 @@ export async function getFeesBTC(): Promise<number[]> {
   // getting the specific indices for the different fee values
   const feeProposals = [array[0], array[5], array[11], array[17], array[23]]
 
-  return feeProposals.map((value) => value * transactionSize)
+  return feeProposals.map((values) => values * transactionSize)
 }
