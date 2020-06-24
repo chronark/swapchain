@@ -18,4 +18,5 @@ jobs:
           cd swapchain
           docker-compose -f build/docker-compose.yml down
           git pull
+          mv .env.example .env
           make -C ./build daemon
