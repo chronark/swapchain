@@ -1,8 +1,43 @@
 import * as bitcoin from "bitcoinjs-lib"
 import fetch from "node-fetch"
-import { Secret } from "../../../pkg/secret/secret"
 import { PsbtInput } from "bip174/src/lib/interfaces"
 import { witnessStackToScriptWitness } from "./witnessStack"
+import { Secret } from "../../../pkg/secret/secret"
+
+/**
+ * Contains all necessary information to create an HTLC on Bitcoin blockchain
+ *
+ * @interface HTLCConfigBTC
+ */
+interface HTLCConfigBTC {
+  /**
+   * The transaction id from the preceeding transaction.
+   *
+   * @memberof HTLCConfigBTC
+   */
+  transactionID: string
+
+  /**
+   * The amount of satoshi to exchange.
+   *
+   * @memberof HTLCConfigBTC
+   */
+  amount: number
+
+  /**
+   * How many blocks need to be mined before refund is possible.
+   *
+   * @memberof HTLCConfigBTC
+   */
+  sequence: number
+
+  /**
+   * SHA256 hash of the secret.
+   *
+   * @memberof HTLCConfigBTC
+   */
+  hash: Buffer
+}
 
 /**
  * This is a subset of a real transaction but we do not require the rest yet.
@@ -22,71 +57,87 @@ interface Transaction {
   }[]
 }
 
-/**
- * Handler to create HTLCs on the bitcoin blockchain.
- *
- * @param inputIndex
- * @param input
- * @param script
- * @param isSegwit
- * @param isP2SH
- * @param isP2WSH
- */
+export interface TransactionBlockstream {
+  txid: string
+  vin: {
+    txid: string
+    vout: number
+    prevout: {
+      scriptpubkey_address: string
+      value: number
+    }
+    witness: string[]
+  }[]
+  vout: {
+    scriptpubkey_type: string
+    scriptpubkey_address: string
+    value: number
+  }[]
+  status: {
+    block_height: number
+  }
+}
+
 export default class BitcoinHTLC {
-  private amount: number
-  private fee: number
   private network: bitcoin.Network
   private receiver: bitcoin.ECPairInterface
-  private secret: Secret
   private sender: bitcoin.ECPairInterface
-  private sequence: number
+  private fundingTxBlockHeight: number
+  private preimage: string
+  private amountAfterFees: number
+  private keepLooking: boolean
   /**
    * Creates an instance of BitcoinHTLC.
    *
    * @memberof BitcoinHTLC
-   * @param fee - The fee to leave behind on every transaction. In Satoshis.
    * @param network - mainnet, testnet, or regtest.
-   * @param secret - The secret to redeem the HTLC.
-   * @param sequence - How many blocks need to be mined before Alice can refund the time lock.
    * @param sender - Sender keypair.
    * @param receiver - Receiver keypair.
-   * @param amount - The amount of satoshi to exchange.
    */
   constructor(
-    fee = 1_000,
     network: bitcoin.Network = bitcoin.networks.testnet,
-    secret: Secret,
-    sequence: number,
     sender: bitcoin.ECPairInterface,
     receiver: bitcoin.ECPairInterface,
-    amount: number,
   ) {
-    this.fee = fee
     this.network = network
-    this.secret = secret
-    this.sequence = sequence
     this.sender = sender
     this.receiver = receiver
-    this.amount = amount
+    this.fundingTxBlockHeight = -1
+    this.preimage = ""
+    this.amountAfterFees = 0
+    this.keepLooking = true
+  }
+
+  public getFundingTxBlockHeight(): number {
+    return this.fundingTxBlockHeight
+  }
+
+  /**
+   * Stops looking for matching HTLC.
+   */
+  public stopLooking(): void {
+    this.keepLooking = false
   }
 
   /**
    * Create the redeem script in bitcoin's scripting language.
    *
    * @private
+   * @param hash - SHA256 hash of the secret.
+   * @param sequence - How many blocks need to be mined before refund is possible.
    * @returns  A bitcoin script.
    * @memberof BitcoinHTLC
    */
-  private redeemScript(): Buffer {
+  private redeemScript(hash: Buffer, sequence: number): Buffer {
     return bitcoin.script.compile([
       bitcoin.opcodes.OP_IF,
       bitcoin.opcodes.OP_SHA256,
-      this.secret.hash,
+      hash,
       bitcoin.opcodes.OP_EQUALVERIFY,
       this.receiver.publicKey,
       bitcoin.opcodes.OP_CHECKSIG,
       bitcoin.opcodes.OP_ELSE,
-      bitcoin.script.number.encode(this.sequence),
+      bitcoin.script.number.encode(sequence),
       bitcoin.opcodes.OP_CHECKSEQUENCEVERIFY,
       bitcoin.opcodes.OP_DROP,
       this.sender.publicKey,
@@ -181,7 +232,7 @@ export default class BitcoinHTLC {
         output: script,
         input: bitcoin.script.compile([
           input.partialSig![0].signature,
-          Buffer.from(this.secret.preimage),
+          Buffer.from(this.preimage),
           bitcoin.opcodes.OP_TRUE,
         ]),
       },
@@ -215,12 +266,13 @@ export default class BitcoinHTLC {
    * The output of the transaction must not be spent yet.
    *
    * @private
-   * @param address - Same as publicKey.
+   * @param address - A public key hash address.
    * @param transactionID - The unique identifier for a transaction.
    * @returns The current confirmed balance.
+   * @memberof BitcoinHTLC
    */
   private async getBalance(address: string, transactionID: string): Promise<number> {
-    const tx = await this.getTransaction(transactionID)
+    const tx = await this.getTransactionByID(transactionID)
 
     return tx.outputs.filter((output) => {
       return output.addresses[0] === address
@@ -230,14 +282,16 @@ export default class BitcoinHTLC {
   /**
    * Calculate the p2wsh to send our money to before creating the timelock refund operation.
    *
-   * @private
+   * @public
+   * @param hash - SHA256 hash of the secret.
+   * @param sequence - How many blocks need to be mined before refund is possible.
    * @returns The pay-to-scripthash object.
    * @memberof BitcoinHTLC
    */
-  private getP2WSH(): bitcoin.Payment {
+  public getP2WSH(hash: Buffer, sequence: number): bitcoin.Payment {
     return bitcoin.payments.p2wsh({
       redeem: {
-        output: this.redeemScript(),
+        output: this.redeemScript(hash, sequence),
       },
       network: this.network,
     })
@@ -249,25 +303,40 @@ export default class BitcoinHTLC {
    * @private
    * @param p2wsh - Pay-to-witness-script-hash object.
    * @param transactionID - A Transaction id with unspent funds.
+   * @param amount - The amount of satoshi to exchange.
    * @returns The hex-coded transaction. This needs to be pushed to the chain using `this.pushTX`
    * @memberof BitcoinHTLC
    */
-  private async sendToP2WSHAddress(p2wsh: bitcoin.Payment, transactionID: string): Promise<string> {
+  private async sendToP2WSHAddress(p2wsh: bitcoin.Payment, transactionID: string, amount: number): Promise<string> {
     const p2wpkFromSender = this.getWitnessPublicKeyHash(this.sender)
     const balance = await this.getBalance(p2wpkFromSender.address!, transactionID)
-    const amountToKeep = balance - this.amount - this.fee
+    const amountToKeep = balance - amount
 
-    const outputs = [
-      {
-        address: p2wpkFromSender.address!,
-        value: amountToKeep,
-      },
-      {
-        address: p2wsh.address!,
-        value: this.amount,
-      },
-    ]
+    // If output of the transaction ID given does not have sufficient balance
+    if (amountToKeep < 0) {
+      return ""
+    }
 
+    this.amountAfterFees = amount - 200 // TODO: Add option for higher and lower fees
+
+    const outputs =
+      amountToKeep > 0
+        ? [
+            {
+              address: p2wpkFromSender.address!,
+              value: amountToKeep,
+            },
+            {
+              address: p2wsh.address!,
+              value: this.amountAfterFees,
+            },
+          ]
+        : [
+            {
+              address: p2wsh.address!,
+              value: this.amountAfterFees,
+            },
+          ]
     const { vout, witnessUtxo } = await this.getWitnessUtxo(transactionID, p2wpkFromSender)
 
     const psbt = new bitcoin.Psbt({ network: this.network })
@@ -305,17 +374,55 @@ export default class BitcoinHTLC {
   }
 
   /**
-   * Fetch a transaction from public api.
+   * Fetch a transaction by its id from public api.
    *
    * @private
    * @param transactionID - Unique hash identifier for a transaction.
    * @returns Transaction object.
    * @memberof BitcoinHTLC
    */
-  private async getTransaction(transactionID: string): Promise<Transaction> {
-    return fetch(`https://api.blockcypher.com/v1/btc/test3/txs/${transactionID}?limit=50&includeHex=true`).then((res) =>
-      res.json(),
-    )
+  private async getTransactionByID(transactionID: string): Promise<Transaction> {
+    return fetch(
+      `https://api.blockcypher.com/v1/btc/test3/txs/${transactionID}?limit=50&includeHex=true&token=43d0d9427875480da8ada45851bf0da6`,
+    ).then((res) => res.json())
+  }
+
+  /**
+   * Fetch a transaction by its address from public api.
+   *
+   * @param address - The address to look for transactions for.
+   * @param out - A flag to look for transactions were the address is in the output (if set to true) or input (if set to false).
+   * @returns TransactionBlockstream object.
+   * @memberof BitcoinHTLC
+   */
+  public async getTransactionByAddress(address: string, out: boolean): Promise<TransactionBlockstream> {
+    let tx = []
+
+    while (this.keepLooking && tx.length < 1) {
+      const txs = await fetch(`https://blockstream.info/testnet/api/address/${address}/txs`).then((res) => res.json())
+
+      /* eslint-disable @typescript-eslint/no-explicit-any */
+      tx = txs.filter((element: any) => {
+        if (out) {
+          return (
+            element.vout.filter((subElement: any) => {
+              return subElement.scriptpubkey_address === address
+            }).length > 0
+          )
+        } else {
+          return (
+            element.vin.filter((subElement: any) => {
+              return subElement.prevout.scriptpubkey_address === address
+            }).length > 0
+          )
+        }
+      })
+      /* eslint-enable @typescript-eslint/no-explicit-any */
+
+      await new Promise((resolve) => setTimeout(resolve, 5000)) // TODO: Set appropriate Timer
+    }
+    // If there are multiple transactions, return the latest
+    return tx[0]
   }
 
   /**
@@ -331,7 +438,7 @@ export default class BitcoinHTLC {
     transactionID: string,
     target: bitcoin.payments.Payment,
   ): Promise<{ vout: number; witnessUtxo: { script: Buffer; value: number } }> {
-    const tx = await this.getTransaction(transactionID)
+    const tx = await this.getTransactionByID(transactionID)
     let vout = -1
     for (let i = 0; i < tx.outputs.length; i++) {
       if (tx.outputs[i].addresses.includes(target.address!)) {
@@ -356,54 +463,105 @@ export default class BitcoinHTLC {
   }
 
   /**
-   * Creates an HTLC.
+   * Redeems an HTLC.
    *
-   * @param  transactionID - The transaction id from the preceeding transaction.
-   * @returns Hex-coded transaction to be published to the chain.
+   * @param p2wsh - The Pay-to-witness-script-hash object to redeem.
+   * @param secret - The secret object with the correct preimage inside.
+   * @returns A status code. Can be used for user feedback.
    * @memberof BitcoinHTLC
    */
-  public async create(transactionID: string): Promise<void> {
-    const p2wsh = this.getP2WSH()
+  public async redeem(p2wsh: bitcoin.Payment, secret: Secret): Promise<number> {
+    // Save preimage as attribute to inject it into the getFinalScriptsRedeem method
+    this.preimage = secret.preimage!
+
+    const tx = await this.getTransactionByAddress(p2wsh.address!, true)
+
+    // The HTLC output is always the only or the second array entry
+    const amount = tx.vout.length > 1 ? tx.vout[1].value : tx.vout[0].value
+
+    // TODO: Check if amount is enough!
+    this.amountAfterFees = amount - 200
+    const redeemHex = await this.getRedeemHex(tx.txid, p2wsh)
+    const redeemTransaction = await this.pushTX(redeemHex)
+
+    if (!redeemTransaction) {
+      console.log("Hex for redeem transaction: " + redeemHex)
+      // Error pushing redeemHex to endpoint.
+      return 1
+    }
+
+    return 0
+  }
+
+  /**
+   * Creates an HTLC.
+   *
+   * @param config - Configuration object for the HTLC.
+   * @returns A status code. Can be used for user feedback.
+   * @memberof BitcoinHTLC
+   */
+  public async create(config: HTLCConfigBTC): Promise<number> {
+    const { transactionID, amount, sequence, hash } = config
+
+    const p2wsh = this.getP2WSH(hash, sequence)
 
     // Funding
-    const p2wpkHex = await this.sendToP2WSHAddress(p2wsh, transactionID)
+    const p2wpkHex = await this.sendToP2WSHAddress(p2wsh, transactionID, amount)
+
+    if (!p2wpkHex) {
+      // The output of the transaction ID given does not have sufficient balance.
+      return 1
+    }
     const fundingTransactionID = await this.pushTX(p2wpkHex)
+
+    if (!fundingTransactionID) {
+      // Error during pushing funding transaction.
+      return 2
+    }
 
     // Wait for the transaction to be broadcasted
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
-    // Redeeming
-    // const redeemHex = await this.getRedeemHex(fundingTransactionID, p2wsh)
-    const redeemTransaction = "" // await this.pushTX(redeemHex)
-
-    // No reason to create a refund transaction if bob already redeemed the funds
-    if (redeemTransaction.length > 0) {
-      return
-    }
+    // Substract second fee
+    this.amountAfterFees = this.amountAfterFees - 200 // TODO: Add fee option
 
     // Refunding
-    const refundHex = await this.getRefundHex(fundingTransactionID, p2wsh)
-    const blockHeight = (await this.getTransaction(fundingTransactionID)).block_height
+    const refundHex = await this.getRefundHex(fundingTransactionID, sequence, p2wsh)
+    console.log("refundHex: " + refundHex)
 
-    const payload = { hex: refundHex, validAfterBlockHeight: blockHeight + this.sequence }
+    while (this.fundingTxBlockHeight === -1) {
+      this.fundingTxBlockHeight = (await this.getTransactionByID(fundingTransactionID)).block_height
+      await new Promise((resolve) => setTimeout(resolve, 10_000))
+    }
+    /*
+    const payload = { hex: refundHex, validAfterBlockHeight: this.fundingTxBlockHeight + sequence }
     const res = await fetch("http://localhost:13000", { method: "POST", body: JSON.stringify(payload) }).then((res) =>
       res.json(),
     )
 
     if (!res.success) {
-      console.error("Error posting refundHex to database.")
       console.log("Hex for refund transaction: " + refundHex)
-      // TODO: Notify user in UI
+      // Error posting refundHex to database.
+      return 3
     }
+    */
+    return 0 // res.success
   }
 
   /**
    * Refunds the HTLC to sender.
    *
    * @param transactionID - The transaction id from the funding transaction.
+   * @param sequence - The timelock as number of blocks.
    * @param p2wsh - Pay-to-witness-script-hash object.
+   * @returns A refund hex.
+   * @memberof BitcoinHTLC
    */
-  private async getRefundHex(transactionID: string, p2wsh: bitcoin.payments.Payment): Promise<string> {
+  private async getRefundHex(
+    transactionID: string,
+    sequence: number,
+    p2wsh: bitcoin.payments.Payment,
+  ): Promise<string> {
     const { vout, witnessUtxo } = await this.getWitnessUtxo(transactionID, p2wsh)
 
     const psbt = new bitcoin.Psbt({ network: this.network })
@@ -411,13 +569,13 @@ export default class BitcoinHTLC {
       .addInput({
         hash: transactionID,
         index: vout,
-        sequence: this.sequence,
+        sequence: sequence,
         witnessUtxo,
         witnessScript: p2wsh.redeem!.output!,
       })
       .addOutput({
         address: this.getWitnessPublicKeyHash(this.sender).address!,
-        value: this.amount - this.fee,
+        value: this.amountAfterFees,
       })
       .signInput(0, this.sender)
       .finalizeInput(0, this.getFinalScriptsRefund)
@@ -430,6 +588,8 @@ export default class BitcoinHTLC {
    *
    * @param transactionID - The transaction id from the funding transaction.
    * @param p2wsh - Pay-to-witness-script-hash object.
+   * @returns A redeem hex.
+   * @memberof BitcoinHTLC
    */
   private async getRedeemHex(transactionID: string, p2wsh: bitcoin.payments.Payment): Promise<string> {
     const { vout, witnessUtxo } = await this.getWitnessUtxo(transactionID, p2wsh)
@@ -444,7 +604,7 @@ export default class BitcoinHTLC {
       })
       .addOutput({
         address: this.getWitnessPublicKeyHash(this.receiver).address!,
-        value: this.amount - this.fee,
+        value: this.amountAfterFees,
       })
       .signInput(0, this.receiver)
       .finalizeInput(0, this.getFinalScriptsRedeem)
