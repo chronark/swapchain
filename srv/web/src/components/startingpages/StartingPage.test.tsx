@@ -28,3 +28,4 @@ const tree = renderer
 .toJSON();
 expect(tree).toMatchSnapshot();
 })
+
