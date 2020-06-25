@@ -1,5 +1,6 @@
 import fetch from "node-fetch"
 import { BitcoinAPI } from "../../types/bitcoinApi"
+import axios from "axios"
 
 export default class BlockStream {
   // implements BitcoinAPI {
@@ -10,8 +11,8 @@ export default class BlockStream {
   }
 
   public async getLastBlock(): Promise<{ height: number; timestamp: number }> {
-    const hash = await fetch(this.baseURL + "/blocks/tip/hash").then((res) => res.body)
-    const block = await fetch(this.baseURL + "/block/" + hash).then((res) => res.json())
+    const hash = await axios.get(this.baseURL + "/blocks/tip/hash")
+    const block = await axios.get(this.baseURL + "/block/" + hash).then((res) => res.data)
 
     return { height: block.height, timestamp: block.timestamp }
   }
