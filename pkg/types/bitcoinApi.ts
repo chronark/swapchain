@@ -43,9 +43,8 @@ export interface BitcoinAPI {
 
   /**
    * Pushes a transaction hex to the blockchain.
-   * Returns
-   *  - the transactionID on success.
-   *  - empty string on error and sets the err to be handled by the caller.
+   * Returns the transactionID on success.
+   * Throws on failure
    */
-  pushTX: (transactionHex: string) => Promise<{ txID: string; err: Error }>
+  pushTX: (transactionHex: string) => Promise<string>
 }

@@ -3,6 +3,7 @@ import fetch from "node-fetch"
 import { Secret } from "../../secret/secret"
 import { PsbtInput } from "bip174/src/lib/interfaces"
 import { witnessStackToScriptWitness } from "./witnessStack"
+import { BitcoinAPI } from "../../types/bitcoinApi"
 
 /**
  * This is a subset of a real transaction but we do not require the rest yet.
