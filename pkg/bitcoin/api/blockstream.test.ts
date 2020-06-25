@@ -156,6 +156,29 @@ describe("getAmountFromLastTransaction()", () => {
       out: false,
       want: { amount: 5, txID: "inTXID" },
     },
+     {
+      name: "input from multiple transactions",
+      data: {
+        vin: [
+          {
+            txid: "inTXID",
+            prevout: {
+              scriptpubkey_address: address,
+              value: 5,
+            },
+          },
+          {
+            txid: "inTXID2",
+            prevout: {
+              scriptpubkey_address: "OTHER ADDRESS",
+              value: 55,
+            },
+          },
+        ],
+      },
+      out: false,
+      want: { amount: 5, txID: "inTXID" },
+    },
   ]
   /* eslint-enable @typescript-eslint/camelcase */
 
@@ -169,4 +192,11 @@ describe("getAmountFromLastTransaction()", () => {
       expect(mockedAxios).toHaveBeenCalledWith(`https://blockstream.info/api/address/${address}/txs`)
     })
   })
+
+  it("should throw an error if the API does not return a status 200", async () => {
+    const mockedAxios = jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve({ status: 400, data: "error message" }))
+    await expect(blockstream.getAmountFromLastTransaction("ADDRESS1", true)).rejects.toThrow()
+    await expect(blockstream.getAmountFromLastTransaction("ADDRESS2", false)).rejects.toThrow()
+  })
 })
+
