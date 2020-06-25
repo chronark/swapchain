@@ -1,0 +1,53 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-datepicker": "^3.0.1",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-responsive": "^8.0.2",
+    "bitcoinjs-lib": "^5.1.10",
+    "react": "^16.13.1",
+    "react-datepicker": "^3.0.0",
+    "react-dom": "^16.13.1",
+    "react-responsive": "^8.1.0",
+    "react-scripts": "3.4.1",
+    "typescript": "~3.7.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "CI=true react-scripts test --coverage --color",
+    "eject": "react-scripts eject",
+    "build:css": "tailwind build src/tailwind.css -c tailwind.config.js -o src/index.css",
+    "test:nowatch": "CI=true react-scripts test"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.38",
+    "@types/react-datepicker": "^3.0.1",
+    "@types/react-test-renderer": "^16.9.2",
+    "react-test-renderer": "^16.13.1",
+    "tailwindcss": "^1.4.6"
+  }
+}
