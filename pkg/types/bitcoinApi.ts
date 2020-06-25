@@ -22,14 +22,6 @@ export interface BitcoinAPI {
    */
   getTimestampAtHeight: (n: number) => Promise<number>
 
-  // TODO: Do we need this?
-  /**
-   * Return the transaction details.
-   * Used to get
-   * //TODO: Talk this through with Nico.
-   */
-  getTransaction: (transactionID: string) => Promise<{}>
-
   /**
    * Pushes a transaction hex to the blockchain.
    * Returns the transactionID on success.
@@ -45,7 +37,7 @@ export interface BitcoinAPI {
    * @param out - Search for an incoming or outgoing transaction.
    * @returns Amount of the transaction and its ID.
    */
-  getAmountFromLastTransaction: (address: string, out: boolean) => Promise<{ amount: number; txID: string }>
+  getValueFromLastTransaction: (address: string, out: boolean) => Promise<{ amount: number; txID: string }>
 
   /**
    * Return the vout and value of the transaction.
