@@ -3,16 +3,16 @@ import { Secret, getSecret } from "../../pkg/secret/secret"
 import fetch from "node-fetch"
 import * as bitcoin from "bitcoinjs-lib"
 import { Apis as btsWebsocketApi } from "bitsharesjs-ws"
-import BitcoinHTLC, { TransactionBlockstream } from "../bitcoin/htlc/btcHTLC"
+import BitcoinHTLC, { TransactionBlockstream } from "../../pkg/bitcoin/htlc/btcHTLC"
 import figlet from "figlet"
-import BitsharesHTLC from "../bitshares/htlc/btsHTLC"
+import BitsharesHTLC from "../../pkg/bitshares/htlc/btsHTLC"
 
 /**
  * Contains all necessary information to run an ACCS.
  *
  * @interface ACCSConfig
  */
-interface ACCSConfig {
+export interface ACCSConfig {
   txMode: string
   txType: string
   txTypeName: string
@@ -76,13 +76,23 @@ export default class ACCS {
   }
 
   /**
-   * Gets user input from stdin and stores everything in the config object.
+   * Gets input from stdin
+   * 
+   * @param str - A question to ask the user.
+   * @returns answer from the user
+   * @memberof ACCS
+   */
+  public async askUser(str: string): Promise<string> {
+    return new Promise((resolve) => this.read.question("\u001b[36;1m" + str + "\u001b[0m", resolve))
+  }
+
+  /**
+   * Gets user input and stores everything in the config object.
    *
    * @returns ACCSConfig object.
    * @memberof ACCS
    */
   public async getUserInput(): Promise<ACCSConfig> {
-    const question = (str: string): Promise<string> => new Promise((resolve) => this.read.question("\u001b[36;1m" + str + "\u001b[0m", resolve))
 
     const accsConfig = {} as ACCSConfig
 
@@ -101,34 +111,34 @@ export default class ACCS {
     console.log("")
 
     // Start getting user input
-    accsConfig.txMode = (await question("Are you Proposer or Taker? (Proposer/Taker): ")).toLowerCase()
+    accsConfig.txMode = (await this.askUser("Are you Proposer or Taker? (Proposer/Taker): ")).toLowerCase()
     if (accsConfig.txMode !== "proposer" && accsConfig.txMode !== "taker") {
       this.errorHandler("Invalid mode.")
     }
 
-    accsConfig.txType = await question("Would you like to get (1) BTS for BTC or (2) BTC for BTS? (1/2): ")
+    accsConfig.txType = await this.askUser("Would you like to get (1) BTS for BTC or (2) BTC for BTS? (1/2): ")
     if (accsConfig.txType !== "1" && accsConfig.txType !== "2") {
       this.errorHandler("Invalid type.")
     }
     accsConfig.txTypeName = accsConfig.txType === "1" ? "BTS/BTC" : "BTC/BTS"
     // TODO: "Manual mode or ID from order book?" -> Connection to backend
 
-    accsConfig.accountBTS = await question("Please enter your Bitshares account name: ")
+    accsConfig.accountBTS = await this.askUser("Please enter your Bitshares account name: ")
 
-    accsConfig.privateKeyBTS = await question(
+    accsConfig.privateKeyBTS = await this.askUser(
       "Please enter your private key (WIF format) associated with the given Bitshares account: ",
     )
 
-    const privateKeyBTC = await question("Please enter your Bitcoin private key (WIF format): ")
+    const privateKeyBTC = await this.askUser("Please enter your Bitcoin private key (WIF format): ")
 
-    accsConfig.accountCounterpartyBTS = await question("Please enter the Bitshares account name of the counterparty: ")
+    accsConfig.accountCounterpartyBTS = await this.askUser("Please enter the Bitshares account name of the counterparty: ")
 
-    const publicKeyCounterpartyBTC = await question("Please enter the Bitcoin public key of the counterparty: ")
+    const publicKeyCounterpartyBTC = await this.askUser("Please enter the Bitcoin public key of the counterparty: ")
     if (!(publicKeyCounterpartyBTC.length === 66 || publicKeyCounterpartyBTC.length === 130)) {
       this.errorHandler("Invalid Bitcoin public key.")
     }
 
-    accsConfig.amount = await question(
+    accsConfig.amount = await this.askUser(
       `Please enter the amount of ${accsConfig.txTypeName.slice(-3)} you want to exchange: `,
     )
 
@@ -186,7 +196,7 @@ export default class ACCS {
       console.log(`Please pass this secret hash to the counterparty: ${accsConfig.secret.hash.toString("hex")}`)
     } else {
       // Get secret hash
-      const hashString = await question("Please enter the secret hash you received from the proposer: ")
+      const hashString = await this.askUser("Please enter the secret hash you received from the proposer: ")
       // SHA256 hash length must be 64
       if (hashString.length !== 64) {
         this.errorHandler("Invalid secret hash length.")
@@ -205,7 +215,7 @@ export default class ACCS {
       console.log(
         `Please make sure that your Bitcoin p2wpkh address "${p2wpkhSender.address}" is sufficiently covered!`,
       )
-      accsConfig.txIdBTC = await question(
+      accsConfig.txIdBTC = await this.askUser(
         "Please enter the Bitcoin p2wpkh address' transaction ID which should be spent: ",
       )
       // TODO: Errorhandling for missing transaction (now: getWitnessUtxo fails with "length of undefined")
