@@ -1,6 +1,6 @@
 import * as bitcoin from "bitcoinjs-lib"
 import fetch from "node-fetch"
-import { Secret } from "../../../pkg/secret/secret"
+import { Secret } from "../../secret/secret"
 import { PsbtInput } from "bip174/src/lib/interfaces"
 import { witnessStackToScriptWitness } from "./witnessStack"
 

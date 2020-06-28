@@ -1,7 +1,7 @@
 import { Apis as btsWebsocketApi } from "bitsharesjs-ws"
 import { ChainStore, FetchChain, TransactionBuilder, PrivateKey } from "bitsharesjs"
-import { Secret } from "../../../pkg/secret/secret"
-import { HTLCConfig, HTLCCreator } from "../../../pkg/types/htlc"
+import { Secret } from "../../secret/secret"
+import { HTLCConfig, HTLCCreator } from "../../types/htlc"
 
 /**
  * Handler to create HTLCs on the bitshares blockchain using a specified node.
