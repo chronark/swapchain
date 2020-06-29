@@ -3,6 +3,7 @@ import fetch from "node-fetch"
 import { PsbtInput } from "bip174/src/lib/interfaces"
 import { witnessStackToScriptWitness } from "./witnessStack"
 import { Secret } from "../../../pkg/secret/secret"
+import { BitcoinAPI } from "../../types/bitcoinApi"
 
 /**
  * Contains all necessary information to create an HTLC on Bitcoin blockchain

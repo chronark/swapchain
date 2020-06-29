@@ -91,7 +91,7 @@ export default (props: Props) => {
   const [visibleOrders, setVisibleOrders] = useState(orders)
 
   const [startDate, setStartDate] = useState(new Date("2020/06/17"))
-  const [endDate, setEndDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date("2020/07/17"))
 
   useEffect(() => {
     // Create new list to filter in the following steps
