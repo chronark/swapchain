@@ -29,7 +29,6 @@ export interface BitcoinAPI {
    */
   pushTX: (transactionHex: string) => Promise<string>
 
-  // TODO: check for logic [ in <-> out ]
   /**
    * Returns either the last incoming transaction or outgoing transaction of an address.
    *
@@ -37,13 +36,14 @@ export interface BitcoinAPI {
    * @param out - Search for an incoming or outgoing transaction.
    * @returns Amount of the transaction and its ID.
    */
-  getValueFromLastTransaction: (address: string, out: boolean) => Promise<{ amount: number; txID: string }>
+  getValueFromLastTransaction: (address: string, out: boolean) => Promise<{ value: number; txID: string }>
 
   /**
    * Return the vout and value of the transaction.
    *
    * @param transactionID - ID of any bitcoin transaction.
+   * @param address - The address to look for.
    * @returns vout and value
    */
-  getOutput: (transactionID: string) => Promise<{ vout: number; value: number }>
+  getOutput: (transactionID: string, address: string) => Promise<{ vout: number; value: number }>
 }

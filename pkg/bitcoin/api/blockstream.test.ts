@@ -202,7 +202,6 @@ describe("getValueFromLastTransaction()", () => {
 })
 
 
-
 describe("getOutput()", () => {
   const address = "ADDRESS"
 
@@ -212,13 +211,15 @@ describe("getOutput()", () => {
       name: "a single output",
       txID: "ID1",
       data: {
-        txid: "outTXID2",
-        scriptpubkey_address: address,
-        value: 111111111,
+        vout: [{
+          txid: "outTXID2",
+          scriptpubkey_address: address,
+          value: 111111111,
+        }],
       },
       want: {
-        vout: 1,
-        value: 1,
+        vout: 0,
+        value: 111111111,
       },
     },
     {
@@ -240,22 +241,30 @@ describe("getOutput()", () => {
       },
       want: {
         vout: 1,
-        value: 1,
+        value: 111111111,
       },
     },
   ]
   /* eslint-enable @typescript-eslint/camelcase */
 
   testCases.forEach((tc) => {
-    //   it.skip(`should return amount and vout index from a transaction with ${tc.name}`, async () => {
-    //     const mockedAxios = jest.spyOn(axios, "get").mockImplementationOnce(() => Promise.resolve({ data: tc.data }))
-    //     const {vout, value} = await blockstream.getOutput(tc.txID)
+    it(`should return amount and vout index from a transaction with ${tc.name}`, async () => {
+      const mockedAxios = jest.spyOn(axios, "get").mockImplementationOnce(() => Promise.resolve({ data: tc.data, status: 200 }))
+      const { vout, value } = await blockstream.getOutput(tc.txID, address)
 
-    //     expect(vout).toBe(tc.want.vout)
-    //     expect(value).toBe(tc.want.value)
+      expect(vout).toBe(tc.want.vout)
+      expect(value).toBe(tc.want.value)
 
-    //     // expect(mockedAxios).toHaveBeenCalledTimes(1)
-    //     // expect(mockedAxios).toHaveBeenCalledWith(`https://blockstream.info/api/address/${address}/txs`)
-    //   })
+      expect(mockedAxios).toHaveBeenCalledTimes(1)
+      expect(mockedAxios).toHaveBeenCalledWith(`https://blockstream.info/api/tx/${tc.txID}`)
+    })
+  })
+  it("should throw an error if the API does not return a status 200", async () => {
+    const mockedAxios = jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve({ status: 400, data: "Invalid hex string" }))
+    await expect(blockstream.getOutput("testTxID", "BADADDRESS")).rejects.toThrow()
+  })
+  it("should throw an error if no matching output is found", async () => {
+    const mockedAxios = jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve({ status: 200, data: {vout: []} }))
+    await expect(blockstream.getOutput("testTxID", "BADADDRESS")).rejects.toThrow()
   })
 })
