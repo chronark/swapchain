@@ -4,9 +4,18 @@ import { ChainConfig } from "bitsharesjs-ws"
 import crypto from "crypto-random-string"
 
 /**
- * An interface for a privatekey/address pair
+ * An interface for a Bitcoin key/address pair
  */
-export interface Address {
+export interface BTCAddress {
+  privateKey: string
+  publicKey: string
+  address: string
+}
+
+/**
+ * An interface for a Bitshares privatekey/address pair
+ */
+export interface BTSAddress {
   privateKey: string
   address: string
 }
@@ -14,10 +23,10 @@ export interface Address {
 /**
  * A function for generating a random Bitcoin address with its corresponding private key
  *
- * @param network A string with the requested network type
- * @returns A BTCAddress interface with a privatekey/address pair
+ * @param network - A string with the requested network type.
+ * @returns A BTCAddress interface with a privatekey/address pair.
  */
-export function getBTCAddress(network: string): Address {
+export function getBTCAddress(network: string): BTCAddress {
   const net = (network: string): bitcoin.Network => {
     switch (network) {
       case "mainnet":
@@ -31,7 +40,6 @@ export function getBTCAddress(network: string): Address {
     }
   }
   const keyPair = bitcoin.ECPair.makeRandom({ network: net(network), compressed: true })
-
   const privateKey = keyPair.toWIF()
   const address = bitcoin.payments.p2wpkh({ pubkey: keyPair.publicKey, network: net(network) }).address
 
@@ -41,6 +49,7 @@ export function getBTCAddress(network: string): Address {
 
   return {
     privateKey,
+    publicKey: keyPair.publicKey.toString("hex"),
     address,
   }
 }
@@ -48,10 +57,10 @@ export function getBTCAddress(network: string): Address {
 /**
  * A function for generating a random Bitshares address (PublicKey) with its corresponding private key
  *
- * @returns An Address interface with a private key and address
- * @param network
+ * @param network - A string with the requested network type.
+ * @returns An Address interface with a private key and address.
  */
-export function getBTSAddress(network: string): Address {
+export function getBTSAddress(network: string): BTSAddress {
   if (network === "mainnet") {
     ChainConfig.setChainId("4018d7844c78f6a6c41c6a552b898022310fc5dec06da467ee7905a8dad512c8")
   } else if (network === "testnet") {
