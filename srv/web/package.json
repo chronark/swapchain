@@ -23,9 +23,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "CI=true react-scripts test --coverage --color",
     "eject": "react-scripts eject",
-    "build:css": "tailwind build src/tailwind.css -c tailwind.config.js -o src/index.css"
+    "build:css": "tailwind build src/tailwind.css -c tailwind.config.js -o src/index.css",
+    "test:nowatch": "CI=true react-scripts test"
   },
   "eslintConfig": {
     "extends": "react-app"
