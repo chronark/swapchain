@@ -40,7 +40,7 @@ beforeAll(async () => {
   })
 })
 
- it("compares the values of the Fee estimates provided by the API", async () => {
+ it("calculates the correct values of the fee estimates", async () => {
   const values = await getFeesBTC()
   expect(values.length).toBe(5)
   expect(values[0]).toBe(36.071 * 250)
