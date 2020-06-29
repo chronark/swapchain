@@ -1,3 +1,12 @@
+
+
+export interface BitcoinAPIConstructor {
+  /**
+   * Creates an instance of BitcoinAPI.
+   */
+  new(network: string): BitcoinAPI
+}
+
 /**
  * This interface defines the data required for the HTLC creation on the bitcoin blockchain.
  * You are welcome to implement this yourself and pass it to the HTLC class.
