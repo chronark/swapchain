@@ -1,5 +1,3 @@
-import { Payment } from "bitcoinjs-lib/types/payments"
-
 /**
  * This interface defines the data required for the HTLC creation on the bitcoin blockchain.
  * You are welcome to implement this yourself and pass it to the HTLC class.
