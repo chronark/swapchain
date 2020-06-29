@@ -3,6 +3,7 @@ import * as bitcoin from "bitcoinjs-lib"
 import { mocked } from "ts-jest/utils"
 
 import dotenv from "dotenv"
+import BlockStream from "../api/blockstream"
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 jest.mock("node-fetch", () => require("fetch-mock-jest").sandbox())
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -125,10 +126,16 @@ testCases.forEach((tc) => {
       { overwriteRoutes: true },
     )
 
-    const htlc = new BitcoinHTLC(1_000, bitcoin.networks.testnet, secret, 1, aliceCompressed, bobCompressed, 99_000)
+    const htlc = new BitcoinHTLC("testnet", aliceCompressed, bobCompressed, BlockStream)
 
-    const transactionID = "4a2d7af13070119a0b8a36082df0a03c17e60059250598b100260b0a6949a9ee"
-    await htlc.create(transactionID)
+    const htlcConfig = {
+      transactionID: "4a2d7af13070119a0b8a36082df0a03c17e60059250598b100260b0a6949a9ee",
+      amount: tc.value,
+      sequence: tc.sequence,
+      hash: secret.hash,
+    }
+
+    await htlc.create(htlcConfig)
     expect(bitcoin.payments.p2wsh).toHaveBeenCalledTimes(1)
 
     expect(bitcoin.Psbt.prototype.signInput).toHaveBeenCalledTimes(2)

@@ -1,9 +1,10 @@
 import * as bitcoin from "bitcoinjs-lib"
-import fetch from "node-fetch"
 import { PsbtInput } from "bip174/src/lib/interfaces"
 import { witnessStackToScriptWitness } from "./witnessStack"
 import { Secret } from "../../../pkg/secret/secret"
-import { BitcoinAPI } from "../../types/bitcoinApi"
+import { BitcoinAPI, BitcoinAPIConstructor } from "../../types/bitcoinApi"
+import { getOutputFileNames } from "typescript"
+import { p2sh } from "bitcoinjs-lib/types/payments"
 
 /**
  * Contains all necessary information to create an HTLC on Bitcoin blockchain
@@ -40,45 +41,6 @@ interface HTLCConfigBTC {
   hash: Buffer
 }
 
-/**
- * This is a subset of a real transaction but we do not require the rest yet.
- *
- * @interface Transaction
- */
-interface Transaction {
-  hash: string
-  hex: string
-  block_height: number
-  input: {
-    witness: string[]
-  }[]
-  outputs: {
-    value: number
-    addresses: string[]
-  }[]
-}
-
-export interface TransactionBlockstream {
-  txid: string
-  vin: {
-    txid: string
-    vout: number
-    prevout: {
-      scriptpubkey_address: string
-      value: number
-    }
-    witness: string[]
-  }[]
-  vout: {
-    scriptpubkey_type: string
-    scriptpubkey_address: string
-    value: number
-  }[]
-  status: {
-    block_height: number
-  }
-}
-
 export default class BitcoinHTLC {
   private network: bitcoin.Network
   private receiver: bitcoin.ECPairInterface
@@ -87,6 +49,7 @@ export default class BitcoinHTLC {
   private preimage: string
   private amountAfterFees: number
   private keepLooking: boolean
+  public bitcoinAPI: BitcoinAPI
   /**
    * Creates an instance of BitcoinHTLC.
    *
@@ -94,19 +57,22 @@ export default class BitcoinHTLC {
    * @param network - mainnet, testnet, or regtest.
    * @param sender - Sender keypair.
    * @param receiver - Receiver keypair.
+   * @param BitcoinAPIConstructor - Bitcoin API to use for communication with the blockchain.
    */
   constructor(
-    network: bitcoin.Network = bitcoin.networks.testnet,
+    network = "testnet",
     sender: bitcoin.ECPairInterface,
     receiver: bitcoin.ECPairInterface,
+    BitcoinAPIConstructor: BitcoinAPIConstructor,
   ) {
-    this.network = network
+    this.network = network === "testnet" ? bitcoin.networks.testnet : bitcoin.networks.bitcoin
     this.sender = sender
     this.receiver = receiver
     this.fundingTxBlockHeight = -1
     this.preimage = ""
     this.amountAfterFees = 0
     this.keepLooking = true
+    this.bitcoinAPI = new BitcoinAPIConstructor(network)
   }
 
   public getFundingTxBlockHeight(): number {
@@ -158,6 +124,7 @@ export default class BitcoinHTLC {
    * @param isP2WSH - Included only for bitcoinjs-lib compatible reasons.
    * @returns A function to finalize and serialize the scripts.
    */
+
   private getFinalScriptsRefund = (
     inputIndex: number,
     input: PsbtInput,
@@ -166,14 +133,7 @@ export default class BitcoinHTLC {
     isP2SH: boolean,
     isP2WSH: boolean,
   ): { finalScriptSig: Buffer | undefined; finalScriptWitness: Buffer | undefined } => {
-    // TODO
-    // Step 1: Check to make sure the meaningful script matches what you expect.
     const decompiled = bitcoin.script.decompile(script)
-    // Checking if first OP is OP_IF... should do better check in production!
-    // You may even want to check the public keys in the script against a
-    // whitelist depending on the circumstances!!!
-    // You also want to check the contents of the input to see if you have enough
-    // info to actually construct the scriptSig and Witnesses.
     if (!decompiled || decompiled[0] !== bitcoin.opcodes.OP_IF) {
       throw new Error(`Can not finalize input #${inputIndex}`)
     }
@@ -215,14 +175,7 @@ export default class BitcoinHTLC {
     isP2SH: boolean,
     isP2WSH: boolean,
   ): { finalScriptSig: Buffer | undefined; finalScriptWitness: Buffer | undefined } => {
-    // TODO
-    // Step 1: Check to make sure the meaningful script matches what you expect.
     const decompiled = bitcoin.script.decompile(script)
-    // Checking if first OP is OP_IF... should do better check in production!
-    // You may even want to check the public keys in the script against a
-    // whitelist depending on the circumstances!!!
-    // You also want to check the contents of the input to see if you have enough
-    // info to actually construct the scriptSig and Witnesses.
     if (!decompiled || decompiled[0] !== bitcoin.opcodes.OP_IF) {
       throw new Error(`Can not finalize input #${inputIndex}`)
     }
@@ -263,24 +216,6 @@ export default class BitcoinHTLC {
   }
 
   /**
-   * Get the current confirmed balance from a transaction.
-   * The output of the transaction must not be spent yet.
-   *
-   * @private
-   * @param address - A public key hash address.
-   * @param transactionID - The unique identifier for a transaction.
-   * @returns The current confirmed balance.
-   * @memberof BitcoinHTLC
-   */
-  private async getBalance(address: string, transactionID: string): Promise<number> {
-    const tx = await this.getTransactionByID(transactionID)
-
-    return tx.outputs.filter((output) => {
-      return output.addresses[0] === address
-    })[0].value
-  }
-
-  /**
    * Calculate the p2wsh to send our money to before creating the timelock refund operation.
    *
    * @public
@@ -310,10 +245,12 @@ export default class BitcoinHTLC {
    */
   private async sendToP2WSHAddress(p2wsh: bitcoin.Payment, transactionID: string, amount: number): Promise<string> {
     const p2wpkFromSender = this.getWitnessPublicKeyHash(this.sender)
-    const balance = await this.getBalance(p2wpkFromSender.address!, transactionID)
-    const amountToKeep = balance - amount
+    // Value is the current balance after the transaction
+    const { vout, value } = await this.bitcoinAPI.getOutput(transactionID, p2wpkFromSender.address!)
 
-    // If output of the transaction ID given does not have sufficient balance
+    const amountToKeep = value - amount
+
+    // If output of the transaction ID given does not have sufficient value/balance
     if (amountToKeep < 0) {
       return ""
     }
@@ -338,14 +275,16 @@ export default class BitcoinHTLC {
               value: this.amountAfterFees,
             },
           ]
-    const { vout, witnessUtxo } = await this.getWitnessUtxo(transactionID, p2wpkFromSender)
 
     const psbt = new bitcoin.Psbt({ network: this.network })
       .setVersion(2)
       .addInput({
         hash: transactionID,
         index: vout,
-        witnessUtxo,
+        witnessUtxo: {
+          script: p2wpkFromSender.output!,
+          value,
+        },
       })
       .addOutputs(outputs)
       .signInput(0, this.sender)
@@ -353,114 +292,6 @@ export default class BitcoinHTLC {
     psbt.validateSignaturesOfInput(0)
     psbt.finalizeAllInputs()
     return psbt.extractTransaction().toHex()
-  }
-
-  /**
-   * Pushes a transaction hex to the blockchain. Return empty string in case of failure
-   *
-   * @private
-   * @param hex - A transaction encoded as hex.
-   * @returns The transactionID of the pushed transaction or empty string caused by a failure.
-   * @memberof BitcoinHTLC
-   */
-  private async pushTX(hex: string): Promise<string> {
-    const res = await fetch("https://testnet-api.smartbit.com.au/v1/blockchain/pushtx", {
-      method: "POST",
-      body: JSON.stringify({ hex }),
-    }).then((res) => res.json())
-    if (!res.success) {
-      return ""
-    }
-    return res.txid
-  }
-
-  /**
-   * Fetch a transaction by its id from public api.
-   *
-   * @private
-   * @param transactionID - Unique hash identifier for a transaction.
-   * @returns Transaction object.
-   * @memberof BitcoinHTLC
-   */
-  private async getTransactionByID(transactionID: string): Promise<Transaction> {
-    return fetch(
-      `https://api.blockcypher.com/v1/btc/test3/txs/${transactionID}?limit=50&includeHex=true&token=43d0d9427875480da8ada45851bf0da6`,
-    ).then((res) => res.json())
-  }
-
-  /**
-   * Fetch a transaction by its address from public api.
-   *
-   * @param address - The address to look for transactions for.
-   * @param out - A flag to look for transactions were the address is in the output (if set to true) or input (if set to false).
-   * @returns TransactionBlockstream object.
-   * @memberof BitcoinHTLC
-   */
-  public async getTransactionByAddress(address: string, out: boolean): Promise<TransactionBlockstream> {
-    let tx = []
-
-    while (this.keepLooking && tx.length < 1) {
-      const txs = await fetch(`https://blockstream.info/testnet/api/address/${address}/txs`).then((res) => res.json())
-
-      /* eslint-disable @typescript-eslint/no-explicit-any */
-      tx = txs.filter((element: any) => {
-        if (out) {
-          return (
-            element.vout.filter((subElement: any) => {
-              return subElement.scriptpubkey_address === address
-            }).length > 0
-          )
-        } else {
-          return (
-            element.vin.filter((subElement: any) => {
-              return subElement.prevout.scriptpubkey_address === address
-            }).length > 0
-          )
-        }
-      })
-      /* eslint-enable @typescript-eslint/no-explicit-any */
-
-      await new Promise((resolve) => setTimeout(resolve, 5000)) // TODO: Set appropriate Timer
-    }
-    // If there are multiple transactions, return the latest
-    return tx[0]
-  }
-
-  /**
-   * Return vout and nonWitnessUtxo.
-   *
-   * @private
-   * @param transactionID - Transaction id you want to use.
-   * @param target - p2wsh or p2wpk.
-   * @returns vout and witnessUtxo.
-   * @memberof BitcoinHTLC
-   */
-  private async getWitnessUtxo(
-    transactionID: string,
-    target: bitcoin.payments.Payment,
-  ): Promise<{ vout: number; witnessUtxo: { script: Buffer; value: number } }> {
-    const tx = await this.getTransactionByID(transactionID)
-    let vout = -1
-    for (let i = 0; i < tx.outputs.length; i++) {
-      if (tx.outputs[i].addresses.includes(target.address!)) {
-        vout = i
-        break
-      }
-    }
-
-    if (vout < 0) {
-      throw new Error("Could not find vout")
-    }
-
-    const witnessUtxo = {
-      script: target.output!,
-      value: tx.outputs[vout].value,
-    }
-
-    return {
-      vout,
-      witnessUtxo,
-    }
   }
 
   /**
@@ -475,15 +306,12 @@ export default class BitcoinHTLC {
     // Save preimage as attribute to inject it into the getFinalScriptsRedeem method
     this.preimage = secret.preimage!
 
-    const tx = await this.getTransactionByAddress(p2wsh.address!, true)
-
-    // The HTLC output is always the only or the second array entry
-    const amount = tx.vout.length > 1 ? tx.vout[1].value : tx.vout[0].value
+    const { value, txID } = await this.bitcoinAPI.getValueFromLastTransaction(p2wsh.address!)
 
     // TODO: Check if amount is enough!
-    this.amountAfterFees = amount - 200
-    const redeemHex = await this.getRedeemHex(tx.txid, p2wsh)
-    const redeemTransaction = await this.pushTX(redeemHex)
+    this.amountAfterFees = value - 200
+    const redeemHex = await this.getRedeemHex(txID, p2wsh)
+    const redeemTransaction = await this.bitcoinAPI.pushTX(redeemHex)
 
     if (!redeemTransaction) {
       console.log("Hex for redeem transaction: " + redeemHex)
@@ -513,7 +341,8 @@ export default class BitcoinHTLC {
       // The output of the transaction ID given does not have sufficient balance.
       return 1
     }
-    const fundingTransactionID = await this.pushTX(p2wpkHex)
+
+    const fundingTransactionID = await this.bitcoinAPI.pushTX(p2wpkHex)
 
     if (!fundingTransactionID) {
       // Error during pushing funding transaction.
@@ -531,7 +360,7 @@ export default class BitcoinHTLC {
     console.log("refundHex: " + refundHex)
 
     while (this.fundingTxBlockHeight === -1) {
-      this.fundingTxBlockHeight = (await this.getTransactionByID(fundingTransactionID)).block_height
+      this.fundingTxBlockHeight = await this.bitcoinAPI.getBlockHeight(fundingTransactionID)
       await new Promise((resolve) => setTimeout(resolve, 10_000))
     }
     /*
@@ -563,7 +392,7 @@ export default class BitcoinHTLC {
     sequence: number,
     p2wsh: bitcoin.payments.Payment,
   ): Promise<string> {
-    const { vout, witnessUtxo } = await this.getWitnessUtxo(transactionID, p2wsh)
+    const { vout, value } = await this.bitcoinAPI.getOutput(transactionID, p2wsh.address!)
 
     const psbt = new bitcoin.Psbt({ network: this.network })
       .setVersion(2)
@@ -571,7 +400,10 @@ export default class BitcoinHTLC {
         hash: transactionID,
         index: vout,
         sequence: sequence,
-        witnessUtxo,
+        witnessUtxo: {
+          script: p2wsh.output!,
+          value: value,
+        },
         witnessScript: p2wsh.redeem!.output!,
       })
       .addOutput({
@@ -593,14 +425,17 @@ export default class BitcoinHTLC {
    * @memberof BitcoinHTLC
    */
   private async getRedeemHex(transactionID: string, p2wsh: bitcoin.payments.Payment): Promise<string> {
-    const { vout, witnessUtxo } = await this.getWitnessUtxo(transactionID, p2wsh)
+    const { vout, value } = await this.bitcoinAPI.getOutput(transactionID, p2wsh.address!)
 
     const psbt = new bitcoin.Psbt({ network: this.network })
       .setVersion(2)
       .addInput({
         hash: transactionID,
         index: vout,
-        witnessUtxo,
+        witnessUtxo: {
+          script: p2wsh.output!,
+          value,
+        },
         witnessScript: p2wsh.redeem!.output!,
       })
       .addOutput({

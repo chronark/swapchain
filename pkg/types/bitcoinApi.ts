@@ -35,13 +35,19 @@ export interface BitcoinAPI {
   pushTX: (transactionHex: string) => Promise<string>
 
   /**
-   * Returns either the last incoming transaction or outgoing transaction of an address.
+   * Returns the preimage of the last incoming transaction.
    *
    * @param address - Any bitcoin address.
-   * @param out - Search for an incoming or outgoing transaction.
+   * @returns Returns the preimage of the last incoming transaction.
+   */
+  getPreimageFromLastTransaction: (address: string) => Promise<string>
+  /**
+   * Returns the outgoing transaction of an address.
+   *
+   * @param address - Any bitcoin address.
    * @returns Amount of the transaction and its ID.
    */
-  getValueFromLastTransaction: (address: string, out: boolean) => Promise<{ value: number; txID: string }>
+  getValueFromLastTransaction: (address: string) => Promise<{ value: number; txID: string }>
 
   /**
    * Return the vout and value of the transaction.
@@ -51,4 +57,12 @@ export interface BitcoinAPI {
    * @returns vout and value
    */
   getOutput: (transactionID: string, address: string) => Promise<{ vout: number; value: number }>
+
+  /**
+   * Return the blockheight of a transaction.
+   *
+   * @param transactionID - ID of any bitcoin transaction.
+   * @returns Blockheight
+   */
+  getBlockHeight: (transactionID: string) => Promise<number>
 }

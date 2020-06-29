@@ -67,22 +67,49 @@ export default class BlockStream implements BitcoinAPI {
   }
 
   /**
-   * Get value and transaction id from last transaction
+   * Return the Preimage of the last transacction.
    *
    * @param address - The address to look for transactions.
-   * @param out - A flag to look for transactions were the address is in the output (if set to true) or input (if set to false).
-   * @returns Spendable value and the transaction id where the address occured in vin or vout.
+   * @returns Preimage where address was found in vin.
    * @memberof BlockStream
    */
-  public async getValueFromLastTransaction(address: string, out: boolean): Promise<{ value: number; txID: string }> {
+  public async getPreimageFromLastTransaction(address: string): Promise<string> {
     type Transaction = {
-      txid: string
       vin: {
         prevout: {
           scriptpubkey_address: string
-          value: number
         }
+        witness: string[]
       }[]
+    }
+
+    const res = await axios.get(`${this.baseURL}/address/${address}/txs`)
+    if (res.status !== 200) {
+      throw new Error(res.data)
+    }
+    const transactions: Transaction[] = res.data
+    for (let i = 0; i < transactions.length; i++) {
+      const tx = transactions[i]
+      for (let j = 0; j < tx.vin.length; j++) {
+        if (tx.vin[j].prevout.scriptpubkey_address === address) {
+          return Buffer.from(tx.vin[j].witness[1], "hex").toString()
+        }
+      }
+    }
+    // This can actually never occur but otherwise typescript will cry.
+    throw new Error("Could not find matching address.")
+  }
+
+  /**
+   * Get value and transaction id from last transaction
+   *
+   * @param address - The address to look for transactions.
+   * @returns Spendable value and the transaction id where the address occured in vout.
+   * @memberof BlockStream
+   */
+  public async getValueFromLastTransaction(address: string): Promise<{ value: number; txID: string }> {
+    type Transaction = {
+      txid: string
       vout: {
         scriptpubkey_address: string
         value: number
@@ -97,17 +124,10 @@ export default class BlockStream implements BitcoinAPI {
     const transactions: Transaction[] = res.data
     for (let i = 0; i < transactions.length; i++) {
       const tx = transactions[i]
-      if (out) {
-        for (let j = 0; j < tx.vout.length; j++) {
-          if (tx.vout[j].scriptpubkey_address === address) {
-            return { value: tx.vout[j].value, txID: tx.txid }
-          }
-        }
-      } else {
-        for (let j = 0; j < tx.vin.length; j++) {
-          if (tx.vin[j].prevout.scriptpubkey_address === address) {
-            return { value: tx.vin[j].prevout.value, txID: tx.txid }
-          }
+
+      for (let j = 0; j < tx.vout.length; j++) {
+        if (tx.vout[j].scriptpubkey_address === address) {
+          return { value: tx.vout[j].value, txID: tx.txid }
         }
       }
     }
@@ -147,5 +167,21 @@ export default class BlockStream implements BitcoinAPI {
       vout,
       value: tx.vout[vout].value,
     }
+  }
+
+  /**
+   * Return the block height of the transaction.
+   *
+   * @param transactionID - ID of any bitcoin transaction.
+   * @returns Blockheight.
+   * @memberof BlockStream
+   */
+  public async getBlockHeight(transactionID: string): Promise<number> {
+    const res = await axios.get(`${this.baseURL}/tx/${transactionID}`)
+    if (res.status !== 200) {
+      throw new Error(res.data)
+    }
+
+    return res.data.status.block_height
   }
 }

@@ -3,9 +3,11 @@ import { Secret, getSecret } from "../../pkg/secret/secret"
 import fetch from "node-fetch"
 import * as bitcoin from "bitcoinjs-lib"
 import { Apis as btsWebsocketApi } from "bitsharesjs-ws"
-import BitcoinHTLC, { TransactionBlockstream } from "../../pkg/bitcoin/htlc/btcHTLC"
+import BitcoinHTLC from "../../pkg/bitcoin/htlc/btcHTLC"
 import figlet from "figlet"
 import BitsharesHTLC from "../../pkg/bitshares/htlc/btsHTLC"
+import BlockStream from "../../pkg/bitcoin/api/blockstream"
+
 
 /**
  * Contains all necessary information to run an ACCS.
@@ -245,9 +247,10 @@ export default class ACCS {
     this.accsConfig.timelockBTS = Math.round(this.accsConfig.timelockBTS / 2)
 
     const htlcBTCProposer = new BitcoinHTLC(
-      this.net,
+      this.networkName,
       this.accsConfig.keyPairCompressedBTC,
       this.accsConfig.keyPairCounterpartyCompressedBTC,
+      BlockStream,
     )
 
     const status = await htlcBTCProposer.create({
@@ -289,10 +292,9 @@ export default class ACCS {
 
     // If no HTLC found immediately, continue looking until timelock
     while (!success) {
-      const blocks = await fetch(`${this.endpointBTC}blocks`).then((res) => res.json())
-      const currentBlockHeight = blocks[0].height
+      const currentBlock = await htlcBTCProposer.bitcoinAPI.getLastBlock()
 
-      if (currentBlockHeight >= htlcBTCProposer.getFundingTxBlockHeight() + this.accsConfig.timelockBTC) {
+      if (currentBlock.height >= htlcBTCProposer.getFundingTxBlockHeight() + this.accsConfig.timelockBTC) {
         htlcBTSProposer.stopLooking()
         this.errorHandler(`No HTLC found on Bitshares ${this.networkName}. Your HTLC will be automatically refunded.`)
       }
@@ -334,18 +336,22 @@ export default class ACCS {
     )
 
     const htlcBTCProposer = new BitcoinHTLC(
-      this.net,
+      this.networkName,
       this.accsConfig.keyPairCounterpartyCompressedBTC,
       this.accsConfig.keyPairCompressedBTC,
+      BlockStream,
     )
 
     const p2wsh = htlcBTCProposer.getP2WSH(this.accsConfig.secret.hash, this.accsConfig.timelockBTC)
 
     let timeToWait = this.accsConfig.timelockBTS
-    let tx = {}
-    htlcBTCProposer.getTransactionByAddress(p2wsh.address!, true).then((res) => (tx = res))
 
-    while (!("txid" in tx)) {
+    let txID: string | null = null
+    htlcBTCProposer.bitcoinAPI.getValueFromLastTransaction(p2wsh.address!).then((res) => {
+      txID = res.txID
+    })
+
+    while (txID === null) {
       if (timeToWait === 0) {
         htlcBTCProposer.stopLooking()
         this.errorHandler(`No HTLC found on Bitcoin ${this.networkName}. Your HTLC will be automatically refunded.`)
@@ -402,9 +408,10 @@ export default class ACCS {
     console.log(`Found the HTLC for you on Bitshares ${this.networkName}!`)
 
     const htlcBTCTaker = new BitcoinHTLC(
-      this.net,
+      this.networkName,
       this.accsConfig.keyPairCompressedBTC,
       this.accsConfig.keyPairCounterpartyCompressedBTC,
+      BlockStream,
     )
 
     const status = await htlcBTCTaker.create({
@@ -427,40 +434,16 @@ export default class ACCS {
     // Wait for Alice to redeem the BTC HTLC, then extract secret
     const p2wsh = htlcBTCTaker.getP2WSH(this.accsConfig.secret.hash, this.accsConfig.timelockBTC)
 
-    /* eslint-disable @typescript-eslint/camelcase */
-    let tx: TransactionBlockstream = {
-      txid: "",
-      vin: [
-        {
-          txid: "",
-          vout: 0,
-          prevout: {
-            scriptpubkey_address: "",
-            value: 0,
-          },
-          witness: [""],
-        },
-      ],
-      vout: [
-        {
-          scriptpubkey_type: "",
-          scriptpubkey_address: "",
-          value: 0,
-        },
-      ],
-      status: {
-        block_height: 0,
-      },
-    }
-    /* eslint-enable @typescript-eslint/camelcase */
 
-    htlcBTCTaker.getTransactionByAddress(p2wsh.address!, false).then((res) => (tx = res))
+    let preimageFromBlockchain: string | null = null
+    htlcBTCTaker.bitcoinAPI
+      .getPreimageFromLastTransaction(p2wsh.address!)
+      .then((preimage) => (preimageFromBlockchain = preimage))
 
-    while (!tx.txid) {
-      const blocks = await fetch(`${this.endpointBTC}blocks`).then((res) => res.json())
-      const currentBlockHeight = blocks[0].height
+    while (preimageFromBlockchain == null) {
+      const currentBlock = await htlcBTCTaker.bitcoinAPI.getLastBlock()
 
-      if (currentBlockHeight >= htlcBTCTaker.getFundingTxBlockHeight() + this.accsConfig.timelockBTC) {
+      if (currentBlock.height >= htlcBTCTaker.getFundingTxBlockHeight() + this.accsConfig.timelockBTC) {
         htlcBTCTaker.stopLooking()
         this.errorHandler(
           "HTLC was not redeemed in time by the counterparty. Your HTLC will be automatically refunded.",
@@ -470,7 +453,7 @@ export default class ACCS {
       await new Promise((resolve) => setTimeout(resolve, 10_000))
     }
 
-    this.accsConfig.secret.preimage = Buffer.from(tx.vin[0].witness[1], "hex").toString()
+    this.accsConfig.secret.preimage = preimageFromBlockchain
 
     console.log(
       `Your Bitcoin HTLC was redeemed by the counterparty using the secret "${this.accsConfig.secret.preimage}". Redeeming the Bitshares HTLC...`,
@@ -499,9 +482,10 @@ export default class ACCS {
     // Look for BTC HTLC and only continue if there is one
     // Use p2wsh address and fetch txs
     const htlcBTCTaker = new BitcoinHTLC(
-      this.net,
+      this.networkName,
       this.accsConfig.keyPairCounterpartyCompressedBTC,
       this.accsConfig.keyPairCompressedBTC,
+      BlockStream,
     )
 
     let timeToWait = 120 // seconds to wait for proposer
@@ -511,10 +495,12 @@ export default class ACCS {
     )
 
     const p2wsh = htlcBTCTaker.getP2WSH(this.accsConfig.secret.hash, this.accsConfig.timelockBTC)
-    let tx = {}
-    htlcBTCTaker.getTransactionByAddress(p2wsh.address!, true).then((res) => (tx = res))
+    let txID: string | null = null
+    htlcBTCTaker.bitcoinAPI.getValueFromLastTransaction(p2wsh.address!).then((res) => {
+      txID = res.txID
+    })
 
-    while (!("txid" in tx)) {
+    while (txID === null) {
       if (timeToWait === 0) {
         htlcBTCTaker.stopLooking()
         this.errorHandler(`No HTLC found on Bitcoin ${this.networkName}. Please contact proposer.`)
