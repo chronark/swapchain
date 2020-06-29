@@ -116,7 +116,7 @@ exports[`renders correctly 1`] = `
                   onKeyDown={[Function]}
                   readOnly={false}
                   type="text"
-                  value="06/28/2020"
+                  value="06/29/2020"
                 />
               </div>
             </div>

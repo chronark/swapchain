@@ -6,7 +6,6 @@ jest.mock("./address")
 describe("getAddress script", () => {
     beforeEach(() => {
         jest.resetAllMocks()
-        jest.restoreAllMocks()
         jest.spyOn(console, 'log').mockImplementation(() => { })
     })
 
