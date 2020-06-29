@@ -58,9 +58,10 @@ afterAll(async () => {
 
 describe("Reaper", () => {
   it("should redeem all valid transactions", async () => {
-
     const pushMock = jest.spyOn(BlockStream.prototype, "pushTX").mockReturnValue(Promise.resolve("Hello Amos"))
-    const getMock = jest.spyOn(BlockStream.prototype, "getLastBlock").mockReturnValue(Promise.resolve({height: 54, timestamp: 1}))
+    const getMock = jest
+      .spyOn(BlockStream.prototype, "getLastBlock")
+      .mockReturnValue(Promise.resolve({ height: 54, timestamp: 1 }))
 
     const r = new Reaper("testnet", BlockStream)
     await r.redeemAllValid()

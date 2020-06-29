@@ -203,7 +203,6 @@ export default class BitsharesHTLC {
     await tr.set_required_fees()
     tr.add_signer(PrivateKey.fromWif(privateKey))
     await tr.broadcast()
-
     return true
   }
 
@@ -224,11 +223,9 @@ export default class BitsharesHTLC {
     if (this.websocket === null) {
       await this.openSocket(this.node)
     }
-
     const limit = 100
 
     const [senderAccount, toAccount] = await btsWebsocketApi.db.get_accounts([this.sender, this.receiver])
-
     while (this.keepLooking) {
       const history = await btsWebsocketApi.history.get_relative_account_history(this.receiver, 0, limit, 0)
 

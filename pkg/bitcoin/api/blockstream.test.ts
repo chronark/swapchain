@@ -11,18 +11,16 @@ beforeEach(() => {
 
 const blockstream = new Blockstream("")
 
-describe('constructor()', () => {
+describe("constructor()", () => {
   it("sets the api url to 'testnet'", () => {
     const blockstream = new Blockstream("testnet")
     expect(blockstream.baseURL).toBe("https://blockstream.info/testnet/api")
   })
-  it("sets the api url to 'testnet'", () => {
+  it("sets the api url to 'mainnet'", () => {
     const blockstream = new Blockstream("anything else")
     expect(blockstream.baseURL).toBe("https://blockstream.info/api")
   })
 })
-
-
 
 describe("getLastBlock()", () => {
   it("should return height and timestamp of the last block on the blockchain", async () => {
@@ -103,83 +101,94 @@ describe("getValueFromLastTransaction()", () => {
   const testCases = [
     {
       name: "output from a single transaction",
-      transactions: [{
-        txid: "outTXID2",
-        vout: [{
-          scriptpubkey_address: address,
-          value: 111111111,
-        }]
-      }],
+      transactions: [
+        {
+          txid: "outTXID2",
+          vout: [
+            {
+              scriptpubkey_address: address,
+              value: 111111111,
+            },
+          ],
+        },
+      ],
       out: true,
       want: { value: 111111111, txID: "outTXID2" },
     },
     {
       name: "output from multiple transactions",
-      transactions: [{
-        txid: "outTXID2",
-        vout: [
-          {
-            scriptpubkey_address: "WRONGADDRESS",
-            value: 1,
-          },
-          {
-            scriptpubkey_address: "ANOTHERWRONGADDRESS",
-            value: 2,
-          },
-          {
-            scriptpubkey_address: address,
-            value: 3,
-          },
-        ],
-      }],
+      transactions: [
+        {
+          txid: "outTXID2",
+          vout: [
+            {
+              scriptpubkey_address: "WRONGADDRESS",
+              value: 1,
+            },
+            {
+              scriptpubkey_address: "ANOTHERWRONGADDRESS",
+              value: 2,
+            },
+            {
+              scriptpubkey_address: address,
+              value: 3,
+            },
+          ],
+        },
+      ],
       out: true,
       want: { value: 3, txID: "outTXID2" },
     },
     {
       name: "input from a single transaction",
-      transactions: [{
-        txid: "inTXID",
-        vin: [
-          {
-            prevout: {
-              scriptpubkey_address: address,
-              value: 5,
+      transactions: [
+        {
+          txid: "inTXID",
+          vin: [
+            {
+              prevout: {
+                scriptpubkey_address: address,
+                value: 5,
+              },
             },
-          },
-        ],
-      }],
+          ],
+        },
+      ],
       out: false,
       want: { value: 5, txID: "inTXID" },
     },
     {
       name: "input from multiple transactions",
-      transactions: [{
-        txid: "inTXID",
-        vin: [
-          {
-            prevout: {
-              scriptpubkey_address: "OTHER ADDRESS",
-              value: 55,
+      transactions: [
+        {
+          txid: "inTXID",
+          vin: [
+            {
+              prevout: {
+                scriptpubkey_address: "OTHER ADDRESS",
+                value: 55,
+              },
             },
-          },
-          {
-            prevout: {
-              scriptpubkey_address: address,
-              value: 5,
+            {
+              prevout: {
+                scriptpubkey_address: address,
+                value: 5,
+              },
             },
-          },
-        ],
-      }],
+          ],
+        },
+      ],
       out: false,
       want: { value: 5, txID: "inTXID" },
     },
-
   ]
   /* eslint-enable @typescript-eslint/camelcase */
 
   testCases.forEach((tc) => {
     it(`should return amount and transactionID from an address ${tc.name}`, async () => {
-      const mockedAxios = jest.spyOn(axios, "get").mockImplementationOnce(() => Promise.resolve({ status: 200, data: tc.transactions }))
+      const mockedAxios = jest
+        .spyOn(axios, "get")
+        .mockImplementationOnce(() => Promise.resolve({ status: 200, data: tc.transactions }))
       const result = await blockstream.getValueFromLastTransaction(address, tc.out)
 
       expect(result.value).toEqual(tc.want.value)
@@ -190,7 +199,9 @@ describe("getValueFromLastTransaction()", () => {
   })
 
   it("should throw an error if the API does not return a status 200", async () => {
-    const mockedAxios = jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve({ status: 400, data: "error message" }))
+    const mockedAxios = jest
+      .spyOn(axios, "get")
+      .mockImplementation(() => Promise.resolve({ status: 400, data: "error message" }))
     await expect(blockstream.getValueFromLastTransaction("ADDRESS1", true)).rejects.toThrow()
     await expect(blockstream.getValueFromLastTransaction("ADDRESS2", false)).rejects.toThrow()
   })
@@ -201,7 +212,6 @@ describe("getValueFromLastTransaction()", () => {
   })
 })
 
-
 describe("getOutput()", () => {
   const address = "ADDRESS"
 
@@ -211,11 +221,13 @@ describe("getOutput()", () => {
       name: "a single output",
       txID: "ID1",
       data: {
-        vout: [{
-          txid: "outTXID2",
-          scriptpubkey_address: address,
-          value: 111111111,
-        }],
+        vout: [
+          {
+            txid: "outTXID2",
+            scriptpubkey_address: address,
+            value: 111111111,
+          },
+        ],
       },
       want: {
         vout: 0,
@@ -249,7 +261,9 @@ describe("getOutput()", () => {
 
   testCases.forEach((tc) => {
     it(`should return amount and vout index from a transaction with ${tc.name}`, async () => {
-      const mockedAxios = jest.spyOn(axios, "get").mockImplementationOnce(() => Promise.resolve({ data: tc.data, status: 200 }))
+      const mockedAxios = jest
+        .spyOn(axios, "get")
+        .mockImplementationOnce(() => Promise.resolve({ data: tc.data, status: 200 }))
       const { vout, value } = await blockstream.getOutput(tc.txID, address)
 
       expect(vout).toBe(tc.want.vout)
@@ -260,11 +274,15 @@ describe("getOutput()", () => {
     })
   })
   it("should throw an error if the API does not return a status 200", async () => {
-    const mockedAxios = jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve({ status: 400, data: "Invalid hex string" }))
+    const mockedAxios = jest
+      .spyOn(axios, "get")
+      .mockImplementation(() => Promise.resolve({ status: 400, data: "Invalid hex string" }))
     await expect(blockstream.getOutput("testTxID", "BADADDRESS")).rejects.toThrow()
   })
   it("should throw an error if no matching output is found", async () => {
-    const mockedAxios = jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve({ status: 200, data: {vout: []} }))
+    const mockedAxios = jest
+      .spyOn(axios, "get")
+      .mockImplementation(() => Promise.resolve({ status: 200, data: { vout: [] } }))
     await expect(blockstream.getOutput("testTxID", "BADADDRESS")).rejects.toThrow()
   })
 })

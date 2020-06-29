@@ -77,7 +77,7 @@ export default class ACCS {
 
   /**
    * Gets input from stdin
-   * 
+   *
    * @param str - A question to ask the user.
    * @returns answer from the user
    * @memberof ACCS
@@ -93,7 +93,6 @@ export default class ACCS {
    * @memberof ACCS
    */
   public async getUserInput(): Promise<ACCSConfig> {
-
     const accsConfig = {} as ACCSConfig
 
     // Print beautiful Swapchain banner and version info
@@ -131,7 +130,9 @@ export default class ACCS {
 
     const privateKeyBTC = await this.askUser("Please enter your Bitcoin private key (WIF format): ")
 
-    accsConfig.accountCounterpartyBTS = await this.askUser("Please enter the Bitshares account name of the counterparty: ")
+    accsConfig.accountCounterpartyBTS = await this.askUser(
+      "Please enter the Bitshares account name of the counterparty: ",
+    )
 
     const publicKeyCounterpartyBTC = await this.askUser("Please enter the Bitcoin public key of the counterparty: ")
     if (!(publicKeyCounterpartyBTC.length === 66 || publicKeyCounterpartyBTC.length === 130)) {
@@ -241,9 +242,8 @@ export default class ACCS {
    * @memberof ACCS
    */
   public async proposeBTSForBTC(): Promise<void> {
-    
     this.accsConfig.timelockBTS = Math.round(this.accsConfig.timelockBTS / 2)
-    
+
     const htlcBTCProposer = new BitcoinHTLC(
       this.net,
       this.accsConfig.keyPairCompressedBTC,
@@ -309,9 +309,8 @@ export default class ACCS {
    * @memberof ACCS
    */
   public async proposeBTCForBTS(): Promise<void> {
-
     this.accsConfig.timelockBTC = Math.round(this.accsConfig.timelockBTC / 2)
-    
+
     // Create BTS HTLC
     const htlcBTSProposer = new BitsharesHTLC(
       this.endpointBTS,
@@ -371,7 +370,6 @@ export default class ACCS {
    * @memberof ACCS
    */
   public async takeBTSForBTC(): Promise<void> {
-
     this.accsConfig.timelockBTC = Math.round(this.accsConfig.timelockBTC / 2)
 
     // Look for BTS HTLC and only continue if there is one
@@ -497,7 +495,6 @@ export default class ACCS {
    * @memberof ACCS
    */
   public async takeBTCForBTS(): Promise<void> {
-
     this.accsConfig.timelockBTS = Math.round(this.accsConfig.timelockBTS / 2)
     // Look for BTC HTLC and only continue if there is one
     // Use p2wsh address and fetch txs
@@ -597,7 +594,7 @@ export default class ACCS {
 
   /**
    * Calls respective swap method.
-   * 
+   *
    * @memberof ACCS
    */
   public async run(): Promise<void> {
@@ -614,7 +611,7 @@ export default class ACCS {
 
   /**
    * Entrypoint for CLI.
-   * 
+   *
    * @memberof ACCS
    */
   public async main(): Promise<void> {

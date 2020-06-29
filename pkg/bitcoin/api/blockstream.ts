@@ -3,7 +3,7 @@ import axios from "axios"
 
 /**
  * Handler to fetch and push data from the Blockstream API.
- * 
+ *
  * @class BlockStream
  * @implements {BitcoinAPI}
  */
@@ -12,7 +12,7 @@ export default class BlockStream implements BitcoinAPI {
 
   /**
    * Creates an instance of BlockStream.
-   * 
+   *
    * @param network - The network type, either "testnet" or "mainnet".
    * @memberof BlockStream
    */
@@ -22,9 +22,9 @@ export default class BlockStream implements BitcoinAPI {
 
   /**
    * Get information of last block broadcasted
-   * 
+   *
    * @returns Height and timestamp of the last block.
-   * @memberof BlockStream 
+   * @memberof BlockStream
    */
   public async getLastBlock(): Promise<{ height: number; timestamp: number }> {
     const hash = await axios.get(this.baseURL + "/blocks/tip/hash")
@@ -35,7 +35,7 @@ export default class BlockStream implements BitcoinAPI {
 
   /**
    * Get timestamp of block for given height
-   * 
+   *
    * @param blockHeight - The desired block height.
    * @returns Timestamp of a block defined by its height.
    * @memberof BlockStream
@@ -49,7 +49,7 @@ export default class BlockStream implements BitcoinAPI {
 
   /**
    * Push transaction to the bitcoin network
-   * 
+   *
    * @param txHex - An encoded transaction in hex format.
    * @returns Transaction id on success or throws error on failure.
    * @memberof BlockStream
@@ -68,25 +68,25 @@ export default class BlockStream implements BitcoinAPI {
 
   /**
    * Get value and transaction id from last transaction
-   * 
+   *
    * @param address - The address to look for transactions.
    * @param out - A flag to look for transactions were the address is in the output (if set to true) or input (if set to false).
    * @returns Spendable value and the transaction id where the address occured in vin or vout.
    * @memberof BlockStream
    */
-  public async getValueFromLastTransaction(address: string, out: boolean): Promise<{ value: number, txID: string }> {
+  public async getValueFromLastTransaction(address: string, out: boolean): Promise<{ value: number; txID: string }> {
     type Transaction = {
-      txid: string,
+      txid: string
       vin: {
         prevout: {
-          scriptpubkey_address: string,
-          value: number,
+          scriptpubkey_address: string
+          value: number
         }
-      }[],
+      }[]
       vout: {
-        scriptpubkey_address: string,
-        value: number,
-      }[],
+        scriptpubkey_address: string
+        value: number
+      }[]
     }
 
     const res = await axios.get(`${this.baseURL}/address/${address}/txs`)
@@ -125,7 +125,6 @@ export default class BlockStream implements BitcoinAPI {
    * @memberof BlockStream
    */
   public async getOutput(transactionID: string, address: string): Promise<{ vout: number; value: number }> {
-    
     const res = await axios.get(`${this.baseURL}/tx/${transactionID}`)
     if (res.status !== 200) {
       throw new Error(res.data)

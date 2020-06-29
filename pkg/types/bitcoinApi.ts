@@ -1,10 +1,8 @@
-
-
 export interface BitcoinAPIConstructor {
   /**
    * Creates an instance of BitcoinAPI.
    */
-  new(network: string): BitcoinAPI
+  new (network: string): BitcoinAPI
 }
 
 /**
