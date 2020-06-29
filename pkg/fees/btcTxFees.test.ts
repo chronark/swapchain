@@ -1,4 +1,4 @@
-import { getFeesBTC } from "./txFees"
+import { getFeesBTC } from "./btcTxFees"
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 jest.mock("node-fetch", () => require("fetch-mock-jest").sandbox())
