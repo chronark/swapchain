@@ -27,7 +27,13 @@ export default class BlockStream implements BitcoinAPI {
    * @memberof BlockStream
    */
   public async getLastBlock(): Promise<{ height: number; timestamp: number }> {
-    const hash = await axios.get(this.baseURL + "/blocks/tip/hash")
+    const res = await axios.get(this.baseURL + "/blocks/tip/hash")
+
+    if (res.status !== 200) {
+      throw new Error("Could not get last transaction id")
+    }
+
+    const hash = res.data
     const block = await axios.get(this.baseURL + "/block/" + hash).then((res) => res.data)
 
     return { height: block.height, timestamp: block.timestamp }
@@ -41,7 +47,13 @@ export default class BlockStream implements BitcoinAPI {
    * @memberof BlockStream
    */
   public async getTimestampAtHeight(blockHeight: number): Promise<number> {
-    const hash = await axios.get(this.baseURL + "/block-height/" + blockHeight)
+    const res = await axios.get(this.baseURL + "/block-height/" + blockHeight)
+
+    if (res.status !== 200) {
+      throw new Error("Could not get last transaction id")
+    }
+
+    const hash = res.data
     const block = await axios.get(this.baseURL + "/block/" + hash).then((res) => res.data)
 
     return block.timestamp
@@ -63,6 +75,7 @@ export default class BlockStream implements BitcoinAPI {
     if (res.status === 200) {
       return res.data
     }
+
     throw new Error(res.data)
   }
 

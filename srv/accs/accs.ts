@@ -8,7 +8,6 @@ import figlet from "figlet"
 import BitsharesHTLC from "../../pkg/bitshares/htlc/btsHTLC"
 import BlockStream from "../../pkg/bitcoin/api/blockstream"
 
-
 /**
  * Contains all necessary information to run an ACCS.
  *
@@ -344,22 +343,25 @@ export default class ACCS {
 
     const p2wsh = htlcBTCProposer.getP2WSH(this.accsConfig.secret.hash, this.accsConfig.timelockBTC)
 
-    let timeToWait = this.accsConfig.timelockBTS
+    let timeToWait = Math.round(this.accsConfig.timelockBTS / 2) // We only check API every 2 seconds
 
     let txID: string | null = null
-    htlcBTCProposer.bitcoinAPI.getValueFromLastTransaction(p2wsh.address!).then((res) => {
-      txID = res.txID
-    })
 
-    while (txID === null) {
-      if (timeToWait === 0) {
-        htlcBTCProposer.stopLooking()
-        this.errorHandler(`No HTLC found on Bitcoin ${this.networkName}. Your HTLC will be automatically refunded.`)
-      }
+    while (txID === null && timeToWait > 0) {
+      htlcBTCProposer.bitcoinAPI
+        .getValueFromLastTransaction(p2wsh.address!)
+        .then((res) => {
+          txID = res.txID
+        })
+        .catch() // This error is intentional and expected to occur for most iterations
 
-      await new Promise((resolve) => setTimeout(resolve, 1_000))
+      await new Promise((resolve) => setTimeout(resolve, 2_000))
 
       timeToWait--
+    }
+
+    if (txID === null) {
+      this.errorHandler(`No HTLC found on Bitcoin ${this.networkName}. Your HTLC will be automatically refunded.`)
     }
 
     // redeem
@@ -434,23 +436,22 @@ export default class ACCS {
     // Wait for Alice to redeem the BTC HTLC, then extract secret
     const p2wsh = htlcBTCTaker.getP2WSH(this.accsConfig.secret.hash, this.accsConfig.timelockBTC)
 
-
     let preimageFromBlockchain: string | null = null
-    htlcBTCTaker.bitcoinAPI
-      .getPreimageFromLastTransaction(p2wsh.address!)
-      .then((preimage) => (preimageFromBlockchain = preimage))
+    const maxBlockHeight = htlcBTCTaker.getFundingTxBlockHeight() + this.accsConfig.timelockBTC
+    let currentBlock = 0
 
-    while (preimageFromBlockchain == null) {
-      const currentBlock = await htlcBTCTaker.bitcoinAPI.getLastBlock()
+    while (preimageFromBlockchain === null && currentBlock < maxBlockHeight) {
+      currentBlock = (await htlcBTCTaker.bitcoinAPI.getLastBlock()).height
 
-      if (currentBlock.height >= htlcBTCTaker.getFundingTxBlockHeight() + this.accsConfig.timelockBTC) {
-        htlcBTCTaker.stopLooking()
-        this.errorHandler(
-          "HTLC was not redeemed in time by the counterparty. Your HTLC will be automatically refunded.",
-        )
-      }
+      htlcBTCTaker.bitcoinAPI
+        .getPreimageFromLastTransaction(p2wsh.address!)
+        .then((preimage) => (preimageFromBlockchain = preimage))
 
       await new Promise((resolve) => setTimeout(resolve, 10_000))
+    }
+
+    if (preimageFromBlockchain === null) {
+      throw new Error("HTLC was not redeemed in time by the counterparty. Your HTLC will be automatically refunded.")
     }
 
     this.accsConfig.secret.preimage = preimageFromBlockchain
