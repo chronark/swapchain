@@ -14,7 +14,7 @@
     "lint:docker": "docker run --rm -i hadolint/hadolint < ./srv/bitcoinTimelockBackend/Dockerfile",
     "lint": "npm run lint:docker && npm run eslint",
     "prettier": "./node_modules/.bin/prettier --write ./**/*.{js,ts,json} --loglevel warn",
-    "test": "./node_modules/.bin/jest"
+    "test": "./node_modules/.bin/jest && cd srv/web && npm test"
   },
   "repository": {
     "type": "git",
