@@ -9,7 +9,7 @@
     "docker:up": "make -C ./build up",
     "docs:build": "./node_modules/.bin/typedoc && cd docs && npm run && npm run build",
     "docs:show": "./node_modules/.bin/typedoc && cd docs && npm run start",
-    "eslint": "./node_modules/.bin/eslint --fix --ext .ts ./",
+    "eslint": "./node_modules/.bin/eslint --fix --ext .ts --resolve-plugins-relative-to ./",
     "fmt": "npm run lint && npm run prettier",
     "lint:docker": "docker run --rm -i hadolint/hadolint < ./srv/bitcoinTimelockBackend/Dockerfile",
     "lint": "npm run lint:docker && npm run eslint",
