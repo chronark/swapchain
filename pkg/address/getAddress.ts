@@ -1,7 +1,9 @@
 import { getBTCAddress, getBTSAddress } from "./address"
 
 /**
- * @param processArgv
+ * Get address pair and print to stdout
+ *
+ * @param processArgv - The argument array.
  */
 export function getAddress(processArgv: string[]): void {
   const argv = processArgv.slice(2)
@@ -25,6 +27,7 @@ export function getAddress(processArgv: string[]): void {
   if (argv[0] === "bitcoin") {
     const addressPair = getBTCAddress(argv[1])
     console.log("Compressed private key (WIF): " + addressPair.privateKey)
+    console.log("Compressed public key: " + addressPair.publicKey)
     console.log("P2WPKH address: " + addressPair.address)
   }
 

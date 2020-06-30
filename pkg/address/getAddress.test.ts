@@ -1,6 +1,6 @@
 import { getAddress } from "./getAddress"
 import { mocked } from "ts-jest/utils"
-import { Address, getBTCAddress, getBTSAddress } from "./address"
+import { BTCAddress, BTSAddress, getBTCAddress, getBTSAddress } from "./address"
 jest.mock("./address")
 
 describe("getAddress script", () => {
@@ -11,23 +11,24 @@ describe("getAddress script", () => {
 
   it("should call getBTCAddress and print to stdout", () => {
     mocked(getBTCAddress).mockImplementation(
-      (network: string): Address => {
+      (network: string): BTCAddress => {
         return {
-          privateKey: "testKey",
+          privateKey: "testPrivateKey",
+          publicKey: "testPublicKey",
           address: "testAddress",
         }
       },
     )
     getAddress(["node", "getAddress.js", "bitcoin", "testnet"])
 
-    expect(console.log).toHaveBeenCalledTimes(2)
+    expect(console.log).toHaveBeenCalledTimes(3)
     expect(getBTCAddress).toHaveBeenCalledTimes(1)
     expect(getBTCAddress).toHaveBeenCalledWith("testnet")
   })
 
   it("should call getBTSAddress and print to stdout", () => {
     mocked(getBTSAddress).mockImplementation(
-      (network: string): Address => {
+      (network: string): BTSAddress => {
         return {
           privateKey: "testKey",
           address: "testAddress",
