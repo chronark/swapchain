@@ -357,7 +357,7 @@ export default class BitcoinHTLC {
     const fundingTransactionID = await this.bitcoinAPI.pushTX(p2wpkHex)
 
     if (!fundingTransactionID) {
-      throw new Error("Error during pushing funding transaction")
+      throw new Error("Pushing funding transaction failed. Is the endpoint down?")
     }
 
     // Wait for the funding transaction to be broadcasted
@@ -383,7 +383,7 @@ export default class BitcoinHTLC {
     )
 
     if (!res.success) {
-      throw new Error(`Error posting refundHex to database. Hex for refund transaction: ${refundHex}`)
+      throw new Error(`Posting refundHex to database. Hex for refund transaction: ${refundHex}`)
     }
     */
   }
