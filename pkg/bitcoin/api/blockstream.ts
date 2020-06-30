@@ -34,8 +34,13 @@ export default class BlockStream implements BitcoinAPI {
     }
 
     const hash = res.data
-    const block = await axios.get(this.baseURL + "/block/" + hash).then((res) => res.data)
+    const res2 = await axios.get(this.baseURL + "/block/" + hash)
 
+    if (res2.status !== 200) {
+      throw new Error(`Could not fetch block with hash ${hash}`)
+    }
+
+    const block = res2.data
     return { height: block.height, timestamp: block.timestamp }
   }
 
@@ -50,13 +55,17 @@ export default class BlockStream implements BitcoinAPI {
     const res = await axios.get(this.baseURL + "/block-height/" + blockHeight)
 
     if (res.status !== 200) {
-      throw new Error("Could not fetch block")
+      throw new Error(`Could not fetch block at height ${blockHeight}`)
     }
 
     const hash = res.data
-    const block = await axios.get(this.baseURL + "/block/" + hash).then((res) => res.data)
+    const res2 = await axios.get(this.baseURL + "/block/" + hash)
 
-    return block.timestamp
+    if (res2.status !== 200) {
+      throw new Error(`Could not fetch block with hash ${hash}`)
+    }
+
+    return res2.data.timestamp
   }
 
   /**

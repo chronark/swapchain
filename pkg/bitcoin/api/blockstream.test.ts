@@ -21,9 +21,9 @@ describe("constructor()", () => {
 })
 
 describe("getLastBlock()", () => {
-  it("should return height and timestamp of the last block on the blockchain", async () => {
-    const hash = "HASH"
+  const hash = "HASH"
 
+  it("should return height and timestamp of the last block on the blockchain", async () => {
     const mockedAxios = jest
       .spyOn(axios, "get")
       .mockResolvedValueOnce({ status: 200, data: hash })
@@ -36,13 +36,26 @@ describe("getLastBlock()", () => {
     expect(mockedAxios).toHaveBeenCalledWith("https://blockstream.info/api/blocks/tip/hash")
     expect(mockedAxios).toHaveBeenCalledWith("https://blockstream.info/api/block/" + hash)
   })
+  it("should throw an error if the first API call does not return a status 200", async () => {
+    const mockedAxios = jest
+      .spyOn(axios, "get")
+      .mockResolvedValueOnce({})
+    await expect(blockstream.getLastBlock()).rejects.toThrow()
+  })
+  it("should throw an error if the second API call does not return a status 200", async () => {
+    const mockedAxios = jest
+      .spyOn(axios, "get")
+      .mockResolvedValueOnce({ status: 200, data: hash })
+      .mockResolvedValueOnce({ status: 404, data: "Block not found" })
+    await expect(blockstream.getLastBlock()).rejects.toThrow()
+  })
 })
 
 describe("getTimestampAtHeight()", () => {
-  it("should return the timestamp of the requested block on the blockchain", async () => {
-    const height = 9001
-    const hash = "HASH"
+  const height = 9001
+  const hash = "HASH"
 
+  it("should return the timestamp of the requested block on the blockchain", async () => {
     const mockedAxios = jest
       .spyOn(axios, "get")
       .mockResolvedValueOnce({ status: 200, data: hash })
@@ -54,6 +67,19 @@ describe("getTimestampAtHeight()", () => {
     expect(mockedAxios).toHaveBeenCalledTimes(2)
     expect(mockedAxios).toHaveBeenCalledWith("https://blockstream.info/api/block-height/" + height)
     expect(mockedAxios).toHaveBeenCalledWith("https://blockstream.info/api/block/" + hash)
+  })
+  it("should throw an error if the first API call does not return a status 200", async () => {
+    const mockedAxios = jest
+      .spyOn(axios, "get")
+      .mockResolvedValueOnce({})
+    await expect(blockstream.getTimestampAtHeight(height)).rejects.toThrow()
+  })
+  it("should throw an error if the second API call does not return a status 200", async () => {
+    const mockedAxios = jest
+      .spyOn(axios, "get")
+      .mockResolvedValueOnce({ status: 200, data: hash })
+      .mockResolvedValueOnce({ status: 404, data: "Block not found" })
+    await expect(blockstream.getTimestampAtHeight(height)).rejects.toThrow()
   })
 })
 describe("pushTX()", () => {
@@ -307,4 +333,66 @@ describe("getOutput()", () => {
       .mockImplementation(() => Promise.resolve({ status: 200, data: { vout: [] } }))
     await expect(blockstream.getOutput("testTxID", "BADADDRESS")).rejects.toThrow()
   })
+})
+
+
+describe("getBlockHeight()", () => {
+
+  /* eslint-disable @typescript-eslint/camelcase */
+  const transaction1 = {
+    name: "unconfirmed transaction",
+    txID: "ID1",
+    data: {
+      status: {
+        confirmed: false,
+      },
+    },
+    want: {
+      confirmed: false,
+    },
+  }
+  const transaction2 = {
+    name: "confirmed transaction",
+    txID: "ID2",
+    data: {
+      status: {
+        confirmed: true,
+        block_height: 1,
+      },
+    },
+    want: {
+      confirmed: true,
+      block_height: 1,
+    },
+  }
+  /* eslint-enable @typescript-eslint/camelcase */
+
+  it(`should return undefined from an unconfirmed transaction`, async () => {
+    const mockedAxios = jest
+      .spyOn(axios, "get")
+      .mockImplementationOnce(() => Promise.resolve({ data: transaction1.data, status: 200 }))
+    const blockHeight = await blockstream.getBlockHeight(transaction1.txID)
+
+    expect(blockHeight).toBeUndefined()
+
+    expect(mockedAxios).toHaveBeenCalledTimes(1)
+    expect(mockedAxios).toHaveBeenCalledWith(`https://blockstream.info/api/tx/${transaction1.txID}`)
+  })
+  it(`should return block height from a confirmed transaction`, async () => {
+    const mockedAxios = jest
+      .spyOn(axios, "get")
+      .mockImplementationOnce(() => Promise.resolve({ data: transaction2.data, status: 200 }))
+    const blockHeight = await blockstream.getBlockHeight(transaction2.txID)
+
+    expect(blockHeight).toBe(transaction2.want.block_height)
+
+    expect(mockedAxios).toHaveBeenCalledTimes(1)
+    expect(mockedAxios).toHaveBeenCalledWith(`https://blockstream.info/api/tx/${transaction2.txID}`)
+  })
+})
+it("should throw an error if the API does not return a status 200", async () => {
+  const mockedAxios = jest
+    .spyOn(axios, "get")
+    .mockImplementation(() => Promise.resolve({ status: 404, data: "Transaction not found" }))
+  await expect(blockstream.getBlockHeight("testTxID")).rejects.toThrow()
 })
