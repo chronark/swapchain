@@ -16,6 +16,7 @@ describe("ACCS tests", () => {
       .spyOn(ACCS.prototype, "askUser")
       .mockReturnValueOnce(Promise.resolve("Proposer"))
       .mockReturnValueOnce(Promise.resolve("1"))
+      .mockReturnValueOnce(Promise.resolve("0"))
       .mockReturnValueOnce(Promise.resolve("testBTSAccount"))
       .mockReturnValueOnce(Promise.resolve("testBTSPrivateKey"))
       .mockReturnValueOnce(Promise.resolve("cTZs9RHsw3nDt98nDNSw3BDs53yaWmQkDFaF8MtBWEMkPMrg42t5"))
@@ -33,6 +34,7 @@ describe("ACCS tests", () => {
       txMode: "proposer",
       txType: "1",
       txTypeName: "BTS/BTC",
+      priority: 0,
       accountBTS: "testBTSAccount",
       privateKeyBTS: "testBTSPrivateKey",
       accountCounterpartyBTS: "testBTSCounterpartyAccount",

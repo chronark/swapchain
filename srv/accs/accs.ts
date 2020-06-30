@@ -13,22 +13,94 @@ import BlockStream from "../../pkg/bitcoin/api/blockstream"
  * @interface ACCSConfig
  */
 export interface ACCSConfig {
+  /**
+   * The transaction mode (proposer or taker).
+   */
   txMode: string
+
+  /**
+   * The transaction type (1 = BTS for BTC, 2 = BTC for BTS).
+   */
   txType: string
+
+  /**
+   * The transaction type name to give user feedback.
+   */
   txTypeName: string
+
+  /**
+   * The Bitcoin transaction priority (0 = high, 1 = medium, 2 = low)
+   */
+  priority: number
+
+  /**
+   * The user's own Bitshares account name.
+   */
   accountBTS: string
+
+  /**
+   * The user's own Bitshares private key.
+   */
   privateKeyBTS: string
+
+  /**
+   * The counterparty's Bitshares account name.
+   */
   accountCounterpartyBTS: string
+
+  /**
+   * The amount the user wants to give.
+   */
   amount: string
+
+  /**
+   * The exchange rate.
+   */
   rateBTSBTC: number
+
+  /**
+   * The amount of Bitshares in 1/100000 BTS.
+   */
   amountBTSMini: number
+
+  /**
+   * The amount of Bitcoin in Satoshi 1/100000000 BTC.
+   */
   amountSatoshi: number
+
+  /**
+   * The user's own Bitcoin compressed keypair.
+   */
   keyPairCompressedBTC: bitcoin.ECPairInterface
+
+  /**
+   * The counterparty's Bitcoin compressed keypair. Only contains a public key!
+   */
   keyPairCounterpartyCompressedBTC: bitcoin.ECPairInterface
+
+  /**
+   * 
+   */
   speedBTC: number
+
+  /**
+   * The timelock for the Bitcoin blockchain.
+   */
   timelockBTC: number
+
+  /**
+   * The timelock for the Bitshares blockchain.
+   */
   timelockBTS: number
+
+  /**
+   * A secret object with a random preimage and its corresponding SHA256 hash.
+   */
   secret: Secret
+
+  /**
+   * The Bitcoin transaction id the user wants to spend.
+   */
   txIdBTC: string
 }
 
@@ -43,7 +115,6 @@ export default class ACCS {
   private net: bitcoin.networks.Network
   private asset: string
   private endpointBTS: string
-  private endpointBTC: string
   private accsConfig: ACCSConfig
 
   /**
@@ -64,12 +135,10 @@ export default class ACCS {
       this.net = bitcoin.networks.bitcoin
       this.asset = "BTS"
       this.endpointBTS = "wss://api.dex.trading/"
-      this.endpointBTC = "https://blockstream.info/api/"
     } else {
       this.net = bitcoin.networks.testnet
       this.asset = "TEST"
       this.endpointBTS = "wss://testnet.dex.trading"
-      this.endpointBTC = "https://blockstream.info/testnet/api/"
     }
 
     this.accsConfig = {} as ACCSConfig
@@ -121,6 +190,13 @@ export default class ACCS {
     }
     accsConfig.txTypeName = accsConfig.txType === "1" ? "BTS/BTC" : "BTC/BTS"
     // TODO: "Manual mode or ID from order book?" -> Connection to backend
+
+    const priority = await this.askUser("Please enter the priority of the Bitcoin transactions (0 = high, 1 = medium, 2 = low): ")
+    if (!["0", "1", "2"].includes(priority)) {
+      throw new Error("Invalid priority. Must be 0, 1 or 2.")
+    }
+
+    accsConfig.priority = Number(priority)
 
     accsConfig.accountBTS = await this.askUser("Please enter your Bitshares account name: ")
 
@@ -236,6 +312,7 @@ export default class ACCS {
       this.networkName,
       this.accsConfig.keyPairCompressedBTC,
       this.accsConfig.keyPairCounterpartyCompressedBTC,
+      this.accsConfig.priority,
       BlockStream,
     )
 
@@ -245,14 +322,6 @@ export default class ACCS {
       sequence: this.accsConfig.timelockBTC,
       hash: this.accsConfig.secret.hash,
     })
-
-    if (status === 1) {
-      throw new Error("The output of the transaction ID given does not have sufficient balance.")
-    } else if (status === 2) {
-      throw new Error("Pushing funding transaction failed. Is the endpoint down?")
-    } else if (status === 3) {
-      throw new Error("Posting refundHex to database failed. Please refund HTLC manually.")
-    }
 
     console.log(`Successfully created HTLC on Bitcoin ${this.networkName}!`)
     console.log(
@@ -329,6 +398,7 @@ export default class ACCS {
       this.networkName,
       this.accsConfig.keyPairCounterpartyCompressedBTC,
       this.accsConfig.keyPairCompressedBTC,
+      this.accsConfig.priority,
       BlockStream,
     )
 
@@ -356,11 +426,7 @@ export default class ACCS {
     }
 
     // redeem
-    const status = await htlcBTCProposer.redeem(p2wsh, this.accsConfig.secret)
-
-    if (status === 1) {
-      throw new Error("Could not redeem Bitcoin HTLC. Please try manually.")
-    }
+    await htlcBTCProposer.redeem(p2wsh, this.accsConfig.secret)
   }
 
   /**
@@ -404,6 +470,7 @@ export default class ACCS {
       this.networkName,
       this.accsConfig.keyPairCompressedBTC,
       this.accsConfig.keyPairCounterpartyCompressedBTC,
+      this.accsConfig.priority,
       BlockStream,
     )
 
@@ -413,14 +480,6 @@ export default class ACCS {
       sequence: this.accsConfig.timelockBTC,
       hash: this.accsConfig.secret.hash,
     })
-
-    if (status === 1) {
-      throw new Error("The output of the transaction ID given does not have sufficient balance.")
-    } else if (status === 2) {
-      throw new Error("Pushing funding transaction failed. Is the endpoint down?")
-    } else if (status === 3) {
-      throw new Error("Posting refundHex to database failed. Please refund HTLC manually.")
-    }
 
     console.log("HTLC successfully created on Bitcoin. Waiting for counterparty to redeem it...")
 
@@ -477,6 +536,7 @@ export default class ACCS {
       this.networkName,
       this.accsConfig.keyPairCounterpartyCompressedBTC,
       this.accsConfig.keyPairCompressedBTC,
+      this.accsConfig.priority,
       BlockStream,
     )
 
@@ -560,11 +620,7 @@ export default class ACCS {
     )
 
     // Redeem BTC HTLC
-    const status = await htlcBTCTaker.redeem(p2wsh, this.accsConfig.secret)
-
-    if (status === 1) {
-      throw new Error("Could not redeem Bitcoin HTLC. Please try manually.")
-    }
+    await htlcBTCTaker.redeem(p2wsh, this.accsConfig.secret)
   }
 
   /**
