@@ -1,8 +1,6 @@
 import Blockstream from "./blockstream"
 
 import axios from "axios"
-import { stringify } from "querystring"
-import { isTaggedTemplateExpression } from "typescript"
 jest.mock("axios")
 
 beforeEach(() => {
@@ -28,8 +26,8 @@ describe("getLastBlock()", () => {
 
     const mockedAxios = jest
       .spyOn(axios, "get")
-      .mockImplementationOnce(() => Promise.resolve(hash))
-      .mockImplementationOnce(() => Promise.resolve({ data: { height: 9000, timestamp: 9001 } }))
+      .mockResolvedValueOnce({ status: 200, data: hash })
+      .mockResolvedValueOnce({ status: 200, data: { height: 9000, timestamp: 9001 } })
 
     const result = await blockstream.getLastBlock()
 
@@ -47,8 +45,8 @@ describe("getTimestampAtHeight()", () => {
 
     const mockedAxios = jest
       .spyOn(axios, "get")
-      .mockImplementationOnce(() => Promise.resolve(hash))
-      .mockImplementationOnce(() => Promise.resolve({ data: { timestamp: 1234567890 } }))
+      .mockResolvedValueOnce({ status: 200, data: hash })
+      .mockResolvedValueOnce({ status: 200, data: { timestamp: 1234567890 } })
 
     const result = await blockstream.getTimestampAtHeight(height)
 
@@ -93,7 +91,6 @@ describe("pushTX()", () => {
     })
   })
 })
-
 describe("getValueFromLastTransaction()", () => {
   const address = "ADDRESS"
 
@@ -139,6 +136,30 @@ describe("getValueFromLastTransaction()", () => {
       out: true,
       want: { value: 3, txID: "outTXID2" },
     },
+  ]
+  /* eslint-enable @typescript-eslint/camelcase */
+
+  testCases.forEach((tc) => {
+    it(`should return amount and transactionID from an address ${tc.name}`, async () => {
+      const mockedAxios = jest
+        .spyOn(axios, "get")
+        .mockImplementationOnce(() => Promise.resolve({ status: 200, data: tc.transactions }))
+      const result = await blockstream.getValueFromLastTransaction(address)
+
+      expect(result.value).toEqual(tc.want.value)
+      expect(result.txID).toEqual(tc.want.txID)
+      expect(mockedAxios).toHaveBeenCalledTimes(1)
+      expect(mockedAxios).toHaveBeenCalledWith(`https://blockstream.info/api/address/${address}/txs`)
+    })
+  })
+})
+
+describe("getPreimageFromLastTransaction()", () => {
+  const address = "ADDRESS"
+  const validWitness = "524a486e415350432b74705473637653444c382f6c4d72344d577a6470446438"
+  const decodedWitness = "RJHnASPC+tpTscvSDL8/lMr4MWzdpDd8"
+
+  const testCases = [
     {
       name: "input from a single transaction",
       transactions: [
@@ -147,15 +168,16 @@ describe("getValueFromLastTransaction()", () => {
           vin: [
             {
               prevout: {
+                /* eslint-disable-next-line @typescript-eslint/camelcase */
                 scriptpubkey_address: address,
                 value: 5,
               },
+              witness: ["first one", validWitness],
             },
           ],
         },
       ],
-      out: false,
-      want: { value: 5, txID: "inTXID" },
+      want: decodedWitness,
     },
     {
       name: "input from multiple transactions",
@@ -165,34 +187,34 @@ describe("getValueFromLastTransaction()", () => {
           vin: [
             {
               prevout: {
+                /* eslint-disable-next-line @typescript-eslint/camelcase */
                 scriptpubkey_address: "OTHER ADDRESS",
                 value: 55,
               },
+              witness: ["first one", "wrong one"],
             },
             {
               prevout: {
+                /* eslint-disable-next-line @typescript-eslint/camelcase */
                 scriptpubkey_address: address,
                 value: 5,
               },
+              witness: ["first one", validWitness],
             },
           ],
         },
       ],
-      out: false,
-      want: { value: 5, txID: "inTXID" },
+      want: decodedWitness,
     },
   ]
-  /* eslint-enable @typescript-eslint/camelcase */
 
   testCases.forEach((tc) => {
     it(`should return amount and transactionID from an address ${tc.name}`, async () => {
       const mockedAxios = jest
         .spyOn(axios, "get")
         .mockImplementationOnce(() => Promise.resolve({ status: 200, data: tc.transactions }))
-      const result = await blockstream.getValueFromLastTransaction(address, tc.out)
-
-      expect(result.value).toEqual(tc.want.value)
-      expect(result.txID).toEqual(tc.want.txID)
+      const preimage = await blockstream.getPreimageFromLastTransaction(address)
+      expect(preimage).toEqual(tc.want)
       expect(mockedAxios).toHaveBeenCalledTimes(1)
       expect(mockedAxios).toHaveBeenCalledWith(`https://blockstream.info/api/address/${address}/txs`)
     })
@@ -202,13 +224,13 @@ describe("getValueFromLastTransaction()", () => {
     const mockedAxios = jest
       .spyOn(axios, "get")
       .mockImplementation(() => Promise.resolve({ status: 400, data: "error message" }))
-    await expect(blockstream.getValueFromLastTransaction("ADDRESS1", true)).rejects.toThrow()
-    await expect(blockstream.getValueFromLastTransaction("ADDRESS2", false)).rejects.toThrow()
+    await expect(blockstream.getValueFromLastTransaction("ADDRESS1")).rejects.toThrow()
+    await expect(blockstream.getPreimageFromLastTransaction("ADDRESS2")).rejects.toThrow()
   })
   it("should throw an error if no matching address is found", async () => {
     const mockedAxios = jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve({ status: 200, data: [] }))
-    await expect(blockstream.getValueFromLastTransaction("ADDRESS1", true)).rejects.toThrow()
-    await expect(blockstream.getValueFromLastTransaction("ADDRESS2", false)).rejects.toThrow()
+    await expect(blockstream.getValueFromLastTransaction("ADDRESS1")).rejects.toThrow()
+    await expect(blockstream.getPreimageFromLastTransaction("ADDRESS2")).rejects.toThrow()
   })
 })
 

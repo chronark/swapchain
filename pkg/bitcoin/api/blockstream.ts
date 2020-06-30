@@ -30,7 +30,7 @@ export default class BlockStream implements BitcoinAPI {
     const res = await axios.get(this.baseURL + "/blocks/tip/hash")
 
     if (res.status !== 200) {
-      throw new Error("Could not get last transaction id")
+      throw new Error("Could not fetch last block")
     }
 
     const hash = res.data
@@ -50,7 +50,7 @@ export default class BlockStream implements BitcoinAPI {
     const res = await axios.get(this.baseURL + "/block-height/" + blockHeight)
 
     if (res.status !== 200) {
-      throw new Error("Could not get last transaction id")
+      throw new Error("Could not fetch block")
     }
 
     const hash = res.data
@@ -105,6 +105,8 @@ export default class BlockStream implements BitcoinAPI {
       const tx = transactions[i]
       for (let j = 0; j < tx.vin.length; j++) {
         if (tx.vin[j].prevout.scriptpubkey_address === address) {
+          // The witness is stored (serialized as string) on the blockchain
+          // We need to deserialize it by loading it into a Buffer and transform it back to a regular string
           return Buffer.from(tx.vin[j].witness[1], "hex").toString()
         }
       }

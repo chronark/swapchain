@@ -99,7 +99,7 @@ export default class ACCS {
     // Print beautiful Swapchain banner and version info
     figlet("Swapchain", (err, banner) => {
       if (err) {
-        this.errorHandler(err.toString())
+        throw new Error(err.toString())
       }
       console.log(banner)
     })
@@ -113,12 +113,12 @@ export default class ACCS {
     // Start getting user input
     accsConfig.txMode = (await this.askUser("Are you Proposer or Taker? (Proposer/Taker): ")).toLowerCase()
     if (accsConfig.txMode !== "proposer" && accsConfig.txMode !== "taker") {
-      this.errorHandler("Invalid mode.")
+      throw new Error("Invalid mode.")
     }
 
     accsConfig.txType = await this.askUser("Would you like to get (1) BTS for BTC or (2) BTC for BTS? (1/2): ")
     if (accsConfig.txType !== "1" && accsConfig.txType !== "2") {
-      this.errorHandler("Invalid type.")
+      throw new Error("Invalid type.")
     }
     accsConfig.txTypeName = accsConfig.txType === "1" ? "BTS/BTC" : "BTC/BTS"
     // TODO: "Manual mode or ID from order book?" -> Connection to backend
@@ -137,7 +137,7 @@ export default class ACCS {
 
     const publicKeyCounterpartyBTC = await this.askUser("Please enter the Bitcoin public key of the counterparty: ")
     if (!(publicKeyCounterpartyBTC.length === 66 || publicKeyCounterpartyBTC.length === 130)) {
-      this.errorHandler("Invalid Bitcoin public key.")
+      throw new Error("Invalid Bitcoin public key.")
     }
 
     accsConfig.amount = await this.askUser(
@@ -201,7 +201,7 @@ export default class ACCS {
       const hashString = await this.askUser("Please enter the secret hash you received from the proposer: ")
       // SHA256 hash length must be 64
       if (hashString.length !== 64) {
-        this.errorHandler("Invalid secret hash length.")
+        throw new Error("Invalid secret hash length.")
       }
       accsConfig.secret = {
         preimage: undefined,
@@ -227,17 +227,6 @@ export default class ACCS {
   }
 
   /**
-   * Handles errors by printing messages and exiting.
-   *
-   * @param message - An error message to print.
-   * @memberof ACCS
-   */
-  private errorHandler(message: string): void {
-    console.log("Error: " + message + " Aborting...")
-    process.exit(1)
-  }
-
-  /**
    * Handles ACCS for proposer who wants BTS for BTC.
    *
    * @memberof ACCS
@@ -260,11 +249,11 @@ export default class ACCS {
     })
 
     if (status === 1) {
-      this.errorHandler("The output of the transaction ID given does not have sufficient balance.")
+      throw new Error("The output of the transaction ID given does not have sufficient balance.")
     } else if (status === 2) {
-      this.errorHandler("Pushing funding transaction failed. Is the endpoint down?")
+      throw new Error("Pushing funding transaction failed. Is the endpoint down?")
     } else if (status === 3) {
-      this.errorHandler("Posting refundHex to database failed. Please refund HTLC manually.")
+      throw new Error("Posting refundHex to database failed. Please refund HTLC manually.")
     }
 
     console.log(`Successfully created HTLC on Bitcoin ${this.networkName}!`)
@@ -368,14 +357,14 @@ export default class ACCS {
     }
 
     if (txID === null) {
-      this.errorHandler(`No HTLC found on Bitcoin ${this.networkName}. Your HTLC will be automatically refunded.`)
+      throw new Error(`No HTLC found on Bitcoin ${this.networkName}. Your HTLC will be automatically refunded.`)
     }
 
     // redeem
     const status = await htlcBTCProposer.redeem(p2wsh, this.accsConfig.secret)
 
     if (status === 1) {
-      this.errorHandler("Could not redeem Bitcoin HTLC. Please try manually.")
+      throw new Error("Could not redeem Bitcoin HTLC. Please try manually.")
     }
   }
 
@@ -432,11 +421,11 @@ export default class ACCS {
     })
 
     if (status === 1) {
-      this.errorHandler("The output of the transaction ID given does not have sufficient balance.")
+      throw new Error("The output of the transaction ID given does not have sufficient balance.")
     } else if (status === 2) {
-      this.errorHandler("Pushing funding transaction failed. Is the endpoint down?")
+      throw new Error("Pushing funding transaction failed. Is the endpoint down?")
     } else if (status === 3) {
-      this.errorHandler("Posting refundHex to database failed. Please refund HTLC manually.")
+      throw new Error("Posting refundHex to database failed. Please refund HTLC manually.")
     }
 
     console.log("HTLC successfully created on Bitcoin. Waiting for counterparty to redeem it...")
@@ -477,7 +466,7 @@ export default class ACCS {
     )
 
     if (!success) {
-      this.errorHandler("Could not redeem Bitshares HTLC. Please try manually.")
+      throw new Error("Could not redeem Bitshares HTLC. Please try manually.")
     }
   }
 
@@ -548,9 +537,7 @@ export default class ACCS {
 
     while (htlc.length < 1) {
       if (timeToWait === 0) {
-        this.errorHandler(
-          "HTLC was not redeemed in time by the counterparty. Your HTLC will be automatically refunded.",
-        )
+        throw new Error("HTLC was not redeemed in time by the counterparty. Your HTLC will be automatically refunded.")
       }
 
       const history = await btsWebsocketApi.history.get_relative_account_history(this.accsConfig.accountBTS, 0, 100, 0)
@@ -583,7 +570,7 @@ export default class ACCS {
     const status = await htlcBTCTaker.redeem(p2wsh, this.accsConfig.secret)
 
     if (status === 1) {
-      this.errorHandler("Could not redeem Bitcoin HTLC. Please try manually.")
+      throw new Error("Could not redeem Bitcoin HTLC. Please try manually.")
     }
   }
 
