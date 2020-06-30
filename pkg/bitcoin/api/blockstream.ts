@@ -105,6 +105,8 @@ export default class BlockStream implements BitcoinAPI {
       const tx = transactions[i]
       for (let j = 0; j < tx.vin.length; j++) {
         if (tx.vin[j].prevout.scriptpubkey_address === address) {
+          // The witness is stored (serialized as string) on the blockchain
+          // We need to deserialize it by loading it into a Buffer and transform it back to a regular string
           return Buffer.from(tx.vin[j].witness[1], "hex").toString()
         }
       }
