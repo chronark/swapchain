@@ -1,5 +1,3 @@
-import { isNumber } from "util"
-
 const blockSequence = require("./timers")
 
 // Check if there is any data fetched at all
