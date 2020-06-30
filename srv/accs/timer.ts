@@ -9,13 +9,12 @@ export class Timer {
 
   /**
    * Creates an instance of Timer.
-   * 
-   * @param blockSequence 
-   * @param network 
-   * @param BitcoinAPIConstructor 
+   *
+   * @param blockSequence
+   * @param network
+   * @param BitcoinAPIConstructor
    */
   constructor(blockSequence: number, network: string, BitcoinAPIConstructor: BitcoinAPIConstructor) {
-    
     this.bitcoinAPI = new BitcoinAPIConstructor(network)
     const minBlockSequence = 6
     const maxBlockSequence = 20
@@ -28,7 +27,7 @@ export class Timer {
 
   /**
    * Get Bitcoin timelock.
-   * 
+   *
    * @returns Bitcoin timelock in number of blocks.
    */
   public toBTC(): number {
@@ -37,12 +36,11 @@ export class Timer {
 
   /**
    * Calculate Bitshares timelock based on bitcoin blockchain mining speed.
-   * 
+   *
    * @param blockHeightDifference - The number of blocks to calculate mean.
    * @returns Bitshares timelock in seconds.
    */
   public async toBTS(blockHeightDifference: number = 10): Promise<number> {
-
     const lastBlock = await this.bitcoinAPI.getLastBlock()
     const pastTimestamp = await this.bitcoinAPI.getTimestampAtHeight(lastBlock.height - blockHeightDifference)
 
