@@ -186,10 +186,10 @@ export default class BlockStream implements BitcoinAPI {
    * Return the block height of the transaction.
    *
    * @param transactionID - ID of any bitcoin transaction.
-   * @returns Blockheight.
+   * @returns Blockheight or undefined if block is not mined/broadcasted yet.
    * @memberof BlockStream
    */
-  public async getBlockHeight(transactionID: string): Promise<number> {
+  public async getBlockHeight(transactionID: string): Promise<number | undefined> {
     const res = await axios.get(`${this.baseURL}/tx/${transactionID}`)
     if (res.status !== 200) {
       throw new Error(res.data)
