@@ -208,4 +208,34 @@ export default class BlockStream implements BitcoinAPI {
 
     return res.data.status.block_height
   }
+
+  /**
+   * Get fee estimates
+   * 
+   * @returns Array with fee estimates for high, mid and low priority. If fee estimates are too close, it returns only one or two values.
+   * @memberof BlockStream
+   */
+  public async getFeeEstimates(): Promise<number[]> {
+    const res = await axios.get(`${this.baseURL}/fee-estimates`)
+
+    if (res.status !== 200) {
+      throw new Error(res.data)
+    }
+
+    const feeEstimates: number[] = Object.values(res.data)
+    let reducedFeeEstimates: number[] = []
+    reducedFeeEstimates.push(feeEstimates[0])
+
+    for (let i = feeEstimates.length - 2; i >= 0; i--) {
+      if (feeEstimates[i] > feeEstimates[feeEstimates.length - 1] * 1.05) {
+        if (i >= 2) {
+          reducedFeeEstimates.push(feeEstimates[Math.round(i / 2)])
+        }
+        reducedFeeEstimates.push(feeEstimates[i])
+        break
+      }
+    }
+
+    return reducedFeeEstimates
+  }
 }
