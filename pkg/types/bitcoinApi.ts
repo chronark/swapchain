@@ -69,7 +69,7 @@ export interface BitcoinAPI {
   /**
    * Get fee estimates
    *
-   * @returns Array with fee estimates for high, mid and low priority. If fee estimates are too close, it returns only one or two values.
+   * @returns Array with fee estimates for high, mid and low priority in satoshis/vbyte. If fee estimates are too close, it returns only one or two values.
    * @memberof BlockStream
    */
   getFeeEstimates: () => Promise<number[]>
