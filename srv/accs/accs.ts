@@ -79,7 +79,7 @@ export interface ACCSConfig {
   keyPairCounterpartyCompressedBTC: bitcoin.ECPairInterface
 
   /**
-   * 
+   *
    */
   speedBTC: number
 
@@ -191,7 +191,9 @@ export default class ACCS {
     accsConfig.txTypeName = accsConfig.txType === "1" ? "BTS/BTC" : "BTC/BTS"
     // TODO: "Manual mode or ID from order book?" -> Connection to backend
 
-    const priority = await this.askUser("Please enter the priority of the Bitcoin transactions (0 = high, 1 = medium, 2 = low): ")
+    const priority = await this.askUser(
+      "Please enter the priority of the Bitcoin transactions (0 = high, 1 = medium, 2 = low): ",
+    )
     if (!["0", "1", "2"].includes(priority)) {
       throw new Error("Invalid priority. Must be 0, 1 or 2.")
     }
