@@ -12,15 +12,21 @@ jest.mock("../../pkg/bitcoin/api/blockstream")
 console.log = jest.fn()
 
 const getBitcoinHTLCMock = () => {
+  BitcoinHTLC.prototype.bitcoinAPI = {
+    getLastBlock: jest.fn().mockResolvedValue({ height: 1000, timestamp: 5000 }), // TODO: change the values
+    getTimestampAtHeight: jest.fn().mockResolvedValue(6000),
+    pushTX: jest.fn().mockResolvedValue("4a2d7af13070119a0b8a36082df0a03c17e60059250598b100260b0a6949a9ee"),
+    getPreimageFromLastTransaction: jest.fn().mockResolvedValue("amos"),
+    getValueFromLastTransaction: jest.fn().mockResolvedValue({ value: 2, txID: "txID" }),
+    getOutput: jest.fn().mockResolvedValue({ vout: 1, value: 1_000_000 }),
+    getBlockHeight: jest.fn().mockResolvedValue(1_000_000),
+    getFeeEstimates: jest.fn().mockResolvedValue([25.4, 14.2, 5.1]),
+  }
+
   return {
-    redeem: jest.spyOn(BitcoinHTLC.prototype, "redeem").mockImplementation(() => Promise.resolve()),
-    create: jest.spyOn(BitcoinHTLC.prototype, "create").mockImplementation(() => Promise.resolve()),
+    redeem: jest.spyOn(BitcoinHTLC.prototype, "redeem").mockResolvedValue(undefined),
+    create: jest.spyOn(BitcoinHTLC.prototype, "create").mockResolvedValue("hex"),
     getFundingTxBlockHeight: jest.spyOn(BitcoinHTLC.prototype, "getFundingTxBlockHeight").mockReturnValue(1000),
-    bitcoinAPI: {
-      getLastBlock: jest
-        .spyOn(BlockStream.prototype, "getLastBlock")
-        .mockResolvedValue({ height: 2000, timestamp: 1_000_000 }),
-    },
   }
 }
 
@@ -91,10 +97,9 @@ describe("getUserInput()", () => {
 
     expect(accsConfig.txMode).toBe(expectedACCSConfig.txMode)
   })
-
 })
 describe("proposeBTSForBTC()", async () => {
-  it("runs... TODO:", async () => {
+  it.skip("runs... TODO:", async () => {
     const accsConfig: ACCSConfig = {
       txMode: "proposer",
       txType: "1",
@@ -118,7 +123,6 @@ describe("proposeBTSForBTC()", async () => {
           compressed: true,
         },
       ),
-      speedBTC: 500,
       timelockBTC: 6,
       timelockBTS: 3000,
       secret: {
