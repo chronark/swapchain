@@ -21,12 +21,13 @@ const secret = {
   hash: bitcoin.crypto.sha256(Buffer.from("TOPSECRET")),
 }
 
+const toHex = jest.fn()
+
 beforeEach(() => {
   jest.resetAllMocks()
   fetchMock.mockClear()
+  
 
-
-  const toHex = jest.fn()
 
   mocked(bitcoin.payments)
   mocked(bitcoin.Psbt)
