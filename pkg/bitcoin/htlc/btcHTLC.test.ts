@@ -10,7 +10,6 @@ jest.mock("node-fetch", () => require("fetch-mock-jest").sandbox())
 const fetchMock = require("node-fetch")
 dotenv.config()
 
-const toHex = jest.fn()
 jest.setTimeout(10000)
 const alice = bitcoin.ECPair.fromWIF("cU3CS1SGfFQ5FvCHTWyo7JEBjWWEAcqMM84JJwGnQg9Deugj8Skw", bitcoin.networks.testnet)
 const bob = bitcoin.ECPair.fromWIF("cNaEjitvA19JZxWAFyCFMsm16TvGEmVAW3AkPnVr8E9vgwdZWMGV", bitcoin.networks.testnet)
@@ -31,18 +30,15 @@ beforeEach(() => {
 
   bitcoin.Psbt.prototype.signInput = jest
     .fn()
-    .mockImplementation((index: number, signer: bitcoin.ECPairInterface) => bitcoin.Psbt.prototype)
+    .mockReturnValue(bitcoin.Psbt.prototype)
   bitcoin.Psbt.prototype.validateSignaturesOfInput = jest
     .fn()
-    .mockImplementation((index: number) => bitcoin.Psbt.prototype)
+    .mockReturnValue(bitcoin.Psbt.prototype)
   bitcoin.Psbt.prototype.finalizeInput = jest
     .fn()
-    .mockImplementation((index: number, script: Buffer) => bitcoin.Psbt.prototype)
-  bitcoin.Psbt.prototype.finalizeAllInputs = jest.fn().mockImplementation(() => bitcoin.Psbt.prototype)
-
-  bitcoin.Psbt.prototype.extractTransaction = jest.fn().mockImplementation(() => {
-    return { toHex }
-  })
+    .mockReturnValue(bitcoin.Psbt.prototype)
+  bitcoin.Psbt.prototype.finalizeAllInputs = jest.fn().mockReturnValue(bitcoin.Psbt.prototype)
+  bitcoin.Psbt.prototype.extractTransaction = jest.fn().mockReturnValue({ toHex: jest.fn() })
 
   bitcoin.payments.p2wsh = jest.fn().mockReturnValue({
     network: {
