@@ -279,13 +279,12 @@ export default class ACCS {
       })
 
     const maxBlockHeight = htlcBTCProposer.getFundingTxBlockHeight()! + this.accsConfig.timelockBTC
-    let currentBlock = 0
+    let currentBlockHeight = 0
 
     // If no HTLC found immediately, continue looking until timelock
     while (!success && currentBlock < maxBlockHeight) {
-
-      const currentBlock = await htlcBTCProposer.bitcoinAPI.getLastBlock()
-      console.warn(`${currentBlock.height} vs. ${maxBlockHeight}`)
+      currentBlockHeight = (await htlcBTCProposer.bitcoinAPI.getLastBlock()).height
+      console.warn(`${currentBlockHeight} vs. ${maxBlockHeight}`)
 
       await new Promise((resolve) => setTimeout(resolve, 10_000))
     }
@@ -296,9 +295,7 @@ export default class ACCS {
     }
 
     console.log(`Found the HTLC for you on Bitshares ${this.networkName}! Redeeming the HTLC...`)
-
   }
-
 
   /**
    * Handles ACCS for proposer who wants BTC for BTS.
@@ -393,12 +390,11 @@ export default class ACCS {
     htlcBTSTaker.getID(this.accsConfig.amountBTSMini, this.accsConfig.secret.hash).then((res) => (id = res))
 
     while (!id && timeToWait > 0) {
-      
       await new Promise((resolve) => setTimeout(resolve, 2_000))
-      
+
       timeToWait--
     }
-    
+
     if (!id) {
       htlcBTSTaker.stopLooking()
       throw new Error(`No HTLC found on Bitshares ${this.networkName}. Please contact proposer.`)
@@ -435,10 +431,10 @@ export default class ACCS {
 
     let preimageFromBlockchain: string | null = null
     const maxBlockHeight = htlcBTCTaker.getFundingTxBlockHeight()! + this.accsConfig.timelockBTC
-    let currentBlock = 0
+    let currentBlockHeight = 0
 
-    while (preimageFromBlockchain === null && currentBlock < maxBlockHeight) {
-      currentBlock = (await htlcBTCTaker.bitcoinAPI.getLastBlock()).height
+    while (preimageFromBlockchain === null && currentBlockHeight < maxBlockHeight) {
+      currentBlockHeight = (await htlcBTCTaker.bitcoinAPI.getLastBlock()).height
 
       htlcBTCTaker.bitcoinAPI
         .getPreimageFromLastTransaction(p2wsh.address!)
@@ -499,12 +495,11 @@ export default class ACCS {
     })
 
     while (txID === null && timeToWait > 0) {
-      
       await new Promise((resolve) => setTimeout(resolve, 2_000))
-      
+
       timeToWait--
     }
-    
+
     if (timeToWait === 0) {
       throw new Error(`No HTLC found on Bitcoin ${this.networkName}. Please contact proposer.`)
     }
