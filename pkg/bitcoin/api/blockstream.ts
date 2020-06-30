@@ -30,7 +30,7 @@ export default class BlockStream implements BitcoinAPI {
     const res = await axios.get(this.baseURL + "/blocks/tip/hash")
 
     if (res.status !== 200) {
-      throw new Error("Could not get last transaction id")
+      throw new Error("Could not fetch last block")
     }
 
     const hash = res.data
@@ -50,7 +50,7 @@ export default class BlockStream implements BitcoinAPI {
     const res = await axios.get(this.baseURL + "/block-height/" + blockHeight)
 
     if (res.status !== 200) {
-      throw new Error("Could not get last transaction id")
+      throw new Error("Could not fetch block")
     }
 
     const hash = res.data
