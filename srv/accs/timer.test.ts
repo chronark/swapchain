@@ -1,10 +1,11 @@
-const blockSequence = require("./timers")
+import { Timer } from "./timer"
 
-// Check if there is any data fetched at all
-test("checks the fetch data", async () => {
-  const data = await blockSequence()
-  expect(data).toEqual(expect.anything())
+describe("constructor()", () => {
+  it("", () => {
+    
+  })
 })
+
 
 // Check if the prompted input is a number
 test("checks the maximum timer", async () => {
