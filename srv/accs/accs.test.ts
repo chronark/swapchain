@@ -23,6 +23,7 @@ describe("ACCS tests", () => {
       .mockReturnValueOnce(Promise.resolve("testBTSCounterpartyAccount"))
       .mockReturnValueOnce(Promise.resolve("03c11fe663a2e72b2c0a67d23235d5320d6d7efede7c99f1322b05665e15d129ed"))
       .mockReturnValueOnce(Promise.resolve("0.001"))
+      .mockReturnValueOnce(Promise.resolve("2"))
       .mockReturnValueOnce(Promise.resolve("testBTCTxID"))
     mocked(getSecret).mockImplementation(
       (): Secret => {
@@ -53,7 +54,6 @@ describe("ACCS tests", () => {
           compressed: true,
         },
       ),
-      speedBTC: 500,
       timelockBTC: 6,
       timelockBTS: 3000,
       secret: secretObject,
