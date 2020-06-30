@@ -65,4 +65,12 @@ export interface BitcoinAPI {
    * @returns Blockheight or undefined if block is not mined/broadcasted yet.
    */
   getBlockHeight: (transactionID: string) => Promise<number | undefined>
+
+  /**
+   * Get fee estimates
+   *
+   * @returns Array with fee estimates for high, mid and low priority. If fee estimates are too close, it returns only one or two values.
+   * @memberof BlockStream
+   */
+  getFeeEstimates: () => Promise<number[]>
 }
