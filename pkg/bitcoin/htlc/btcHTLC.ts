@@ -300,7 +300,7 @@ export default class BitcoinHTLC {
   private async calculateFee(): Promise<number> {
     const feeEstimates = await this.bitcoinAPI.getFeeEstimates()
 
-    const averageTransactionSize = 150 // On average our transaction size is about 150 vBytes 
+    const averageTransactionSize = 150 // On average our transaction size is about 150 vBytes
 
     return feeEstimates[Math.min(feeEstimates.length - 1, this.priority)] * averageTransactionSize
   }

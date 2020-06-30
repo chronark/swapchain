@@ -77,31 +77,30 @@ describe("btcHTLC", () => {
     // Right now we are still printing the refund hex to console
     console.log = jest.fn()
 
-      it("create method calls methods where bob redeems the HTLC", async () => {
-        
-        const blockStreamMock = getBlockstreamMock()
+    it("create method calls methods where bob redeems the HTLC", async () => {
+      const blockStreamMock = getBlockstreamMock()
 
-        const htlc = new BitcoinHTLC("testnet", aliceCompressed, bobCompressed, 0, BlockStream)
+      const htlc = new BitcoinHTLC("testnet", aliceCompressed, bobCompressed, 0, BlockStream)
 
-        const htlcConfig = {
-          transactionID: "4a2d7af13070119a0b8a36082df0a03c17e60059250598b100260b0a6949a9ee",
-          amount: 100_000,
-          sequence: 10,
-          hash: secret.hash,
-        }
+      const htlcConfig = {
+        transactionID: "4a2d7af13070119a0b8a36082df0a03c17e60059250598b100260b0a6949a9ee",
+        amount: 100_000,
+        sequence: 10,
+        hash: secret.hash,
+      }
 
-        await htlc.create(htlcConfig)
+      await htlc.create(htlcConfig)
 
-        expect(bitcoin.payments.p2wsh).toHaveBeenCalledTimes(1)
+      expect(bitcoin.payments.p2wsh).toHaveBeenCalledTimes(1)
 
-        expect(bitcoin.Psbt.prototype.signInput).toHaveBeenCalledTimes(2)
-        expect(bitcoin.Psbt.prototype.validateSignaturesOfInput).toHaveBeenCalledTimes(1)
-        expect(bitcoin.Psbt.prototype.finalizeInput).toHaveBeenCalledTimes(1)
-        expect(bitcoin.Psbt.prototype.finalizeAllInputs).toHaveBeenCalledTimes(1)
-        expect(bitcoin.Psbt.prototype.extractTransaction).toHaveBeenCalledTimes(2)
-        expect(blockStreamMock.pushTX).toHaveBeenCalledTimes(1)
-      })
+      expect(bitcoin.Psbt.prototype.signInput).toHaveBeenCalledTimes(2)
+      expect(bitcoin.Psbt.prototype.validateSignaturesOfInput).toHaveBeenCalledTimes(1)
+      expect(bitcoin.Psbt.prototype.finalizeInput).toHaveBeenCalledTimes(1)
+      expect(bitcoin.Psbt.prototype.finalizeAllInputs).toHaveBeenCalledTimes(1)
+      expect(bitcoin.Psbt.prototype.extractTransaction).toHaveBeenCalledTimes(2)
+      expect(blockStreamMock.pushTX).toHaveBeenCalledTimes(1)
     })
+  })
 
   describe("redeem()", () => {
     it("calls methods to redeem the HTLC", async () => {
