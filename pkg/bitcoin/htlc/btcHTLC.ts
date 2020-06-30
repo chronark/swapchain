@@ -48,7 +48,6 @@ export default class BitcoinHTLC {
   private fundingTxBlockHeight: number
   private preimage: string
   private amountAfterFees: number
-  private keepLooking: boolean
   public bitcoinAPI: BitcoinAPI
   /**
    * Creates an instance of BitcoinHTLC.
@@ -247,48 +246,56 @@ export default class BitcoinHTLC {
     const p2wpkFromSender = this.getWitnessPublicKeyHash(this.sender)
     // Value is the current balance after the transaction
     const { vout, value } = await this.bitcoinAPI.getOutput(transactionID, p2wpkFromSender.address!)
-
+    
     const amountToKeep = value - amount
-
+    console.warn({amountToKeep})
+    
     // If output of the transaction ID given does not have sufficient value/balance
     if (amountToKeep < 0) {
       return ""
     }
-
+    console.warn({amount})
     this.amountAfterFees = amount - 200 // TODO: Add option for higher and lower fees
+    
+    if (this.amountAfterFees <= 0) {
+      //TODO: Change value to actual fees
+      throw new Error("You are trying to send less money than the fees to transfer it, please use a value higher than 200")
+    }
+
 
     const outputs =
-      amountToKeep > 0
-        ? [
+    amountToKeep > 0
+    ? [
             {
               address: p2wpkFromSender.address!,
               value: amountToKeep,
             },
             {
               address: p2wsh.address!,
-              value: this.amountAfterFees,
+              value: this.amountAfterFees, // FIXME:
             },
           ]
         : [
-            {
-              address: p2wsh.address!,
-              value: this.amountAfterFees,
-            },
-          ]
-
-    const psbt = new bitcoin.Psbt({ network: this.network })
-      .setVersion(2)
-      .addInput({
-        hash: transactionID,
-        index: vout,
-        witnessUtxo: {
-          script: p2wpkFromSender.output!,
-          value,
-        },
-      })
-      .addOutputs(outputs)
-      .signInput(0, this.sender)
-
+          {
+            address: p2wsh.address!,
+            value: this.amountAfterFees,
+          },
+        ]
+        console.warn({vout, value})
+        const psbt = new bitcoin.Psbt({ network: this.network })
+        .setVersion(2)
+        .addInput({
+          hash: transactionID,
+          index: vout,
+          witnessUtxo: {
+            script: p2wpkFromSender.output!,
+            value,
+          },
+        })
+        .addOutputs(outputs)
+        .signInput(0, this.sender)
+        
+        console.error("BBBBBBBBBBBB")
     psbt.validateSignaturesOfInput(0)
     psbt.finalizeAllInputs()
     return psbt.extractTransaction().toHex()
@@ -333,10 +340,10 @@ export default class BitcoinHTLC {
     const { transactionID, amount, sequence, hash } = config
 
     const p2wsh = this.getP2WSH(hash, sequence)
-
     // Funding
     const p2wpkHex = await this.sendToP2WSHAddress(p2wsh, transactionID, amount)
-
+    
+    console.error("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa")
     if (!p2wpkHex) {
       // The output of the transaction ID given does not have sufficient balance.
       return 1
