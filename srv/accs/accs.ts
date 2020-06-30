@@ -1,6 +1,5 @@
 import readline from "readline"
 import { Secret, getSecret } from "../../pkg/secret/secret"
-import fetch from "node-fetch"
 import * as bitcoin from "bitcoinjs-lib"
 import { Apis as btsWebsocketApi } from "bitsharesjs-ws"
 import BitcoinHTLC from "../../pkg/bitcoin/htlc/btcHTLC"
@@ -187,8 +186,7 @@ export default class ACCS {
 
     // Average Speed of BTC blockchain
     // Bitcoin block speed fluctuates strongly,
-    const blocks = await fetch(`${this.endpointBTC}blocks`).then((res) => res.json())
-    accsConfig.speedBTC = (blocks[0].timestamp - blocks[9].timestamp) / 10
+    accsConfig.speedBTC = 600 // FIXME: Add timer
 
     accsConfig.timelockBTC = 6 // number of blocks to wait
     accsConfig.timelockBTS = Math.round(accsConfig.timelockBTC * accsConfig.speedBTC) // seconds to wait
@@ -282,7 +280,7 @@ export default class ACCS {
     let currentBlockHeight = 0
 
     // If no HTLC found immediately, continue looking until timelock
-    while (!success && currentBlock < maxBlockHeight) {
+    while (!success && currentBlockHeight < maxBlockHeight) {
       currentBlockHeight = (await htlcBTCProposer.bitcoinAPI.getLastBlock()).height
       console.warn(`${currentBlockHeight} vs. ${maxBlockHeight}`)
 
