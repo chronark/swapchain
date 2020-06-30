@@ -334,9 +334,10 @@ export default class BitcoinHTLC {
    * Creates an HTLC.
    *
    * @param config - Configuration object for the HTLC.
+   * @returns The hex for the refund transaction.
    * @memberof BitcoinHTLC
    */
-  public async create(config: HTLCConfigBTC): Promise<void> {
+  public async create(config: HTLCConfigBTC): Promise<string> {
     const { transactionID, amount, sequence, hash } = config
 
     const fee = await this.calculateFee()
@@ -368,14 +369,14 @@ export default class BitcoinHTLC {
 
     // Refunding
     const refundHex = await this.getRefundHex(fundingTransactionID, sequence, p2wsh)
-    console.log("refundHex: " + refundHex)
 
     this.fundingTxBlockHeight = await this.bitcoinAPI.getBlockHeight(fundingTransactionID)
     while (!this.fundingTxBlockHeight) {
       this.fundingTxBlockHeight = await this.bitcoinAPI.getBlockHeight(fundingTransactionID)
-      console.warn(`Still waiting for blockheight... Currently at ${this.fundingTxBlockHeight}`)
       await new Promise((resolve) => setTimeout(resolve, 10_000))
     }
+
+    return refundHex
     /*
     const payload = { hex: refundHex, validAfterBlockHeight: this.fundingTxBlockHeight + sequence }
     const res = await fetch("http://localhost:13000", { method: "POST", body: JSON.stringify(payload) }).then((res) =>
