@@ -115,7 +115,7 @@ export default class ACCS {
   private net: bitcoin.networks.Network
   private asset: string
   private endpointBTS: string
-  private accsConfig: ACCSConfig
+  private config: ACCSConfig
 
   /**
    * Creates an instance of ACCS.
@@ -141,7 +141,16 @@ export default class ACCS {
       this.endpointBTS = "wss://testnet.dex.trading"
     }
 
-    this.accsConfig = {} as ACCSConfig
+    this.config = {} as ACCSConfig
+  }
+  /**
+   * Set the internal access config.
+   *
+   * @param config - Configuration object for the swap.
+   * @memberof ACCS
+   */
+  public setConfig(config: ACCSConfig): void {
+    this.config = config
   }
 
   /**
@@ -162,7 +171,7 @@ export default class ACCS {
    * @memberof ACCS
    */
   public async getUserInput(): Promise<ACCSConfig> {
-    const accsConfig = {} as ACCSConfig
+    const config = {} as ACCSConfig
 
     // Print beautiful Swapchain banner and version info
     figlet("Swapchain", (err, banner) => {
@@ -179,16 +188,16 @@ export default class ACCS {
     console.log("")
 
     // Start getting user input
-    accsConfig.txMode = (await this.askUser("Are you Proposer or Taker? (Proposer/Taker): ")).toLowerCase()
-    if (accsConfig.txMode !== "proposer" && accsConfig.txMode !== "taker") {
+    config.txMode = (await this.askUser("Are you Proposer or Taker? (Proposer/Taker): ")).toLowerCase()
+    if (config.txMode !== "proposer" && config.txMode !== "taker") {
       throw new Error("Invalid mode.")
     }
 
-    accsConfig.txType = await this.askUser("Would you like to get (1) BTS for BTC or (2) BTC for BTS? (1/2): ")
-    if (accsConfig.txType !== "1" && accsConfig.txType !== "2") {
+    config.txType = await this.askUser("Would you like to get (1) BTS for BTC or (2) BTC for BTS? (1/2): ")
+    if (config.txType !== "1" && config.txType !== "2") {
       throw new Error("Invalid type.")
     }
-    accsConfig.txTypeName = accsConfig.txType === "1" ? "BTS/BTC" : "BTC/BTS"
+    config.txTypeName = config.txType === "1" ? "BTS/BTC" : "BTC/BTS"
     // TODO: "Manual mode or ID from order book?" -> Connection to backend
 
     const priority = await this.askUser(
@@ -198,64 +207,62 @@ export default class ACCS {
       throw new Error("Invalid priority. Must be 0, 1 or 2.")
     }
 
-    accsConfig.priority = Number(priority)
+    config.priority = Number(priority)
 
-    accsConfig.accountBTS = await this.askUser("Please enter your Bitshares account name: ")
+    config.accountBTS = await this.askUser("Please enter your Bitshares account name: ")
 
-    accsConfig.privateKeyBTS = await this.askUser(
+    config.privateKeyBTS = await this.askUser(
       "Please enter your private key (WIF format) associated with the given Bitshares account: ",
     )
 
     const privateKeyBTC = await this.askUser("Please enter your Bitcoin private key (WIF format): ")
 
-    accsConfig.accountCounterpartyBTS = await this.askUser(
-      "Please enter the Bitshares account name of the counterparty: ",
-    )
+    config.accountCounterpartyBTS = await this.askUser("Please enter the Bitshares account name of the counterparty: ")
 
     const publicKeyCounterpartyBTC = await this.askUser("Please enter the Bitcoin public key of the counterparty: ")
     if (!(publicKeyCounterpartyBTC.length === 66 || publicKeyCounterpartyBTC.length === 130)) {
       throw new Error("Invalid Bitcoin public key.")
     }
 
-    accsConfig.amount = await this.askUser(
-      `Please enter the amount of ${accsConfig.txTypeName.slice(-3)} you want to exchange: `,
+    config.amount = await this.askUser(
+      `Please enter the amount of ${config.txTypeName.slice(-3)} you want to exchange: `,
     )
 
     // Current market exchange rate: 500,000 BTS/BTC
-    accsConfig.rateBTSBTC = 500_000
+    config.rateBTSBTC = 500_000
     // TODO: Make exchange rate dependend on order book or current market exchange rate
 
     let amountGet: number
     let amountGive: number
-    if (accsConfig.txType === "1") {
+    if (config.txType === "1") {
       // amountGet: BTS
       // amountGive: BTC
-      amountGive = parseFloat(accsConfig.amount)
-      amountGet = amountGive * accsConfig.rateBTSBTC
-      accsConfig.amountBTSMini = amountGet * 10e4 // TODO: Verify unit is same on Bitshares mainnet
-      accsConfig.amountSatoshi = amountGive * 10e7
+      amountGive = parseFloat(config.amount)
+      amountGet = amountGive * config.rateBTSBTC
+      config.amountBTSMini = amountGet * 10e4 // TODO: Verify unit is same on Bitshares mainnet
+      config.amountSatoshi = amountGive * 10e7
       // TODO: Substract fees
     } else {
       // amountGet: BTC
       // amountGive: BTS
-      amountGive = parseFloat(accsConfig.amount)
-      amountGet = amountGive / accsConfig.rateBTSBTC
-      accsConfig.amountBTSMini = amountGive * 10e4 // TODO: Verify unit is same on Bitshares mainnet
-      accsConfig.amountSatoshi = amountGet * 10e7
+      amountGive = parseFloat(config.amount)
+      amountGet = amountGive / config.rateBTSBTC
+      config.amountBTSMini = amountGive * 10e4 // TODO: Verify unit is same on Bitshares mainnet
+      config.amountSatoshi = amountGet * 10e7
       // TODO: Substract fees
     }
 
     console.log(
-      `You will get ${amountGet} ${accsConfig.txTypeName.substring(
+      `You will get ${amountGet} ${config.txTypeName.substring(
         0,
         3,
-      )} for giving ${amountGive} ${accsConfig.txTypeName.slice(-3)} (Current market exchange rate: 500,000 BTS/BTC).`,
+      )} for giving ${amountGive} ${config.txTypeName.slice(-3)} (Current market exchange rate: 500,000 BTS/BTC).`,
     )
 
     const keyPairBTC = bitcoin.ECPair.fromWIF(privateKeyBTC, this.net)
-    accsConfig.keyPairCompressedBTC = bitcoin.ECPair.fromPrivateKey(keyPairBTC.privateKey!, { compressed: true })
+    config.keyPairCompressedBTC = bitcoin.ECPair.fromPrivateKey(keyPairBTC.privateKey!, { compressed: true })
 
-    accsConfig.keyPairCounterpartyCompressedBTC = bitcoin.ECPair.fromPublicKey(
+    config.keyPairCounterpartyCompressedBTC = bitcoin.ECPair.fromPublicKey(
       Buffer.from(publicKeyCounterpartyBTC, "hex"),
       {
         compressed: true,
@@ -264,14 +271,14 @@ export default class ACCS {
 
     // Average Speed of BTC blockchain
     // Bitcoin block speed fluctuates strongly,
-    accsConfig.speedBTC = 600 // FIXME: Add timer
+    config.speedBTC = 600 // FIXME: Add timer
 
-    accsConfig.timelockBTC = 6 // number of blocks to wait
-    accsConfig.timelockBTS = Math.round(accsConfig.timelockBTC * accsConfig.speedBTC) // seconds to wait
+    config.timelockBTC = 6 // number of blocks to wait
+    config.timelockBTS = Math.round(config.timelockBTC * config.speedBTC) // seconds to wait
 
-    if (accsConfig.txMode === "proposer") {
-      accsConfig.secret = getSecret()
-      console.log(`Please pass this secret hash to the counterparty: ${accsConfig.secret.hash.toString("hex")}`)
+    if (config.txMode === "proposer") {
+      config.secret = getSecret()
+      console.log(`Please pass this secret hash to the counterparty: ${config.secret.hash.toString("hex")}`)
     } else {
       // Get secret hash
       const hashString = await this.askUser("Please enter the secret hash you received from the proposer: ")
@@ -279,27 +286,27 @@ export default class ACCS {
       if (hashString.length !== 64) {
         throw new Error("Invalid secret hash length.")
       }
-      accsConfig.secret = {
+      config.secret = {
         preimage: undefined,
         hash: Buffer.from(hashString, "hex"),
       }
     }
 
-    if (accsConfig.txType === "1") {
+    if (config.txType === "1") {
       const p2wpkhSender = bitcoin.payments.p2wpkh({
-        pubkey: accsConfig.keyPairCompressedBTC.publicKey,
+        pubkey: config.keyPairCompressedBTC.publicKey,
         network: this.net,
       })
       console.log(
         `Please make sure that your Bitcoin p2wpkh address "${p2wpkhSender.address}" is sufficiently covered!`,
       )
-      accsConfig.txIdBTC = await this.askUser(
+      config.txIdBTC = await this.askUser(
         "Please enter the Bitcoin p2wpkh address' transaction ID which should be spent: ",
       )
       // TODO: Errorhandling for missing transaction (now: getWitnessUtxo fails with "length of undefined")
     }
 
-    return accsConfig
+    return config
   }
 
   /**
@@ -308,48 +315,44 @@ export default class ACCS {
    * @memberof ACCS
    */
   public async proposeBTSForBTC(): Promise<void> {
-    this.accsConfig.timelockBTS = Math.round(this.accsConfig.timelockBTS / 2)
+    this.config.timelockBTS = Math.round(this.config.timelockBTS / 2)
 
     const htlcBTCProposer = new BitcoinHTLC(
       this.networkName,
-      this.accsConfig.keyPairCompressedBTC,
-      this.accsConfig.keyPairCounterpartyCompressedBTC,
-      this.accsConfig.priority,
+      this.config.keyPairCompressedBTC,
+      this.config.keyPairCounterpartyCompressedBTC,
+      this.config.priority,
       BlockStream,
     )
-
     const status = await htlcBTCProposer.create({
-      transactionID: this.accsConfig.txIdBTC,
-      amount: this.accsConfig.amountSatoshi,
-      sequence: this.accsConfig.timelockBTC,
-      hash: this.accsConfig.secret.hash,
+      transactionID: this.config.txIdBTC,
+      amount: this.config.amountSatoshi,
+      sequence: this.config.timelockBTC,
+      hash: this.config.secret.hash,
     })
 
     console.log(`Successfully created HTLC on Bitcoin ${this.networkName}!`)
     console.log(
       `Looking for an HTLC for you on Bitshares ${this.networkName}. This can take up to ${
-        this.accsConfig.timelockBTC
+        this.config.timelockBTC
       } Bitcoin ${this.networkName} blocks (about ${Math.round(
-        (this.accsConfig.timelockBTC * this.accsConfig.speedBTC) / 60,
+        (this.config.timelockBTC * this.config.speedBTC) / 60,
       )} min).`,
     )
 
     const htlcBTSProposer = new BitsharesHTLC(
       this.endpointBTS,
-      this.accsConfig.accountCounterpartyBTS,
-      this.accsConfig.accountBTS,
+      this.config.accountCounterpartyBTS,
+      this.config.accountBTS,
     )
 
     let success = false
-    htlcBTSProposer
-      .redeem(this.accsConfig.amountBTSMini, this.accsConfig.privateKeyBTS, this.accsConfig.secret)
-      .then((s) => {
-        success = s
-      })
+    htlcBTSProposer.redeem(this.config.amountBTSMini, this.config.privateKeyBTS, this.config.secret).then((s) => {
+      success = s
+    })
 
-    const maxBlockHeight = htlcBTCProposer.getFundingTxBlockHeight()! + this.accsConfig.timelockBTC
+    const maxBlockHeight = htlcBTCProposer.getFundingTxBlockHeight()! + this.config.timelockBTC
     let currentBlockHeight = 0
-
     // If no HTLC found immediately, continue looking until timelock
     while (!success && currentBlockHeight < maxBlockHeight) {
       currentBlockHeight = (await htlcBTCProposer.bitcoinAPI.getLastBlock()).height
@@ -372,41 +375,41 @@ export default class ACCS {
    * @memberof ACCS
    */
   public async proposeBTCForBTS(): Promise<void> {
-    this.accsConfig.timelockBTC = Math.round(this.accsConfig.timelockBTC / 2)
+    this.config.timelockBTC = Math.round(this.config.timelockBTC / 2)
 
     // Create BTS HTLC
     const htlcBTSProposer = new BitsharesHTLC(
       this.endpointBTS,
-      this.accsConfig.accountBTS,
-      this.accsConfig.accountCounterpartyBTS,
+      this.config.accountBTS,
+      this.config.accountCounterpartyBTS,
     )
 
     await htlcBTSProposer.create({
-      amount: this.accsConfig.amountBTSMini,
+      amount: this.config.amountBTSMini,
       asset: this.asset,
-      time: this.accsConfig.timelockBTS,
-      hash: this.accsConfig.secret.hash,
-      privateKey: this.accsConfig.privateKeyBTS,
+      time: this.config.timelockBTS,
+      hash: this.config.secret.hash,
+      privateKey: this.config.privateKeyBTS,
     })
 
     console.log(`Successfully created HTLC on Bitshares ${this.networkName}!`)
     console.log(
       `Looking for an HTLC for you on Bitcoin ${this.networkName}. This can take up to ${Math.round(
-        this.accsConfig.timelockBTS / 60,
+        this.config.timelockBTS / 60,
       )} min.`,
     )
 
     const htlcBTCProposer = new BitcoinHTLC(
       this.networkName,
-      this.accsConfig.keyPairCounterpartyCompressedBTC,
-      this.accsConfig.keyPairCompressedBTC,
-      this.accsConfig.priority,
+      this.config.keyPairCounterpartyCompressedBTC,
+      this.config.keyPairCompressedBTC,
+      this.config.priority,
       BlockStream,
     )
 
-    const p2wsh = htlcBTCProposer.getP2WSH(this.accsConfig.secret.hash, this.accsConfig.timelockBTC)
+    const p2wsh = htlcBTCProposer.getP2WSH(this.config.secret.hash, this.config.timelockBTC)
 
-    let timeToWait = Math.round(this.accsConfig.timelockBTS / 2) // We only check API every 2 seconds
+    let timeToWait = Math.round(this.config.timelockBTS / 2) // We only check API every 2 seconds
 
     let txID: string | null = null
 
@@ -428,7 +431,7 @@ export default class ACCS {
     }
 
     // redeem
-    await htlcBTCProposer.redeem(p2wsh, this.accsConfig.secret)
+    await htlcBTCProposer.redeem(p2wsh, this.config.secret)
   }
 
   /**
@@ -437,14 +440,10 @@ export default class ACCS {
    * @memberof ACCS
    */
   public async takeBTSForBTC(): Promise<void> {
-    this.accsConfig.timelockBTC = Math.round(this.accsConfig.timelockBTC / 2)
+    this.config.timelockBTC = Math.round(this.config.timelockBTC / 2)
 
     // Look for BTS HTLC and only continue if there is one
-    const htlcBTSTaker = new BitsharesHTLC(
-      this.endpointBTS,
-      this.accsConfig.accountCounterpartyBTS,
-      this.accsConfig.accountBTS,
-    )
+    const htlcBTSTaker = new BitsharesHTLC(this.endpointBTS, this.config.accountCounterpartyBTS, this.config.accountBTS)
 
     let timeToWait = 120 / 2 // We only check API every 2 seconds
 
@@ -453,7 +452,7 @@ export default class ACCS {
     )
 
     let id = ""
-    htlcBTSTaker.getID(this.accsConfig.amountBTSMini, this.accsConfig.secret.hash).then((res) => (id = res))
+    htlcBTSTaker.getID(this.config.amountBTSMini, this.config.secret.hash).then((res) => (id = res))
 
     while (!id && timeToWait > 0) {
       await new Promise((resolve) => setTimeout(resolve, 2_000))
@@ -470,26 +469,26 @@ export default class ACCS {
 
     const htlcBTCTaker = new BitcoinHTLC(
       this.networkName,
-      this.accsConfig.keyPairCompressedBTC,
-      this.accsConfig.keyPairCounterpartyCompressedBTC,
-      this.accsConfig.priority,
+      this.config.keyPairCompressedBTC,
+      this.config.keyPairCounterpartyCompressedBTC,
+      this.config.priority,
       BlockStream,
     )
 
     const status = await htlcBTCTaker.create({
-      transactionID: this.accsConfig.txIdBTC,
-      amount: this.accsConfig.amountSatoshi,
-      sequence: this.accsConfig.timelockBTC,
-      hash: this.accsConfig.secret.hash,
+      transactionID: this.config.txIdBTC,
+      amount: this.config.amountSatoshi,
+      sequence: this.config.timelockBTC,
+      hash: this.config.secret.hash,
     })
 
     console.log("HTLC successfully created on Bitcoin. Waiting for counterparty to redeem it...")
 
     // Wait for Alice to redeem the BTC HTLC, then extract secret
-    const p2wsh = htlcBTCTaker.getP2WSH(this.accsConfig.secret.hash, this.accsConfig.timelockBTC)
+    const p2wsh = htlcBTCTaker.getP2WSH(this.config.secret.hash, this.config.timelockBTC)
 
     let preimageFromBlockchain: string | null = null
-    const maxBlockHeight = htlcBTCTaker.getFundingTxBlockHeight()! + this.accsConfig.timelockBTC
+    const maxBlockHeight = htlcBTCTaker.getFundingTxBlockHeight()! + this.config.timelockBTC
     let currentBlockHeight = 0
 
     while (preimageFromBlockchain === null && currentBlockHeight < maxBlockHeight) {
@@ -506,19 +505,15 @@ export default class ACCS {
       throw new Error("HTLC was not redeemed in time by the counterparty. Your HTLC will be automatically refunded.")
     }
 
-    this.accsConfig.secret.preimage = preimageFromBlockchain
+    this.config.secret.preimage = preimageFromBlockchain
 
     console.log(
-      `Your Bitcoin HTLC was redeemed by the counterparty using the secret "${this.accsConfig.secret.preimage}". Redeeming the Bitshares HTLC...`,
+      `Your Bitcoin HTLC was redeemed by the counterparty using the secret "${this.config.secret.preimage}". Redeeming the Bitshares HTLC...`,
     )
 
     // Redeem BTS HTLC with secret
 
-    const success = await htlcBTSTaker.redeem(
-      this.accsConfig.amountBTSMini,
-      this.accsConfig.privateKeyBTS,
-      this.accsConfig.secret,
-    )
+    const success = await htlcBTSTaker.redeem(this.config.amountBTSMini, this.config.privateKeyBTS, this.config.secret)
 
     if (!success) {
       throw new Error("Could not redeem Bitshares HTLC. Please try manually.")
@@ -531,14 +526,14 @@ export default class ACCS {
    * @memberof ACCS
    */
   public async takeBTCForBTS(): Promise<void> {
-    this.accsConfig.timelockBTS = Math.round(this.accsConfig.timelockBTS / 2)
+    this.config.timelockBTS = Math.round(this.config.timelockBTS / 2)
     // Look for BTC HTLC and only continue if there is one
     // Use p2wsh address and fetch txs
     const htlcBTCTaker = new BitcoinHTLC(
       this.networkName,
-      this.accsConfig.keyPairCounterpartyCompressedBTC,
-      this.accsConfig.keyPairCompressedBTC,
-      this.accsConfig.priority,
+      this.config.keyPairCounterpartyCompressedBTC,
+      this.config.keyPairCompressedBTC,
+      this.config.priority,
       BlockStream,
     )
 
@@ -548,7 +543,7 @@ export default class ACCS {
       `Looking for an HTLC for you on Bitcoin ${this.networkName}. This can take up to ${timeToWait / 60} min.`,
     )
 
-    const p2wsh = htlcBTCTaker.getP2WSH(this.accsConfig.secret.hash, this.accsConfig.timelockBTC)
+    const p2wsh = htlcBTCTaker.getP2WSH(this.config.secret.hash, this.config.timelockBTC)
     let txID: string | null = null
     htlcBTCTaker.bitcoinAPI.getValueFromLastTransaction(p2wsh.address!).then((res) => {
       txID = res.txID
@@ -566,27 +561,23 @@ export default class ACCS {
 
     console.log(`Found the HTLC for you on Bitcoin ${this.networkName}!`)
     // Create BTS HTLC
-    const htlcBTSTaker = new BitsharesHTLC(
-      this.endpointBTS,
-      this.accsConfig.accountBTS,
-      this.accsConfig.accountCounterpartyBTS,
-    )
+    const htlcBTSTaker = new BitsharesHTLC(this.endpointBTS, this.config.accountBTS, this.config.accountCounterpartyBTS)
 
     await htlcBTSTaker.create({
-      amount: this.accsConfig.amountBTSMini,
+      amount: this.config.amountBTSMini,
       asset: this.asset,
-      time: this.accsConfig.timelockBTS,
-      hash: this.accsConfig.secret.hash,
-      privateKey: this.accsConfig.privateKeyBTS,
+      time: this.config.timelockBTS,
+      hash: this.config.secret.hash,
+      privateKey: this.config.privateKeyBTS,
     })
 
     console.log("HTLC successfully created on Bitshares. Waiting for counterparty to redeem it...")
 
     // Wait for Alice to redeem the BTS HTLC, then extract secret
-    timeToWait = this.accsConfig.timelockBTS
+    timeToWait = this.config.timelockBTS
     const [accountBTSObj, accountCounterpartyBTSObj] = await btsWebsocketApi.db.get_accounts([
-      this.accsConfig.accountBTS,
-      this.accsConfig.accountCounterpartyBTS,
+      this.config.accountBTS,
+      this.config.accountCounterpartyBTS,
     ])
     let htlc = []
 
@@ -595,7 +586,7 @@ export default class ACCS {
         throw new Error("HTLC was not redeemed in time by the counterparty. Your HTLC will be automatically refunded.")
       }
 
-      const history = await btsWebsocketApi.history.get_relative_account_history(this.accsConfig.accountBTS, 0, 100, 0)
+      const history = await btsWebsocketApi.history.get_relative_account_history(this.config.accountBTS, 0, 100, 0)
 
       /* eslint-disable @typescript-eslint/no-explicit-any */
       htlc = history.filter((element: any) => {
@@ -604,7 +595,7 @@ export default class ACCS {
           element.op[1].from === accountBTSObj.id &&
           element.op[1].to === accountCounterpartyBTSObj.id &&
           "htlc_preimage_hash" in element.op[1] &&
-          element.op[1].htlc_preimage_hash[1] === this.accsConfig.secret.hash.toString("hex")
+          element.op[1].htlc_preimage_hash[1] === this.config.secret.hash.toString("hex")
         )
       })
       /* eslint-enable @typescript-eslint/camelcase */
@@ -615,14 +606,14 @@ export default class ACCS {
       timeToWait--
     }
 
-    this.accsConfig.secret.preimage = Buffer.from(htlc[0].op[1].preimage, "hex").toString()
+    this.config.secret.preimage = Buffer.from(htlc[0].op[1].preimage, "hex").toString()
 
     console.log(
-      `Your Bitshares HTLC was redeemed by the counterparty using the secret "${this.accsConfig.secret.preimage}". Redeeming the Bitcoin HTLC...`,
+      `Your Bitshares HTLC was redeemed by the counterparty using the secret "${this.config.secret.preimage}". Redeeming the Bitcoin HTLC...`,
     )
 
     // Redeem BTC HTLC
-    await htlcBTCTaker.redeem(p2wsh, this.accsConfig.secret)
+    await htlcBTCTaker.redeem(p2wsh, this.config.secret)
   }
 
   /**
@@ -631,13 +622,13 @@ export default class ACCS {
    * @memberof ACCS
    */
   public async run(): Promise<void> {
-    if (this.accsConfig.txType === "1" && this.accsConfig.txMode === "proposer") {
+    if (this.config.txType === "1" && this.config.txMode === "proposer") {
       await this.proposeBTSForBTC()
-    } else if (this.accsConfig.txType === "2" && this.accsConfig.txMode === "proposer") {
+    } else if (this.config.txType === "2" && this.config.txMode === "proposer") {
       await this.proposeBTCForBTS()
-    } else if (this.accsConfig.txType === "1" && this.accsConfig.txMode === "taker") {
+    } else if (this.config.txType === "1" && this.config.txMode === "taker") {
       await this.takeBTSForBTC()
-    } else if (this.accsConfig.txType === "2" && this.accsConfig.txMode === "taker") {
+    } else if (this.config.txType === "2" && this.config.txMode === "taker") {
       await this.takeBTCForBTS()
     }
   }
@@ -648,7 +639,7 @@ export default class ACCS {
    * @memberof ACCS
    */
   public async main(): Promise<void> {
-    this.accsConfig = await this.getUserInput()
+    this.config = await this.getUserInput()
     await this.run()
   }
 }
