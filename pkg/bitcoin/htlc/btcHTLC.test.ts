@@ -25,6 +25,9 @@ beforeEach(() => {
   jest.resetAllMocks()
   fetchMock.mockClear()
 
+
+  const toHex = jest.fn()
+
   mocked(bitcoin.payments)
   mocked(bitcoin.Psbt)
 
@@ -38,7 +41,7 @@ beforeEach(() => {
     .fn()
     .mockReturnValue(bitcoin.Psbt.prototype)
   bitcoin.Psbt.prototype.finalizeAllInputs = jest.fn().mockReturnValue(bitcoin.Psbt.prototype)
-  bitcoin.Psbt.prototype.extractTransaction = jest.fn().mockReturnValue({ toHex: jest.fn() })
+  bitcoin.Psbt.prototype.extractTransaction = jest.fn().mockReturnValue({ toHex })
 
   bitcoin.payments.p2wsh = jest.fn().mockReturnValue({
     network: {
