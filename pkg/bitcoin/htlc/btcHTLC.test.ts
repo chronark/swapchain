@@ -28,6 +28,7 @@ const getBlockstreamMock = () => {
       .mockResolvedValue({ value: 2, txID: "txID" }),
     getOutput: jest.spyOn(BlockStream.prototype, "getOutput").mockResolvedValue({ vout: 1, value: 1_000_000 }),
     getBlockHeight: jest.spyOn(BlockStream.prototype, "getBlockHeight").mockResolvedValue(1_000_000),
+    getFeeEstimates: jest.spyOn(BlockStream.prototype, "getFeeEstimates").mockResolvedValue([25.4, 14.2, 5.1]),
   }
 }
 
@@ -76,27 +77,16 @@ describe("btcHTLC", () => {
     // Right now we are still printing the refund hex to console
     console.log = jest.fn()
 
-
-    const testCases = [
-      {
-        value: 2_000,
-        sequence: 1,
-      },
-      {
-        value: 1_000,
-        sequence: 10,
-      },
-    ]
-    testCases.forEach((tc) => {
       it("create method calls methods where bob redeems the HTLC", async () => {
+        
         const blockStreamMock = getBlockstreamMock()
 
-        const htlc = new BitcoinHTLC("testnet", aliceCompressed, bobCompressed, BlockStream)
+        const htlc = new BitcoinHTLC("testnet", aliceCompressed, bobCompressed, 0, BlockStream)
 
         const htlcConfig = {
           transactionID: "4a2d7af13070119a0b8a36082df0a03c17e60059250598b100260b0a6949a9ee",
-          amount: tc.value,
-          sequence: tc.sequence,
+          amount: 100_000,
+          sequence: 10,
           hash: secret.hash,
         }
 
@@ -112,7 +102,6 @@ describe("btcHTLC", () => {
         expect(blockStreamMock.pushTX).toHaveBeenCalledTimes(1)
       })
     })
-  })
 
   describe("redeem()", () => {
     it("calls methods to redeem the HTLC", async () => {
@@ -121,13 +110,12 @@ describe("btcHTLC", () => {
 
       const blockStreamMock = getBlockstreamMock()
 
-      const htlc = new BitcoinHTLC("testnet", aliceCompressed, bobCompressed, BlockStream)
+      const htlc = new BitcoinHTLC("testnet", aliceCompressed, bobCompressed, 1, BlockStream)
 
       const p2wsh = htlc.getP2WSH(secret.hash, 1)
 
-      const res = await htlc.redeem(p2wsh, secret)
+      await htlc.redeem(p2wsh, secret)
 
-      expect(res).toBe(0)
       expect(bitcoin.payments.p2wsh).toHaveBeenCalledTimes(1)
 
       expect(bitcoin.Psbt.prototype.signInput).toHaveBeenCalledTimes(1)

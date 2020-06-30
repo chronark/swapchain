@@ -39,10 +39,14 @@ interface HTLCConfigBTC {
   hash: Buffer
 }
 
+/**
+ *
+ */
 export default class BitcoinHTLC {
   private network: bitcoin.Network
-  private receiver: bitcoin.ECPairInterface
   private sender: bitcoin.ECPairInterface
+  private receiver: bitcoin.ECPairInterface
+  private priority: number
   private fundingTxBlockHeight: number | undefined
   private preimage: string
   private amountAfterFees: number
@@ -54,17 +58,20 @@ export default class BitcoinHTLC {
    * @param network - mainnet, testnet, or regtest.
    * @param sender - Sender keypair.
    * @param receiver - Receiver keypair.
+   * @param priority - The transaction priority (0 = high, 1 = medium, 2 = low)
    * @param BitcoinAPIConstructor - Bitcoin API to use for communication with the blockchain.
    */
   constructor(
     network = "testnet",
     sender: bitcoin.ECPairInterface,
     receiver: bitcoin.ECPairInterface,
+    priority: number,
     BitcoinAPIConstructor: BitcoinAPIConstructor,
   ) {
     this.network = network === "testnet" ? bitcoin.networks.testnet : bitcoin.networks.bitcoin
     this.sender = sender
     this.receiver = receiver
+    this.priority = priority
     this.fundingTxBlockHeight = undefined
     this.preimage = ""
     this.amountAfterFees = 0
@@ -241,20 +248,11 @@ export default class BitcoinHTLC {
   private async sendToP2WSHAddress(p2wsh: bitcoin.Payment, transactionID: string, amount: number): Promise<string> {
     const p2wpkFromSender = this.getWitnessPublicKeyHash(this.sender)
     // Value is the current balance after the transaction
-    const x = await this.bitcoinAPI.getOutput(transactionID, p2wpkFromSender.address!)
-    const { vout, value } = x
+    const { vout, value } = await this.bitcoinAPI.getOutput(transactionID, p2wpkFromSender.address!)
     const amountToKeep = value - amount
     // If output of the transaction ID given does not have sufficient value/balance
     if (amountToKeep < 0) {
-      return ""
-    }
-    this.amountAfterFees = amount - 200 // TODO: Add option for higher and lower fees
-
-    if (this.amountAfterFees <= 0) {
-      // TODO: Change value to actual fees
-      throw new Error(
-        "You are trying to send less money than the fees to transfer it, please use a value higher than 200",
-      )
+      throw new Error(`The output of the transaction ID ${transactionID} does not have sufficient balance`)
     }
 
     const outputs =
@@ -294,64 +292,79 @@ export default class BitcoinHTLC {
   }
 
   /**
+   * Get fee estimates and calculate fee depending on priority
+   *
+   * @returns Fee for a single transaction in Satoshi.
+   * @memberof BitcoinHTLC
+   */
+  private async calculateFee(): Promise<number> {
+    const feeEstimates = await this.bitcoinAPI.getFeeEstimates()
+
+    const averageTransactionSize = 150 // On average our transaction size is about 150 vBytes 
+
+    return feeEstimates[Math.min(feeEstimates.length - 1, this.priority)] * averageTransactionSize
+  }
+
+  /**
    * Redeems an HTLC.
    *
    * @param p2wsh - The Pay-to-witness-script-hash object to redeem.
    * @param secret - The secret object with the correct preimage inside.
-   * @returns A status code. Can be used for user feedback.
    * @memberof BitcoinHTLC
    */
-  public async redeem(p2wsh: bitcoin.Payment, secret: Secret): Promise<number> {
+  public async redeem(p2wsh: bitcoin.Payment, secret: Secret): Promise<void> {
     // Save preimage as attribute to inject it into the getFinalScriptsRedeem method
     this.preimage = secret.preimage!
 
-    const { value, txID } = await this.bitcoinAPI.getValueFromLastTransaction(p2wsh.address!)
-    // TODO: Check if amount is enough!
-    this.amountAfterFees = value - 200
+    const { value, txID } = await this.bitcoinAPI.getValueFromLastTransaction(p2wsh.address!) // TODO: Check if amount is enough!
+
+    const fee = await this.calculateFee()
+
+    this.amountAfterFees = value - fee
     const redeemHex = await this.getRedeemHex(txID, p2wsh)
 
     const redeemTransaction = await this.bitcoinAPI.pushTX(redeemHex)
 
     if (!redeemTransaction) {
-      console.log("Hex for redeem transaction: " + redeemHex)
-      // Error pushing redeemHex to endpoint.
-      return 1
+      throw new Error(`Error pushing redeemHex to endpoint. Hex for redeem transaction: ${redeemHex}`)
     }
-
-    return 0
   }
 
   /**
    * Creates an HTLC.
    *
    * @param config - Configuration object for the HTLC.
-   * @returns A status code. Can be used for user feedback.
    * @memberof BitcoinHTLC
    */
-  public async create(config: HTLCConfigBTC): Promise<number> {
+  public async create(config: HTLCConfigBTC): Promise<void> {
     const { transactionID, amount, sequence, hash } = config
+
+    const fee = await this.calculateFee()
+
+    // Substract first fee for funding transaction
+    this.amountAfterFees = amount - fee
+
+    if (this.amountAfterFees <= 0) {
+      throw new Error(
+        `You are trying to send less money than the fees to transfer it, please use a value higher than ${fee}`,
+      )
+    }
 
     const p2wsh = this.getP2WSH(hash, sequence)
     // Funding
     const p2wpkHex = await this.sendToP2WSHAddress(p2wsh, transactionID, amount)
 
-    if (!p2wpkHex) {
-      // The output of the transaction ID given does not have sufficient balance.
-      return 1
-    }
-
     const fundingTransactionID = await this.bitcoinAPI.pushTX(p2wpkHex)
 
     if (!fundingTransactionID) {
-      // Error during pushing funding transaction.
-      return 2
+      throw new Error("Error during pushing funding transaction")
     }
 
-    // Wait for the transaction to be broadcasted
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    // Wait for the funding transaction to be broadcasted
+    await new Promise((resolve) => setTimeout(resolve, 5000))
 
-    // Substract second fee
-    this.amountAfterFees = this.amountAfterFees - 200 // TODO: Add fee option
+    // Substract second fee for potential refund transaction
+    this.amountAfterFees = this.amountAfterFees - fee
 
     // Refunding
     const refundHex = await this.getRefundHex(fundingTransactionID, sequence, p2wsh)
@@ -370,12 +383,9 @@ export default class BitcoinHTLC {
     )
 
     if (!res.success) {
-      console.log("Hex for refund transaction: " + refundHex)
-      // Error posting refundHex to database.
-      return 3
+      throw new Error(`Error posting refundHex to database. Hex for refund transaction: ${refundHex}`)
     }
     */
-    return 0 // res.success
   }
 
   /**
