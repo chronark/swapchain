@@ -3,8 +3,6 @@ import { PsbtInput } from "bip174/src/lib/interfaces"
 import { witnessStackToScriptWitness } from "./witnessStack"
 import { Secret } from "../../../pkg/secret/secret"
 import { BitcoinAPI, BitcoinAPIConstructor } from "../../types/bitcoinApi"
-import { getOutputFileNames } from "typescript"
-import { p2sh } from "bitcoinjs-lib/types/payments"
 
 /**
  * Contains all necessary information to create an HTLC on Bitcoin blockchain
@@ -75,7 +73,7 @@ export default class BitcoinHTLC {
 
   /**
    * Get block height of funding transaction
-   * 
+   *
    * @returns Blockheight of funding transaction or undefined if block is not mined/broadcasted yet.
    * @memberof BitcoinHTLC
    */
@@ -243,16 +241,21 @@ export default class BitcoinHTLC {
   private async sendToP2WSHAddress(p2wsh: bitcoin.Payment, transactionID: string, amount: number): Promise<string> {
     const p2wpkFromSender = this.getWitnessPublicKeyHash(this.sender)
     // Value is the current balance after the transaction
-    const { vout, value } = await this.bitcoinAPI.getOutput(transactionID, p2wpkFromSender.address!)
-
+    const x = await this.bitcoinAPI.getOutput(transactionID, p2wpkFromSender.address!)
+    const { vout, value } = x
     const amountToKeep = value - amount
-
     // If output of the transaction ID given does not have sufficient value/balance
     if (amountToKeep < 0) {
       return ""
     }
-
     this.amountAfterFees = amount - 200 // TODO: Add option for higher and lower fees
+
+    if (this.amountAfterFees <= 0) {
+      // TODO: Change value to actual fees
+      throw new Error(
+        "You are trying to send less money than the fees to transfer it, please use a value higher than 200",
+      )
+    }
 
     const outputs =
       amountToKeep > 0
@@ -272,7 +275,6 @@ export default class BitcoinHTLC {
               value: this.amountAfterFees,
             },
           ]
-
     const psbt = new bitcoin.Psbt({ network: this.network })
       .setVersion(2)
       .addInput({
@@ -304,10 +306,10 @@ export default class BitcoinHTLC {
     this.preimage = secret.preimage!
 
     const { value, txID } = await this.bitcoinAPI.getValueFromLastTransaction(p2wsh.address!)
-
     // TODO: Check if amount is enough!
     this.amountAfterFees = value - 200
     const redeemHex = await this.getRedeemHex(txID, p2wsh)
+
     const redeemTransaction = await this.bitcoinAPI.pushTX(redeemHex)
 
     if (!redeemTransaction) {
@@ -330,7 +332,6 @@ export default class BitcoinHTLC {
     const { transactionID, amount, sequence, hash } = config
 
     const p2wsh = this.getP2WSH(hash, sequence)
-
     // Funding
     const p2wpkHex = await this.sendToP2WSHAddress(p2wsh, transactionID, amount)
 
@@ -356,6 +357,7 @@ export default class BitcoinHTLC {
     const refundHex = await this.getRefundHex(fundingTransactionID, sequence, p2wsh)
     console.log("refundHex: " + refundHex)
 
+    this.fundingTxBlockHeight = await this.bitcoinAPI.getBlockHeight(fundingTransactionID)
     while (!this.fundingTxBlockHeight) {
       this.fundingTxBlockHeight = await this.bitcoinAPI.getBlockHeight(fundingTransactionID)
       console.warn(`Still waiting for blockheight... Currently at ${this.fundingTxBlockHeight}`)
@@ -424,7 +426,6 @@ export default class BitcoinHTLC {
    */
   private async getRedeemHex(transactionID: string, p2wsh: bitcoin.payments.Payment): Promise<string> {
     const { vout, value } = await this.bitcoinAPI.getOutput(transactionID, p2wsh.address!)
-
     const psbt = new bitcoin.Psbt({ network: this.network })
       .setVersion(2)
       .addInput({
@@ -442,7 +443,6 @@ export default class BitcoinHTLC {
       })
       .signInput(0, this.receiver)
       .finalizeInput(0, this.getFinalScriptsRedeem)
-
     return psbt.extractTransaction().toHex()
   }
 }
