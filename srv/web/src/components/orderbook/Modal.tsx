@@ -34,7 +34,7 @@ export default (props: Props) => {
                         <div className="flex flex-col items-center justify-around font-mono text-gray-600 ">
                             <ChevronDown className="h-12 text-gray-400 md:hidden"></ChevronDown>
 
-                            <div className="flex flex-row items-center hidden md:block">
+                            <div className="flex-row items-center hidden md:flex">
                                 <div className="flex items-center">
 
                                     <span>{order.exchangeRate.toFixed(4)}</span>
