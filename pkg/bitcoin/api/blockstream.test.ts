@@ -37,9 +37,7 @@ describe("getLastBlock()", () => {
     expect(mockedAxios).toHaveBeenCalledWith("https://blockstream.info/api/block/" + hash)
   })
   it("should throw an error if the first API call does not return a status 200", async () => {
-    const mockedAxios = jest
-      .spyOn(axios, "get")
-      .mockResolvedValueOnce({})
+    const mockedAxios = jest.spyOn(axios, "get").mockResolvedValueOnce({})
     await expect(blockstream.getLastBlock()).rejects.toThrow()
   })
   it("should throw an error if the second API call does not return a status 200", async () => {
@@ -69,9 +67,7 @@ describe("getTimestampAtHeight()", () => {
     expect(mockedAxios).toHaveBeenCalledWith("https://blockstream.info/api/block/" + hash)
   })
   it("should throw an error if the first API call does not return a status 200", async () => {
-    const mockedAxios = jest
-      .spyOn(axios, "get")
-      .mockResolvedValueOnce({})
+    const mockedAxios = jest.spyOn(axios, "get").mockResolvedValueOnce({})
     await expect(blockstream.getTimestampAtHeight(height)).rejects.toThrow()
   })
   it("should throw an error if the second API call does not return a status 200", async () => {
@@ -335,9 +331,7 @@ describe("getOutput()", () => {
   })
 })
 
-
 describe("getBlockHeight()", () => {
-
   /* eslint-disable @typescript-eslint/camelcase */
   const transaction1 = {
     name: "unconfirmed transaction",
