@@ -211,7 +211,7 @@ export default class BlockStream implements BitcoinAPI {
 
   /**
    * Get fee estimates
-   * 
+   *
    * @returns Array with fee estimates for high, mid and low priority. If fee estimates are too close, it returns only one or two values.
    * @memberof BlockStream
    */
@@ -223,7 +223,7 @@ export default class BlockStream implements BitcoinAPI {
     }
 
     const feeEstimates: number[] = Object.values(res.data)
-    let reducedFeeEstimates: number[] = []
+    const reducedFeeEstimates: number[] = []
     reducedFeeEstimates.push(feeEstimates[0])
 
     for (let i = feeEstimates.length - 2; i >= 0; i--) {

@@ -21,13 +21,17 @@ test("checks the default block timer", async () => {
 // Check if the minimum timer of 4 blocks is enforced
 test("checks the minimum timer", async () => {
   const minValue = await blockSequence()
-  expect(minValue.BlockSequence < 4).toThrow(new Error("Specified blockSequence is either too high (>4000) or too low (<4)."))
+  expect(minValue.BlockSequence < 4).toThrow(
+    new Error("Specified blockSequence is either too high (>4000) or too low (<4)."),
+  )
 })
 
 // Check if the maximum timer of 4000 blocks is enforced
 test("checks the maximum timer", async () => {
   const maxValue = await blockSequence()
-  expect(maxValue.maxBlockSequence > 4000).toThrow(new Error("Specified blockSequence is either too high (>4000) or too low (<4)."))
+  expect(maxValue.maxBlockSequence > 4000).toThrow(
+    new Error("Specified blockSequence is either too high (>4000) or too low (<4)."),
+  )
 })
 
 // Check if minima/maxima difference is correct

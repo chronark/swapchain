@@ -82,9 +82,7 @@ describe("pushTX()", () => {
     const transactionHex = "transactionHex"
     const transactionID = "transactionID"
 
-    const mockedAxios = jest
-      .spyOn(axios, "post")
-      .mockResolvedValueOnce({ status: 200, data: transactionID })
+    const mockedAxios = jest.spyOn(axios, "post").mockResolvedValueOnce({ status: 200, data: transactionID })
 
     const result = await blockstream.pushTX(transactionHex)
 
@@ -162,9 +160,7 @@ describe("getValueFromLastTransaction()", () => {
 
   testCases.forEach((tc) => {
     it(`should return amount and transactionID from an address ${tc.name}`, async () => {
-      const mockedAxios = jest
-        .spyOn(axios, "get")
-        .mockResolvedValueOnce({ status: 200, data: tc.transactions })
+      const mockedAxios = jest.spyOn(axios, "get").mockResolvedValueOnce({ status: 200, data: tc.transactions })
       const result = await blockstream.getValueFromLastTransaction(address)
 
       expect(result.value).toEqual(tc.want.value)
@@ -231,9 +227,7 @@ describe("getPreimageFromLastTransaction()", () => {
 
   testCases.forEach((tc) => {
     it(`should return amount and transactionID from an address ${tc.name}`, async () => {
-      const mockedAxios = jest
-        .spyOn(axios, "get")
-        .mockResolvedValueOnce({ status: 200, data: tc.transactions })
+      const mockedAxios = jest.spyOn(axios, "get").mockResolvedValueOnce({ status: 200, data: tc.transactions })
       const preimage = await blockstream.getPreimageFromLastTransaction(address)
       expect(preimage).toEqual(tc.want)
       expect(mockedAxios).toHaveBeenCalledTimes(1)
@@ -242,9 +236,7 @@ describe("getPreimageFromLastTransaction()", () => {
   })
 
   it("should throw an error if the API does not return a status 200", async () => {
-    const mockedAxios = jest
-      .spyOn(axios, "get")
-      .mockResolvedValue({ status: 400, data: "error message" })
+    const mockedAxios = jest.spyOn(axios, "get").mockResolvedValue({ status: 400, data: "error message" })
     await expect(blockstream.getValueFromLastTransaction("ADDRESS1")).rejects.toThrow()
     await expect(blockstream.getPreimageFromLastTransaction("ADDRESS2")).rejects.toThrow()
   })
@@ -304,9 +296,7 @@ describe("getOutput()", () => {
 
   testCases.forEach((tc) => {
     it(`should return amount and vout index from a transaction with ${tc.name}`, async () => {
-      const mockedAxios = jest
-        .spyOn(axios, "get")
-        .mockResolvedValueOnce({ data: tc.data, status: 200 })
+      const mockedAxios = jest.spyOn(axios, "get").mockResolvedValueOnce({ data: tc.data, status: 200 })
       const { vout, value } = await blockstream.getOutput(tc.txID, address)
 
       expect(vout).toBe(tc.want.vout)
@@ -317,15 +307,11 @@ describe("getOutput()", () => {
     })
   })
   it("should throw an error if the API does not return a status 200", async () => {
-    const mockedAxios = jest
-      .spyOn(axios, "get")
-      .mockResolvedValueOnce({ status: 400, data: "Invalid hex string" })
+    const mockedAxios = jest.spyOn(axios, "get").mockResolvedValueOnce({ status: 400, data: "Invalid hex string" })
     await expect(blockstream.getOutput("testTxID", "BADADDRESS")).rejects.toThrow()
   })
   it("should throw an error if no matching output is found", async () => {
-    const mockedAxios = jest
-      .spyOn(axios, "get")
-      .mockResolvedValueOnce({ status: 200, data: { vout: [] } })
+    const mockedAxios = jest.spyOn(axios, "get").mockResolvedValueOnce({ status: 200, data: { vout: [] } })
     await expect(blockstream.getOutput("testTxID", "BADADDRESS")).rejects.toThrow()
   })
 })
@@ -361,9 +347,7 @@ describe("getBlockHeight()", () => {
   /* eslint-enable @typescript-eslint/camelcase */
 
   it(`should return undefined from an unconfirmed transaction`, async () => {
-    const mockedAxios = jest
-      .spyOn(axios, "get")
-      .mockResolvedValueOnce({ data: transaction1.data, status: 200 })
+    const mockedAxios = jest.spyOn(axios, "get").mockResolvedValueOnce({ data: transaction1.data, status: 200 })
     const blockHeight = await blockstream.getBlockHeight(transaction1.txID)
 
     expect(blockHeight).toBeUndefined()
@@ -372,9 +356,7 @@ describe("getBlockHeight()", () => {
     expect(mockedAxios).toHaveBeenCalledWith(`https://blockstream.info/api/tx/${transaction1.txID}`)
   })
   it(`should return block height from a confirmed transaction`, async () => {
-    const mockedAxios = jest
-      .spyOn(axios, "get")
-      .mockResolvedValueOnce({ data: transaction2.data, status: 200 })
+    const mockedAxios = jest.spyOn(axios, "get").mockResolvedValueOnce({ data: transaction2.data, status: 200 })
     const blockHeight = await blockstream.getBlockHeight(transaction2.txID)
 
     expect(blockHeight).toBe(transaction2.want.block_height)
@@ -382,12 +364,10 @@ describe("getBlockHeight()", () => {
     expect(mockedAxios).toHaveBeenCalledTimes(1)
     expect(mockedAxios).toHaveBeenCalledWith(`https://blockstream.info/api/tx/${transaction2.txID}`)
   })
-})
-it("should throw an error if the API does not return a status 200", async () => {
-  const mockedAxios = jest
-    .spyOn(axios, "get")
-    .mockResolvedValueOnce({ status: 404, data: "Transaction not found" })
-  await expect(blockstream.getBlockHeight("testTxID")).rejects.toThrow()
+  it("should throw an error if the API does not return a status 200", async () => {
+    const mockedAxios = jest.spyOn(axios, "get").mockResolvedValueOnce({ status: 404, data: "Transaction not found" })
+    await expect(blockstream.getBlockHeight("testTxID")).rejects.toThrow()
+  })
 })
 
 describe("getFeeEstimates()", () => {
@@ -402,13 +382,9 @@ describe("getFeeEstimates()", () => {
         9: 16.7,
         20: 2.2,
         21: 2.2,
-        22: 2.1
+        22: 2.1,
       },
-      want: [
-        25.5,
-        16.7,
-        8.4,
-      ],
+      want: [25.5, 16.7, 8.4],
     },
     {
       name: "return 2 values",
@@ -418,10 +394,7 @@ describe("getFeeEstimates()", () => {
         3: 20,
         7: 7,
       },
-      want: [
-        30,
-        20,
-      ],
+      want: [30, 20],
     },
     {
       name: "return 1 value",
@@ -430,18 +403,14 @@ describe("getFeeEstimates()", () => {
         10: 1,
         1: 1,
       },
-      want: [
-        1,
-      ],
+      want: [1],
     },
   ]
   /* eslint-enable @typescript-eslint/camelcase */
 
   testCases.forEach((tc) => {
     it(`should get the fee estimates and ${tc.name}`, async () => {
-      const mockedAxios = jest
-        .spyOn(axios, "get")
-        .mockResolvedValueOnce({ data: tc.data, status: 200 })
+      const mockedAxios = jest.spyOn(axios, "get").mockResolvedValueOnce({ data: tc.data, status: 200 })
       const feeEstimates = await blockstream.getFeeEstimates()
 
       expect(feeEstimates).toEqual(tc.want)
@@ -450,10 +419,8 @@ describe("getFeeEstimates()", () => {
       expect(mockedAxios).toHaveBeenCalledWith("https://blockstream.info/api/fee-estimates")
     })
   })
-})
-it("should throw an error if the API does not return a status 200", async () => {
-  const mockedAxios = jest
-    .spyOn(axios, "get")
-    .mockResolvedValueOnce({})
-  await expect(blockstream.getFeeEstimates()).rejects.toThrow()
+  it("should throw an error if the API does not return a status 200", async () => {
+    const mockedAxios = jest.spyOn(axios, "get").mockResolvedValueOnce({})
+    await expect(blockstream.getFeeEstimates()).rejects.toThrow()
+  })
 })
