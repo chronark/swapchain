@@ -72,6 +72,11 @@ beforeEach(() => {
 })
 describe("btcHTLC", () => {
   describe("create()", () => {
+    // Disable logging
+    // Right now we are still printing the refund hex to console
+    console.log = jest.fn()
+
+
     const testCases = [
       {
         value: 2_000,
