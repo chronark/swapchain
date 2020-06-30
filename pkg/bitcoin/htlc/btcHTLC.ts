@@ -45,10 +45,9 @@ export default class BitcoinHTLC {
   private network: bitcoin.Network
   private receiver: bitcoin.ECPairInterface
   private sender: bitcoin.ECPairInterface
-  private fundingTxBlockHeight: number
+  private fundingTxBlockHeight: number | undefined
   private preimage: string
   private amountAfterFees: number
-  private keepLooking: boolean
   public bitcoinAPI: BitcoinAPI
   /**
    * Creates an instance of BitcoinHTLC.
@@ -68,22 +67,20 @@ export default class BitcoinHTLC {
     this.network = network === "testnet" ? bitcoin.networks.testnet : bitcoin.networks.bitcoin
     this.sender = sender
     this.receiver = receiver
-    this.fundingTxBlockHeight = -1
+    this.fundingTxBlockHeight = undefined
     this.preimage = ""
     this.amountAfterFees = 0
-    this.keepLooking = true
     this.bitcoinAPI = new BitcoinAPIConstructor(network)
   }
 
-  public getFundingTxBlockHeight(): number {
-    return this.fundingTxBlockHeight
-  }
-
   /**
-   * Stops looking for matching HTLC.
+   * Get block height of funding transaction
+   * 
+   * @returns Blockheight of funding transaction or undefined if block is not mined/broadcasted yet.
+   * @memberof BitcoinHTLC
    */
-  public stopLooking(): void {
-    this.keepLooking = false
+  public getFundingTxBlockHeight(): number | undefined {
+    return this.fundingTxBlockHeight
   }
 
   /**
@@ -359,8 +356,9 @@ export default class BitcoinHTLC {
     const refundHex = await this.getRefundHex(fundingTransactionID, sequence, p2wsh)
     console.log("refundHex: " + refundHex)
 
-    while (this.fundingTxBlockHeight === -1) {
+    while (!this.fundingTxBlockHeight) {
       this.fundingTxBlockHeight = await this.bitcoinAPI.getBlockHeight(fundingTransactionID)
+      console.warn(`Still waiting for blockheight... Currently at ${this.fundingTxBlockHeight}`)
       await new Promise((resolve) => setTimeout(resolve, 10_000))
     }
     /*
