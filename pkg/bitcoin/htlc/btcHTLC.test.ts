@@ -44,32 +44,28 @@ beforeEach(() => {
     return { toHex }
   })
 
-  bitcoin.payments.p2wsh = jest.fn().mockImplementation(
-    (a: bitcoin.payments.Payment): bitcoin.payments.Payment => {
-      return {
-        network: {
-          messagePrefix: "\x18Bitcoin Signed Message:\n",
-          bech32: "bcrt",
-          bip32: { public: 70617039, private: 70615956 },
-          pubKeyHash: 111,
-          scriptHash: 196,
-          wif: 239,
-        },
-        address: "mfsqh18UT3XjpJ8yVeiM7YX1mLxq5REG9d",
-        hash: Buffer.from("HASH"),
-        output: Buffer.from("OUTPUT"),
-        redeem: {
-          output: Buffer.from(
-            "6355b2756721038f0248cc0bebc425eb55af1689a59f88119c69430a860c6a05f340e445c417d7ad6821038ea27103fb646a2cea9eca9080737e0b23640caaaef2853416c9b286b353313eac",
-            "hex",
-          ),
-        },
-        input: Buffer.from("INPUT"),
-        witness: [Buffer.from("WITNESS")],
-        name: "NAME",
-      }
+  bitcoin.payments.p2wsh = jest.fn().mockReturnValue({
+    network: {
+      messagePrefix: "\x18Bitcoin Signed Message:\n",
+      bech32: "bcrt",
+      bip32: { public: 70617039, private: 70615956 },
+      pubKeyHash: 111,
+      scriptHash: 196,
+      wif: 239,
     },
-  )
+    address: "mfsqh18UT3XjpJ8yVeiM7YX1mLxq5REG9d",
+    hash: Buffer.from("HASH"),
+    output: Buffer.from("OUTPUT"),
+    redeem: {
+      output: Buffer.from(
+        "6355b2756721038f0248cc0bebc425eb55af1689a59f88119c69430a860c6a05f340e445c417d7ad6821038ea27103fb646a2cea9eca9080737e0b23640caaaef2853416c9b286b353313eac",
+        "hex",
+      ),
+    },
+    input: Buffer.from("INPUT"),
+    witness: [Buffer.from("WITNESS")],
+    name: "NAME",
+  })
 })
 
 beforeAll(() => {
