@@ -45,6 +45,6 @@ export class Timer {
     const pastTimestamp = await this.bitcoinAPI.getTimestampAtHeight(lastBlock.height - blockHeightDifference)
 
     const speedBTC = (lastBlock.timestamp - pastTimestamp) / blockHeightDifference
-    return this.blockSequence * speedBTC
+    return Math.round(this.blockSequence * speedBTC)
   }
 }

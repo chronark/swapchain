@@ -6,6 +6,7 @@ import BitcoinHTLC from "../../pkg/bitcoin/htlc/btcHTLC"
 import figlet from "figlet"
 import BitsharesHTLC from "../../pkg/bitshares/htlc/btsHTLC"
 import BlockStream from "../../pkg/bitcoin/api/blockstream"
+import { Timer } from "./timer"
 
 /**
  * Contains all necessary information to run an ACCS.
@@ -77,11 +78,6 @@ export interface ACCSConfig {
    * The counterparty's Bitcoin compressed keypair. Only contains a public key!
    */
   keyPairCounterpartyCompressedBTC: bitcoin.ECPairInterface
-
-  /**
-   *
-   */
-  speedBTC: number
 
   /**
    * The timelock for the Bitcoin blockchain.
@@ -262,17 +258,59 @@ export default class ACCS {
       },
     )
 
-    // Average Speed of BTC blockchain
-    // Bitcoin block speed fluctuates strongly,
-    accsConfig.speedBTC = 600 // FIXME: Add timer
-
-    accsConfig.timelockBTC = 6 // number of blocks to wait
-    accsConfig.timelockBTS = Math.round(accsConfig.timelockBTC * accsConfig.speedBTC) // seconds to wait
-
     if (accsConfig.txMode === "proposer") {
+      const timelock = await this.askUser(
+        "Please enter the duration of the timelock (0 = long, 1 = medium, 2 = short): ",
+      )
+
+      if (!["0", "1", "2"].includes(timelock)) {
+        throw new Error("Invalid timelock. Must be 0, 1 or 2.")
+      }
+
+      let sequence: number
+      
+      switch (timelock) {
+        case "0":
+          sequence = 20
+        case "1":
+          sequence = 13
+        default:
+          sequence = 6
+      }
+
+      const timer = new Timer(sequence, this.networkName, BlockStream)
+  
+      accsConfig.timelockBTC = timer.toBTC() // number of blocks to wait
+      accsConfig.timelockBTS = await timer.toBTS() // seconds to wait
+
       accsConfig.secret = getSecret()
       console.log(`Please pass this secret hash to the counterparty: ${accsConfig.secret.hash.toString("hex")}`)
     } else {
+      // Get timelock duration
+      const timelock = await this.askUser(
+        "Please enter the duration of the timelock you received from the proposer: ",
+      )
+
+      if (!["0", "1", "2"].includes(timelock)) {
+        throw new Error("Invalid timelock. Must be 0, 1 or 2.")
+      }
+
+      let sequence: number
+      
+      switch (timelock) {
+        case "0":
+          sequence = 20
+        case "1":
+          sequence = 13
+        default:
+          sequence = 6
+      }
+
+      const timer = new Timer(sequence, this.networkName, BlockStream)
+  
+      accsConfig.timelockBTC = timer.toBTC() // number of blocks to wait
+      accsConfig.timelockBTS = await timer.toBTS() // seconds to wait
+
       // Get secret hash
       const hashString = await this.askUser("Please enter the secret hash you received from the proposer: ")
       // SHA256 hash length must be 64
@@ -318,7 +356,7 @@ export default class ACCS {
       BlockStream,
     )
 
-    const status = await htlcBTCProposer.create({
+    const refundHex = await htlcBTCProposer.create({
       transactionID: this.accsConfig.txIdBTC,
       amount: this.accsConfig.amountSatoshi,
       sequence: this.accsConfig.timelockBTC,
@@ -330,7 +368,7 @@ export default class ACCS {
       `Looking for an HTLC for you on Bitshares ${this.networkName}. This can take up to ${
         this.accsConfig.timelockBTC
       } Bitcoin ${this.networkName} blocks (about ${Math.round(
-        (this.accsConfig.timelockBTC * this.accsConfig.speedBTC) / 60,
+        (this.accsConfig.timelockBTS) / 60,
       )} min).`,
     )
 
@@ -353,14 +391,14 @@ export default class ACCS {
     // If no HTLC found immediately, continue looking until timelock
     while (!success && currentBlockHeight < maxBlockHeight) {
       currentBlockHeight = (await htlcBTCProposer.bitcoinAPI.getLastBlock()).height
-      console.warn(`${currentBlockHeight} vs. ${maxBlockHeight}`)
 
       await new Promise((resolve) => setTimeout(resolve, 10_000))
     }
 
     if (!success) {
       htlcBTSProposer.stopLooking()
-      throw new Error(`No HTLC found on Bitshares ${this.networkName}. Your HTLC will be automatically refunded.`)
+      const refundTXId = await htlcBTCProposer.bitcoinAPI.pushTX(refundHex)
+      throw new Error(`No HTLC found on Bitshares ${this.networkName}. Your HTLC was refunded with transaction ID ${refundTXId}.`)
     }
 
     console.log(`Found the HTLC for you on Bitshares ${this.networkName}! Redeeming the HTLC...`)
@@ -476,7 +514,7 @@ export default class ACCS {
       BlockStream,
     )
 
-    const status = await htlcBTCTaker.create({
+    const refundHex = await htlcBTCTaker.create({
       transactionID: this.accsConfig.txIdBTC,
       amount: this.accsConfig.amountSatoshi,
       sequence: this.accsConfig.timelockBTC,
@@ -503,7 +541,8 @@ export default class ACCS {
     }
 
     if (preimageFromBlockchain === null) {
-      throw new Error("HTLC was not redeemed in time by the counterparty. Your HTLC will be automatically refunded.")
+      const refundTXId = await htlcBTCTaker.bitcoinAPI.pushTX(refundHex)
+      throw new Error(`HTLC was not redeemed in time by the counterparty. Your HTLC was refunded with transaction ID ${refundTXId}.`)
     }
 
     this.accsConfig.secret.preimage = preimageFromBlockchain
