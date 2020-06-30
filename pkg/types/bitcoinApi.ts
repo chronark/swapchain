@@ -62,7 +62,7 @@ export interface BitcoinAPI {
    * Return the blockheight of a transaction.
    *
    * @param transactionID - ID of any bitcoin transaction.
-   * @returns Blockheight
+   * @returns Blockheight or undefined if block is not mined/broadcasted yet.
    */
-  getBlockHeight: (transactionID: string) => Promise<number>
+  getBlockHeight: (transactionID: string) => Promise<number | undefined>
 }

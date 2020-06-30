@@ -105,6 +105,8 @@ export default class BlockStream implements BitcoinAPI {
       const tx = transactions[i]
       for (let j = 0; j < tx.vin.length; j++) {
         if (tx.vin[j].prevout.scriptpubkey_address === address) {
+          // The witness is stored (serialized as string) on the blockchain
+          // We need to deserialize it by loading it into a Buffer and transform it back to a regular string
           return Buffer.from(tx.vin[j].witness[1], "hex").toString()
         }
       }
@@ -186,10 +188,10 @@ export default class BlockStream implements BitcoinAPI {
    * Return the block height of the transaction.
    *
    * @param transactionID - ID of any bitcoin transaction.
-   * @returns Blockheight.
+   * @returns Blockheight or undefined if block is not mined/broadcasted yet.
    * @memberof BlockStream
    */
-  public async getBlockHeight(transactionID: string): Promise<number> {
+  public async getBlockHeight(transactionID: string): Promise<number | undefined> {
     const res = await axios.get(`${this.baseURL}/tx/${transactionID}`)
     if (res.status !== 200) {
       throw new Error(res.data)

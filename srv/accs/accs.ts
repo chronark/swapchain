@@ -278,20 +278,27 @@ export default class ACCS {
         success = s
       })
 
-    // If no HTLC found immediately, continue looking until timelock
-    while (!success) {
-      const currentBlock = await htlcBTCProposer.bitcoinAPI.getLastBlock()
+    const maxBlockHeight = htlcBTCProposer.getFundingTxBlockHeight()! + this.accsConfig.timelockBTC
+    let currentBlock = 0
 
-      if (currentBlock.height >= htlcBTCProposer.getFundingTxBlockHeight() + this.accsConfig.timelockBTC) {
-        htlcBTSProposer.stopLooking()
-        throw new Error(`No HTLC found on Bitshares ${this.networkName}. Your HTLC will be automatically refunded.`)
-      }
+    // If no HTLC found immediately, continue looking until timelock
+    while (!success && currentBlock < maxBlockHeight) {
+
+      const currentBlock = await htlcBTCProposer.bitcoinAPI.getLastBlock()
+      console.warn(`${currentBlock.height} vs. ${maxBlockHeight}`)
 
       await new Promise((resolve) => setTimeout(resolve, 10_000))
     }
 
+    if (!success) {
+      htlcBTSProposer.stopLooking()
+      throw new Error(`No HTLC found on Bitshares ${this.networkName}. Your HTLC will be automatically refunded.`)
+    }
+
     console.log(`Found the HTLC for you on Bitshares ${this.networkName}! Redeeming the HTLC...`)
+
   }
+
 
   /**
    * Handles ACCS for proposer who wants BTC for BTS.
@@ -376,7 +383,7 @@ export default class ACCS {
       this.accsConfig.accountBTS,
     )
 
-    let timeToWait = 120 // seconds to wait for proposer
+    let timeToWait = 120 / 2 // We only check API every 2 seconds
 
     console.log(
       `Looking for an HTLC for you on Bitshares ${this.networkName}. This can take up to ${timeToWait / 60} min.`,
@@ -385,15 +392,16 @@ export default class ACCS {
     let id = ""
     htlcBTSTaker.getID(this.accsConfig.amountBTSMini, this.accsConfig.secret.hash).then((res) => (id = res))
 
-    while (!id) {
-      if (timeToWait === 0) {
-        htlcBTSTaker.stopLooking()
-        throw new Error(`No HTLC found on Bitshares ${this.networkName}. Please contact proposer.`)
-      }
-
-      await new Promise((resolve) => setTimeout(resolve, 1_000))
-
+    while (!id && timeToWait > 0) {
+      
+      await new Promise((resolve) => setTimeout(resolve, 2_000))
+      
       timeToWait--
+    }
+    
+    if (!id) {
+      htlcBTSTaker.stopLooking()
+      throw new Error(`No HTLC found on Bitshares ${this.networkName}. Please contact proposer.`)
     }
 
     console.log(`Found the HTLC for you on Bitshares ${this.networkName}!`)
@@ -426,7 +434,7 @@ export default class ACCS {
     const p2wsh = htlcBTCTaker.getP2WSH(this.accsConfig.secret.hash, this.accsConfig.timelockBTC)
 
     let preimageFromBlockchain: string | null = null
-    const maxBlockHeight = htlcBTCTaker.getFundingTxBlockHeight() + this.accsConfig.timelockBTC
+    const maxBlockHeight = htlcBTCTaker.getFundingTxBlockHeight()! + this.accsConfig.timelockBTC
     let currentBlock = 0
 
     while (preimageFromBlockchain === null && currentBlock < maxBlockHeight) {
@@ -478,7 +486,7 @@ export default class ACCS {
       BlockStream,
     )
 
-    let timeToWait = 120 // seconds to wait for proposer
+    let timeToWait = 120 / 2 // We only check API every 2 seconds
 
     console.log(
       `Looking for an HTLC for you on Bitcoin ${this.networkName}. This can take up to ${timeToWait / 60} min.`,
@@ -490,15 +498,15 @@ export default class ACCS {
       txID = res.txID
     })
 
-    while (txID === null) {
-      if (timeToWait === 0) {
-        htlcBTCTaker.stopLooking()
-        throw new Error(`No HTLC found on Bitcoin ${this.networkName}. Please contact proposer.`)
-      }
-
-      await new Promise((resolve) => setTimeout(resolve, 1_000))
-
+    while (txID === null && timeToWait > 0) {
+      
+      await new Promise((resolve) => setTimeout(resolve, 2_000))
+      
       timeToWait--
+    }
+    
+    if (timeToWait === 0) {
+      throw new Error(`No HTLC found on Bitcoin ${this.networkName}. Please contact proposer.`)
     }
 
     console.log(`Found the HTLC for you on Bitcoin ${this.networkName}!`)
