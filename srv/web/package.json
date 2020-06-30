@@ -12,7 +12,12 @@
     "@types/react-datepicker": "^3.0.1",
     "@types/react-dom": "^16.9.0",
     "@types/react-responsive": "^8.0.2",
+    "axios": "^0.19.2",
     "bitcoinjs-lib": "^5.1.10",
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "mongodb": "^3.5.9",
     "react": "^16.13.1",
     "react-datepicker": "^3.0.0",
     "react-dom": "^16.13.1",
@@ -20,6 +25,9 @@
     "react-scripts": "3.4.1",
     "typescript": "~3.7.2"
   },
+
+  "proxy": "http://localhost:8000",
+  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -30,6 +38,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+ 
   "browserslist": {
     "production": [
       ">0.2%",
