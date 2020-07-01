@@ -1,18 +1,12 @@
 import ACCS, { ACCSConfig } from "./accs"
+import readline from "readline"
 import * as bitcoin from "bitcoinjs-lib"
 import { mocked } from "ts-jest/utils"
 import { getSecret, Secret } from "../../pkg/secret/secret"
 import { Timer } from "./timer"
-jest.mock("./timer")
 jest.mock("../../pkg/secret/secret")
 console.log = jest.fn()
-
-const getTimerMock = () => {
-  return {
-    toBTC: jest.spyOn(Timer.prototype, "toBTC").mockReturnValue(1),
-    toBTS: jest.spyOn(Timer.prototype, "toBTS").mockResolvedValue(1_000),
-  }
-}
+readline.createInterface = jest.fn()
 
 describe("getUserInput()", () => {
   it("it returns user input as ACCS config object correctly", async () => {
@@ -39,8 +33,7 @@ describe("getUserInput()", () => {
         return secretObject
       },
     )
-
-    const timerMock = getTimerMock()
+    jest.spyOn(Timer.prototype, "toBTS").mockResolvedValue(1_800)
 
     const expectedACCSConfig: ACCSConfig = {
       txMode: "proposer",
@@ -51,9 +44,9 @@ describe("getUserInput()", () => {
       privateKeyBTS: "testBTSPrivateKey",
       accountCounterpartyBTS: "testBTSCounterpartyAccount",
       amount: "0.001",
-      rateBTSBTC: 500000,
-      amountBTSMini: 50000000,
-      amountSatoshi: 100000,
+      rateBTSBTC: 500_000,
+      amountBTSMini: 50_000_000,
+      amountSatoshi: 100_000,
       keyPairCompressedBTC: bitcoin.ECPair.fromPrivateKey(
         bitcoin.ECPair.fromWIF("cTZs9RHsw3nDt98nDNSw3BDs53yaWmQkDFaF8MtBWEMkPMrg42t5", bitcoin.networks.testnet)
           .privateKey!,
@@ -66,15 +59,23 @@ describe("getUserInput()", () => {
         },
       ),
       timelockBTC: 6,
-      timelockBTS: 3000,
+      timelockBTS: 1_800,
       secret: secretObject,
       txIdBTC: "testBTCTxID",
     }
+
     const accs = new ACCS("testnet")
 
     const accsConfig = await accs.getUserInput()
 
-    expect(accsConfig.txMode).toBe(expectedACCSConfig.txMode) //TODO: test more
+    expect(accsConfig.txMode).toBe(expectedACCSConfig.txMode)
+    expect(accsConfig.txType).toBe(expectedACCSConfig.txType)
+    expect(accsConfig.priority).toBe(expectedACCSConfig.priority)
+    expect(accsConfig.amountBTSMini).toBe(expectedACCSConfig.amountBTSMini)
+    expect(accsConfig.amountSatoshi).toBe(expectedACCSConfig.amountSatoshi)
+    expect(accsConfig.timelockBTC).toBe(expectedACCSConfig.timelockBTC)
+    expect(accsConfig.timelockBTS).toBe(expectedACCSConfig.timelockBTS)
+    expect(accsConfig.secret).toEqual(expectedACCSConfig.secret)
   })
 })
 
