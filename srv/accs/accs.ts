@@ -460,7 +460,7 @@ export default class ACCS {
         .then((res) => {
           txID = res.txID
         })
-        .catch() // This error is intentional and expected to occur for most iterations
+        .catch((err: Error) => {}) // This error is intentional and expected to occur for most iterations
 
       await new Promise((resolve) => setTimeout(resolve, 2_000))
 
