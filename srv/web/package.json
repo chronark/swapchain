@@ -19,11 +19,11 @@
     "typescript": "^3.9.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "npm run build:css && SKIP_PREFLIGHT_CHECK=true react-scripts start",
+    "build": "npm run build:css && SKIP_PREFLIGHT_CHECK=true react-scripts build",
     "test": "SKIP_PREFLIGHT_CHECK=true CI=true react-scripts test --coverage --color",
     "eject": "react-scripts eject",
-    "build:css": "tailwind build src/tailwind.css -c tailwind.config.js -o src/index.css",
+    "build:css": "SKIP_PREFLIGHT_CHECK=true postcss src/tailwind.src.css -c tailwind.config.js -o src/tailwind.css",
     "test:nowatch": "CI=true react-scripts test"
   },
   "eslintConfig": {
@@ -45,6 +45,8 @@
     "@types/react": "^16.9.41",
     "@types/react-datepicker": "^3.0.2",
     "@types/react-test-renderer": "^16.9.2",
+    "postcss-cli": "^7.1.1",
+    "purgecss": "^2.3.0",
     "react-test-renderer": "^16.13.1",
     "tailwindcss": "^1.4.6",
     "ts-jest": "^26.1.1"
