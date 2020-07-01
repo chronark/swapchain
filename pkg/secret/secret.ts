@@ -5,19 +5,18 @@ import crypto from "crypto-random-string"
  * An interface for a secret/hash pair
  */
 export interface Secret {
-  preimage: string
+  preimage?: string
   hash: Buffer
 }
 
 /**
- * A function for hashing a crypto random string.
+ * A function for generating and hashing a crypto random string with a length of 32.
+ * The length of the secret can not be changed!
  *
- * @param length The length of the requested secret
- * @returns An Secret interface with a secret/hash pair
- *
+ * @returns An Secret object.
  */
-export function getSecret(length: number): Secret {
-  const preimage = crypto({ length, type: "base64" })
+export function getSecret(): Secret {
+  const preimage = crypto({ length: 32, type: "base64" })
   const hash = bitcoin.crypto.sha256(Buffer.from(preimage))
   return {
     preimage,

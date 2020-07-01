@@ -1,7 +1,6 @@
 import express from "express"
 
 import HexTransaction, { HexTransactionType } from "./HexTransaction.model"
-import { validateLocaleAndSetLanguage } from "typescript"
 
 const server = express()
 
