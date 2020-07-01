@@ -2,38 +2,15 @@ import ACCS, { ACCSConfig } from "./accs"
 import * as bitcoin from "bitcoinjs-lib"
 import { mocked } from "ts-jest/utils"
 import { getSecret, Secret } from "../../pkg/secret/secret"
-import BitcoinHTLC from "../../pkg/bitcoin/htlc/btcHTLC"
-import BitsharesHTLC from "../../pkg/bitshares/htlc/btsHTLC"
-import BlockStream from "../../pkg/bitcoin/api/blockstream"
+import { Timer } from "./timer"
+jest.mock("./timer")
 jest.mock("../../pkg/secret/secret")
-jest.mock("../../pkg/bitshares/htlc/btsHTLC")
-jest.mock("../../pkg/bitcoin/htlc/btcHTLC")
-jest.mock("../../pkg/bitcoin/api/blockstream")
 console.log = jest.fn()
 
-const getBitcoinHTLCMock = () => {
-  BitcoinHTLC.prototype.bitcoinAPI = {
-    getLastBlock: jest.fn().mockResolvedValue({ height: 1000, timestamp: 5000 }), // TODO: change the values
-    getTimestampAtHeight: jest.fn().mockResolvedValue(6000),
-    pushTX: jest.fn().mockResolvedValue("4a2d7af13070119a0b8a36082df0a03c17e60059250598b100260b0a6949a9ee"),
-    getPreimageFromLastTransaction: jest.fn().mockResolvedValue("amos"),
-    getValueFromLastTransaction: jest.fn().mockResolvedValue({ value: 2, txID: "txID" }),
-    getOutput: jest.fn().mockResolvedValue({ vout: 1, value: 1_000_000 }),
-    getBlockHeight: jest.fn().mockResolvedValue(1_000_000),
-    getFeeEstimates: jest.fn().mockResolvedValue([25.4, 14.2, 5.1]),
-  }
-
+const getTimerMock = () => {
   return {
-    redeem: jest.spyOn(BitcoinHTLC.prototype, "redeem").mockResolvedValue(undefined),
-    create: jest.spyOn(BitcoinHTLC.prototype, "create").mockResolvedValue("hex"),
-    getFundingTxBlockHeight: jest.spyOn(BitcoinHTLC.prototype, "getFundingTxBlockHeight").mockReturnValue(1000),
-  }
-}
-
-const getBitsharesHTLCMock = () => {
-  return {
-    redeem: jest.spyOn(BitsharesHTLC.prototype, "redeem").mockResolvedValue(true),
-    create: jest.spyOn(BitsharesHTLC.prototype, "create").mockResolvedValue(true),
+    toBTC: jest.spyOn(Timer.prototype, "toBTC").mockReturnValue(1),
+    toBTS: jest.spyOn(Timer.prototype, "toBTS").mockResolvedValue(1_000),
   }
 }
 
@@ -62,6 +39,8 @@ describe("getUserInput()", () => {
         return secretObject
       },
     )
+
+    const timerMock = getTimerMock()
 
     const expectedACCSConfig: ACCSConfig = {
       txMode: "proposer",
@@ -95,12 +74,97 @@ describe("getUserInput()", () => {
 
     const accsConfig = await accs.getUserInput()
 
-    expect(accsConfig.txMode).toBe(expectedACCSConfig.txMode)
+    expect(accsConfig.txMode).toBe(expectedACCSConfig.txMode) //TODO: test more
   })
 })
-describe("proposeBTSForBTC()", async () => {
-  it.skip("runs... TODO:", async () => {
-    const accsConfig: ACCSConfig = {
+
+describe("run()", () => {
+  const defaultConfig = {
+    txTypeName: "BTS/BTC",
+    priority: 0,
+    accountBTS: "testBTSAccount",
+    privateKeyBTS: "testBTSPrivateKey",
+    accountCounterpartyBTS: "testBTSCounterpartyAccount",
+    amount: "0.001",
+    rateBTSBTC: 500000,
+    amountBTSMini: 50000000,
+    amountSatoshi: 100000,
+    keyPairCompressedBTC: bitcoin.ECPair.fromPrivateKey(
+      bitcoin.ECPair.fromWIF("cTZs9RHsw3nDt98nDNSw3BDs53yaWmQkDFaF8MtBWEMkPMrg42t5", bitcoin.networks.testnet)
+        .privateKey!,
+      { compressed: true },
+    ),
+    keyPairCounterpartyCompressedBTC: bitcoin.ECPair.fromPublicKey(
+      Buffer.from("03c11fe663a2e72b2c0a67d23235d5320d6d7efede7c99f1322b05665e15d129ed", "hex"),
+      {
+        compressed: true,
+      },
+    ),
+    timelockBTC: 6,
+    timelockBTS: 3000,
+    secret: {
+      preimage: "TOPSECRETTOPSECRETTOPSECRETTOPSE",
+      hash: bitcoin.crypto.sha256(Buffer.from("TOPSECRETTOPSECRETTOPSECRETTOPSE")),
+    },
+    txIdBTC: "testBTCTxID",
+  }
+
+  it("calls proposeBTSForBTC", async () => {
+    const accs = new ACCS("mainnet")
+    accs.setConfig({
+      txType: "1",
+      txMode: "proposer",
+      ...defaultConfig,
+    })
+    const mock = jest.spyOn(accs, "proposeBTSForBTC").mockImplementation(() => Promise.resolve())
+
+    await accs.run()
+    expect(mock).toHaveBeenCalledTimes(1)
+  })
+
+  it("calls proposeBTCForBTS", async () => {
+    const accs = new ACCS("mainnet")
+    accs.setConfig({
+      txType: "2",
+      txMode: "proposer",
+      ...defaultConfig,
+    })
+    const mock = jest.spyOn(accs, "proposeBTCForBTS").mockImplementation(() => Promise.resolve())
+
+    await accs.run()
+    expect(mock).toHaveBeenCalledTimes(1)
+  })
+
+  it("calls takeBTSForBTC", async () => {
+    const accs = new ACCS("mainnet")
+    accs.setConfig({
+      txType: "1",
+      txMode: "taker",
+      ...defaultConfig,
+    })
+    const mock = jest.spyOn(accs, "takeBTSForBTC").mockImplementation(() => Promise.resolve())
+
+    await accs.run()
+    expect(mock).toHaveBeenCalledTimes(1)
+  })
+
+  it("calls takeBTCForBTS", async () => {
+    const accs = new ACCS("mainnet")
+    accs.setConfig({
+      txType: "2",
+      txMode: "taker",
+      ...defaultConfig,
+    })
+    const mock = jest.spyOn(accs, "takeBTCForBTS").mockImplementation(() => Promise.resolve())
+
+    await accs.run()
+    expect(mock).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe("main()", () => {
+  it("asks for user input and runs afterwards", async () => {
+    const config: ACCSConfig = {
       txMode: "proposer",
       txType: "1",
       txTypeName: "BTS/BTC",
@@ -131,14 +195,13 @@ describe("proposeBTSForBTC()", async () => {
       },
       txIdBTC: "testBTCTxID",
     }
-    const BitcoinHTLCMock = getBitcoinHTLCMock()
-    const BitsharesHTLCMock = getBitsharesHTLCMock()
 
-    const accs = new ACCS("mainnet")
-    accs.setConfig(accsConfig)
-    await accs.proposeBTSForBTC()
+    const accs = new ACCS("testnet")
+    const getUserInputMock = jest.spyOn(accs, "getUserInput").mockResolvedValue(config)
+    const runMock = jest.spyOn(accs, "run").mockResolvedValue()
 
-    expect(BitcoinHTLCMock.create).toHaveBeenCalledTimes(1)
-    expect(BitcoinHTLCMock.redeem).toHaveBeenCalledTimes(1)
+    await accs.main()
+    expect(getUserInputMock).toHaveBeenCalledTimes(1)
+    expect(runMock).toHaveBeenCalledTimes(1)
   })
 })
