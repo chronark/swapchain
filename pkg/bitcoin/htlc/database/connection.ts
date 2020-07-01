@@ -1,6 +1,6 @@
 import server from "./server"
 import mongoose from "mongoose"
-require("dotenv").config({ path: "/Users/madsjordt/Desktop/Projects/AMOS/swapchain/.env" })
+require("dotenv").config({ path: "swapchain/.env" })
 
 const port = process.env.PORT || 8080
 const mongoPort = process.env.MONGO_PORT || 27017
