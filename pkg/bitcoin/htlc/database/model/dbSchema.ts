@@ -39,3 +39,4 @@ const postSchema = new Schema({
 })
 
 export default mongoose.model<OrderType>("OrderCollection", postSchema)
+

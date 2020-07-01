@@ -50,3 +50,4 @@ describe("Test if orders are sent to our database and respectively saved", () =>
     expect(OrderCollection).toBeCalledWith(body)
   })
 })
+
