@@ -1,6 +1,6 @@
 import server from "./server"
 import mongoose from "mongoose"
-require("dotenv").config({ path: '.env' })
+require("dotenv").config({ path: ".env" })
 
 const port = process.env.PORT || 8080
 const mongoPort = process.env.MONGO_PORT || 27017
@@ -13,3 +13,4 @@ mongoose.connect(URI!, { useUnifiedTopology: true, useNewUrlParser: true }).then
     console.log(`Listening on port ${port}`)
   })
 })
+
