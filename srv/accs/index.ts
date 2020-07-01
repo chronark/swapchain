@@ -3,7 +3,7 @@ import ACCS from "./accs"
 const argv = process.argv.slice(2)
 
 if (argv.length !== 1) {
-  console.log("Usage: node demo.js network")
+  console.log("Usage: node index.js network")
   process.exit(1)
 }
 if (argv[0] !== "mainnet" && argv[0] !== "testnet") {
