@@ -116,7 +116,7 @@ exports[`renders correctly 1`] = `
                   onKeyDown={[Function]}
                   readOnly={false}
                   type="text"
-                  value="06/24/2020"
+                  value="07/17/2020"
                 />
               </div>
             </div>
@@ -1076,7 +1076,7 @@ exports[`renders correctly 1`] = `
               chevron-down.svg
             </svg>
             <div
-              className="flex flex-row items-center hidden md:block"
+              className="flex-row items-center hidden md:flex"
             >
               <div
                 className="flex items-center"
