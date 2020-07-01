@@ -50,5 +50,6 @@
     "react-test-renderer": "^16.13.1",
     "tailwindcss": "^1.4.6",
     "ts-jest": "^26.1.1"
-  }
+  },
+  "proxy": "http://localhost:8080"
 }
