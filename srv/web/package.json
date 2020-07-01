@@ -3,14 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-datepicker": "^3.0.1",
-    "@types/react-dom": "^16.9.0",
+    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.4.3",
+    "@testing-library/user-event": "^12.0.11",
+    "@types/jest": "^26.0.3",
+    "@types/node": "^14.0.14",
+    "@types/react-dom": "^16.9.8",
     "@types/react-responsive": "^8.0.2",
     "axios": "^0.19.2",
     "bitcoinjs-lib": "^5.1.10",
@@ -19,14 +17,14 @@
     "react-dom": "^16.13.1",
     "react-responsive": "^8.1.0",
     "react-scripts": "3.4.1",
-    "typescript": "~3.7.2"
+    "typescript": "^3.9.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "CI=true react-scripts test --coverage --color",
+    "start": "npm run build:css && SKIP_PREFLIGHT_CHECK=true react-scripts start",
+    "build": "npm run build:css && SKIP_PREFLIGHT_CHECK=true react-scripts build",
+    "test": "SKIP_PREFLIGHT_CHECK=true CI=true react-scripts test --coverage --color",
     "eject": "react-scripts eject",
-    "build:css": "tailwind build src/tailwind.css -c tailwind.config.js -o src/index.css",
+    "build:css": "SKIP_PREFLIGHT_CHECK=true postcss src/tailwind.src.css -c tailwind.config.js -o src/tailwind.css",
     "test:nowatch": "CI=true react-scripts test"
   },
   "eslintConfig": {
@@ -45,12 +43,17 @@
     ]
   },
   "devDependencies": {
-    "@types/react": "^16.9.38",
-    "@types/react-datepicker": "^3.0.1",
+    "@types/react": "^16.9.41",
+    "@types/react-datepicker": "^3.0.2",
     "@types/react-test-renderer": "^16.9.2",
+    "postcss-cli": "^7.1.1",
+    "purgecss": "^2.3.0",
     "react-test-renderer": "^16.13.1",
     "tailwindcss": "^1.4.6"
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "http://localhost:8080",
+    "tailwindcss": "^1.4.6",
+    "ts-jest": "^26.1.1"
+  }
 }
 
