@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "/Users/madsjordt/Desktop/Projects/AMOS/swapchain/.env" })
+require("dotenv").config({ path: ".env" })
 import server from "./server"
 import mongoose from "mongoose"
 
