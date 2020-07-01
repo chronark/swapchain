@@ -13,4 +13,3 @@ mongoose.connect(URI!, { useUnifiedTopology: true, useNewUrlParser: true }).then
     console.log(`Listening on port ${port}`)
   })
 })
-
