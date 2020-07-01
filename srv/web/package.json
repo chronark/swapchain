@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "CI=true react-scripts test --coverage --color",
+    "test": "SKIP_PREFLIGHT_CHECK=true CI=true react-scripts test --coverage --color",
     "eject": "react-scripts eject",
     "build:css": "tailwind build src/tailwind.css -c tailwind.config.js -o src/index.css",
     "test:nowatch": "CI=true react-scripts test"
