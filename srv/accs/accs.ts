@@ -179,7 +179,7 @@ export default class ACCS {
 
     await new Promise((resolve) => setTimeout(resolve, 500))
     console.log("")
-    console.log("version: sprint-08-release-candidate")
+    console.log("version: sprint-10-release-candidate")
     console.log("Welcome to swapchain-cli.")
     console.log("")
 
@@ -279,8 +279,10 @@ export default class ACCS {
       switch (timelock) {
         case "0":
           sequence = 20
+          break
         case "1":
           sequence = 13
+          break
         default:
           sequence = 6
       }
@@ -305,8 +307,10 @@ export default class ACCS {
       switch (timelock) {
         case "0":
           sequence = 20
+          break
         case "1":
           sequence = 13
+          break
         default:
           sequence = 6
       }
@@ -390,7 +394,6 @@ export default class ACCS {
     let currentBlockHeight = 0
     // If no HTLC found immediately, continue looking until timelock
     while (!success && currentBlockHeight < maxBlockHeight) {
-      console.warn(htlcBTCProposer.bitcoinAPI)
       currentBlockHeight = (await htlcBTCProposer.bitcoinAPI.getLastBlock()).height
 
       await new Promise((resolve) => setTimeout(resolve, 10_000))
