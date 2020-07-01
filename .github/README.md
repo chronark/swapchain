@@ -19,16 +19,47 @@
 
 > Swapchain is an application for performing ACCS (atomic cross chain swaps) via HTLCs (hash-time-locked contracts).
 
+## Supported cryptocurrencies
+
+|           | mainnet            | testnet            | regtest |
+| --------- | ------------------ | ------------------ | ------- |
+| Bitcoin   | :white_check_mark: | :white_check_mark: | :x:     |
+| Bitshares | :white_check_mark: | :white_check_mark: | :x:     |
+
+## Installation
+
+### Setup
+
+```bash
+git clone https://github.com/chronark/swapchain.git
+
+cd swapchain
+
+npm install
+
+npm run build
+```
+
+### CLI
+
+Command-line tool to swap cryptocurrencies with a known counterparty.
+
+```bash
+node dist/srv/accs/index.js testnet // Either testnet or mainnet
+```
+
+Or use the npm script:
+
+```bash
+npm run cli -- testnet
+```
+
 ## Documentation
 
 You can see the stable and development versions here:
 
 - [stable](https://swapchain.netlify.app)
 - [dev](https://swapchain-dev.netlify.app)
-
-## Installation
-
-... to be added.
 
 ## Development setup
 
