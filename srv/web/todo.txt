@@ -1,0 +1,74 @@
+CLI
+    - add choice function
+    - documentation
+
+
+Backend
+    // Wishful thinking for the future
+    - add secret on Order.save()
+        1. Bob creates new Order
+            -> sends public information to backend
+        2. Alice accepts order
+            -> backend sends secret to Alice
+        3. Alice creates htlc
+            -> store secret in database for the respective order
+
+        4. Bob creates htlc with secret.hash from backend
+
+
+database
+    - Order
+        + timelock
+        + priority
+
+WEB
+x    - Landingpage
+        - how does it work?
+x    - Navbar
+        - current exchange rate from successfull transactions within X weeks
+        - github
+        - docs
+        - orderbook
+    - Orderbook
+        - repair filter
+        - repair chevron
+
+    - inputs
+        usecases:
+            bob creates new Order
+                - btc public address 
+                - bitshares account name
+                - tradechoice
+                - how much
+                - rate
+                - TTL (order)
+                - timelock
+                - (priority)
+            alice accepts Order -> proposer
+                - btc public address
+                - bitshares account name
+                - btc private key (annotate browser safety blabla)
+                - bts private key
+                - (priority)
+                
+                + create secret (in browser) and show to alice
+                    annotate that she must save it and pass to counterparty     
+            
+            bob accept accepted order -> counterparty 
+                - hash from alice
+                - btc private key
+                - bitshares private key
+
+            
+            
+            
+            cancel order (bob)
+                - 
+
+
+
+
+
+Tooling
+    - clean dependencies
+    - 

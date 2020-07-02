@@ -19,6 +19,7 @@
     "typescript": "^3.9.5"
   },
   "scripts": {
+    "dev": "npx tailwindcss build src/tailwind.src.css -o src/tailwind.css && SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "start": "npm run build:css && SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "build": "npm run build:css && SKIP_PREFLIGHT_CHECK=true react-scripts build",
     "test": "SKIP_PREFLIGHT_CHECK=true CI=true react-scripts test --coverage --color",

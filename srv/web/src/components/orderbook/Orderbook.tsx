@@ -5,13 +5,9 @@ import { Table } from "./Table"
 import Modal from "./Modal"
 import { FilterButton } from "./FilterButton"
 import DatePicker from "react-datepicker"
-import crypto from "crypto"
-
+import {hash, fakeAddress} from "../../util"
 import "react-datepicker/dist/react-datepicker.css"
 
-const hash = (s: string): string => {
-  return crypto.createHash("SHA256").update(s).digest("hex")
-}
 
 export const status = {
   active: {
@@ -155,7 +151,7 @@ export default (props: Props) => {
             </span>
             <input
               className="block w-full py-1 pl-10 text-gray-900 placeholder-gray-600 bg-gray-100 border border-gray-400 rounded"
-              placeholder={hash(Math.random().toString()).substring(0, 15) + "..."}
+              placeholder={fakeAddress(15)}
               onChange={handleAddressChange}
             ></input>
           </div>
