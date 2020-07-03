@@ -3,11 +3,10 @@ import { fakeAddress } from "../../util"
 import { Label } from "./Label"
 import { Input } from "./Input"
 import {ReactComponent as Annotation} from "../../icons/annotation.svg"
+import { ActionButton } from "./ActionButton"
+
 export const CancelOrder = () => {
-  
-
-
-    return (
+      return (
         <div className="container mx-auto">
 
             <section className="max-w-lg mt-12">
@@ -24,9 +23,7 @@ export const CancelOrder = () => {
 
            
             <footer className="flex items-center justify-around pt-12 mt-8 text-center border-t border-gray-300">
-                <button className="inline-flex px-8 py-3 font-semibold text-gray-900 uppercase transition duration-200 ease-in-out bg-orange-100 border border-b-4 border-orange-400 rounded-sm hover:bg-white">
-                    Cancel Order
-                            </button>
+                <ActionButton color="orange" onClick={() => {}}></ActionButton>
 
 
             </footer>
