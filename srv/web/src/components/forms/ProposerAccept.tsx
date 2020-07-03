@@ -102,7 +102,7 @@ export const ProposerAccept = () => {
                             </div>
                         </div>
                         <p className="mt-2 text-sm text-center text-gray-500 ">
-                            Your private keys will never leave your browser, it is only used to sign your transactions. <a href="" className="relative text-xs text-blue-500">Read more in our docs.</a>
+                            Your private keys will never leave your browser, it is only used to sign your transactions. <a href="/" className="relative text-xs text-blue-500">Read more in our docs.</a>
                         </p>
                     </section>
                     <section className="mt-12">

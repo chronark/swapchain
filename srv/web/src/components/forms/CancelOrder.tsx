@@ -52,7 +52,7 @@ export const CancelOrder = () => {
                 </div>
 
                 <p className="mt-2 text-sm text-center text-gray-500">
-                    Your private key will never leave your browser, it is only used to authorize this request. <a href="" className="relative text-xs text-blue-500">Read more in our docs. <Annotation className="absolute right-0 h-4 -mr-4"></Annotation> </a>
+                    Your private key will never leave your browser, it is only used to authorize this request. <a href="/" className="relative text-xs text-blue-500">Read more in our docs. <Annotation className="absolute right-0 h-4 -mr-4"></Annotation> </a>
                 </p>
             </section>
 

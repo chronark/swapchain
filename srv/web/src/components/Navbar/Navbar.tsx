@@ -38,7 +38,7 @@ export const Navbar = () => {
                             <Link className="p-6 font-medium text-gray-700 transition duration-300 ease-in-out border-transparent hover:text-teal-900 md:border-b-2 hover:border-teal-600 focus:outline-none" to="/trade">Trade</Link>
                         </li>
                         <li>
-                            <Button href="" label="Documentation"></Button>
+                            <Button href="/" label="Documentation"></Button>
                         </li>
                     </ul>
                     <ul className="flex flex-col pt-4 mt-4 -mx-4 border-t md:flex-row md:items-center md:mx-0 md:ml-auto md:mt-0 md:pt-0 md:border-0">
