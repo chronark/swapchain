@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { ReactComponent as SwapchainLogoDouble } from "../../icons/swapchainLogoDouble.svg"
 import { Button } from "./Button"
 import { ReactComponent as GithubLogo } from "../../icons/github.svg"
+import { Link } from "react-router-dom"
 
 
 export const Navbar = () => {
@@ -34,18 +35,21 @@ export const Navbar = () => {
                 <div className={`${open ? "" : "hidden"} w-full md:w-auto md:flex-grow md:flex md:items-center`}>
                     <ul className="flex flex-col pt-4 mt-4 -mx-4 border-t md:flex-row md:items-center md:mx-0 md:mt-0 md:pt-0 md:mr-4 lg:mr-8 md:border-0">
                         <li>
-                            <Button href="" label="Orderbook"></Button>
+                            <Link className="p-6 font-medium text-gray-700 transition duration-300 ease-in-out border-transparent hover:text-teal-900 md:border-b-2 hover:border-teal-600 focus:outline-none" to="/trade">Trade</Link>
                         </li>
                         <li>
                             <Button href="" label="Documentation"></Button>
                         </li>
-                        <li>
-                            <Button href="" label="Orderbook"></Button>
-                        </li>
                     </ul>
                     <ul className="flex flex-col pt-4 mt-4 -mx-4 border-t md:flex-row md:items-center md:mx-0 md:ml-auto md:mt-0 md:pt-0 md:border-0">
                         <li>
-                            <a className="flex items-center px-4 text-gray-900 hover:text-gray-600" href="#" title="Link">
+                        <Link className="p-6 font-medium text-gray-700 transition duration-300 ease-in-out border-transparent hover:text-teal-900 md:border-b-2 hover:border-teal-600 focus:outline-none" to="/orderbook">Orderbook 
+                            <span className="px-2 py-1 ml-2 text-xs font-thin border border-teal-500 rounded">beta</span>
+                            </Link>
+
+                        </li>
+                        <li>
+                            <a className="flex items-center px-4 text-gray-900 hover:text-gray-600" href="https://github.com/chronark/swapchain">
                                 <GithubLogo className="h-8 fill-current"></GithubLogo>
                                 <span className="ml-2 md:hidden">Github</span>
                             </a>

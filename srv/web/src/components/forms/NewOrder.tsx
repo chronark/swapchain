@@ -20,10 +20,10 @@ export const NewOrder = () => {
     const rateUnit = (): string[] => {
         switch (fields.currencyToGive) {
             case Currency.BTC:
-                return ["BTS", "BTC"]
+                return ["BTC", "BTS"]
 
             case Currency.BTS:
-                return ["BTC", "BTS"]
+                return ["BTS", "BTC"]
         }
     }
 
@@ -168,7 +168,7 @@ export const NewOrder = () => {
                     <button className="w-1/3 px-3 focus:outline-none" onClick={() => updateFieldByName("priority", Priority.HIGH)}>
                         <PriorityChoice label={Priority[Priority.HIGH]} description="You pay the highest fees to increase the chance for your transaction to be picked up by the miners." selected={fields.priority === Priority.HIGH}></PriorityChoice>
                     </button>
-                    <button className="w-1/3 px-3 focus:outline-none" onClick={() => updateFieldByName("fields.", Priority.MEDIUM)}>
+                    <button className="w-1/3 px-3 focus:outline-none" onClick={() => updateFieldByName("priority", Priority.MEDIUM)}>
                         <PriorityChoice label={Priority[Priority.MEDIUM]} description="You pay a moderate amount of fees so miners will probably confirm your transaction soon." selected={fields.priority === Priority.MEDIUM}></PriorityChoice>
                     </button>
                     <button className="w-1/3 px-3 focus:outline-none" onClick={() => updateFieldByName("priority", Priority.LOW)}>

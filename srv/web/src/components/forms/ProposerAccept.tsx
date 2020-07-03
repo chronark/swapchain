@@ -1,13 +1,11 @@
 
 import React, { useState, useEffect } from "react"
 import { fakeAddress } from "../../util"
-import { ReactComponent as Exclamation } from "../../icons/exclamation.svg"
 import { PriorityChoice } from "./PriorityChoice"
 import { Label } from "./Label"
 import { Input } from "./Input"
 import { SubmitButton } from "./SubmitButton"
 import { getSecret } from "../../pkg/secret/secret"
-
 
 export const ProposerAccept = () => {
 
@@ -60,7 +58,6 @@ export const ProposerAccept = () => {
             setShowError(true)
             return
         }
-
         //TODO: @webersni
 
         setAccepted(true)

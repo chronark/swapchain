@@ -2,23 +2,41 @@
 import React from 'react';
 import { LandingPage } from './components/landingPage/LandingPage';
 import { Navbar } from "./components/Navbar/Navbar"
-import { CancelOrder } from './components/forms/CancelOrder';
-import Modal from './components/util/Modal';
-import { NewOrder } from './components/forms/NewOrder';
-import { ProposerAccept } from './components/forms/ProposerAccept';
+import { NewOrder } from "./components/forms/NewOrder"
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import { ComponentPage } from './components/ComponentPage';
+import { TakerAccept } from './components/forms/TakerAccept';
 
-
-
-function App() {
+const App = () => {
   return (
     <div className="min-h-screen bg-gray-100">
-
-      <Navbar></Navbar>
-      <Modal title="Some snappy title" open={true} close={() => { }}>
-       <ProposerAccept></ProposerAccept>
-      </Modal> 
-      <LandingPage></LandingPage> 
-
+      <Router>
+        <Navbar></Navbar>
+        <Switch>
+        <Route path="/accept">
+            <ComponentPage>
+              <h1 className="py-4 text-3xl font-bold leading-tight text-gray-900">
+                Accept an Atomic Cross Chain Swap</h1>
+              <TakerAccept></TakerAccept>
+            </ComponentPage>
+            
+          </Route>
+          <Route path="/propose">
+            <ComponentPage>
+              <h1 className="py-4 text-3xl font-bold leading-tight text-gray-900">
+                Propose a new Atomic Cross Chain Swap</h1>
+              <NewOrder></NewOrder>
+            </ComponentPage>
+          </Route>
+          <Route path="/">
+            <LandingPage></LandingPage>
+          </Route>
+        </Switch>
+      </Router>
     </div>
   )
 }
