@@ -6,11 +6,11 @@ sidebar_label: Swapchain Software Architecture
 
 ## 1. Introduction
 
-Swapchain is a platform to atomically swap Bitcoins and Bitshares. It caters to the need of users who want to carry out OTC (over-the-counter) transactions between the Bitcoin and the Bitshare blockchains. The platform can help its users to identify potential swap offers from the existing orderbook, submit the desired swap orders, and perform a Hash Time-Locked Contract to safely carry out the swap. Furthermore, it provides the functionality of a simple user interface to track the transactions made by the user. The use of an atomic cross-chain swap helps avoiding counterparty risks and high fees charged by other intermediaries. [5]
+Swapchain is a platform that enables users to perform atomic cross-chain swaps of Bitcoins and Bitshares and vice versa. It caters to the need of users who want to carry out OTC (over-the-counter) transactions between the Bitcoin and the Bitshare blockchains. The platform helps users to submit desired swap orders and perform a Hashed Time Lock Contract to safely carry out the swap. Furthermore, it provides the functionality of a simple user interface to track the transactions made by the user. The use of an atomic cross-chain swap helps avoiding counterparty risks and high fees charged by other intermediaries. [5]
 
 ### 1.1 Purpose
 
-This document provides a comprehensive architectural overview of the Swapchain platform, using a use-case diagram and an architectural representation to explain different aspects of the platform. It is intended to capture and convey the significant architectural decisions which have been made for the platform design.
+This document provides a comprehensive architectural overview of the Swapchain platform, using specific diagrams and an architectural representation to explain different aspects of the platform. It is intended to capture and convey the significant architectural decisions which have been made for the platform design.
 
 ### 1.2 Scope
 
@@ -38,7 +38,7 @@ The report will present a detailed analysis of the architecture of a platform en
 
 ## 2. Architectural Represantition
 
-Swapchain offers a web application that follows the Clean architecture pattern. Main reason to use this pattern is to separate functions into layers thus improve the maintainability and reusability. Figure 1 visualizes the Clean Architecture by using color-coded schemes.
+Swapchain offers a command-line interface (CLI) and a basic mockup which follow the Clean Architecture pattern. Main reason to use this pattern is to separate functions into layers and thus, improve the maintainability and reusability. Figure 1 visualizes the Clean Architecture by using color-coded schemes.
 
 ![](./docs/static/img/CleanArchitecture.jpg)
 Figure 1: The Clean Architecture (Martin, 2020) [3]
@@ -53,7 +53,7 @@ So, in the context of our application:
 | Clean Architecture Layers | Entities                                    | Use Cases                                | Controllers, Gateways, Presenters                           | UI, Web, Devices, DB              |
 | ------------------------- | ------------------------------------------- | ---------------------------------------- | ----------------------------------------------------------- | --------------------------------- |
 | General Description       | Main features of the application            | Application of the main ideas            | Encapsulates framework-specific code                        | Contains frameworks and tools     |
-| Swapchain Specific        | Atomic cross-chain swap of cryptocurrencies | Cross-chain swaps, cross-consensus swaps | Interaction, libraries, data-structures from UI to use case | Orderbook, database, APIs, Web UI |
+| Swapchain Specific        | Atomic cross-chain swap of cryptocurrencies | Cross-chain swaps, cross-consensus swaps | Interaction, libraries, data-structures from UI to use case | Database, APIs, Web UI |
 
 A significant feature of this architecture is the flow of dependencies, which can be seen by the arrows moving in from the blue layer to the yellow layer in figure 1. This signifies that an outer layer can depend on an inner layer, but an inner layer cannot depend on an outer layer. The things that are most likely to change are kept on the outer layers and the things are less likely to change are kept on the inner most layers, helping the application stand the test of time. This makes the inner layers much more stable than the outer layers thus, the tools used to build the application can be modified easily (blue layer) but the core concepts and ideas behind the application are less likely to change (yellow layer). [3]
 
@@ -62,7 +62,7 @@ A significant feature of this architecture is the flow of dependencies, which ca
 The logical view of the Swapchain Web Application is comprised of 3 main components: User Interface, HTLC, and Verification.
 
 UI:
-The UI contains an interface for the user authentication as well as a database to store orderbook entries.
+The UI contains an interface for the user authentication as well as a command-line tool.
 
 HTLC:
 The HTLC contains several sub-components. A crucial part here, is the secret and hash generator that first generates a random secret that is then cryptographically hashed. In order to further conduct the swap, a hash lock sub-component and a time lock sub-component need to be set up. The hash lock accesses the hash generator to retrieve the hashed password, while the time lock cooperates with the refund process, so as soon as the time lock expires, the refund process can be initialized.
@@ -81,7 +81,7 @@ The use case diagram is used to visualize the Swapchain application and its acto
 
 ### 4.1. Use Case Diagram
 
-![](./docs/static/img/UseCase.png)  
+![](./docs/static/img/newSW_Architecture.svg)  
 Figure 3: Use Case Diagram (Swapchain, 2020) [4]
 
 ### 4.2. Use Case Description
@@ -102,11 +102,11 @@ There are some key requirements and system constraints that have a significant b
 
 ## 6. Deployment
 
-This web application is a system which is hosted in an API. The database will be hosted by ChainSquad once the software is delivered. Atomic transactions are conducted in the backend, so that the client computer does not have to spend much of CPU power. The user login and the orderbook will be executed in the frontend, so the client computer will need a decent level of performance.
+This UI is a system which is hosted in an API. The database will be hosted by ChainSquad once the software is delivered. Atomic transactions are conducted in the backend, so that the client computer does not have to spend much of CPU power.
 
 ### 6.1. Deployment Diagram
 
-Figure 4 follows the Clean Architecture principle. The frontend and database depict the outer blue layer. The orderbook and Blockchain gateway function as controllers and hence, begin the green layer. The HTLC blocks below the Blockchain gateway depict the red layer as they are use cases. The ACCS itself depicts the yellow layer at the core of the Clean Architecture.
+Figure 4 follows the Clean Architecture principle. The frontend and database depict the outer blue layer. The Blockchain gateway functions as controller and hence, start the green layer. The HTLC blocks below the Blockchain gateway depict the red layer as they are use cases. The ACCS itself depicts the yellow layer at the core of the Clean Architecture.
 
 ![](./docs/static/img/Deployment.png)
 Figure 4: Deployment Diagram (Swapchain, 2020) [4]
@@ -118,7 +118,7 @@ All services will be running in docker containers at first and orchestrated by d
 Frontend:
 
 - JavaScript, CSS, HTML
-- React.js
+- React.tsx
 - Nginx container
 
 Backend:
@@ -128,21 +128,12 @@ Backend:
 - Communication is JSON over HTTP
 - Docker / Kubernetes
 
-Orderbook:
-
-- Node.js express REST API
-- External API to get exchange rates
-
 Blockchain Gateway:
 
 - Bitcoin libraries:
-  - Bcoin (Zipkin, 2020)
   - Bitcoinjs (junderw, 2020)
 - Bitshare libraries:
   - Bitsharejs
-- To ensure Clean Architecture as the project might get expanded further, this will be serving as a mechanism to separate the blockchain logic from the orderbook:
-  - Responsible for issuing the creation of HTLCs on the requested blockchains
-  - Can also house the key generation and hashing modules as they are required for all chains
 
 HTLC/XXX:
 
@@ -150,7 +141,7 @@ HTLC/XXX:
 
 Database:
 
-- Postgres, MySQL
+- Mongoose/MongoDB
 
 Logging:
 
@@ -162,13 +153,13 @@ The implementation diagram is used to visualize the flow of control and the impl
 
 ### 7.1. Implementation Diagram
 
-![](./docs/static/img/Implementation.png)
+![](./docs/static/img/newImplementation.svg)
 Figure 5: Implementation Diagram (Swapchain, 2020) [4]
 
 ### 7.2. Implementation Description
 
 End-User:
-The user interacts with Swapchain’s UI by authenticating his/her account. Once logged in, the user can look for swap offers in the orderbook (e.g. exchange BTC for BTS). In case a potential offer is found, the user initiates the atomic swap by submitting an order from the orderbook.
+The user interacts with Swapchain’s UI by authenticating his/her account. Once logged in, the user can submit a swap offer. In case a potential offer is found, the user initiates the atomic swap by submitting the respective order.
 
 System:
 After the system receives the order submitted by the user a swap request is carried out using a HTLC. For that an API verifies the signatures and ensures that the private key matches the public key for the swap to take place. As soon as all required conditions are met it relays back and responds to the system to successfully transfer the funds. The involved users will receive a notification if the transaction was successful or not. In case the transaction fails, the users will receive a notification that they will be receiving the refund.
