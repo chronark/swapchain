@@ -44,10 +44,12 @@ export const NewOrder = () => {
 
     // calculate received fudns
     useEffect(() => {
-        setFields({
-            ...fields,
-            amountYouReceive: fields.amountToSend * fields.rate
-        })
+        if (fields.amountYouReceive != fields.amountToSend * fields.rate) {
+            setFields({
+                ...fields,
+                amountYouReceive: fields.amountToSend * fields.rate
+            })
+        }
     }, [fields])
 
     //validation
