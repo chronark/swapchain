@@ -26,16 +26,16 @@ x    - Landingpage
         - how does it work?
 x    - Navbar
         - current exchange rate from successfull transactions within X weeks
-        - github
-        - docs
-        - orderbook
+x       - github
+x       - docs
+x       - orderbook
     - Orderbook
         - repair filter
         - repair chevron
 
     - inputs
         usecases:
-            bob creates new Order
+x           bob creates new Order
                 - btc public address 
                 - bitshares account name
                 - tradechoice
@@ -62,7 +62,7 @@ x    - Navbar
             
             
             
-            cancel order (bob)
+x           cancel order (bob)
                 - 
 
 
