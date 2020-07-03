@@ -16,7 +16,7 @@ export const Navbar = () => {
         <nav className="bg-white border-b border-gray-300" role="navigation">
             <div className="container flex flex-wrap items-center justify-between p-4 mx-auto md:flex-no-wrap">
                 <div className="mr-4 md:mr-8">
-                    <a href="#" rel="home">
+                    <a href="/" rel="home">
                         <SwapchainLogoDouble className="h-10 text-teal-500 fill-current"></SwapchainLogoDouble>
                     </a>
                 </div>
