@@ -7,7 +7,7 @@ import axios from "axios"
  * @class BlockStream
  * @implements {BitcoinAPI}
  */
-export default class BlockStream implements BitcoinAPI {
+export class BlockStream implements BitcoinAPI {
   public baseURL: string
 
   /**

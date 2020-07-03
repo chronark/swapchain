@@ -44,7 +44,7 @@ x           bob creates new Order
                 - TTL (order)
                 - timelock
                 - (priority)
-            alice accepts Order -> proposer
+x           alice accepts Order -> proposer
                 - btc public address
                 - bitshares account name
                 - btc private key (annotate browser safety blabla)
@@ -54,7 +54,7 @@ x           bob creates new Order
                 + create secret (in browser) and show to alice
                     annotate that she must save it and pass to counterparty     
             
-            bob accept accepted order -> counterparty 
+x            bob accept accepted order -> counterparty 
                 - hash from alice
                 - btc private key
                 - bitshares private key

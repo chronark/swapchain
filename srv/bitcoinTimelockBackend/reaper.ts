@@ -1,5 +1,5 @@
 import HexTransaction from "./HexTransaction.model"
-import { BitcoinAPI, BitcoinAPIConstructor } from "../../pkg/types/bitcoinApi"
+import { BitcoinAPI, BitcoinAPIConstructor } from "../web/src/pkg/types/bitcoinApi"
 export default class Reaper {
   private network: string
   private bitcoinAPI: BitcoinAPI

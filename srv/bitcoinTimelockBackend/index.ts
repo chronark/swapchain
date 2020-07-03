@@ -2,7 +2,7 @@ import server from "./server"
 import Reaper from "./reaper"
 import mongoose from "mongoose"
 import { CronJob } from "cron"
-import BlockStream from "../../pkg/bitcoin/api/blockstream"
+import { BlockStream } from "../web/src/pkg/bitcoin/api/blockstream"
 
 const port = process.env.PORT || 3000
 const mongoPort = process.env.MONGO_PORT || 27017

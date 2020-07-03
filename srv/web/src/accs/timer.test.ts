@@ -1,6 +1,6 @@
 import { Timer } from "./timer"
-import BlockStream from "../../pkg/bitcoin/api/blockstream"
-jest.mock("../../pkg/bitcoin/api/blockstream")
+import { BlockStream } from "../pkg/bitcoin/api/blockstream"
+jest.mock("../pkg/bitcoin/api/blockstream")
 
 describe("constructor()", () => {
   it("throws because the blockSequence is too high", () => {

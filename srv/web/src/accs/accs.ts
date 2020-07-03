@@ -1,11 +1,11 @@
 import readline from "readline"
-import { Secret, getSecret } from "../../pkg/secret/secret"
+import { Secret, getSecret } from "../pkg/secret/secret"
 import * as bitcoin from "bitcoinjs-lib"
 import { Apis as btsWebsocketApi } from "bitsharesjs-ws"
-import BitcoinHTLC from "../../pkg/bitcoin/htlc/btcHTLC"
+import BitcoinHTLC from "../pkg/bitcoin/htlc/btcHTLC"
 import figlet from "figlet"
-import BitsharesHTLC from "../../pkg/bitshares/htlc/btsHTLC"
-import BlockStream from "../../pkg/bitcoin/api/blockstream"
+import BitsharesHTLC from "../pkg/bitshares/htlc/btsHTLC"
+import { BlockStream } from "../pkg/bitcoin/api/blockstream"
 import { Timer } from "./timer"
 
 /**

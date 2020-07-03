@@ -2,9 +2,9 @@ import ACCS, { ACCSConfig } from "./accs"
 import readline from "readline"
 import * as bitcoin from "bitcoinjs-lib"
 import { mocked } from "ts-jest/utils"
-import { getSecret, Secret } from "../../pkg/secret/secret"
+import { getSecret, Secret } from "../pkg/secret/secret"
 import { Timer } from "./timer"
-jest.mock("../../pkg/secret/secret")
+jest.mock("../pkg/secret/secret")
 console.log = jest.fn()
 readline.createInterface = jest.fn()
 

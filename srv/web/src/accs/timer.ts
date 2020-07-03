@@ -1,4 +1,4 @@
-import { BitcoinAPIConstructor, BitcoinAPI } from "../../pkg/types/bitcoinApi"
+import { BitcoinAPIConstructor, BitcoinAPI } from "../pkg/types/bitcoinApi"
 
 /**
  * Handler to transform timelocks between blockchains.

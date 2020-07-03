@@ -1,4 +1,4 @@
-import Blockstream from "./blockstream"
+import { BlockStream } from "./blockstream"
 import axios from "axios"
 jest.mock("axios")
 
@@ -6,15 +6,15 @@ beforeEach(() => {
   jest.resetAllMocks()
 })
 
-const blockstream = new Blockstream("")
+const blockstream = new BlockStream("")
 
 describe("constructor()", () => {
   it("sets the api url to 'testnet'", () => {
-    const blockstream = new Blockstream("testnet")
+    const blockstream = new BlockStream("testnet")
     expect(blockstream.baseURL).toBe("https://blockstream.info/testnet/api")
   })
   it("sets the api url to 'mainnet'", () => {
-    const blockstream = new Blockstream("anything else")
+    const blockstream = new BlockStream("anything else")
     expect(blockstream.baseURL).toBe("https://blockstream.info/api")
   })
 })

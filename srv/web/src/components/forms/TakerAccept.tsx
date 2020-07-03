@@ -4,14 +4,7 @@ import { Label } from "./Label"
 import { Input } from "./Input"
 import { SubmitButton } from "./SubmitButton"
 
-export const CounterpartyAccept = () => {
-    type Fields = {
-        bitcoinPrivateKey: string
-        bitsharesPrivateKey: string
-        hash: string
-    }
-
-
+export const TakerAccept = () => {
     const [fields, setFields] = useState({
         bitcoinPrivateKey: "",
         bitsharesPrivateKey: "",

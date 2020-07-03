@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 import { MongoMemoryServer } from "mongodb-memory-server"
 import HexTransactionModel, { HexTransactionType } from "./HexTransaction.model"
 import Reaper from "./reaper"
-import BlockStream from "../../pkg/bitcoin/api/blockstream"
+import { BlockStream } from "../web/src/pkg/bitcoin/api/blockstream"
 // jest.mock("../../pkg/bitcoin/api/blockstream")
 console.log = jest.fn()
 

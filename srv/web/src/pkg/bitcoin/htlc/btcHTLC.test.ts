@@ -1,7 +1,7 @@
 import BitcoinHTLC from "./btcHTLC"
 import * as bitcoin from "bitcoinjs-lib"
 import { mocked } from "ts-jest/utils"
-import BlockStream from "../api/blockstream"
+import { BlockStream } from "../api/blockstream"
 jest.mock("axios")
 jest.mock("../api/blockstream")
 
