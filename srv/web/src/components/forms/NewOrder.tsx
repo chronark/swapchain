@@ -48,7 +48,7 @@ export const NewOrder = () => {
             ...fields,
             amountYouReceive: fields.amountToSend * fields.rate
         })
-    }, [fields.amountToSend, fields.rate])
+    }, [fields])
 
     //validation
     useEffect(() => {

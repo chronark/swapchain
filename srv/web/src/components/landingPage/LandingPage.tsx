@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { ReactComponent as SwapchainLogo } from "../../icons/swapchainLogo.svg"
-import { SubmitButton } from "../forms/SubmitButton"
 import { Modal } from "../util/Modal"
 import { Link } from "react-router-dom"
 export const LandingPage = () => {
