@@ -12,7 +12,7 @@ This document provides information regarding the product of Swapchain from the p
 
 - The following product documentation is based upon the technical documentation guideline of altexsoft (2019 [1]).
 
-- Chapters marked with "***" are not specified yet due to the necessity of further planning and will be completed upon the final release.
+//- Chapters marked with "***" are not specified yet due to the necessity of further planning and will be completed upon the final release.
 
 ### 1.2. Definitions, Acronyms, Abbreviations
 
@@ -32,17 +32,15 @@ SaaS   -   Software as a Service
 
 ## 2. System documentation
 
-The following system documentation consists of a requirements document, architecture design principles, validation docs, verification and testing info. The documentation will be enchanced in the course of the project.
+The following system documentation consists of a requirements document, architecture design principles, validation docs, verification and testing info.
 
 ### 2.1. Product requirements
 
 Product requirements keep changing as the entire ACCS - Team is developing the product in an agile way / environment. Obviously, the overall requirements have been stated clearly at the beginning of the project and only non-core functionalities are affected by the changes. Otherwise the development would almost be impossible. The most important product requirements are:
 
- - An exchange between BTC and BTS shall be conducted using HTLC
+ - An exchange between BTC and BTS shall be conducted using HTLC - it is assumed that the two exchanging parties know each other  
 
  - Public keys, private keys, or addresses shall neither leave the browser nor be stored in a database
-
- - ***
 
 #### 2.1.1. Roles and responsibilities
 
@@ -54,17 +52,18 @@ Swapchain is a software product being developed by a group of students from the 
 
 - Product owners: Katharina Fehn and Spyridon Koustas, students of the FAU. Leading the group during meetings, setting the general direction of the project, preparing backlogs for task fulfillment and delivering process artifacts.
 
-- Developers: Julia Steffener, Mads Jordt, Nicolas Webersinke, Joab Rajkumar, Andreas Thomas, Kevin Kohler, students of the FAU. Developing, testing, demoing and deploying the product artifacts required for the software.
+- Developers: Julia Steffener, Mads Jordt, Nicolas Webersinke, Joab Rajkumar, Andreas Thomas, Kevin Kohler, students of the FAU. Developing, testing, demoing and deploying the product artifacts required for the software as well as maintaining documentation up to date.
 
-- Revolving roles: release manager and scrum master. While the release manager takes care of testing code artifacts and publishing weekly releases, the scrum master takes notes of non-technical impediments and aims to solve them in cooperation with the group.
+- Revolving roles: release manager, scrum master and participants of a product backlog refinement meeting. While the release manager takes care of testing code artifacts and publishing weekly releases, the scrum master takes notes of non-technical impediments and aims to solve them in cooperation with the group. Furthermore, two members from the development team get together weekly with the two Product Owners to refine product backlog entries. 
 
 #### 2.1.2. Team goals and business objective
 
 Team goals:  
-The team's goals include both fulfilling the requirements of the AMOS course as communicated by the coach as well as deploying software that is satisfactory to the industry partner's expectations. 
+The team's goals include both fulfilling the requirements about the application of the Scrum-method as communicated by the coach as well as deploying software that is satisfactory to the industry partner's expectations. 
 The team goals for fullfilling AMOS requirements include self-dependent and motivated participation in the project planning, meeting the schedules specified in the deliverables overview, appropriate usage and listing of third-party components with fitting licensing and taking care of proper documentation so that the development process can be retraced. The three main sources for assessing the work quality as postulated by AMOS are the weekly team meetings, the planning document and the published and tagged code artifacts accessible on GitHub.
-The team goals for satisfying the industry partner consist of delivering a software prototype ready for further (final) development and eventual commercial utilisation. Hereby, the team aims at delivering flawless code components, a clean software architecture and documentation papers of high quality, all of which are considered the main source for assessing work quality from the industry partner's side.
+The team goals for satisfying the industry partner consist of delivering a functional software prototype ready for further (final) development and eventual commercial utilisation. Hereby, the team aims at delivering flawless code components, a clean software architecture and documentation papers of high quality, all of which are considered the main source for assessing work quality from the industry partner's side.
 
+//Müssen wir hier das Endziel der Anwendung beschreiben oder das Ziel der Anwendung, die wir im Rahmen des Projektes machen? Dann mpssen wir das nochmal umschreiben 
 Business objective:  
 The Swapchain business objective is to offer a popular platform able to trade different cryptocurrencies across multiple blockchains with each other. Realising atomic over-the-counter (OTC) transactions that feature hash-time-locked contracts (HTLC) and real-time orderbooks, Swapchain is determined to place a safe, reliable and lightweight solution for the atomic exchange of various cryptocurrency assets across different blockchains on the market. As the market for cryptocurrency applications based on distributed ledger technology experiences considerable growth, while technological approaches based on ACCS are only evolving, the product is expected to fill in a market gap and thus experience increasing user numbers across various target groups. Due to its intuitivity and ease-of-use, Swapchain is aimed at becoming a viable alternative to a large user base with an intermediate to advanced understanding of cryptocurrencies, a strong sense of data and risk protection and an intent to swap digital assets.
 
@@ -75,53 +74,57 @@ The strategic aim of the Swapchain team is to develop an HTLC-backed cryptocurre
 
 Strategic fit:  
 Cryptocurrency exchange providers like Binance and StatCoin offer exchange of hundreds of different cryptocurrencies. Moreover, these providers store and manage their users' public and private keys. 
-However, Swapchain's unique selling point consists of the fact that it does not save any private or public keys of the users. Also counterparty risks are minimized as the users themselves have to manage their keys necessary for transactions. Thus, no trust towards the trading partner is needed and the transaction fees are significantly lower compared to its competitors.
+However, Swapchain's unique selling point consists of the fact that it does not save any private or public keys of the users as any information stays in the browser and is not sent to any database. Also counterparty risks are minimized as the users themselves have to manage their secret hashes necessary for transactions. Thus, no trust towards the trading partner is needed and the transaction fees are significantly lower compared to its competitors.
 
 #### 2.1.4. Assumptions
 
-It is assumed that future users of the Swapchain web application have a good understanding of blockchains and cryptocurrencies. The reason being that users are self-responsible for their private and public keys. Moreover assets are going to be exchanged and transaction fees may be applied.
+It is assumed that future users of the Swapchain web application have a good understanding of blockchains and cryptocurrencies. The reason being that users are self-responsible for their private and public keys. Moreover assets are going to be exchanged and transaction fees are applied. 
 
 #### 2.1.5. User stories
 
-As a user of Swapchain, I want to exchange BTC for BTS or vice versa without trusting the other party. Also I do not want my personal or private keys to be stored by the system and I do not want to rely on a third party (Zipkin, 2020 [2]).
+As a user of Swapchain, I want to exchange BTC for BTS or vice versa without trusting the other party. Also I do not want my personal or private keys to be stored by the system and I do not want to rely on a third party // warum haben wir hier nen Zitat? (Zipkin, 2020 [2]).
 
 #### 2.1.6. User interaction and design
 
-The system communicates with the user via a user interface (UI). React.js will be used to create a basic frontend. Moreover, a database will be used as the orderbook.
-Design explorations and wireframes will be added as soon as they are finalised for the Swapchain application.
+The system communicates with the user via a user interface (UI). React.js will be used to create a basic frontend.
 
-***
+// Hier Screenshots von der Landingpage und den Forms einfügen. 
+
+Furthermore, the user might use Swapchain's service via a command-line tool through any command prompt. 
 
 ### 2.2. Design decisions
 
 The user interface design principles established for Swapchain can be listed as follows: 
 
 Simplicity:  
-Despite the complexity of its underlying technology and the expected skill level of its users regarding cryptocurrencies, the design of the Swapchain interface is held in a minimalistic, unclogged structure. This is due to the fact that for ACCS, an uncluttered orderbook providing overview over transactions, a few input fields for private keys etc. and a small number of possible notification push-apps should suffice for the first. Of course, within the application's settings more preferences can be adjusted, however these options are not imposed onto those users only wanting to swap cryptocurrencies in a time-efficient and secure way.
+Despite the complexity of its underlying technology and the expected skill level of its users regarding cryptocurrencies, the design of the Swapchain interface is held in a minimalistic, unclogged structure. This is due to the fact that for ACCS input fields for private keys, public keys, addresses, fees, timelocks and bid and ask amounts and types are needed. To simply ask the user for these input is sufficient to be able to conduct an ACCS. Therefore, no further "fancy" functionalities are implemented in the prototype. The application is mobile-responsive to make trading comfortable with any device.
 
 Intuitivity:  
-Second, the Swapchain application is expected to provide an intuitive, easy-to-use interface. While related to the first aspect (simplicity), ease-of-use also includes the necessity of aspects such as obvious calls to action, for example if users needs to register for an account first or want to quickly browse existing swap offers. Moreover, users must be enabled to give input into the application without circumstances, which could for instance appear in the form of autofill patterns if they repeatedly want to set up the same swap offer. Moreover, barrier-free accessibility is also an important topic to be covered, however this functionality makes sense to be rolled out only when all other basic features have been implemented. Then, voice commands (of course excluding sensitive parts such as private keys) could prove viable support for impaired people.
+Second, the Swapchain application is expected to provide an intuitive, easy-to-use interface. While related to the first aspect (simplicity), ease-of-use also includes the necessity of aspects such as obvious call to action to start trading. Moreover, users must be enabled to give input into the application without circumstances, which could for instance appear in the form of autofill patterns if they repeatedly want to set up the same swap offer. Moreover, barrier-free accessibility is also an important topic to be covered, however this functionality makes sense to be rolled out only when all other basic features have been implemented. Voice commands (of course excluding sensitive parts such as private keys) could prove viable support for impaired people imaginably. 
 
-Adaptability:  
+Adaptability: 
+//den Teil verstehe ich nicht so recht, lass uns da noch mal drüber quatschen 
 With more sophisticated versions of the software, users are given more opportunities to adapt the software design according to their own needs. This might include an activatable retrospective and analysis on prior transactions if the user wishes to receive in-depth intel on previous swaps.
 
 Reliability:  
-The user interface must clearly inform the user about any important event regarding the pending transactions. This includes understandable notifications, for example when a refund is granted due to an exceeded timelock or if a transaction was successful. Furthermore, users must be given obstacle-free opportunities to receive timely support, especially in an area as delicate as assets trading.
+The user interface must clearly inform the user about any important event regarding the pending transactions. This includes understandable notifications, for example when a refund is granted due to an exceeded timelock, if a transaction was successful or whether the process is still ongoing and therefore the user needs to stay in the browser. Furthermore, users must be given obstacle-free opportunities to receive timely support, especially in an area as delicate as assets trading.
 
 #### 2.2.1. User personas
 
 !(Description of user persona pathway)[static/img/UserPersona.jpg]
 Figure 1: User Persona Pathway Diagram (Swapchain, 2020a) [3]
 
-A typical user persona for the Swapchain would be Bob/Alice. Bob/Alice, 27 years old, just recently graduated from his/her (technological) studies at a university with a degree. Two months ago, he/she entered professional life in a corporation where he/she is in an occupation situated at the interface between tech and business, such as technical procurement or process optimisation. As he/she just recently began to earn a regular wage summing up to 47.000 € gross salary annually, he/she is now looking for investment opportunities - and as a tech-savvy person also interested in stocks, exchange rate gains and comparable investments, cryptocurrencies have (besides the technology itself) sparked his/her interest. Nonetheless, he/she is self-explanatory a responsible person that does not want to invest his/her first few wages in sketchy investment options risking to lose it all. Therefore, a sufficient level of security is inevitable to persuade Bob/Alice to invest in these assets and the underlying ACCS technology. Moreover, Bob/Alice is concerned with data protection and thus convinced that even when it comes to web-based transactions, as much information as possible should remain in his/her area of influence without being forwarded to third parties without prior consent.
+A typical user persona for the Swapchain would be Bob/Alice. Bob/Alice, 27 years old, just recently graduated from his/her (technological) studies at a university with a degree. Two months ago, he/she entered professional life in a corporation where he/she is in an occupation situated at the interface between tech and business, such as technical procurement or process optimisation. As he/she just recently began to earn a regular wage summing up to 47.000 € gross salary annually, he/she is now looking for investment opportunities - and as a tech-savvy person also interested in stocks, exchange rate gains and comparable investments, cryptocurrencies have (besides the technology itself) sparked his/her interest. Nonetheless, he/she is self-explanatory a responsible person that does not want to invest his/her first few wages in sketchy investment options risking to lose it all. Therefore, a sufficient level of security is inevitable to persuade Bob/Alice to invest in these assets and the underlying ACCS technology. Moreover, Bob/Alice is concerned with data protection and thus convinced that even when it comes to web-based transactions, as much information as possible should remain in his/her area of influence without being forwarded and stored by third parties.
 
 #### 2.2.2. User scenario
 
-As a user I am either in possession of BTC, BTS or both. Let us assume I am in possession of BTCs. However, I would like to exchange BTC for BTS so that I am also in possession of BTS. Since I want to avoid counterparty risks and I do not trust people I do not know, I want to have maximum guarantees that my cryptocurrency exchange meets these requirements. Swapchain offers my desired services and satisfies my needs. Hence, I create a user account where minimal personal information is needed. Once registered, I can log in and check the orderbook for potential swap offers. Moreover, I can add my own swap offer to the orderbook. If I find a fitting swap offer or if someone accepts my previously posted swap offer, I start the ACCS by confirming the order in the orderbook. Now, the ACCS is triggered. If everything goes well, I have successfully exchanged BTC for BTS. If my swap partner tries to fool the system or the time lock runs out of time, the transaction is cancelled and I receive my refunded BTC.
+As a user I am either in possession of BTC, BTS or both. Let us assume I am in possession of BTCs. However, I would like to exchange BTC for BTS so that I am also in possession of BTS. Since I want to avoid counterparty risks and I do not trust people I do not know, I want to have maximum guarantees that my cryptocurrency exchange meets these requirements. As I already have an exchange partner, Swapchain offers my desired services and satisfies my needs. I simply access the Swapchain app and put my information, such as currency and amount I want to swap, transaction fee priority to influence the speed of my block being mined and my private and public key to sign the transaction. Subsequently, the app generates a secret hash that serves as the hashlock on the created ACCS. I pass this hashed secret to my exchange partner so he/she can put the same hash lock on the counterpart transaction. Now, the ACCS is triggered. If everything goes well, I have successfully exchanged BTC for BTS. If my swap partner tries to fool the system or the time lock runs out of time, the transaction is cancelled and I receive my refunded BTC.
 
 #### 2.2.3. UX style guide
 
 A draft of the UI mockup can be found with the following link: https://framer.com/share/swapchain-8fTM7MfGO6B5Axijk3Dy.
+
+//das müssen wir unbedingt noch ändern, da der Style ja jetzt ganz anders ist, für das Mockup haben wir aber ja besprochen, dass wir das Orderbook drinlassen 
 
 ### 2.3. Architecture descriptions
 
@@ -137,7 +140,7 @@ Swapchain follows a test-driven development (TDD) approach which is a best pract
 
 #### 2.4.2. Test plan
 
-Unit tests are implemented in jest and a 70% code coverage is enforced as pre-commit hook. To ensure code quality and standards we use eslint with prettier. UI tests will be done using cypress.io. We test against the node LTS version (12) as well as the current 14.x version.
+Unit tests are implemented in jest and a 65% code line coverage is enforced as pre-commit hook. To ensure code quality and standards we use eslint with prettier. UI tests will be done using cypress.io. We test against the node LTS version (12) as well as the current 14.x version.
 
 ## 3. User documentation
 
@@ -150,15 +153,54 @@ Figure 2: Product feature diagram (Swapchain, 2020c) [5]
 
 ### 3.2. Tutorials
 
-***
+//sollen wir hier am Ende einen Screencast einfügen, in dem man sieht, wie man die App bedienen muss? 
 
 ### 3.3. User guides
 
-***
+#### 3.3.1 How do I get started? 
+
+To trade cryptocurrency with Swapchain no user account is needed. You just enter the app and provide the needed information. 
+
+#### 3.3.2 What information do I need to trade? 
+
+- Your crpytocurrency address: Alphanumeric characters representing the destination for a payment.
+- Your public key: Part of the keys used for encryption and decryption of information. The public key enables message encryption only when the respective private key is used. Is of no value without the respective private key.
+- Your private key: Secret key that should not be revealed to anybody else then the key owner.
+
+#### 3.3.3 What parameters can I set? 
+
+- Bid Amount: The amount of currency you want to give away. 
+- Ask Amount: the amount of currency you want to receive. 
+- Bid Type: The type of cryptocurrency you want to give away (BTC/BTS). 
+- Ask Type: The type of cryptocurrency you want to receive (BTC/BTS). 
+- Transaction fee priority: Transaction fees you want to pay for your order to be processed. The lower the transaction fee the longer the transaction will take (Low/Medium/High priority and transaction fees respectively).
+- Timelock: The duration of the timelock being active on the HTLC. As soon as the timelock expires the currency from the pending transaction is refunded to the owner (Low/Medium/High duration of timelock). 
+
+#### 3.3.4 How do I initiate the swap? 
+
+1. Fill out the form with all the needed information 
+2. A secret hash is generated. Copy the hash and send it to your exchange partner. 
+// hier müssen wir dann noch mal schauen, wie der Button genau heißt 3. Click on submit 
+4. Stay in the browser until the transaction is completed. Do not leave the browser by no means. 
+5. After the the successful transaction or redemption because of timelock expiry you are notified and free to leave the browser. 
+
+#### 3.3.5 How do I complete the swap as a counterpart? 
+
+1. Enter the Swapchain app and choose the option to accept a swap.
+2. Enter the hash that was previously passed to you by your exchange partner that set up the HTLC.
+3. Sign the transaction with your provate key. 
+4. Do not leave the browser before receiving a notification of either a successful transaction of the expiration of the timelock. 
+
+#### 3.3.6 What happens if something goes wrong? 
+
+In case your exchange partner does not react to the swap you will be refunded your money as soon as the timelock expires. 
+In case of technical issues.... 
+//müssen wir tatsächlich noch mal mit den anderen besprechen, was dann passiert. Das weiß ich nicht so recht. was sind denkbare Fälle, die eintreten können und den Swap verhindern könnten? 
 
 ### 3.4. Troubleshooting
 
 In any case of system errors or malfunctions, please do not hesitate to contact ChainSquad GmbH.
+Further information: https://chainsquad.com/contact. 
 
 ## 4. References
 
