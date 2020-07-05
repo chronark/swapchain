@@ -20,7 +20,7 @@ exports[`renders correctly 1`] = `
           className="w-full py-3 font-mono text-center text-gray-700 bg-gray-100 border border-gray-200 rounded focus:bg-white focus:border-teal-400"
           name="bitcoinPublicAddress"
           onChange={[Function]}
-          placeholder="26b2309210010d82fdf72989ba67fd..."
+          placeholder="randomLookingHash"
           required={true}
           type="text"
           value=""
@@ -63,7 +63,7 @@ exports[`renders correctly 1`] = `
             className="w-full py-3 font-mono text-center text-gray-700 bg-gray-100 border border-gray-200 rounded focus:bg-white focus:border-teal-400"
             name="bitcoinPrivateKey"
             onChange={[Function]}
-            placeholder="c57308699e78186a5a3dff412b0b2e..."
+            placeholder="randomLookingHash"
             required={true}
             type="text"
             value=""
@@ -81,7 +81,7 @@ exports[`renders correctly 1`] = `
             className="w-full py-3 font-mono text-center text-gray-700 bg-gray-100 border border-gray-200 rounded focus:bg-white focus:border-teal-400"
             name="bitsharesPrivateKey"
             onChange={[Function]}
-            placeholder="e82a689cc24029fc7703c7ff1d8c5d..."
+            placeholder="randomLookingHash"
             required={true}
             type="text"
             value=""
@@ -123,7 +123,9 @@ exports[`renders correctly 1`] = `
             >
               <span
                 className="text-left font-bold text-gray-900"
-              />
+              >
+                HIGH
+              </span>
               <p
                 className="text-sm text-left text-gray-600"
               >
@@ -138,9 +140,7 @@ exports[`renders correctly 1`] = `
               />
               <span
                 className="mb-4 mr-4 text-3xl font-bold hidden md:block text-gray-900 "
-              >
-                HIGH
-              </span>
+              />
             </div>
           </div>
         </button>
@@ -156,7 +156,9 @@ exports[`renders correctly 1`] = `
             >
               <span
                 className="text-left font-bold text-gray-600"
-              />
+              >
+                MEDIUM
+              </span>
               <p
                 className="text-sm text-left text-gray-400"
               >
@@ -171,9 +173,7 @@ exports[`renders correctly 1`] = `
               />
               <span
                 className="mb-4 mr-4 text-3xl font-bold hidden md:block text-gray-300"
-              >
-                MEDIUM
-              </span>
+              />
             </div>
           </div>
         </button>
@@ -189,7 +189,9 @@ exports[`renders correctly 1`] = `
             >
               <span
                 className="text-left font-bold text-gray-600"
-              />
+              >
+                LOW
+              </span>
               <p
                 className="text-sm text-left text-gray-400"
               >
@@ -204,9 +206,7 @@ exports[`renders correctly 1`] = `
               />
               <span
                 className="mb-4 mr-4 text-3xl font-bold hidden md:block text-gray-300"
-              >
-                LOW
-              </span>
+              />
             </div>
           </div>
         </button>
