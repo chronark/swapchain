@@ -6,7 +6,7 @@ type Props = {
     selected: boolean
 }
 
-export const PriorityChoice = (props: Props) => {
+export const ParameterChoice = (props: Props) => {
     const { label, description, selected } = props
     return (
         <div className={`flex justify-between items-center border rounded ${selected ? "border-teal-400 shadow" : "border-gray-200 bg-gray-100"}`}>

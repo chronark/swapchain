@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react"
 import { fakeAddress } from "../../util"
-import { PriorityChoice } from "./PriorityChoice"
+import { ParameterChoice } from "./PriorityChoice"
 import { Label } from "./Label"
 import { Input } from "./Input"
 import { SubmitButton } from "./SubmitButton"
@@ -109,13 +109,13 @@ export const ProposerAccept = () => {
                         <Label label="Choose your priority"></Label>
                         <div className="flex flex-col items-center -mx-3 space-y-4 md:space-y-0 md:flex-row">
                             <button className="w-full px-3 md:w-1/3 focus:outline-none" onClick={() => updateFieldByName("priority", Priority.HIGH)}>
-                                <PriorityChoice label={Priority[Priority.HIGH]} description="You pay the highest fees to increase the chance for your transaction to be picked up by the miners." selected={fields.priority === Priority.HIGH}></PriorityChoice>
+                                <ParameterChoice label={Priority[Priority.HIGH]} description="You pay the highest fees to increase the chance for your transaction to be picked up by the miners." selected={fields.priority === Priority.HIGH}></ParameterChoice>
                             </button>
                             <button className="w-full px-3 md:w-1/3 focus:outline-none" onClick={() => updateFieldByName("priority", Priority.MEDIUM)}>
-                                <PriorityChoice label={Priority[Priority.MEDIUM]} description="You pay a moderate amount of fees so miners will probably confirm your transaction soon." selected={fields.priority === Priority.MEDIUM}></PriorityChoice>
+                                <ParameterChoice label={Priority[Priority.MEDIUM]} description="You pay a moderate amount of fees so miners will probably confirm your transaction soon." selected={fields.priority === Priority.MEDIUM}></ParameterChoice>
                             </button>
                             <button className="w-full px-3 md:w-1/3 focus:outline-none" onClick={() => updateFieldByName("priority", Priority.LOW)}>
-                                <PriorityChoice label={Priority[Priority.LOW]} description="You pay the lowest fees but might have to wait a few more blocks for your transaction to be confirmed." selected={fields.priority === Priority.LOW}></PriorityChoice>
+                                <ParameterChoice label={Priority[Priority.LOW]} description="You pay the lowest fees but might have to wait a few more blocks for your transaction to be confirmed." selected={fields.priority === Priority.LOW}></ParameterChoice>
                             </button>
                         </div>
                     </section>

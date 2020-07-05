@@ -1,14 +1,27 @@
 import React, { useState, useEffect } from "react"
-import { fakeAddress } from "../../util"
+import { fakeAddress, getPublicKey } from "../../util"
 import { CryptoChoice } from "./CryptoChoice"
-import { PriorityChoice } from "./PriorityChoice"
+import { NetworkChoice } from "./NetworkChoice"
+import { ParameterChoice } from "./PriorityChoice"
 import { Label } from "./Label"
 import { Input } from "./Input"
 import { SubmitButton } from "./SubmitButton"
+import ACCS, { ACCSConfig } from "../../accs/accs"
 export const NewOrder = () => {
     enum Currency {
         BTC,
         BTS,
+    }
+
+    enum Network {
+        MAINNET = "mainnet",
+        TESTNET = "testnet",
+    }
+
+    enum Timelock {
+        LONG,
+        MEDIUM,
+        SHORT,
     }
 
     enum Priority {
@@ -16,6 +29,7 @@ export const NewOrder = () => {
         MEDIUM,
         LOW,
     }
+
 
     const rateUnit = (): string[] => {
         switch (fields.currencyToGive) {
@@ -28,13 +42,16 @@ export const NewOrder = () => {
     }
 
     const [fields, setFields] = useState({
+        networkToTrade: Network.MAINNET,
         currencyToGive: Currency.BTC,
         amountToSend: 0,
         rate: 0,
         amountYouReceive: 0,
-        bitcoinPublicAddress: "",
+        bitcoinPrivateKey: "",
+        bitcoinPublicKey: "",
+        bitsharesPrivateKey: "",
         bitsharesAccountName: "",
-        timelockDuration: 6,
+        timelockDuration: Timelock.SHORT,
         orderDuration: 7,
         priority: Priority.HIGH,
     })
@@ -56,7 +73,9 @@ export const NewOrder = () => {
     useEffect(() => {
         const isValid = fields.amountToSend > 0 &&
             fields.rate > 0 &&
-            fields.bitcoinPublicAddress !== "" &&
+            fields.bitcoinPrivateKey !== "" &&
+            fields.bitcoinPublicKey !== "" &&
+            fields.bitsharesPrivateKey !== "" &&
             fields.bitsharesAccountName !== "" &&
             fields.timelockDuration > 0 &&
             fields.orderDuration > 0 &&
@@ -86,19 +105,37 @@ export const NewOrder = () => {
             setShowError(true)
             return
         }
-        console.log(fields)
+        
+        //const accs = new ACCS(fields.networkToTrade)
+
+
     }
 
     return (
+
         <div className="container mx-auto">
             <section className="mt-8">
-                <Label label="What do you want to trade"></Label>
-                <div className="flex items-center -mx-3">
+                <Label label="On what network do you want to trade"></Label>
+                <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 justify-center">
 
-                    <button className="flex-grow px-3 focus:outline-none" onClick={() => updateFieldByName("currencyToGive", Currency.BTC)}>
+                    <button className="flex-grow focus:outline-none" onClick={() => updateFieldByName("networkToTrade", Network.MAINNET)}>
+                        <NetworkChoice name="Mainnet" selected={fields.networkToTrade === Network.MAINNET}></NetworkChoice>
+                    </button>
+                    <button className="flex-grow focus:outline-none" onClick={() => updateFieldByName("networkToTrade", Network.TESTNET)}>
+                        <NetworkChoice name="Testnet" selected={fields.networkToTrade === Network.TESTNET}></NetworkChoice>
+                    </button>
+
+                </div>
+            </section>
+        
+            <section className="mt-8">
+                <Label label="What do you want to trade"></Label>
+                <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 justify-center">
+
+                    <button className="flex-grow focus:outline-none" onClick={() => updateFieldByName("currencyToGive", Currency.BTC)}>
                         <CryptoChoice label="BTC" name="Bitcoin" selected={fields.currencyToGive === Currency.BTC}></CryptoChoice>
                     </button>
-                    <button className="flex-grow px-3 focus:outline-none" onClick={() => updateFieldByName("currencyToGive", Currency.BTS)}>
+                    <button className="flex-grow focus:outline-none" onClick={() => updateFieldByName("currencyToGive", Currency.BTS)}>
                         <CryptoChoice label="BTS" name="Bitshares" selected={fields.currencyToGive === Currency.BTS}></CryptoChoice>
                     </button>
                 </div>
@@ -122,7 +159,8 @@ export const NewOrder = () => {
                             <span className="border-t border-gray-500">{rateUnit()[0]}</span>
                         </div>
                         <Input name="rate" value={fields.rate} onChange={updateField} type="number" placeholder="0.00000"></Input>
-                    </div> </div>
+                    </div> 
+                </div>
                 <div className="flex-grow p-2">
                     <Label label="excluding fees you will receive"></Label>
                     <div className="relative">
@@ -133,48 +171,76 @@ export const NewOrder = () => {
                 </div>
             </section>
 
-            <section className="mt-12 -mx-3 md:flex">
+            <h2 className="mt-12 text-2xl font-bold leading-tight text-gray-900">Your Data</h2>
 
+            <section className="mt-8 -mx-3 md:flex">
                 <div className="px-3 md:w-1/2">
-                    <Label label="Bitcoin public address"></Label>
-                    <Input name="bitcoinPublicAddress" value={fields.bitcoinPublicAddress} onChange={updateField} type="text" placeholder={fakeAddress(30)}></Input>
+                    <Label label="Bitcoin private key"></Label>
+                    <Input name="bitcoinPrivateKey" value={fields.bitcoinPrivateKey} onChange={updateField} type="text" placeholder={fakeAddress(30)}></Input>
+                </div>
+                <div className="px-3 md:w-1/2">
+                    <Label label="Bitcoin public key"></Label>
+                    <span className="block w-full py-3 text-center text-gray-700">{getPublicKey(fields.bitcoinPrivateKey)}</span>
+                </div>
+            </section>
+
+            <section className="mt-8 -mx-3">
+                <div className="md:flex">
+                    <div className="px-3 mt-4 md:w-1/2 md:mt-0">
+                        <Label label="Bitshares private key"></Label>
+                        <Input name="bitsharesAccountName" value={fields.bitsharesAccountName} onChange={updateField} type="text" placeholder={fakeAddress(30)}></Input>
+                    </div>
+                    <div className="px-3 mt-4 md:w-1/2 md:mt-0">
+                        <Label label="Bitshares account name"></Label>
+                        <Input name="bitsharesAccountName" value={fields.bitsharesAccountName} onChange={updateField} type="text" placeholder=""></Input>
+                    </div>
+                </div>
+                <p className="mt-4 text-sm text-center text-gray-500">
+                    Your private keys will never leave your browser, they are only used to sign your transactions. For privacy reasons we strongly recommend not to reuse key pairs. <a href="/" className="relative text-xs text-blue-500">Read more in our docs.</a>
+                </p>
+
+            </section>
+
+            <h2 className="mt-12 text-2xl font-bold leading-tight text-gray-900">Counterparty Data</h2>
+
+            <section className="mt-8 -mx-3 md:flex">
+                <div className="px-3 mt-4 md:w-1/2 md:mt-0">
+                    <Label label="Bitcoin public key"></Label>
+                    <Input name="bitsharesAccountName" value={fields.bitsharesAccountName} onChange={updateField} type="text" placeholder={fakeAddress(30)}></Input>
                 </div>
                 <div className="px-3 mt-4 md:w-1/2 md:mt-0">
                     <Label label="Bitshares account name"></Label>
-                    <Input name="bitsharesAccountName" value={fields.bitsharesAccountName} onChange={updateField} type="text" placeholder="amos"></Input>
+                    <Input name="bitsharesAccountName" value={fields.bitsharesAccountName} onChange={updateField} type="text" placeholder=""></Input>
+                </div>
+
+            </section>
+
+            <section className="mt-24">
+                <Label label="Choose your timelock"></Label>
+                <div className="flex items-center -mx-3">
+                    <button className="w-1/3 px-3 focus:outline-none" onClick={() => updateFieldByName("timelockDuration", Timelock.SHORT)}>
+                        <ParameterChoice label={Timelock[Timelock.SHORT]} description="You pay the highest fees to increase the chance for your transaction to be picked up by the miners." selected={fields.timelockDuration === Timelock.SHORT}></ParameterChoice>
+                    </button>
+                    <button className="w-1/3 px-3 focus:outline-none" onClick={() => updateFieldByName("timelockDuration", Timelock.MEDIUM)}>
+                        <ParameterChoice label={Timelock[Timelock.MEDIUM]} description="You pay a moderate amount of fees so miners will probably confirm your transaction soon." selected={fields.timelockDuration === Timelock.MEDIUM}></ParameterChoice>
+                    </button>
+                    <button className="w-1/3 px-3 focus:outline-none" onClick={() => updateFieldByName("timelockDuration", Timelock.LONG)}>
+                        <ParameterChoice label={Timelock[Timelock.LONG]} description="You pay the lowest fees but might have to wait a few more blocks for your transaction to be confirmed." selected={fields.timelockDuration === Timelock.LONG}></ParameterChoice>
+                    </button>
                 </div>
             </section>
 
-            <section className="mt-24 -mx-3 md:flex">
-
-                <div className="px-3 md:w-1/2">
-                    <Label label="Timelock duration (1 block is roughly 10 minutes)"></Label>
-                    <div className="relative">
-                        <span className="absolute inset-y-0 right-0 flex items-center mr-6 text-sm text-gray-600">
-                            Blocks          </span>
-                        <Input name="timelockDuration" value={fields.timelockDuration} onChange={updateField} type="number" placeholder="6"></Input>
-                    </div>
-                </div>
-                <div className="px-3 mt-4 md:w-1/2 md:mt-0">
-                    <Label label="Order duration"></Label>
-                    <div className="relative">
-                        <span className="absolute inset-y-0 right-0 flex items-center mr-6 text-sm text-gray-600">
-                            Days</span>
-                        <Input name="orderDuration" value={fields.orderDuration} onChange={updateField} type="number" placeholder="how long your order will stay active"></Input>
-                    </div>
-                </div>
-            </section>
             <section className="mt-12">
                 <Label label="Choose your priority"></Label>
                 <div className="flex items-center -mx-3">
                     <button className="w-1/3 px-3 focus:outline-none" onClick={() => updateFieldByName("priority", Priority.HIGH)}>
-                        <PriorityChoice label={Priority[Priority.HIGH]} description="You pay the highest fees to increase the chance for your transaction to be picked up by the miners." selected={fields.priority === Priority.HIGH}></PriorityChoice>
+                        <ParameterChoice label={Priority[Priority.HIGH]} description="You pay the highest fees to increase the chance for your transaction to be picked up by the miners." selected={fields.priority === Priority.HIGH}></ParameterChoice>
                     </button>
                     <button className="w-1/3 px-3 focus:outline-none" onClick={() => updateFieldByName("priority", Priority.MEDIUM)}>
-                        <PriorityChoice label={Priority[Priority.MEDIUM]} description="You pay a moderate amount of fees so miners will probably confirm your transaction soon." selected={fields.priority === Priority.MEDIUM}></PriorityChoice>
+                        <ParameterChoice label={Priority[Priority.MEDIUM]} description="You pay a moderate amount of fees so miners will probably confirm your transaction soon." selected={fields.priority === Priority.MEDIUM}></ParameterChoice>
                     </button>
                     <button className="w-1/3 px-3 focus:outline-none" onClick={() => updateFieldByName("priority", Priority.LOW)}>
-                        <PriorityChoice label={Priority[Priority.LOW]} description="You pay the lowest fees but might have to wait a few more blocks for your transaction to be confirmed." selected={fields.priority === Priority.LOW}></PriorityChoice>
+                        <ParameterChoice label={Priority[Priority.LOW]} description="You pay the lowest fees but might have to wait a few more blocks for your transaction to be confirmed." selected={fields.priority === Priority.LOW}></ParameterChoice>
                     </button>
                 </div>
             </section>
