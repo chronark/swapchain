@@ -44,7 +44,7 @@ export const Navbar = () => {
                         </li>
                         <li>
                             <Link className={linkStyle} to="/orderbook">Orderbook
-                            <span className="px-2 py-1 ml-2 text-xs font-thin border border-teal-500 rounded">beta</span>
+                            <span className="px-2 py-1 ml-2 text-xs font-thin border border-teal-500 rounded">WIP</span>
                             </Link>
 
                         </li>
