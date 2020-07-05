@@ -2,11 +2,11 @@ import React from 'react';
 import {Order} from './Orderbook';
 import {Table} from "./Table"
 import renderer from 'react-test-renderer';
+import { fireEvent } from '@testing-library/react';
 
 jest.spyOn(Math, "random").mockImplementation(() => 1)
 jest.spyOn(Date.prototype, "toLocaleString").mockImplementation(() => "IAmADate")
 jest.spyOn(Date.prototype, "toLocaleTimeString").mockImplementation(() => "IAmADate")
-
 
 it('renders correctly', () => {
     const order: Order = {
