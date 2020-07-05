@@ -4,9 +4,7 @@ import { ReactComponent as QRCode } from "../../icons/qrcode.svg"
 import { Table } from "./Table"
 import Modal from "./Modal"
 import { FilterButton } from "./FilterButton"
-import DatePicker from "react-datepicker"
 import {hash, fakeAddress} from "../../util"
-import "react-datepicker/dist/react-datepicker.css"
 
 
 export const status = {
@@ -85,9 +83,6 @@ export const Orderbook = (props: Props) => {
   const [addressFilter, setAddressFilter] = useState("")
 
   const [visibleOrders, setVisibleOrders] = useState(orders)
-
-  const [startDate, setStartDate] = useState(new Date("2020/06/17"))
-  const [endDate, setEndDate] = useState(new Date("2020/07/17"))
 
   useEffect(() => {
     // Create new list to filter in the following steps
@@ -168,28 +163,7 @@ export const Orderbook = (props: Props) => {
             </div>
           </div>
           <div className="flex flex-col sm:items-center sm:justify-between sm:flex-row lg:flex-col lg:items-start">
-            <div className="mt-8">
-              <span className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase">
-                date picker
-              </span>
-              <div className="mt-2 ml-2">
-                <DatePicker
-                  selected={startDate}
-                  onChange={(date) => date && setStartDate(date)}
-                  selectsStart
-                  startDate={startDate}
-                  endDate={endDate}
-                />
-                <DatePicker
-                  selected={endDate}
-                  onChange={(date) => date && setEndDate(date)}
-                  selectsEnd
-                  startDate={startDate}
-                  endDate={endDate}
-                  minDate={startDate}
-                />
-              </div>
-            </div>
+           
             <div className="mt-8">
               <span className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase">
                 asset you pay

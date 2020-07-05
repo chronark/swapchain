@@ -15,7 +15,6 @@
     "bitcoinjs-lib": "^5.1.10",
     "crypto-random-string": "^3.2.0",
     "react": "^16.13.1",
-    "react-datepicker": "^3.0.0",
     "react-dom": "^16.13.1",
     "react-responsive": "^8.1.0",
     "react-router-dom": "^5.2.0",
@@ -49,7 +48,6 @@
   "devDependencies": {
     "@types/figlet": "^1.2.0",
     "@types/react": "^16.9.41",
-    "@types/react-datepicker": "^3.0.2",
     "@types/react-router-dom": "^5.1.5",
     "@types/react-test-renderer": "^16.9.2",
     "figlet": "^1.4.0",
