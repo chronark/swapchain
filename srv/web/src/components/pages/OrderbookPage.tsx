@@ -9,7 +9,8 @@ export const OrderbookPage = () => {
 
     return (
         <Orderbook orders={orders}></Orderbook>
-    )
+    
+)
 
 
 
