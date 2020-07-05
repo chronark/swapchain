@@ -1,12 +1,11 @@
 
 import React, { useState, useEffect } from "react"
 import { fakeAddress } from "../../util"
-import { PriorityChoice } from "./PriorityChoice"
 import { Label } from "./Label"
 import { Input } from "./Input"
 import { SubmitButton } from "./SubmitButton"
 import { getSecret } from "../../pkg/secret/secret"
-
+import {RadioButton } from "./RadioButton"
 export const ProposerAccept = () => {
 
     enum Priority {
@@ -109,13 +108,13 @@ export const ProposerAccept = () => {
                         <Label label="Choose your priority"></Label>
                         <div className="flex flex-col items-center -mx-3 space-y-4 md:space-y-0 md:flex-row">
                             <button className="w-full px-3 md:w-1/3 focus:outline-none" onClick={() => updateFieldByName("priority", Priority.HIGH)}>
-                                <PriorityChoice label={Priority[Priority.HIGH]} description="You pay the highest fees to increase the chance for your transaction to be picked up by the miners." selected={fields.priority === Priority.HIGH}></PriorityChoice>
+                                <RadioButton tag={Priority[Priority.HIGH]} description="You pay the highest fees to increase the chance for your transaction to be picked up by the miners." selected={fields.priority === Priority.HIGH}></RadioButton>
                             </button>
                             <button className="w-full px-3 md:w-1/3 focus:outline-none" onClick={() => updateFieldByName("priority", Priority.MEDIUM)}>
-                                <PriorityChoice label={Priority[Priority.MEDIUM]} description="You pay a moderate amount of fees so miners will probably confirm your transaction soon." selected={fields.priority === Priority.MEDIUM}></PriorityChoice>
+                                <RadioButton tag={Priority[Priority.MEDIUM]} description="You pay a moderate amount of fees so miners will probably confirm your transaction soon." selected={fields.priority === Priority.MEDIUM}></RadioButton>
                             </button>
                             <button className="w-full px-3 md:w-1/3 focus:outline-none" onClick={() => updateFieldByName("priority", Priority.LOW)}>
-                                <PriorityChoice label={Priority[Priority.LOW]} description="You pay the lowest fees but might have to wait a few more blocks for your transaction to be confirmed." selected={fields.priority === Priority.LOW}></PriorityChoice>
+                                <RadioButton tag={Priority[Priority.LOW]} description="You pay the lowest fees but might have to wait a few more blocks for your transaction to be confirmed." selected={fields.priority === Priority.LOW}></RadioButton>
                             </button>
                         </div>
                     </section>

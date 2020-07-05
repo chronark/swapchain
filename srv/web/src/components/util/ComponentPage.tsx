@@ -1,7 +1,6 @@
 import React from "react"
-import { PromiseProvider } from "mongoose"
 
-type Props = {
+interface Props {
     title?: string
     children: any
 }

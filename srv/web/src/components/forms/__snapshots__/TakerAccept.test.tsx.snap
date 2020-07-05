@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<form
+  className="container mx-auto"
+>
+  <section
+    className="mt-12 "
+  >
+    <div
+      className="-mx-3 md:flex"
+    >
+      <div
+        className="px-3 md:w-1/2"
+      >
+        <label
+          className="text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
+        >
+          Bitcoin private key
+        </label>
+        <input
+          className="w-full py-3 font-mono text-center text-gray-700 bg-gray-100 border border-gray-200 rounded focus:bg-white focus:border-teal-400"
+          name="bitcoinPrivateKey"
+          onChange={[Function]}
+          placeholder="9229410371f0b0a..."
+          required={true}
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        className="px-3 mt-4 md:w-1/2 md:mt-0"
+      >
+        <label
+          className="text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
+        >
+          Bitshares private key
+        </label>
+        <input
+          className="w-full py-3 font-mono text-center text-gray-700 bg-gray-100 border border-gray-200 rounded focus:bg-white focus:border-teal-400"
+          name="bitsharesPrivateKey"
+          onChange={[Function]}
+          placeholder="amos"
+          required={true}
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+    <p
+      className="mt-2 text-sm text-center text-gray-500 "
+    >
+      Your private keys will never leave your browser, it is only used to sign your transactions. 
+      <a
+        className="relative text-xs text-blue-500"
+        href="/"
+      >
+        Read more in our docs.
+      </a>
+    </p>
+  </section>
+  <section
+    className="mt-12"
+  >
+    <div
+      className="block"
+    >
+      <label
+        className="text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
+      >
+        Hash from Counterparty
+      </label>
+      <input
+        className="w-full py-3 font-mono text-center text-gray-700 bg-gray-100 border border-gray-200 rounded focus:bg-white focus:border-teal-400"
+        name="hash"
+        onChange={[Function]}
+        placeholder="Please enter the hash you received from your trading partner"
+        required={true}
+        type="text"
+        value=""
+      />
+    </div>
+  </section>
+  <footer
+    className="pt-12 mt-8 text-center border-t border-gray-300 f"
+  >
+    <p
+      className="-mt-4 pb-4 text-red-500 text-sm hidden"
+    >
+      Please fill in all fields
+    </p>
+    <button
+      className="bg-gray-100 border-gray-400 inline-flex px-8 py-3 font-semibold text-gray-900 uppercase transition duration-200 ease-in-out border focus:outline-none rounded-sm hover:bg-white"
+      onClick={[Function]}
+      type="button"
+    >
+      Submit
+    </button>
+  </footer>
+</form>
+`;

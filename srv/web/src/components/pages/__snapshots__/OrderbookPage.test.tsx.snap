@@ -28,7 +28,7 @@ exports[`renders correctly 1`] = `
         <input
           className="block w-full py-1 pl-10 text-gray-900 placeholder-gray-600 bg-gray-100 border border-gray-400 rounded"
           onChange={[Function]}
-          placeholder="6b86b273ff34fce..."
+          placeholder="2beefacbdef349c..."
         />
       </div>
     </div>
@@ -117,7 +117,7 @@ exports[`renders correctly 1`] = `
           <span
             className="px-2 text-sm text-gray-700 bg-gray-200 rounded"
           >
-            10
+            7
           </span>
         </div>
         <div
@@ -210,7 +210,7 @@ exports[`renders correctly 1`] = `
               className="bg-white"
             >
               <tr
-                className="border-l-2 border-transparent hover:bg-gray-100 hover:border-gray-400 bg-gray-100 border-l-4 border-gray-400"
+                className="border-l-2 border-transparent hover:bg-gray-100 hover:border-gray-400 "
                 onClick={[Function]}
               >
                 <td
@@ -222,12 +222,12 @@ exports[`renders correctly 1`] = `
                     <span
                       className="text-gray-700"
                     >
-                      IAmADate
+                      01:00:00
                     </span>
                     <span
                       className="text-xs text-gray-500"
                     >
-                      IAmADate
+                      1 Jan
                     </span>
                   </div>
                 </td>
@@ -235,9 +235,9 @@ exports[`renders correctly 1`] = `
                   className="px-6 py-4 text-left whitespace-no-wrap border-t border-gray-200"
                 >
                   <span
-                    className="px-2 text-xs uppercase font-semibold rounded bg-red-100 text-red-800"
+                    className="px-2 text-xs uppercase font-semibold rounded bg-gray-100 text-gray-800"
                   >
-                    label
+                    fulfilled
                   </span>
                 </td>
                 <td
@@ -249,12 +249,12 @@ exports[`renders correctly 1`] = `
                     <span
                       className="inline-flex px-2 text-xs font-semibold uppercase bg-gray-300 rounded "
                     >
-                      BTC
+                      BTS
                     </span>
                     <span
                       className="ml-2 font-mono leading-5 text-gray-500"
                     >
-                      1
+                      0.0007843245
                     </span>
                   </div>
                 </td>
@@ -267,18 +267,18 @@ exports[`renders correctly 1`] = `
                     <span
                       className="flex items-center ml-2 leading-5 text-gray-500"
                     >
-                      1.00000
+                      0.94301
                       <div
                         className="flex flex-col ml-4 text-xs tracking-tight text-gray-500"
                       >
                         <span>
-                          BTS
+                          BTC
                         </span>
                         <div
                           className="border-t border-gray-400 "
                         />
                         <span>
-                          BTC
+                          BTS
                         </span>
                       </div>
                     </span>
@@ -286,7 +286,7 @@ exports[`renders correctly 1`] = `
                 </td>
               </tr>
               <tr
-                className="border-l-2 border-transparent hover:bg-gray-100 hover:border-gray-400 bg-gray-100 border-l-4 border-gray-400"
+                className="border-l-2 border-transparent hover:bg-gray-100 hover:border-gray-400 "
                 onClick={[Function]}
               >
                 <td
@@ -298,12 +298,12 @@ exports[`renders correctly 1`] = `
                     <span
                       className="text-gray-700"
                     >
-                      IAmADate
+                      01:00:00
                     </span>
                     <span
                       className="text-xs text-gray-500"
                     >
-                      IAmADate
+                      1 Jan
                     </span>
                   </div>
                 </td>
@@ -311,9 +311,9 @@ exports[`renders correctly 1`] = `
                   className="px-6 py-4 text-left whitespace-no-wrap border-t border-gray-200"
                 >
                   <span
-                    className="px-2 text-xs uppercase font-semibold rounded bg-red-100 text-red-800"
+                    className="px-2 text-xs uppercase font-semibold rounded bg-gray-100 text-gray-800"
                   >
-                    label
+                    fulfilled
                   </span>
                 </td>
                 <td
@@ -325,12 +325,12 @@ exports[`renders correctly 1`] = `
                     <span
                       className="inline-flex px-2 text-xs font-semibold uppercase bg-gray-300 rounded "
                     >
-                      BTC
+                      BTS
                     </span>
                     <span
                       className="ml-2 font-mono leading-5 text-gray-500"
                     >
-                      1
+                      0.000211467
                     </span>
                   </div>
                 </td>
@@ -343,18 +343,18 @@ exports[`renders correctly 1`] = `
                     <span
                       className="flex items-center ml-2 leading-5 text-gray-500"
                     >
-                      1.00000
+                      0.52207
                       <div
                         className="flex flex-col ml-4 text-xs tracking-tight text-gray-500"
                       >
                         <span>
-                          BTS
+                          BTC
                         </span>
                         <div
                           className="border-t border-gray-400 "
                         />
                         <span>
-                          BTC
+                          BTS
                         </span>
                       </div>
                     </span>
@@ -362,7 +362,7 @@ exports[`renders correctly 1`] = `
                 </td>
               </tr>
               <tr
-                className="border-l-2 border-transparent hover:bg-gray-100 hover:border-gray-400 bg-gray-100 border-l-4 border-gray-400"
+                className="border-l-2 border-transparent hover:bg-gray-100 hover:border-gray-400 "
                 onClick={[Function]}
               >
                 <td
@@ -374,12 +374,12 @@ exports[`renders correctly 1`] = `
                     <span
                       className="text-gray-700"
                     >
-                      IAmADate
+                      01:00:00
                     </span>
                     <span
                       className="text-xs text-gray-500"
                     >
-                      IAmADate
+                      1 Jan
                     </span>
                   </div>
                 </td>
@@ -387,9 +387,9 @@ exports[`renders correctly 1`] = `
                   className="px-6 py-4 text-left whitespace-no-wrap border-t border-gray-200"
                 >
                   <span
-                    className="px-2 text-xs uppercase font-semibold rounded bg-red-100 text-red-800"
+                    className="px-2 text-xs uppercase font-semibold rounded bg-gray-100 text-gray-800"
                   >
-                    label
+                    fulfilled
                   </span>
                 </td>
                 <td
@@ -401,12 +401,12 @@ exports[`renders correctly 1`] = `
                     <span
                       className="inline-flex px-2 text-xs font-semibold uppercase bg-gray-300 rounded "
                     >
-                      BTC
+                      BTS
                     </span>
                     <span
                       className="ml-2 font-mono leading-5 text-gray-500"
                     >
-                      1
+                      0.0009519749
                     </span>
                   </div>
                 </td>
@@ -419,18 +419,18 @@ exports[`renders correctly 1`] = `
                     <span
                       className="flex items-center ml-2 leading-5 text-gray-500"
                     >
-                      1.00000
+                      0.83410
                       <div
                         className="flex flex-col ml-4 text-xs tracking-tight text-gray-500"
                       >
                         <span>
-                          BTS
+                          BTC
                         </span>
                         <div
                           className="border-t border-gray-400 "
                         />
                         <span>
-                          BTC
+                          BTS
                         </span>
                       </div>
                     </span>
@@ -438,7 +438,7 @@ exports[`renders correctly 1`] = `
                 </td>
               </tr>
               <tr
-                className="border-l-2 border-transparent hover:bg-gray-100 hover:border-gray-400 bg-gray-100 border-l-4 border-gray-400"
+                className="border-l-2 border-transparent hover:bg-gray-100 hover:border-gray-400 "
                 onClick={[Function]}
               >
                 <td
@@ -450,12 +450,12 @@ exports[`renders correctly 1`] = `
                     <span
                       className="text-gray-700"
                     >
-                      IAmADate
+                      01:00:00
                     </span>
                     <span
                       className="text-xs text-gray-500"
                     >
-                      IAmADate
+                      1 Jan
                     </span>
                   </div>
                 </td>
@@ -463,9 +463,9 @@ exports[`renders correctly 1`] = `
                   className="px-6 py-4 text-left whitespace-no-wrap border-t border-gray-200"
                 >
                   <span
-                    className="px-2 text-xs uppercase font-semibold rounded bg-red-100 text-red-800"
+                    className="px-2 text-xs uppercase font-semibold rounded bg-gray-100 text-gray-800"
                   >
-                    label
+                    fulfilled
                   </span>
                 </td>
                 <td
@@ -477,12 +477,12 @@ exports[`renders correctly 1`] = `
                     <span
                       className="inline-flex px-2 text-xs font-semibold uppercase bg-gray-300 rounded "
                     >
-                      BTC
+                      BTS
                     </span>
                     <span
                       className="ml-2 font-mono leading-5 text-gray-500"
                     >
-                      1
+                      0.000857185
                     </span>
                   </div>
                 </td>
@@ -495,18 +495,18 @@ exports[`renders correctly 1`] = `
                     <span
                       className="flex items-center ml-2 leading-5 text-gray-500"
                     >
-                      1.00000
+                      0.58796
                       <div
                         className="flex flex-col ml-4 text-xs tracking-tight text-gray-500"
                       >
                         <span>
-                          BTS
+                          BTC
                         </span>
                         <div
                           className="border-t border-gray-400 "
                         />
                         <span>
-                          BTC
+                          BTS
                         </span>
                       </div>
                     </span>
@@ -514,7 +514,7 @@ exports[`renders correctly 1`] = `
                 </td>
               </tr>
               <tr
-                className="border-l-2 border-transparent hover:bg-gray-100 hover:border-gray-400 bg-gray-100 border-l-4 border-gray-400"
+                className="border-l-2 border-transparent hover:bg-gray-100 hover:border-gray-400 "
                 onClick={[Function]}
               >
                 <td
@@ -526,12 +526,12 @@ exports[`renders correctly 1`] = `
                     <span
                       className="text-gray-700"
                     >
-                      IAmADate
+                      01:00:00
                     </span>
                     <span
                       className="text-xs text-gray-500"
                     >
-                      IAmADate
+                      1 Jan
                     </span>
                   </div>
                 </td>
@@ -539,9 +539,9 @@ exports[`renders correctly 1`] = `
                   className="px-6 py-4 text-left whitespace-no-wrap border-t border-gray-200"
                 >
                   <span
-                    className="px-2 text-xs uppercase font-semibold rounded bg-red-100 text-red-800"
+                    className="px-2 text-xs uppercase font-semibold rounded bg-gray-100 text-gray-800"
                   >
-                    label
+                    fulfilled
                   </span>
                 </td>
                 <td
@@ -553,12 +553,12 @@ exports[`renders correctly 1`] = `
                     <span
                       className="inline-flex px-2 text-xs font-semibold uppercase bg-gray-300 rounded "
                     >
-                      BTC
+                      BTS
                     </span>
                     <span
                       className="ml-2 font-mono leading-5 text-gray-500"
                     >
-                      1
+                      0.0002686356
                     </span>
                   </div>
                 </td>
@@ -571,18 +571,18 @@ exports[`renders correctly 1`] = `
                     <span
                       className="flex items-center ml-2 leading-5 text-gray-500"
                     >
-                      1.00000
+                      0.67994
                       <div
                         className="flex flex-col ml-4 text-xs tracking-tight text-gray-500"
                       >
                         <span>
-                          BTS
+                          BTC
                         </span>
                         <div
                           className="border-t border-gray-400 "
                         />
                         <span>
-                          BTC
+                          BTS
                         </span>
                       </div>
                     </span>
@@ -590,7 +590,7 @@ exports[`renders correctly 1`] = `
                 </td>
               </tr>
               <tr
-                className="border-l-2 border-transparent hover:bg-gray-100 hover:border-gray-400 bg-gray-100 border-l-4 border-gray-400"
+                className="border-l-2 border-transparent hover:bg-gray-100 hover:border-gray-400 "
                 onClick={[Function]}
               >
                 <td
@@ -602,12 +602,12 @@ exports[`renders correctly 1`] = `
                     <span
                       className="text-gray-700"
                     >
-                      IAmADate
+                      01:00:00
                     </span>
                     <span
                       className="text-xs text-gray-500"
                     >
-                      IAmADate
+                      1 Jan
                     </span>
                   </div>
                 </td>
@@ -615,9 +615,9 @@ exports[`renders correctly 1`] = `
                   className="px-6 py-4 text-left whitespace-no-wrap border-t border-gray-200"
                 >
                   <span
-                    className="px-2 text-xs uppercase font-semibold rounded bg-red-100 text-red-800"
+                    className="px-2 text-xs uppercase font-semibold rounded bg-gray-100 text-gray-800"
                   >
-                    label
+                    fulfilled
                   </span>
                 </td>
                 <td
@@ -629,12 +629,12 @@ exports[`renders correctly 1`] = `
                     <span
                       className="inline-flex px-2 text-xs font-semibold uppercase bg-gray-300 rounded "
                     >
-                      BTC
+                      BTS
                     </span>
                     <span
                       className="ml-2 font-mono leading-5 text-gray-500"
                     >
-                      1
+                      0.0002631207
                     </span>
                   </div>
                 </td>
@@ -647,18 +647,18 @@ exports[`renders correctly 1`] = `
                     <span
                       className="flex items-center ml-2 leading-5 text-gray-500"
                     >
-                      1.00000
+                      0.58424
                       <div
                         className="flex flex-col ml-4 text-xs tracking-tight text-gray-500"
                       >
                         <span>
-                          BTS
+                          BTC
                         </span>
                         <div
                           className="border-t border-gray-400 "
                         />
                         <span>
-                          BTC
+                          BTS
                         </span>
                       </div>
                     </span>
@@ -666,7 +666,7 @@ exports[`renders correctly 1`] = `
                 </td>
               </tr>
               <tr
-                className="border-l-2 border-transparent hover:bg-gray-100 hover:border-gray-400 bg-gray-100 border-l-4 border-gray-400"
+                className="border-l-2 border-transparent hover:bg-gray-100 hover:border-gray-400 "
                 onClick={[Function]}
               >
                 <td
@@ -678,12 +678,12 @@ exports[`renders correctly 1`] = `
                     <span
                       className="text-gray-700"
                     >
-                      IAmADate
+                      01:00:00
                     </span>
                     <span
                       className="text-xs text-gray-500"
                     >
-                      IAmADate
+                      1 Jan
                     </span>
                   </div>
                 </td>
@@ -691,9 +691,9 @@ exports[`renders correctly 1`] = `
                   className="px-6 py-4 text-left whitespace-no-wrap border-t border-gray-200"
                 >
                   <span
-                    className="px-2 text-xs uppercase font-semibold rounded bg-red-100 text-red-800"
+                    className="px-2 text-xs uppercase font-semibold rounded bg-gray-100 text-gray-800"
                   >
-                    label
+                    fulfilled
                   </span>
                 </td>
                 <td
@@ -705,12 +705,12 @@ exports[`renders correctly 1`] = `
                     <span
                       className="inline-flex px-2 text-xs font-semibold uppercase bg-gray-300 rounded "
                     >
-                      BTC
+                      BTS
                     </span>
                     <span
                       className="ml-2 font-mono leading-5 text-gray-500"
                     >
-                      1
+                      0.0004766599
                     </span>
                   </div>
                 </td>
@@ -723,246 +723,18 @@ exports[`renders correctly 1`] = `
                     <span
                       className="flex items-center ml-2 leading-5 text-gray-500"
                     >
-                      1.00000
+                      0.55663
                       <div
                         className="flex flex-col ml-4 text-xs tracking-tight text-gray-500"
                       >
                         <span>
-                          BTS
+                          BTC
                         </span>
                         <div
                           className="border-t border-gray-400 "
                         />
                         <span>
-                          BTC
-                        </span>
-                      </div>
-                    </span>
-                  </div>
-                </td>
-              </tr>
-              <tr
-                className="border-l-2 border-transparent hover:bg-gray-100 hover:border-gray-400 bg-gray-100 border-l-4 border-gray-400"
-                onClick={[Function]}
-              >
-                <td
-                  className="table-cell px-6 py-4 whitespace-no-wrap border-t border-gray-200"
-                >
-                  <div
-                    className="flex flex-col text-sm leading-5"
-                  >
-                    <span
-                      className="text-gray-700"
-                    >
-                      IAmADate
-                    </span>
-                    <span
-                      className="text-xs text-gray-500"
-                    >
-                      IAmADate
-                    </span>
-                  </div>
-                </td>
-                <td
-                  className="px-6 py-4 text-left whitespace-no-wrap border-t border-gray-200"
-                >
-                  <span
-                    className="px-2 text-xs uppercase font-semibold rounded bg-red-100 text-red-800"
-                  >
-                    label
-                  </span>
-                </td>
-                <td
-                  className="px-6 py-4 whitespace-no-wrap border-t border-gray-200"
-                >
-                  <div
-                    className="flex items-center"
-                  >
-                    <span
-                      className="inline-flex px-2 text-xs font-semibold uppercase bg-gray-300 rounded "
-                    >
-                      BTC
-                    </span>
-                    <span
-                      className="ml-2 font-mono leading-5 text-gray-500"
-                    >
-                      1
-                    </span>
-                  </div>
-                </td>
-                <td
-                  className="px-6 py-4 whitespace-no-wrap border-t border-gray-200"
-                >
-                  <div
-                    className="flex items-center"
-                  >
-                    <span
-                      className="flex items-center ml-2 leading-5 text-gray-500"
-                    >
-                      1.00000
-                      <div
-                        className="flex flex-col ml-4 text-xs tracking-tight text-gray-500"
-                      >
-                        <span>
                           BTS
-                        </span>
-                        <div
-                          className="border-t border-gray-400 "
-                        />
-                        <span>
-                          BTC
-                        </span>
-                      </div>
-                    </span>
-                  </div>
-                </td>
-              </tr>
-              <tr
-                className="border-l-2 border-transparent hover:bg-gray-100 hover:border-gray-400 bg-gray-100 border-l-4 border-gray-400"
-                onClick={[Function]}
-              >
-                <td
-                  className="table-cell px-6 py-4 whitespace-no-wrap border-t border-gray-200"
-                >
-                  <div
-                    className="flex flex-col text-sm leading-5"
-                  >
-                    <span
-                      className="text-gray-700"
-                    >
-                      IAmADate
-                    </span>
-                    <span
-                      className="text-xs text-gray-500"
-                    >
-                      IAmADate
-                    </span>
-                  </div>
-                </td>
-                <td
-                  className="px-6 py-4 text-left whitespace-no-wrap border-t border-gray-200"
-                >
-                  <span
-                    className="px-2 text-xs uppercase font-semibold rounded bg-red-100 text-red-800"
-                  >
-                    label
-                  </span>
-                </td>
-                <td
-                  className="px-6 py-4 whitespace-no-wrap border-t border-gray-200"
-                >
-                  <div
-                    className="flex items-center"
-                  >
-                    <span
-                      className="inline-flex px-2 text-xs font-semibold uppercase bg-gray-300 rounded "
-                    >
-                      BTC
-                    </span>
-                    <span
-                      className="ml-2 font-mono leading-5 text-gray-500"
-                    >
-                      1
-                    </span>
-                  </div>
-                </td>
-                <td
-                  className="px-6 py-4 whitespace-no-wrap border-t border-gray-200"
-                >
-                  <div
-                    className="flex items-center"
-                  >
-                    <span
-                      className="flex items-center ml-2 leading-5 text-gray-500"
-                    >
-                      1.00000
-                      <div
-                        className="flex flex-col ml-4 text-xs tracking-tight text-gray-500"
-                      >
-                        <span>
-                          BTS
-                        </span>
-                        <div
-                          className="border-t border-gray-400 "
-                        />
-                        <span>
-                          BTC
-                        </span>
-                      </div>
-                    </span>
-                  </div>
-                </td>
-              </tr>
-              <tr
-                className="border-l-2 border-transparent hover:bg-gray-100 hover:border-gray-400 bg-gray-100 border-l-4 border-gray-400"
-                onClick={[Function]}
-              >
-                <td
-                  className="table-cell px-6 py-4 whitespace-no-wrap border-t border-gray-200"
-                >
-                  <div
-                    className="flex flex-col text-sm leading-5"
-                  >
-                    <span
-                      className="text-gray-700"
-                    >
-                      IAmADate
-                    </span>
-                    <span
-                      className="text-xs text-gray-500"
-                    >
-                      IAmADate
-                    </span>
-                  </div>
-                </td>
-                <td
-                  className="px-6 py-4 text-left whitespace-no-wrap border-t border-gray-200"
-                >
-                  <span
-                    className="px-2 text-xs uppercase font-semibold rounded bg-red-100 text-red-800"
-                  >
-                    label
-                  </span>
-                </td>
-                <td
-                  className="px-6 py-4 whitespace-no-wrap border-t border-gray-200"
-                >
-                  <div
-                    className="flex items-center"
-                  >
-                    <span
-                      className="inline-flex px-2 text-xs font-semibold uppercase bg-gray-300 rounded "
-                    >
-                      BTC
-                    </span>
-                    <span
-                      className="ml-2 font-mono leading-5 text-gray-500"
-                    >
-                      1
-                    </span>
-                  </div>
-                </td>
-                <td
-                  className="px-6 py-4 whitespace-no-wrap border-t border-gray-200"
-                >
-                  <div
-                    className="flex items-center"
-                  >
-                    <span
-                      className="flex items-center ml-2 leading-5 text-gray-500"
-                    >
-                      1.00000
-                      <div
-                        className="flex flex-col ml-4 text-xs tracking-tight text-gray-500"
-                      >
-                        <span>
-                          BTS
-                        </span>
-                        <div
-                          className="border-t border-gray-400 "
-                        />
-                        <span>
-                          BTC
                         </span>
                       </div>
                     </span>
@@ -1006,12 +778,12 @@ exports[`renders correctly 1`] = `
             <span
               className="text-sm font-semibold text-gray-400"
             >
-              BTC
+              BTS
             </span>
             <span
               className="font-mono text-lg text-gray-700"
             >
-              1.0000000000
+              0.0007843245
             </span>
           </div>
           <div
@@ -1029,19 +801,19 @@ exports[`renders correctly 1`] = `
                 className="flex items-center"
               >
                 <span>
-                  1.0000
+                  0.9430
                 </span>
                 <div
                   className="flex flex-col ml-1 text-xs tracking-tight text-gray-500"
                 >
                   <span>
-                    BTS
+                    BTC
                   </span>
                   <div
                     className="border-t border-gray-400 "
                   />
                   <span>
-                    BTC
+                    BTS
                   </span>
                 </div>
               </div>
@@ -1058,12 +830,12 @@ exports[`renders correctly 1`] = `
             <span
               className="text-sm font-semibold text-gray-400"
             >
-              BTS
+              BTC
             </span>
             <span
               className="font-mono text-lg text-gray-700"
             >
-              1.0000000000
+              0.0007396220
             </span>
           </div>
         </div>
@@ -1078,16 +850,16 @@ exports[`renders correctly 1`] = `
           <span
             className="text-sm font-semibold"
           >
-            IAmADate
+            1 Jan 1970, 12:56
           </span>
         </div>
         <footer
           className="flex items-center justify-around pt-12 mt-8 text-center border-t border-gray-300"
         >
           <span
-            className="py-2 px-4 uppercase font-semibold rounded bg-red-200 text-red-900"
+            className="py-2 px-4 uppercase font-semibold rounded bg-gray-200 text-gray-900"
           >
-            label
+            fulfilled
           </span>
         </footer>
       </div>

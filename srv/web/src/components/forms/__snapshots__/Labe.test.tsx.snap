@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<label
+  className="text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
+>
+  label
+</label>
+`;

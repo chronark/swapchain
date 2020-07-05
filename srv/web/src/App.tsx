@@ -8,7 +8,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import { ComponentPage } from './components/ComponentPage';
+import { ComponentPage } from './components/util/ComponentPage';
 import { TakerAccept } from './components/forms/TakerAccept';
 import { OrderbookPage } from './components/pages/OrderbookPage';
 

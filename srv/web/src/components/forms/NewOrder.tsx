@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
 import { fakeAddress } from "../../util"
-import { CryptoChoice } from "./CryptoChoice"
 import { RadioButton } from "./RadioButton"
 import { Label } from "./Label"
 import { Input } from "./Input"

@@ -1,9 +1,7 @@
 import React, { useState } from "react"
 import { ReactComponent as SwapchainLogoDouble } from "../../icons/swapchainLogoDouble.svg"
-import { Button } from "./Button"
 import { ReactComponent as GithubLogo } from "../../icons/github.svg"
 import { Link } from "react-router-dom"
-import { link } from "fs"
 
 
 export const Navbar = () => {
