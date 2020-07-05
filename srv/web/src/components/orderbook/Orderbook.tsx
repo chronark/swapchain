@@ -12,7 +12,7 @@ import "react-datepicker/dist/react-datepicker.css"
 export const status = {
   active: {
     label: "active",
-    color: "green",
+    color: "teal",
   },
   fulfilled: {
     label: "fulfilled",
