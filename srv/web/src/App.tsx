@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import { ComponentPage } from './components/ComponentPage';
 import { TakerAccept } from './components/forms/TakerAccept';
+import { OrderbookPage } from './components/pages/OrderbookPage';
 
 const App = () => {
   return (
@@ -17,24 +18,31 @@ const App = () => {
       <Router>
         <Navbar></Navbar>
         <Switch>
-        <Route path="/accept">
-            <ComponentPage>
-              <h1 className="py-4 text-3xl font-bold leading-tight text-gray-900">
-                Accept an Atomic Cross Chain Swap</h1>
+
+          <Route path="/accept">
+            <ComponentPage title="Accept an Atomic Cross Chain Swap">
               <TakerAccept></TakerAccept>
             </ComponentPage>
-            
+
           </Route>
-          <Route path="/propose">
+
+          <Route path="/orderbook">
             <ComponentPage>
-              <h1 className="py-4 text-3xl font-bold leading-tight text-gray-900">
-                Propose a new Atomic Cross Chain Swap</h1>
+              <OrderbookPage></OrderbookPage>
+            </ComponentPage>
+
+          </Route>
+
+          <Route path="/propose">
+            <ComponentPage title="Propose a new Atomic Cross Chain Swap">
               <NewOrder></NewOrder>
             </ComponentPage>
           </Route>
+
           <Route path="/">
             <LandingPage></LandingPage>
           </Route>
+
         </Switch>
       </Router>
     </div>

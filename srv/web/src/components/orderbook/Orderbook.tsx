@@ -74,7 +74,7 @@ type Props = {
   orders: Order[]
 }
 
-export default (props: Props) => {
+export const Orderbook = (props: Props) => {
   const { orders } = props
   const [modalOpen, setModalOpen] = useState(false)
 
