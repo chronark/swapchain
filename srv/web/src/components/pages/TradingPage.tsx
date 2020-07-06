@@ -6,13 +6,16 @@ import { ReactComponent as QRCode } from "../../icons/qrcode.svg"
 import { RadioButton } from "../forms/RadioButton"
 import { Form } from "../forms/Form"
 
-
 export const TradingPage = () => {
+    
+    enum Operation {
+        ACCEPT,
+        PROPOSE,
+    }
 
 
 
-
-    const [taker, setTaker] = useState(false)
+    const [operation, setOperation] = useState(Operation.PROPOSE)
 
 
 
@@ -87,20 +90,20 @@ export const TradingPage = () => {
                         <RadioButton
                             description="a new Atomic Cross Chain Swap"
                             name="Propose"
-                            onClick={() => setTaker(false)}
-                            selected={!taker}
+                            onClick={() => setOperation(Operation.PROPOSE)}
+                            selected={operation === Operation.PROPOSE}
                         ></RadioButton>
                         <RadioButton
                             description="an Atomic Cross Chain Swap proposal"
                             name="Accept"
-                            onClick={() => setTaker(true)}
-                            selected={taker}
+                            onClick={() => setOperation(Operation.ACCEPT)}
+                            selected={operation === Operation.ACCEPT}
                         ></RadioButton>
                     </div>
                 </div>
             }
                 footer={
-                    <Link to={taker ? "/take" : "/propose"} className="px-8 py-3 font-semibold text-gray-900 uppercase transition duration-200 ease-in-out bg-white border rounded-sm shadow-sm focus:outline-none hover:border-teal-500 hover:bg-white">
+                    <Link to={operation === Operation.ACCEPT ? "/accept" : "/propose"} className="px-8 py-3 font-semibold text-gray-900 uppercase transition duration-200 ease-in-out bg-white border rounded-sm shadow-sm focus:outline-none hover:border-teal-500 hover:bg-white">
                         Start
 </Link>
                 }

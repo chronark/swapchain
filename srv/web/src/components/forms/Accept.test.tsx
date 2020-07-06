@@ -1,5 +1,5 @@
 import React from 'react';
-import {TakerAccept} from './TakerAccept';
+import {Accept} from './Accept';
 import renderer from 'react-test-renderer';
 import * as util from "../../util"
 jest.mock("../../util")
@@ -9,7 +9,7 @@ jest.spyOn(util, "fakeAddress").mockReturnValue("randomLookingHash")
 
 it('renders correctly', () => {
   const tree = renderer
-    .create(<TakerAccept></TakerAccept>)
+    .create(<Accept></Accept>)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

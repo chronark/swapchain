@@ -4,7 +4,7 @@ import { Label } from "./Label"
 import { Input } from "./Input"
 import { SubmitButton } from "./SubmitButton"
 
-export const TakerAccept = () => {
+export const Accept = () => {
     const [fields, setFields] = useState({
         bitcoinPrivateKey: "",
         bitsharesPrivateKey: "",

@@ -9,7 +9,7 @@ import {
   Route
 } from "react-router-dom";
 import { ComponentPage } from './components/util/ComponentPage';
-import { TakerAccept } from './components/forms/TakerAccept';
+import { Accept } from './components/forms/Accept';
 import { OrderbookPage } from './components/pages/OrderbookPage';
 import { TradingPage } from './components/pages/TradingPage';
 
@@ -26,9 +26,15 @@ const App = () => {
             </ComponentPage>
           </Route>
           
+          <Route path="/propose">
+            <ComponentPage>
+              <Propose></Propose>
+            </ComponentPage>
+          </Route>
+
           <Route path="/accept">
-            <ComponentPage bg="bg-white" title="Accept an Atomic Cross Chain Swap">
-              <TakerAccept></TakerAccept>
+            <ComponentPage>
+              <Accept></Accept>
             </ComponentPage>
           </Route>
 
@@ -44,12 +50,6 @@ const App = () => {
             </div>
             <ComponentPage>
               <OrderbookPage></OrderbookPage>
-            </ComponentPage>
-          </Route>
-
-          <Route path="/propose">
-            <ComponentPage>
-              <Propose></Propose>
             </ComponentPage>
           </Route>
 
