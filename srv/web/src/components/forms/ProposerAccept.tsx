@@ -120,7 +120,7 @@ export const ProposerAccept = () => {
                     </section>
                     <footer className="pt-12 mt-8 text-center border-t border-gray-300">
                         < p className={`-mt-4 pb-4 text-red-500 text-sm ${showError ? "" : "hidden"}`}>Please fill in all fields</p>
-                        <SubmitButton color={isValid ? "teal" : "gray"} label="Submit" onClick={submitHandler}></SubmitButton>
+                        <SubmitButton borderColor={isValid ? "teal" : "gray"} label="Submit" onClick={submitHandler}></SubmitButton>
                     </footer>
                 </div>
             }

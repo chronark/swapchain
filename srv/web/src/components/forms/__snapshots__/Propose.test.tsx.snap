@@ -640,7 +640,7 @@ exports[`renders correctly 1`] = `
         Please fill in all fields
       </p>
       <button
-        className="bg-gray-100 border-gray-400 inline-flex px-8 py-3 font-semibold text-gray-900 uppercase transition duration-200 ease-in-out border focus:outline-none rounded-sm hover:bg-white"
+        className="px-8 py-3 font-semibold text-gray-900 uppercase transition duration-200 ease-in-out bg-white border rounded-sm shadow-sm focus:outline-none hover:border-teal-500 hover:bg-white border-gray-300"
         onClick={[Function]}
         type="button"
       >

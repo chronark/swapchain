@@ -234,7 +234,7 @@ export const Orderbook = (props: Props) => {
           footer={
             <div>
               {(selectedOrder.status.label === "active") ?
-                <SubmitButton color="teal" onClick={() => { }} label={
+                <SubmitButton borderColor="teal" onClick={() => { }} label={
                   <div className="flex">
                     <Refresh className="w-6 h-6"></Refresh>
                     <span className="ml-2">Trade</span>
