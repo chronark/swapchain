@@ -13,6 +13,7 @@ export const getPublicKey = (privateKey: string): string => {
   if (!privateKey) {
     return ""
   }
+
   let keyPair: bitcoin.ECPairInterface
   try {
     keyPair = bitcoin.ECPair.fromWIF(privateKey, bitcoin.networks.testnet)
