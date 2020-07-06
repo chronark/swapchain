@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { fakeAddress } from "../../util"
+import { fakeKey } from "../../util"
 import { RadioButton } from "./RadioButton"
 import { Label } from "./Label"
 import { Input } from "./Input"
@@ -244,7 +244,7 @@ export const Propose = () => {
                                     <Input
                                         name="bitcoinPrivateKey"
                                         onChange={updateField}
-                                        placeholder={fakeAddress(30)}
+                                        placeholder={fakeKey(30, fields.networkToTrade)}
                                         type="text"
                                         value={fields.bitcoinPrivateKey}
                                     ></Input>
@@ -254,17 +254,16 @@ export const Propose = () => {
                                     <Input
                                         name="bitsharesPrivateKey"
                                         onChange={updateField}
-                                        placeholder=""
+                                        placeholder={"5" + fakeKey(30, fields.networkToTrade)}
                                         type="text"
                                         value={fields.bitsharesPrivateKey}
                                     ></Input>
                                 </div>
                             </div>
                             <p className="px-4 mx-auto mt-2 text-sm text-center text-gray-500">
-                                Your public Bitcoin key and Bitshares account name can be calculated from your private key. Your private keys will never leave your browser, it is only used to sign your transactions. <a href="/" className="relative text-xs text-blue-500">Read more in our docs.</a>
+                                Your public Bitcoin key and Bitshares account name can be derived from your private key. Your private keys will never leave your browser, they are only used to sign your transactions. <a href="/" className="relative text-xs text-blue-500">Read more in our docs.</a>
                             </p>
                         </section>
-
 
                         <section>
                             <h2 className="text-xl font-bold leading-tight text-gray-800">Counterparty Data</h2>
@@ -274,7 +273,7 @@ export const Propose = () => {
                                     <Input
                                         name="counterpartyBitcoinPublicKey"
                                         onChange={updateField}
-                                        placeholder={fakeAddress(30)}
+                                        placeholder={"02" + fakeKey(30, fields.networkToTrade)}
                                         type="text"
                                         value={fields.counterpartyBitcoinPublicKey}
                                     ></Input>

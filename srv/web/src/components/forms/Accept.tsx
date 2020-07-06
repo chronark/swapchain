@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { fakeAddress } from "../../util"
+import { fakeKey } from "../../util"
 import { Label } from "./Label"
 import { Input } from "./Input"
 import { SubmitButton } from "./SubmitButton"
@@ -145,7 +145,7 @@ export const Accept = () => {
                                     <Input
                                         name="bitcoinPrivateKey"
                                         onChange={updateField}
-                                        placeholder={fakeAddress(30)}
+                                        placeholder={fakeKey(30, fields.networkToTrade)}
                                         type="text"
                                         value={fields.bitcoinPrivateKey}
                                     ></Input>
@@ -175,7 +175,7 @@ export const Accept = () => {
                                     <Input
                                         name="counterpartyBitcoinPublicKey"
                                         onChange={updateField}
-                                        placeholder={fakeAddress(30)}
+                                        placeholder={fakeKey(30, fields.networkToTrade)}
                                         type="text"
                                         value={fields.counterpartyBitcoinPublicKey}
                                     ></Input>

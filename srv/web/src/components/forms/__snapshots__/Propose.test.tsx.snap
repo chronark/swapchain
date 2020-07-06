@@ -321,7 +321,7 @@ exports[`renders correctly 1`] = `
                 className="w-full py-3 font-mono text-center text-gray-700 bg-gray-100 border border-gray-200 rounded focus:bg-white focus:border-teal-400"
                 name="bitsharesPrivateKey"
                 onChange={[Function]}
-                placeholder=""
+                placeholder="5randomLookingHash"
                 required={true}
                 type="text"
                 value=""
@@ -331,7 +331,7 @@ exports[`renders correctly 1`] = `
           <p
             className="px-4 mx-auto mt-2 text-sm text-center text-gray-500"
           >
-            Your public Bitcoin key and Bitshares account name can be calculated from your private key. Your private keys will never leave your browser, it is only used to sign your transactions. 
+            Your public Bitcoin key and Bitshares account name can be derived from your private key. Your private keys will never leave your browser, they are only used to sign your transactions. 
             <a
               className="relative text-xs text-blue-500"
               href="/"
@@ -361,7 +361,7 @@ exports[`renders correctly 1`] = `
                 className="w-full py-3 font-mono text-center text-gray-700 bg-gray-100 border border-gray-200 rounded focus:bg-white focus:border-teal-400"
                 name="counterpartyBitcoinPublicKey"
                 onChange={[Function]}
-                placeholder="randomLookingHash"
+                placeholder="02randomLookingHash"
                 required={true}
                 type="text"
                 value=""
