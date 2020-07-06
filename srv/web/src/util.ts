@@ -17,12 +17,11 @@ export const getPublicKey = (privateKey: string): string => {
   let keyPair: bitcoin.ECPairInterface
   try {
     keyPair = bitcoin.ECPair.fromWIF(privateKey, bitcoin.networks.testnet)
-  } catch(err) {
+  } catch (err) {
     return "Invalid private key"
   }
 
   const keyPairCompressed = bitcoin.ECPair.fromPrivateKey(keyPair.privateKey!, { compressed: true })
 
   return keyPairCompressed.publicKey.toString("hex")
-
 }

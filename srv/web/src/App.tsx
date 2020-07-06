@@ -2,7 +2,7 @@
 import React from 'react';
 import { LandingPage } from './components/pages/LandingPage';
 import { Navbar } from "./components/Navbar/Navbar"
-import { NewOrder } from "./components/forms/NewOrder"
+import { Propose } from "./components/forms/Propose"
 import {
   BrowserRouter as Router,
   Switch,
@@ -44,7 +44,7 @@ const App = () => {
 
           <Route path="/propose">
             <ComponentPage title="Propose a new Atomic Cross Chain Swap">
-              <NewOrder></NewOrder>
+              <Propose></Propose>
             </ComponentPage>
           </Route>
 
