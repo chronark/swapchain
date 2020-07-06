@@ -1,9 +1,9 @@
-import React from "react"
+import React, { ReactElement } from "react"
 
 type Props = {
     color: string
     onClick: () => void
-    label: string
+    label: string | ReactElement
 }
 
 export const SubmitButton = (props: Props) => {
