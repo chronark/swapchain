@@ -7,6 +7,8 @@ import figlet from "figlet"
 import BitsharesHTLC from "../pkg/bitshares/htlc/btsHTLC"
 import { BlockStream } from "../pkg/bitcoin/api/blockstream"
 import { Timer } from "./timer"
+import { getAccount } from "../pkg/bitshares/util"
+import { isValidPrivateKeyBTC, isValidPrivateKeyBTS, isValidPublicKeyBTC } from "../pkg/address/validator"
 
 /**
  * Contains all necessary information to run an ACCS.
@@ -205,20 +207,22 @@ export default class ACCS {
 
     config.priority = Number(priority)
 
-    config.accountBTS = await this.askUser("Please enter your Bitshares account name: ")
-
-    config.privateKeyBTS = await this.askUser(
-      "Please enter your private key (WIF format) associated with the given Bitshares account: ",
-    )
-
     const privateKeyBTC = await this.askUser("Please enter your Bitcoin private key (WIF format): ")
+    if(!isValidPrivateKeyBTC(privateKeyBTC, this.networkName)) {
+      throw new Error("Invalid Bitcoin private key.")
+    }
 
-    config.accountCounterpartyBTS = await this.askUser("Please enter the Bitshares account name of the counterparty: ")
+    config.privateKeyBTS = await this.askUser("Please enter your Bitshares private key (WIF format): ")
+    if(!isValidPrivateKeyBTS(config.privateKeyBTS)) {
+      throw new Error("Invalid Bitshares private key.")
+    }
 
     const publicKeyCounterpartyBTC = await this.askUser("Please enter the Bitcoin public key of the counterparty: ")
-    if (!(publicKeyCounterpartyBTC.length === 66 || publicKeyCounterpartyBTC.length === 130)) {
+    if(!isValidPublicKeyBTC(publicKeyCounterpartyBTC)) {
       throw new Error("Invalid Bitcoin public key.")
     }
+
+    config.accountCounterpartyBTS = await this.askUser("Please enter the Bitshares account name of the counterparty: ")
 
     config.amount = await this.askUser(
       `Please enter the amount of ${config.txTypeName.slice(-3)} you want to exchange: `,
@@ -254,6 +258,8 @@ export default class ACCS {
         3,
       )} for giving ${amountGive} ${config.txTypeName.slice(-3)} (Current market exchange rate: 500,000 BTS/BTC).`,
     )
+
+    config.accountBTS = await getAccount(config.privateKeyBTS, this.endpointBTS, this.networkName)
 
     const keyPairBTC = bitcoin.ECPair.fromWIF(privateKeyBTC, this.net)
     config.keyPairCompressedBTC = bitcoin.ECPair.fromPrivateKey(keyPairBTC.privateKey!, { compressed: true })

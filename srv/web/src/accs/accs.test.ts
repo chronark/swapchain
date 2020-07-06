@@ -4,6 +4,8 @@ import * as bitcoin from "bitcoinjs-lib"
 import { mocked } from "ts-jest/utils"
 import { getSecret, Secret } from "../pkg/secret/secret"
 import { Timer } from "./timer"
+import { getAccount } from "../pkg/bitshares/util"
+jest.mock("../pkg/bitshares/util")
 jest.mock("../pkg/secret/secret")
 console.log = jest.fn()
 readline.createInterface = jest.fn()
@@ -20,19 +22,15 @@ describe("getUserInput()", () => {
       .mockReturnValueOnce(Promise.resolve("Proposer"))
       .mockReturnValueOnce(Promise.resolve("1"))
       .mockReturnValueOnce(Promise.resolve("0"))
-      .mockReturnValueOnce(Promise.resolve("testBTSAccount"))
-      .mockReturnValueOnce(Promise.resolve("testBTSPrivateKey"))
-      .mockReturnValueOnce(Promise.resolve("cTZs9RHsw3nDt98nDNSw3BDs53yaWmQkDFaF8MtBWEMkPMrg42t5"))
+      .mockReturnValueOnce(Promise.resolve("cVPwsbE8HNMCoLGz8N4R2SfyQTMQzznL9x3vEHJqPtuZ1rhBkTo7"))
+      .mockReturnValueOnce(Promise.resolve("5Z89Ve18ttnu7Ymd1nnCMsnGkfKk4KQnsfFrYEz7Cmw39FAMOSS"))
+      .mockReturnValueOnce(Promise.resolve("034c7ddacc16fa5e53aa5dc19748e3877ba07b981fdbbcdb97b8b19de240241f61"))
       .mockReturnValueOnce(Promise.resolve("testBTSCounterpartyAccount"))
-      .mockReturnValueOnce(Promise.resolve("03c11fe663a2e72b2c0a67d23235d5320d6d7efede7c99f1322b05665e15d129ed"))
       .mockReturnValueOnce(Promise.resolve("0.001"))
       .mockReturnValueOnce(Promise.resolve("2"))
       .mockReturnValueOnce(Promise.resolve("testBTCTxID"))
-    mocked(getSecret).mockImplementation(
-      (): Secret => {
-        return secretObject
-      },
-    )
+    mocked(getSecret).mockReturnValue(secretObject)
+    mocked(getAccount).mockResolvedValue("testBTSAccount")
     jest.spyOn(Timer.prototype, "toBTS").mockResolvedValue(1_800)
 
     const expectedACCSConfig: ACCSConfig = {
@@ -48,7 +46,7 @@ describe("getUserInput()", () => {
       amountBTSMini: 50_000_000,
       amountSatoshi: 100_000,
       keyPairCompressedBTC: bitcoin.ECPair.fromPrivateKey(
-        bitcoin.ECPair.fromWIF("cTZs9RHsw3nDt98nDNSw3BDs53yaWmQkDFaF8MtBWEMkPMrg42t5", bitcoin.networks.testnet)
+        bitcoin.ECPair.fromWIF("cVPwsbE8HNMCoLGz8N4R2SfyQTMQzznL9x3vEHJqPtuZ1rhBkTo7", bitcoin.networks.testnet)
           .privateKey!,
         { compressed: true },
       ),
