@@ -35,10 +35,10 @@ export const Navbar = () => {
                 <div className={`${open ? "" : "hidden"} w-full md:w-auto md:flex-grow md:flex md:items-center`}>
                     <ul className="flex flex-col pt-4 mt-4 -mx-4 space-y-4 border-t md:space-x-4 md:space-y-0 md:flex-row md:items-center md:mx-0 md:mt-0 md:pt-0 md:mr-4 lg:mr-8 md:border-0">
                         <li>
-                            <a className={linkStyle} href="https://github.com/chronark/swapchain#cli">CLI</a>
+                            <Link className={linkStyle} to="/trade">Trade</Link>
                         </li>
                         <li>
-                            <Link className={linkStyle} to="/trade">Trade</Link>
+                            <a className={linkStyle} href="https://github.com/chronark/swapchain#cli">CLI</a>
                         </li>
                         <li>
                             <Link className={linkStyle} to="/orderbook">Orderbook
