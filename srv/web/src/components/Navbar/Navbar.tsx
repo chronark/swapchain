@@ -3,15 +3,12 @@ import { ReactComponent as SwapchainLogoDouble } from "../../icons/swapchainLogo
 import { ReactComponent as GithubLogo } from "../../icons/github.svg"
 import { Link } from "react-router-dom"
 
-
 export const Navbar = () => {
     const [open, setOpen] = useState(false)
 
     const toggleMenu = () => {
         setOpen(!open)
     }
-
-
 
     const linkStyle = "p-6 font-medium text-gray-700 transition duration-300 ease-in-out border-transparent hover:text-teal-400 md:border-b-2 hover:border-teal-400 focus:outline-none"
 
@@ -41,12 +38,13 @@ export const Navbar = () => {
                             <a className={linkStyle} href="https://github.com/chronark/swapchain#cli">CLI</a>
                         </li>
                         <li>
+                            <Link className={linkStyle} to="/trade">Trade</Link>
+                        </li>
+                        <li>
                             <Link className={linkStyle} to="/orderbook">Orderbook
                             <span className="px-2 py-1 ml-2 text-xs font-thin border border-teal-500 rounded">WIP</span>
                             </Link>
-
                         </li>
-
                     </ul>
                     <ul className="flex flex-col pt-4 mt-4 -mx-4 space-y-4 border-t md:flex-row md:items-center md:mx-0 md:ml-auto md:mt-0 md:pt-0 md:border-0 md:space-y-0 md:space-x-4">
                         <li>
@@ -61,7 +59,7 @@ export const Navbar = () => {
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav >
         //       
     )
 }

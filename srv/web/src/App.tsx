@@ -11,6 +11,7 @@ import {
 import { ComponentPage } from './components/util/ComponentPage';
 import { TakerAccept } from './components/forms/TakerAccept';
 import { OrderbookPage } from './components/pages/OrderbookPage';
+import { TradingPage } from './components/pages/TradingPage';
 
 const App = () => {
   return (
@@ -19,11 +20,16 @@ const App = () => {
         <Navbar></Navbar>
         <Switch>
 
+          <Route path="/trade">
+            <ComponentPage>
+              <TradingPage></TradingPage>
+            </ComponentPage>
+          </Route>
+          
           <Route path="/accept">
-            <ComponentPage title="Accept an Atomic Cross Chain Swap">
+            <ComponentPage bg="bg-white" title="Accept an Atomic Cross Chain Swap">
               <TakerAccept></TakerAccept>
             </ComponentPage>
-
           </Route>
 
           <Route path="/orderbook">
@@ -39,11 +45,10 @@ const App = () => {
             <ComponentPage>
               <OrderbookPage></OrderbookPage>
             </ComponentPage>
-
           </Route>
 
           <Route path="/propose">
-            <ComponentPage title="Propose a new Atomic Cross Chain Swap">
+            <ComponentPage>
               <Propose></Propose>
             </ComponentPage>
           </Route>

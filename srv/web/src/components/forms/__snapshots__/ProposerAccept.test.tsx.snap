@@ -116,10 +116,10 @@ exports[`renders correctly 1`] = `
           onClick={[Function]}
         >
           <button
-            className="focus:outline-none flex w-full justify-between border rounded border-teal-400 shadow"
+            className="focus:outline-none flex w-full justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
           >
             <div
-              className="flex flex-col items-start p-4"
+              className="flex flex-col items-start justify-between p-4"
             >
               <div
                 className="flex items-center justify-between w-full"
@@ -134,7 +134,7 @@ exports[`renders correctly 1`] = `
                 />
               </div>
               <p
-                className="text-sm text-left text-gray-600"
+                className="mt-2 text-sm text-left text-gray-600"
               >
                 You pay the highest fees to increase the chance for your transaction to be picked up by the miners.
               </p>
@@ -153,10 +153,10 @@ exports[`renders correctly 1`] = `
           onClick={[Function]}
         >
           <button
-            className="focus:outline-none flex w-full justify-between border rounded bg-gray-100"
+            className="focus:outline-none flex w-full justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
           >
             <div
-              className="flex flex-col items-start p-4"
+              className="flex flex-col items-start justify-between p-4"
             >
               <div
                 className="flex items-center justify-between w-full"
@@ -171,7 +171,7 @@ exports[`renders correctly 1`] = `
                 />
               </div>
               <p
-                className="text-sm text-left text-gray-400"
+                className="mt-2 text-sm text-left text-gray-400"
               >
                 You pay a moderate amount of fees so miners will probably confirm your transaction soon.
               </p>
@@ -190,10 +190,10 @@ exports[`renders correctly 1`] = `
           onClick={[Function]}
         >
           <button
-            className="focus:outline-none flex w-full justify-between border rounded bg-gray-100"
+            className="focus:outline-none flex w-full justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
           >
             <div
-              className="flex flex-col items-start p-4"
+              className="flex flex-col items-start justify-between p-4"
             >
               <div
                 className="flex items-center justify-between w-full"
@@ -208,7 +208,7 @@ exports[`renders correctly 1`] = `
                 />
               </div>
               <p
-                className="text-sm text-left text-gray-400"
+                className="mt-2 text-sm text-left text-gray-400"
               >
                 You pay the lowest fees but might have to wait a few more blocks for your transaction to be confirmed.
               </p>

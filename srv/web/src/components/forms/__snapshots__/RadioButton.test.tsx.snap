@@ -2,10 +2,10 @@
 
 exports[`only name and description renders correctly 1`] = `
 <button
-  className="focus:outline-none flex w-full justify-between border rounded border-teal-400 shadow"
+  className="focus:outline-none flex w-full justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
 >
   <div
-    className="flex flex-col items-start p-4"
+    className="flex flex-col items-start justify-between p-4"
   >
     <div
       className="flex items-center justify-between w-full"
@@ -20,7 +20,7 @@ exports[`only name and description renders correctly 1`] = `
       />
     </div>
     <p
-      className="text-sm text-left text-gray-600"
+      className="mt-2 text-sm text-left text-gray-600"
     >
       description
     </p>
@@ -37,10 +37,10 @@ exports[`only name and description renders correctly 1`] = `
 
 exports[`with all attributes renders correctly 1`] = `
 <button
-  className="focus:outline-none flex w-full justify-between border rounded border-teal-400 shadow"
+  className="focus:outline-none flex w-full justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
 >
   <div
-    className="flex flex-col items-start p-4"
+    className="flex flex-col items-start justify-between p-4"
   >
     <div
       className="flex items-center justify-between w-full"
@@ -57,7 +57,7 @@ exports[`with all attributes renders correctly 1`] = `
       </span>
     </div>
     <p
-      className="text-sm text-left text-gray-600"
+      className="mt-2 text-sm text-left text-gray-600"
     >
       description
     </p>
@@ -76,10 +76,10 @@ exports[`with all attributes renders correctly 1`] = `
 
 exports[`without hint renders correctly 1`] = `
 <button
-  className="focus:outline-none flex w-full justify-between border rounded border-teal-400 shadow"
+  className="focus:outline-none flex w-full justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
 >
   <div
-    className="flex flex-col items-start p-4"
+    className="flex flex-col items-start justify-between p-4"
   >
     <div
       className="flex items-center justify-between w-full"
@@ -94,7 +94,7 @@ exports[`without hint renders correctly 1`] = `
       />
     </div>
     <p
-      className="text-sm text-left text-gray-600"
+      className="mt-2 text-sm text-left text-gray-600"
     >
       description
     </p>
@@ -113,10 +113,10 @@ exports[`without hint renders correctly 1`] = `
 
 exports[`without tag renders correctly 1`] = `
 <button
-  className="focus:outline-none flex w-full justify-between border rounded bg-gray-100"
+  className="focus:outline-none flex w-full justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
 >
   <div
-    className="flex flex-col items-start p-4"
+    className="flex flex-col items-start justify-between p-4"
   >
     <div
       className="flex items-center justify-between w-full"
@@ -133,7 +133,7 @@ exports[`without tag renders correctly 1`] = `
       </span>
     </div>
     <p
-      className="text-sm text-left text-gray-400"
+      className="mt-2 text-sm text-left text-gray-400"
     >
       description
     </p>
