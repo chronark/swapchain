@@ -54,6 +54,15 @@ exports[`renders correctly 1`] = `
         <li>
           <a
             className="p-6 font-medium text-gray-700 transition duration-300 ease-in-out border-transparent hover:text-teal-400 md:border-b-2 hover:border-teal-400 focus:outline-none"
+            href="/trade"
+            onClick={[Function]}
+          >
+            Trade
+          </a>
+        </li>
+        <li>
+          <a
+            className="p-6 font-medium text-gray-700 transition duration-300 ease-in-out border-transparent hover:text-teal-400 md:border-b-2 hover:border-teal-400 focus:outline-none"
             href="https://github.com/chronark/swapchain#cli"
           >
             CLI

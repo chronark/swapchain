@@ -1,18 +1,16 @@
-import React from "react"
+import React, { ReactElement } from "react"
 
 type Props = {
-    color: string
+    borderColor: string
     onClick: () => void
-    label: string
+    label: string | ReactElement
 }
 
 export const SubmitButton = (props: Props) => {
-    const color =`bg-${props.color}-100 border-${props.color}-400`
-    
-
-
+    const borderColor = "border-" + props.borderColor + "-300"
+  
     return (
-        <button type="button" onClick={props.onClick} className={`${color} inline-flex px-8 py-3 font-semibold text-gray-900 uppercase transition duration-200 ease-in-out border focus:outline-none rounded-sm hover:bg-white`}>
+        <button type="button" onClick={props.onClick} className={`px-8 py-3 font-semibold text-gray-900 uppercase transition duration-200 ease-in-out bg-white border rounded-sm shadow-sm focus:outline-none hover:border-teal-500 hover:bg-white ${borderColor}`}>
             {props.label}
         </button>
     )

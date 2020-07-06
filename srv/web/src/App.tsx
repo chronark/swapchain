@@ -2,15 +2,16 @@
 import React from 'react';
 import { LandingPage } from './components/pages/LandingPage';
 import { Navbar } from "./components/Navbar/Navbar"
-import { NewOrder } from "./components/forms/NewOrder"
+import { Propose } from "./components/forms/Propose"
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
 import { ComponentPage } from './components/util/ComponentPage';
-import { TakerAccept } from './components/forms/TakerAccept';
+import { Accept } from './components/forms/Accept';
 import { OrderbookPage } from './components/pages/OrderbookPage';
+import { TradingPage } from './components/pages/TradingPage';
 
 const App = () => {
   return (
@@ -19,11 +20,22 @@ const App = () => {
         <Navbar></Navbar>
         <Switch>
 
-          <Route path="/accept">
-            <ComponentPage title="Accept an Atomic Cross Chain Swap">
-              <TakerAccept></TakerAccept>
+          <Route path="/trade">
+            <ComponentPage>
+              <TradingPage></TradingPage>
             </ComponentPage>
+          </Route>
+          
+          <Route path="/propose">
+            <ComponentPage>
+              <Propose></Propose>
+            </ComponentPage>
+          </Route>
 
+          <Route path="/accept">
+            <ComponentPage>
+              <Accept></Accept>
+            </ComponentPage>
           </Route>
 
           <Route path="/orderbook">
@@ -38,13 +50,6 @@ const App = () => {
             </div>
             <ComponentPage>
               <OrderbookPage></OrderbookPage>
-            </ComponentPage>
-
-          </Route>
-
-          <Route path="/propose">
-            <ComponentPage title="Propose a new Atomic Cross Chain Swap">
-              <NewOrder></NewOrder>
             </ComponentPage>
           </Route>
 
