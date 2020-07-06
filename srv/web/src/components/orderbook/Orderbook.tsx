@@ -4,7 +4,7 @@ import { ReactComponent as QRCode } from "../../icons/qrcode.svg"
 import { Table } from "./Table"
 import { Modal } from "../util/Modal"
 import { FilterButton } from "./FilterButton"
-import { hash, fakeAddress } from "../../util"
+import { hash, fakeKey } from "../../util"
 import { ReactComponent as ChevronDown } from "../../icons/chevron-down.svg"
 import { ReactComponent as ArrowRight } from "../../icons/arrow-narrow-right.svg"
 import { ReactComponent as Refresh } from "../../icons/refresh.svg"
@@ -150,7 +150,7 @@ export const Orderbook = (props: Props) => {
             </span>
             <input
               className="block w-full py-1 pl-10 text-gray-900 placeholder-gray-600 bg-gray-100 border border-gray-400 rounded"
-              placeholder={fakeAddress(15)}
+              placeholder={fakeKey(15, "mainnet")}
               onChange={handleAddressChange}
             ></input>
           </div>
