@@ -10,13 +10,13 @@ import { RadioButton } from "./RadioButton"
 import { State, Network, Timelock, Priority } from "./enums"
 
 export const Accept = () => {
-   // Application stae for handling the flow
-   const [state, setState] = useState(State.IDLE)
-    
-   // Used to display helpful error messages to the user
-   const [errorMessage, setErrorMessage] = useState("")
+    // Application stae for handling the flow
+    const [state, setState] = useState(State.IDLE)
 
-   // Collects the user input in one place
+    // Used to display helpful error messages to the user
+    const [errorMessage, setErrorMessage] = useState("")
+
+    // Collects the user input in one place
     const [fields, setFields] = useState({
         networkToTrade: Network.MAINNET,
         hash: "",
@@ -57,9 +57,12 @@ export const Accept = () => {
     // Go back to idle when the user fixes their input errors.
     // Does nothing if the accs is already running
     useEffect(() => {
-        if (state !== State.RUNNING && validate() === "") {
-            setErrorMessage("")
-            setState(State.IDLE)
+        // Failure state is final
+        if (state !== State.FAILURE) {
+            if (state !== State.RUNNING && validate() === "") {
+                setErrorMessage("")
+                setState(State.IDLE)
+            }
         }
     }, [fields])
 
@@ -73,16 +76,16 @@ export const Accept = () => {
             [e.currentTarget.name]: e.currentTarget.value
         })
     }
-    
-     /**
-     * Update the field state manually via onClick for example.
-     * @param key - The key in the field state.
-     * @param value - New value to be stored.
-     */
+
+    /**
+    * Update the field state manually via onClick for example.
+    * @param key - The key in the field state.
+    * @param value - New value to be stored.
+    */
     const updateFieldByKey = (key: string, value: number | string) => {
         setFields({
             ...fields,
-            [name]: value
+            [key]: value
         })
     }
 
@@ -106,7 +109,7 @@ export const Accept = () => {
             if (Math.random() > 0.5) {
                 setState(State.SUCCESS)
             } else {
-                setState(State.FAILURE)
+                setState(State.ERROR)
                 setErrorMessage("Joab didn't do his job, should we fire him?")
             }
         }, 5000)
@@ -125,13 +128,13 @@ export const Accept = () => {
                                     description="You are sending real money!"
                                     name="Mainnet"
                                     tag={<Exclamation className={`h-8 text-red-600 ${fields.networkToTrade === Network.MAINNET ? "" : "hidden"}`}></Exclamation>}
-                                    onClick={() => updateFieldByName("networkToTrade", Network.MAINNET)}
+                                    onClick={() => updateFieldByKey("networkToTrade", Network.MAINNET)}
                                     selected={fields.networkToTrade === Network.MAINNET}
                                 ></RadioButton>
                                 <RadioButton
                                     description="Send test currencies on the testnet"
                                     name="Testnet"
-                                    onClick={() => updateFieldByName("networkToTrade", Network.TESTNET)}
+                                    onClick={() => updateFieldByKey("networkToTrade", Network.TESTNET)}
                                     selected={fields.networkToTrade === Network.TESTNET}
                                 ></RadioButton>
                             </div>
@@ -209,21 +212,21 @@ export const Accept = () => {
                                         description="Around 1 hour. This is the shortest duration possible while making sure the transactions are confirmed in time."
                                         hint="6 blocks"
                                         name={Timelock[Timelock.SHORT]}
-                                        onClick={() => updateFieldByName("timelockDuration", Timelock.SHORT)}
+                                        onClick={() => updateFieldByKey("timelockDuration", Timelock.SHORT)}
                                         selected={fields.timelockDuration === Timelock.SHORT}
                                     ></RadioButton>
                                     <RadioButton
                                         description="Around 2 hours. Offers more time for the counterparty to come online."
                                         hint="13 blocks"
                                         name={Timelock[Timelock.MEDIUM]}
-                                        onClick={() => updateFieldByName("timelockDuration", Timelock.MEDIUM)}
+                                        onClick={() => updateFieldByKey("timelockDuration", Timelock.MEDIUM)}
                                         selected={fields.timelockDuration === Timelock.MEDIUM}
                                     ></RadioButton>
                                     <RadioButton
                                         description="Around 3 hours. Gives your counterparty even more time."
                                         hint="20 blocks"
                                         name={Timelock[Timelock.LONG]}
-                                        onClick={() => updateFieldByName("timelockDuration", Timelock.LONG)}
+                                        onClick={() => updateFieldByKey("timelockDuration", Timelock.LONG)}
                                         selected={fields.timelockDuration === Timelock.LONG}
                                     ></RadioButton>
                                 </div>
@@ -239,19 +242,19 @@ export const Accept = () => {
                                 <RadioButton
                                     description="You pay the highest fees to increase the chance for your transaction to be picked up by the miners."
                                     name={Priority[Priority.HIGH]}
-                                    onClick={() => updateFieldByName("priority", Priority.HIGH)}
+                                    onClick={() => updateFieldByKey("priority", Priority.HIGH)}
                                     selected={fields.priority === Priority.HIGH}
                                 ></RadioButton>
                                 <RadioButton
                                     description="You pay a moderate amount of fees so miners will probably confirm your transaction soon."
                                     name={Priority[Priority.MEDIUM]}
-                                    onClick={() => updateFieldByName("priority", Priority.MEDIUM)}
+                                    onClick={() => updateFieldByKey("priority", Priority.MEDIUM)}
                                     selected={fields.priority === Priority.MEDIUM}
                                 ></RadioButton>
                                 <RadioButton
                                     description="You pay the lowest fees but might have to wait a few more blocks for your transaction to be confirmed."
                                     name={Priority[Priority.LOW]}
-                                    onClick={() => updateFieldByName("priority", Priority.LOW)}
+                                    onClick={() => updateFieldByKey("priority", Priority.LOW)}
                                     selected={fields.priority === Priority.LOW}
                                 ></RadioButton>
                             </div>
@@ -273,11 +276,14 @@ export const Accept = () => {
                             return <Spinner className="h-20 bg-transparent"></Spinner>
                         case State.SUCCESS:
                             return <span className="p-10 text-teal-400 text-bold">SUCCESS</span>
-                        case State.FAILURE:
+                        case State.ERROR:
                             return < div className="flex flex-col">
                                 <p className="pb-4 text-red-400 text-bold">{errorMessage}</p>
                                 <SubmitButton borderColor="gray" label="Try again" onClick={submitHandler}></SubmitButton>
                             </div>
+                        case State.FAILURE:
+                            return <p className="pb-4 text-xl text-red-400 text-bold">{errorMessage}</p>
+                           
                     }
                 })()}
             </>

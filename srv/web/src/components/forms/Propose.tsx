@@ -8,10 +8,11 @@ import { ReactComponent as Exclamation } from "../../icons/exclamation.svg"
 import { Form } from "./Form"
 import { Spinner } from "../Spinner"
 import { State, Currency, Network, Timelock, Priority } from "./enums"
+
 export const Propose = () => {
     // Application stae for handling the flow
     const [state, setState] = useState(State.IDLE)
-    
+
     // Used to display helpful error messages to the user
     const [errorMessage, setErrorMessage] = useState("")
 
@@ -88,9 +89,12 @@ export const Propose = () => {
     // Go back to idle when the user fixes their input errors.
     // Does nothing if the accs is already running
     useEffect(() => {
-        if (state !== State.RUNNING && validate() === "") {
-            setErrorMessage("")
-            setState(State.IDLE)
+        // Failure state is final
+        if (state !== State.FAILURE) {
+            if (state !== State.RUNNING && validate() === "") {
+                setErrorMessage("")
+                setState(State.IDLE)
+            }
         }
     }, [fields])
 
@@ -112,7 +116,7 @@ export const Propose = () => {
     const updateFieldByKey = (key: string, value: number | string) => {
         setFields({
             ...fields,
-            [name]: value
+            [key]: value
         })
     }
 
@@ -122,6 +126,7 @@ export const Propose = () => {
      */
     const submitHandler = () => {
         const validationError = validate()
+
 
         if (validationError !== "") {
             setErrorMessage(validationError)
@@ -136,7 +141,7 @@ export const Propose = () => {
             if (Math.random() > 0.5) {
                 setState(State.SUCCESS)
             } else {
-                setState(State.FAILURE)
+                setState(State.ERROR)
                 setErrorMessage("Nico didn't do his job, should we fire him?")
             }
         }, 5000)
@@ -365,11 +370,14 @@ export const Propose = () => {
                                 return <Spinner className="h-20 bg-transparent"></Spinner>
                             case State.SUCCESS:
                                 return <span className="p-10 text-teal-400 text-bold">SUCCESS</span>
-                            case State.FAILURE:
+                            case State.ERROR:
                                 return < div className="flex flex-col">
                                     <p className="pb-4 text-red-400 text-bold">{errorMessage}</p>
                                     <SubmitButton borderColor="gray" label="Try again" onClick={submitHandler}></SubmitButton>
                                 </div>
+                            case State.FAILURE:
+                                return <p className="pb-4 text-xl text-red-400 text-bold">{errorMessage}</p>
+                                
                         }
                     })()}
                 </>

@@ -3,6 +3,7 @@ export enum State {
   INVALID_INPUT,
   RUNNING,
   SUCCESS,
+  ERROR,
   FAILURE,
 }
 
