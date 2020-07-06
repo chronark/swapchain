@@ -111,7 +111,7 @@ export const Table = (props: Props) => {
                                 <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-700 uppercase bg-white-100">
                                     <div className="flex">
                                         <span>Amount You Pay</span>
-                                        {sortedByRate === 1 ?
+                                        {sortedByAmountYouPay === 1 ?
                                             <ChevronUp onClick={toggleSortByAmountYouPay} className="w-4 h-4 ml-1 text-gray-600 hover:text-gray-900"></ChevronUp>
                                             :
                                             <ChevronDown onClick={toggleSortByAmountYouPay} className="w-4 h-4 ml-1 text-gray-600 hover:text-gray-900"></ChevronDown>

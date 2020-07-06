@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`only name and description renders correctly 1`] = `
+<div
+  className="relative flex justify-between items-center border rounded border-gray-200 bg-gray-100"
+>
+  <div
+    className="flex flex-col items-start p-4"
+  >
+    <span
+      className="text-left font-bold text-gray-600"
+    >
+      name
+    </span>
+    <p
+      className="text-sm text-left text-gray-400"
+    >
+      description
+    </p>
+  </div>
+  <div
+    className="flex flex-col items-center justify-center"
+  >
+    <span
+      className="p-1 m-1 text-xs font-thin text-gray-500"
+    />
+    <span
+      className="mb-4 mr-4 text-3xl font-bold hidden md:block text-gray-300"
+    />
+  </div>
+</div>
+`;
+
+exports[`with all attributes renders correctly 1`] = `
+<div
+  className="relative flex justify-between items-center border rounded border-gray-200 bg-gray-100"
+>
+  <div
+    className="flex flex-col items-start p-4"
+  >
+    <span
+      className="text-left font-bold text-gray-600"
+    >
+      name
+    </span>
+    <p
+      className="text-sm text-left text-gray-400"
+    >
+      description
+    </p>
+  </div>
+  <div
+    className="flex flex-col items-center justify-center"
+  >
+    <span
+      className="p-1 m-1 text-xs font-thin text-gray-500"
+    >
+      hint
+    </span>
+    <span
+      className="mb-4 mr-4 text-3xl font-bold hidden md:block text-gray-300"
+    >
+      tag
+    </span>
+  </div>
+</div>
+`;
+
+exports[`without hint renders correctly 1`] = `
+<div
+  className="relative flex justify-between items-center border rounded border-gray-200 bg-gray-100"
+>
+  <div
+    className="flex flex-col items-start p-4"
+  >
+    <span
+      className="text-left font-bold text-gray-600"
+    >
+      name
+    </span>
+    <p
+      className="text-sm text-left text-gray-400"
+    >
+      description
+    </p>
+  </div>
+  <div
+    className="flex flex-col items-center justify-center"
+  >
+    <span
+      className="p-1 m-1 text-xs font-thin text-gray-500"
+    />
+    <span
+      className="mb-4 mr-4 text-3xl font-bold hidden md:block text-gray-300"
+    >
+      tag
+    </span>
+  </div>
+</div>
+`;
+
+exports[`without tag renders correctly 1`] = `
+<div
+  className="relative flex justify-between items-center border rounded border-gray-200 bg-gray-100"
+>
+  <div
+    className="flex flex-col items-start p-4"
+  >
+    <span
+      className="text-left font-bold text-gray-600"
+    >
+      name
+    </span>
+    <p
+      className="text-sm text-left text-gray-400"
+    >
+      description
+    </p>
+  </div>
+  <div
+    className="flex flex-col items-center justify-center"
+  >
+    <span
+      className="p-1 m-1 text-xs font-thin text-gray-500"
+    >
+      hint
+    </span>
+    <span
+      className="mb-4 mr-4 text-3xl font-bold hidden md:block text-gray-300"
+    >
+      tag
+    </span>
+  </div>
+</div>
+`;

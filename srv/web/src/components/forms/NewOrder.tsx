@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { fakeAddress, getPublicKey } from "../../util"
-import { CryptoChoice } from "./CryptoChoice"
-import { NetworkChoice } from "./NetworkChoice"
-import { ParameterChoice } from "./PriorityChoice"
+import { RadioButton } from "./RadioButton"
 import { Label } from "./Label"
 import { Input } from "./Input"
 import { SubmitButton } from "./SubmitButton"
@@ -119,10 +117,10 @@ export const NewOrder = () => {
                 <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 justify-center">
 
                     <button className="flex-grow focus:outline-none" onClick={() => updateFieldByName("networkToTrade", Network.MAINNET)}>
-                        <NetworkChoice name="Mainnet" selected={fields.networkToTrade === Network.MAINNET}></NetworkChoice>
+                        <RadioButton name="Mainnet" selected={fields.networkToTrade === Network.MAINNET}></RadioButton>
                     </button>
                     <button className="flex-grow focus:outline-none" onClick={() => updateFieldByName("networkToTrade", Network.TESTNET)}>
-                        <NetworkChoice name="Testnet" selected={fields.networkToTrade === Network.TESTNET}></NetworkChoice>
+                        <RadioButton name="Testnet" selected={fields.networkToTrade === Network.TESTNET}></RadioButton>
                     </button>
 
                 </div>
@@ -131,42 +129,41 @@ export const NewOrder = () => {
             <section className="mt-8">
                 <Label label="What do you want to trade"></Label>
                 <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 justify-center">
-
                     <button className="flex-grow focus:outline-none" onClick={() => updateFieldByName("currencyToGive", Currency.BTC)}>
-                        <CryptoChoice label="BTC" name="Bitcoin" selected={fields.currencyToGive === Currency.BTC}></CryptoChoice>
+                        <RadioButton description="You are giving Bitcoin away" tag="BTC" name="Bitcoin" selected={fields.currencyToGive === Currency.BTC}></RadioButton>
                     </button>
                     <button className="flex-grow focus:outline-none" onClick={() => updateFieldByName("currencyToGive", Currency.BTS)}>
-                        <CryptoChoice label="BTS" name="Bitshares" selected={fields.currencyToGive === Currency.BTS}></CryptoChoice>
+                        <RadioButton tag="BTS" name="Bitshares" selected={fields.currencyToGive === Currency.BTS}></RadioButton>
                     </button>
                 </div>
             </section>
 
-            <section className="items-center justify-between mt-12 -mx-3 md:flex">
+            <section className="items-center justify-between mt-12 md:space-x-4 md:flex">
 
-                <div className="flex-grow p-2">
+                <div className="flex-grow">
                     <Label label="Amount to send"></Label>
                     <div className="relative">
                         <span className="absolute inset-y-0 right-0 flex items-center mr-6 text-sm text-gray-600">
                             {rateUnit()[0]}           </span>
-                        <Input name="amountToSend" value={fields.amountToSend} onChange={updateField} type="number" placeholder="0.00000"></Input>
+                        <Input min={0} step={0.00000001 } name="amountToSend" value={fields.amountToSend} onChange={updateField} type="number" placeholder="0.00000000"></Input>
                     </div>
                 </div>
-                <div className="flex-grow p-2">
+                <div className="flex-grow">
                     <Label label="Rate"></Label>
                     <div className="relative">
                         <div className="absolute inset-y-0 right-0 flex flex-col items-center justify-center mr-6 text-xs text-gray-600">
                             <span>{rateUnit()[1]}</span>
                             <span className="border-t border-gray-500">{rateUnit()[0]}</span>
                         </div>
-                        <Input name="rate" value={fields.rate} onChange={updateField} type="number" placeholder="0.00000"></Input>
-                    </div> 
+                        <Input min={0} step={0.00000001 }name="rate" value={fields.rate} onChange={updateField} type="number" placeholder="0.0000"></Input>
+                    </div>
                 </div>
-                <div className="flex-grow p-2">
+                <div className="flex-grow">
                     <Label label="excluding fees you will receive"></Label>
                     <div className="relative">
                         <span className="absolute inset-y-0 right-0 flex items-center mr-6 text-sm text-gray-600">
                             {rateUnit()[1]}           </span>
-                        <span className="block w-full py-3 text-center text-gray-700 rounded">{fields.amountYouReceive}</span>
+                        <span className="block w-full py-3 text-center text-gray-700 border border-gray-200 rounded focus:border-teal-500">{fields.amountYouReceive}</span>
                     </div>
                 </div>
             </section>
@@ -219,13 +216,13 @@ export const NewOrder = () => {
                 <Label label="Choose your timelock"></Label>
                 <div className="flex items-center -mx-3">
                     <button className="w-1/3 px-3 focus:outline-none" onClick={() => updateFieldByName("timelockDuration", Timelock.SHORT)}>
-                        <ParameterChoice label={Timelock[Timelock.SHORT]} description="You pay the highest fees to increase the chance for your transaction to be picked up by the miners." selected={fields.timelockDuration === Timelock.SHORT}></ParameterChoice>
+                        <RadioButton name={Timelock[Timelock.SHORT]} description="You pay the highest fees to increase the chance for your transaction to be picked up by the miners." selected={fields.timelockDuration === Timelock.SHORT}></RadioButton>
                     </button>
                     <button className="w-1/3 px-3 focus:outline-none" onClick={() => updateFieldByName("timelockDuration", Timelock.MEDIUM)}>
-                        <ParameterChoice label={Timelock[Timelock.MEDIUM]} description="You pay a moderate amount of fees so miners will probably confirm your transaction soon." selected={fields.timelockDuration === Timelock.MEDIUM}></ParameterChoice>
+                        <RadioButton name={Timelock[Timelock.MEDIUM]} description="You pay a moderate amount of fees so miners will probably confirm your transaction soon." selected={fields.timelockDuration === Timelock.MEDIUM}></RadioButton>
                     </button>
                     <button className="w-1/3 px-3 focus:outline-none" onClick={() => updateFieldByName("timelockDuration", Timelock.LONG)}>
-                        <ParameterChoice label={Timelock[Timelock.LONG]} description="You pay the lowest fees but might have to wait a few more blocks for your transaction to be confirmed." selected={fields.timelockDuration === Timelock.LONG}></ParameterChoice>
+                        <RadioButton name={Timelock[Timelock.LONG]} description="You pay the lowest fees but might have to wait a few more blocks for your transaction to be confirmed." selected={fields.timelockDuration === Timelock.LONG}></RadioButton>
                     </button>
                 </div>
             </section>
@@ -234,13 +231,13 @@ export const NewOrder = () => {
                 <Label label="Choose your priority"></Label>
                 <div className="flex items-center -mx-3">
                     <button className="w-1/3 px-3 focus:outline-none" onClick={() => updateFieldByName("priority", Priority.HIGH)}>
-                        <ParameterChoice label={Priority[Priority.HIGH]} description="You pay the highest fees to increase the chance for your transaction to be picked up by the miners." selected={fields.priority === Priority.HIGH}></ParameterChoice>
+                        <RadioButton name={Priority[Priority.HIGH]} description="You pay the highest fees to increase the chance for your transaction to be picked up by the miners." selected={fields.priority === Priority.HIGH}></RadioButton>
                     </button>
                     <button className="w-1/3 px-3 focus:outline-none" onClick={() => updateFieldByName("priority", Priority.MEDIUM)}>
-                        <ParameterChoice label={Priority[Priority.MEDIUM]} description="You pay a moderate amount of fees so miners will probably confirm your transaction soon." selected={fields.priority === Priority.MEDIUM}></ParameterChoice>
+                        <RadioButton name={Priority[Priority.MEDIUM]} description="You pay a moderate amount of fees so miners will probably confirm your transaction soon." selected={fields.priority === Priority.MEDIUM}></RadioButton>
                     </button>
                     <button className="w-1/3 px-3 focus:outline-none" onClick={() => updateFieldByName("priority", Priority.LOW)}>
-                        <ParameterChoice label={Priority[Priority.LOW]} description="You pay the lowest fees but might have to wait a few more blocks for your transaction to be confirmed." selected={fields.priority === Priority.LOW}></ParameterChoice>
+                        <RadioButton name={Priority[Priority.LOW]} description="You pay the lowest fees but might have to wait a few more blocks for your transaction to be confirmed." selected={fields.priority === Priority.LOW}></RadioButton>
                     </button>
                 </div>
             </section>
@@ -251,6 +248,6 @@ export const NewOrder = () => {
 
 
             </footer>
-        </div>
+        </div >
     )
 }

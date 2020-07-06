@@ -9,22 +9,25 @@ export const LandingPage = () => {
     return (
         <div>
             <Modal title="Choose what you want to do" open={modalOpen} close={() => setModalOpen(false)}>
-            <div className="flex flex-col items-center w-full">
+                <div className="flex flex-col items-center w-full">
 
-                <div className="flex flex-col items-center mt-4 space-y-4 md:space-y-0 md:space-x-4 md:flex-row">
-                    <Link to="/propose" className="flex flex-col justify-center w-full h-24 px-4 text-left bg-gray-100 border border-gray-200 rounded-sm md:w-1/2 hover:border-teal-400 hover:bg-white">
+                    <div className="flex flex-col items-center mt-4 space-y-4 md:space-y-0 md:space-x-4 md:flex-row">
+                        <Link to="/propose" className="flex flex-col justify-center w-full h-24 px-4 text-left bg-gray-100 border border-gray-200 rounded-sm md:w-1/2 hover:border-teal-400 hover:bg-white">
 
-                        <span className="font-bold text-gray-900">Propose</span>
-                        <p className="text-sm text-gray-500">a new Atomic Cross Chain Swap</p>
-                    </Link>
+                            <span className="font-bold text-gray-900">Propose</span>
+                            <p className="text-sm text-gray-500">a new Atomic Cross Chain Swap</p>
+                        </Link>
 
-                    <Link to="/accept" className="flex flex-col justify-center w-full h-24 px-4 text-left bg-gray-100 border border-gray-200 rounded-sm md:w-1/2 hover:border-teal-400 hover:bg-white">
-                        <span className="font-bold text-gray-900 ">Accept</span>
-                        <p className="text-sm text-gray-500">an Atomic Cross Chain Swap proposal</p>
-                    </Link></div>
+                        <Link to="/accept" className="flex flex-col justify-center w-full h-24 px-4 text-left bg-gray-100 border border-gray-200 rounded-sm md:w-1/2 hover:border-teal-400 hover:bg-white">
+                            <span className="font-bold text-gray-900 ">Accept</span>
+                            <p className="text-sm text-gray-500">an Atomic Cross Chain Swap proposal</p>
+                        </Link></div>
                     <p className="mt-4 text-sm text-gray-600">Lorem Ipsum more information about what this is an so on.</p>
-            </div>
+                </div>
             </Modal>
+
+
+
             <div className="container mx-auto mt-4 md:mt-20 lg:px-16 xl:px-20">
                 <div className="flex items-center">
                     <main className="max-w-screen-xl px-4 mx-auto mt-10 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
@@ -40,8 +43,8 @@ export const LandingPage = () => {
                                     <button onClick={() => setModalOpen(true)} className="flex items-center justify-center px-8 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-teal-500 border border-transparent rounded-sm hover:bg-teal-400 focus:outline-none md:py-4 md:text-lg md:px-10">Trade now</button>
                                 </div>
                                 <div className="mt-3 sm:mt-0 sm:ml-3">
-                                    <a href="/" className="flex items-center justify-center px-8 py-3 text-base font-medium leading-6 text-teal-700 transition duration-150 ease-in-out bg-teal-100 border border-transparent rounded-sm hover:text-teal-500 focus:outline-none md:py-4 md:text-lg md:px-10">
-                                        View orders</a>
+                                    <a href="https://github.com/chronark/swapchain" className="flex items-center justify-center px-8 py-3 text-base font-medium leading-6 text-teal-700 transition duration-150 ease-in-out bg-teal-100 border border-transparent rounded-sm hover:text-teal-500 focus:outline-none md:py-4 md:text-lg md:px-10">
+                                        Learn more</a>
                                 </div>
                             </div>
                         </div>

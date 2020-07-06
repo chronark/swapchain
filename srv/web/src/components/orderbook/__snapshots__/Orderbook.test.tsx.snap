@@ -47,19 +47,19 @@ exports[`renders correctly 1`] = `
           className="mt-2 ml-2"
         >
           <button
-            className="focus:outline-none px-2 py-1 mx-2 text-xs font-semibold  uppercase  rounded hover:bg-gray-300 hover:text-gray-900 text-gray-800 bg-gray-100"
+            className="focus:outline-none px-2 py-1 mx-2 text-xs font-semibold border border-transparent  uppercase  rounded hover:bg-gray-300 hover:text-gray-900 text-gray-800 bg-gray-100"
             onClick={[Function]}
           >
             active
           </button>
           <button
-            className="focus:outline-none px-2 py-1 mx-2 text-xs font-semibold  uppercase  rounded hover:bg-gray-300 hover:text-gray-900 text-gray-800 bg-gray-100"
+            className="focus:outline-none px-2 py-1 mx-2 text-xs font-semibold border border-transparent  uppercase  rounded hover:bg-gray-300 hover:text-gray-900 text-gray-800 bg-gray-100"
             onClick={[Function]}
           >
             expired
           </button>
           <button
-            className="focus:outline-none px-2 py-1 mx-2 text-xs font-semibold  uppercase  rounded hover:bg-gray-300 hover:text-gray-900 text-gray-800 bg-gray-100"
+            className="focus:outline-none px-2 py-1 mx-2 text-xs font-semibold border border-transparent  uppercase  rounded hover:bg-gray-300 hover:text-gray-900 text-gray-800 bg-gray-100"
             onClick={[Function]}
           >
             fulfilled
@@ -75,72 +75,19 @@ exports[`renders correctly 1`] = `
           <span
             className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
           >
-            date picker
-          </span>
-          <div
-            className="mt-2 ml-2"
-          >
-            <div
-              className="react-datepicker-wrapper"
-            >
-              <div
-                className="react-datepicker__input-container"
-              >
-                <input
-                  className=""
-                  disabled={false}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  readOnly={false}
-                  type="text"
-                  value="06/17/2020"
-                />
-              </div>
-            </div>
-            <div
-              className="react-datepicker-wrapper"
-            >
-              <div
-                className="react-datepicker__input-container"
-              >
-                <input
-                  className=""
-                  disabled={false}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  readOnly={false}
-                  type="text"
-                  value="07/17/2020"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="mt-8"
-        >
-          <span
-            className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
-          >
             asset you pay
           </span>
           <div
             className="mt-2 ml-2"
           >
             <button
-              className="focus:outline-none px-2 py-1 mx-2 text-xs font-semibold  uppercase  rounded hover:bg-gray-300 hover:text-gray-900 text-gray-800 bg-gray-100"
+              className="focus:outline-none px-2 py-1 mx-2 text-xs font-semibold border border-transparent  uppercase  rounded hover:bg-gray-300 hover:text-gray-900 text-gray-800 bg-gray-100"
               onClick={[Function]}
             >
               BTC
             </button>
             <button
-              className="focus:outline-none px-2 py-1 mx-2 text-xs font-semibold  uppercase  rounded hover:bg-gray-300 hover:text-gray-900 text-gray-800 bg-gray-100"
+              className="focus:outline-none px-2 py-1 mx-2 text-xs font-semibold border border-transparent  uppercase  rounded hover:bg-gray-300 hover:text-gray-900 text-gray-800 bg-gray-100"
               onClick={[Function]}
             >
               BTS

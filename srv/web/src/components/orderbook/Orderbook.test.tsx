@@ -1,5 +1,5 @@
 import React from "react"
-import Orderbook, { Order } from "./Orderbook"
+import {Orderbook, Order } from "./Orderbook"
 import renderer from "react-test-renderer"
 
 jest.spyOn(Math, "random").mockImplementation(() => 1)
@@ -10,8 +10,8 @@ it("renders correctly", () => {
   const order: Order = {
     selected: true,
     addressHash: "asdf",
-    created: new Date(),
-    validUntil: new Date(),
+    created: new Date(1),
+    validUntil: new Date(1),
     status: { label: "label", color: "red" },
     give: {
       asset: "BTC",
