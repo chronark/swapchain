@@ -513,7 +513,7 @@ exports[`renders correctly 1`] = `
             <p
               className="px-4 mx-auto mt-2 text-sm text-center text-gray-500"
             >
-              By design one block should equal 10 minutes. However it can differ quite a lot in reality. We suggest leaving this at SHORT and scheduling with your counterparty accordingly.
+              By design one block should equal 10 minutes. However it can differ quite a lot in reality. We suggest leaving this at SHORT and scheduling with your counterparty accordingly. Please make sure you tell your trading partner what you chose because these values must match.
             </p>
           </div>
         </section>
