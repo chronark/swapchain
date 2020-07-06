@@ -9,7 +9,7 @@ export const fakeKey = (length: number, network: string) => {
   } else {
     throw new Error("Invalid network name. Choose mainnet or testnet.")
   }
-  
+
   return prefix + hash(Math.random().toString()).substring(0, length) + "..."
 }
 
