@@ -1,4 +1,4 @@
-import ACCS, { ACCSConfig } from "./accs"
+import ACCS, { ACCSConfig, ACCSFields } from "./accs"
 import readline from "readline"
 import * as bitcoin from "bitcoinjs-lib"
 import { mocked } from "ts-jest/utils"
@@ -7,132 +7,276 @@ import { getAccount } from "../pkg/bitshares/util"
 jest.mock("../pkg/bitshares/util")
 console.log = jest.fn()
 
-describe("parseUserInput()", () => {})
-
-describe("run()", () => {
-  const defaultConfig = {
-    txTypeName: "BTS/BTC",
-    priority: 0,
-    accountBTS: "testBTSAccount",
-    privateKeyBTS: "testBTSPrivateKey",
-    accountCounterpartyBTS: "testBTSCounterpartyAccount",
-    amount: "0.001",
-    rateBTSBTC: 500000,
-    amountBTSMini: 50000000,
-    amountSatoshi: 100000,
-    keyPairCompressedBTC: bitcoin.ECPair.fromPrivateKey(
-      bitcoin.ECPair.fromWIF("cTZs9RHsw3nDt98nDNSw3BDs53yaWmQkDFaF8MtBWEMkPMrg42t5", bitcoin.networks.testnet)
-        .privateKey!,
-      { compressed: true },
-    ),
-    keyPairCounterpartyCompressedBTC: bitcoin.ECPair.fromPublicKey(
-      Buffer.from("03c11fe663a2e72b2c0a67d23235d5320d6d7efede7c99f1322b05665e15d129ed", "hex"),
-      {
-        compressed: true,
-      },
-    ),
-    timelockBTC: 6,
-    timelockBTS: 3000,
-    secret: {
-      preimage: "TOPSECRETTOPSECRETTOPSECRETTOPSE",
-      hash: bitcoin.crypto.sha256(Buffer.from("TOPSECRETTOPSECRETTOPSECRETTOPSE")),
-    },
-    txIdBTC: "testBTCTxID",
-  }
-
-  it("calls proposeBTSForBTC", async () => {
-    const accs = new ACCS("mainnet")
-    accs.setConfig({
-      txType: "1",
-      txMode: "proposer",
-      ...defaultConfig,
-    })
-    const mock = jest.spyOn(accs, "proposeBTSForBTC").mockImplementation(() => Promise.resolve())
-
-    await accs.run()
-    expect(mock).toHaveBeenCalledTimes(1)
-  })
-
-  it("calls proposeBTCForBTS", async () => {
-    const accs = new ACCS("mainnet")
-    accs.setConfig({
-      txType: "2",
-      txMode: "proposer",
-      ...defaultConfig,
-    })
-    const mock = jest.spyOn(accs, "proposeBTCForBTS").mockImplementation(() => Promise.resolve())
-
-    await accs.run()
-    expect(mock).toHaveBeenCalledTimes(1)
-  })
-
-  it("calls takeBTSForBTC", async () => {
-    const accs = new ACCS("mainnet")
-    accs.setConfig({
-      txType: "1",
-      txMode: "taker",
-      ...defaultConfig,
-    })
-    const mock = jest.spyOn(accs, "takeBTSForBTC").mockImplementation(() => Promise.resolve())
-
-    await accs.run()
-    expect(mock).toHaveBeenCalledTimes(1)
-  })
-
-  it("calls takeBTCForBTS", async () => {
-    const accs = new ACCS("mainnet")
-    accs.setConfig({
-      txType: "2",
-      txMode: "taker",
-      ...defaultConfig,
-    })
-    const mock = jest.spyOn(accs, "takeBTCForBTS").mockImplementation(() => Promise.resolve())
-
-    await accs.run()
-    expect(mock).toHaveBeenCalledTimes(1)
-  })
+beforeEach(() => {
+  jest.resetAllMocks()
 })
 
-describe("main()", () => {
-  it("asks for user input and runs afterwards", async () => {
-    const config: ACCSConfig = {
-      txMode: "proposer",
-      txType: "1",
-      txTypeName: "BTS/BTC",
+describe("parseUserInput()", () => {
+  it("parses the raw user input correctly and returns an ACCS config for BTC testnet", async () => {
+    mocked(getAccount).mockResolvedValue("testAccount")
+    const preimage = "TOPSECRETTOPSECRETTOPSECRETTOPSE"
+    const secretObject = {
+      preimage,
+      hash: bitcoin.crypto.sha256(Buffer.from(preimage)),
+    }
+    jest.spyOn(Timer.prototype, "toBTS").mockResolvedValue(3600)
+
+    const fields: ACCSFields = {
+      mode: "proposer",
+      networkToTrade: "testnet",
+      currencyToGive: "BTC",
+      amountToSend: 0.001,
+      rate: 200000,
+      amountToReceive: 200,
       priority: 0,
-      accountBTS: "testBTSAccount",
-      privateKeyBTS: "testBTSPrivateKey",
-      accountCounterpartyBTS: "testBTSCounterpartyAccount",
-      amount: "0.001",
-      rateBTSBTC: 500000,
-      amountBTSMini: 50000000,
-      amountSatoshi: 100000,
+      bitcoinPrivateKey: "cVPwsbE8HNMCoLGz8N4R2SfyQTMQzznL9x3vEHJqPtuZ1rhBkTo7",
+      bitsharesPrivateKey: "5Z89Ve18ttnu7Ymd1nnCMsnGkfKk4KQnsfFrYEz7Cmw39FAMOSS",
+      counterpartyBitcoinPublicKey: "034c7ddacc16fa5e53aa5dc19748e3877ba07b981fdbbcdb97b8b19de240241f61",
+      counterpartyBitsharesAccountName: "testBTSCounterpartyAccount",
+      timelock: 6,
+      secret: secretObject,
+      bitcoinTxID: "testBTCTxID",
+    }
+
+    const expectedConfig: ACCSConfig = {
+      mode: "proposer",
+      networkName: "testnet",
+      network: bitcoin.networks.testnet,
+      type: "BTC",
+      priority: 0,
+      bitsharesAccount: "testAccount",
+      bitsharesPrivateKey: "5Z89Ve18ttnu7Ymd1nnCMsnGkfKk4KQnsfFrYEz7Cmw39FAMOSS",
       keyPairCompressedBTC: bitcoin.ECPair.fromPrivateKey(
-        bitcoin.ECPair.fromWIF("cTZs9RHsw3nDt98nDNSw3BDs53yaWmQkDFaF8MtBWEMkPMrg42t5", bitcoin.networks.testnet)
+        bitcoin.ECPair.fromWIF("cVPwsbE8HNMCoLGz8N4R2SfyQTMQzznL9x3vEHJqPtuZ1rhBkTo7", bitcoin.networks.testnet)
           .privateKey!,
         { compressed: true },
       ),
-      keyPairCounterpartyCompressedBTC: bitcoin.ECPair.fromPublicKey(
-        Buffer.from("03c11fe663a2e72b2c0a67d23235d5320d6d7efede7c99f1322b05665e15d129ed", "hex"),
+      counterpartyKeyPairCompressedBTC: bitcoin.ECPair.fromPublicKey(
+        Buffer.from("034c7ddacc16fa5e53aa5dc19748e3877ba07b981fdbbcdb97b8b19de240241f61", "hex"),
         {
           compressed: true,
         },
       ),
+      counterpartyBitsharesAccountName: "testBTSCounterpartyAccount",
       timelockBTC: 6,
-      timelockBTS: 3000,
-      secret: {
-        preimage: "TOPSECRETTOPSECRETTOPSECRETTOPSE",
-        hash: bitcoin.crypto.sha256(Buffer.from("TOPSECRETTOPSECRETTOPSECRETTOPSE")),
-      },
-      txIdBTC: "testBTCTxID",
+      timelockBTS: 3600,
+      amountBTSMini: 20000000,
+      amountSatoshi: 100000,
+      secret: secretObject,
+      bitcoinTxID: "testBTCTxID",
+      bitsharesAsset: "TEST",
+      bitsharesEndpoint: "wss://testnet.dex.trading",
     }
 
-    const accs = new ACCS("testnet")
-    const getUserInputMock = jest.spyOn(accs, "getUserInput").mockResolvedValue(config)
-    const runMock = jest.spyOn(accs, "run").mockResolvedValue()
+    const config = await ACCS.parseUserInput(fields)
 
-    await accs.main()
-    expect(getUserInputMock).toHaveBeenCalledTimes(1)
-    expect(runMock).toHaveBeenCalledTimes(1)
+    expect(config.mode).toBe(expectedConfig.mode)
+    expect(config.networkName).toBe(expectedConfig.networkName)
+    expect(config.bitsharesPrivateKey).toBe(expectedConfig.bitsharesPrivateKey)
+    expect(JSON.stringify(config.network)).toBe(JSON.stringify(expectedConfig.network))
+    expect(JSON.stringify(config.keyPairCompressedBTC)).toBe(JSON.stringify(expectedConfig.keyPairCompressedBTC))
+    expect(JSON.stringify(config.counterpartyKeyPairCompressedBTC)).toBe(
+      JSON.stringify(expectedConfig.counterpartyKeyPairCompressedBTC),
+    )
+    expect(config.amountBTSMini).toBe(expectedConfig.amountBTSMini)
+    expect(config.amountSatoshi).toBe(expectedConfig.amountSatoshi)
+    expect(config.timelockBTC).toBe(expectedConfig.timelockBTC)
+    expect(config.timelockBTS).toBe(expectedConfig.timelockBTS)
+    expect(config.bitsharesEndpoint).toBe(expectedConfig.bitsharesEndpoint)
+  })
+
+  it("parses the raw user input correctly and returns an ACCS config for BTS mainnet", async () => {
+    mocked(getAccount).mockResolvedValue("testAccount")
+    const preimage = "TOPSECRETTOPSECRETTOPSECRETTOPSE"
+    const secretObject = {
+      preimage,
+      hash: bitcoin.crypto.sha256(Buffer.from(preimage)),
+    }
+    jest.spyOn(Timer.prototype, "toBTS").mockResolvedValue(3600)
+
+    const fields: ACCSFields = {
+      mode: "proposer",
+      networkToTrade: "mainnet",
+      currencyToGive: "BTS",
+      amountToSend: 200,
+      rate: 200000,
+      amountToReceive: 0.001,
+      priority: 0,
+      bitcoinPrivateKey: "L2kFjyRuJ3gEUwgw7JGRP72b4Fmgcw7kXX793BKNCXJvDfNHebRC",
+      bitsharesPrivateKey: "5Z89Ve18ttnu7Ymd1nnCMsnGkfKk4KQnsfFrYEz7Cmw39FAMOSS",
+      counterpartyBitcoinPublicKey: "034c7ddacc16fa5e53aa5dc19748e3877ba07b981fdbbcdb97b8b19de240241f61",
+      counterpartyBitsharesAccountName: "testBTSCounterpartyAccount",
+      timelock: 6,
+      secret: secretObject,
+      bitcoinTxID: "testBTCTxID",
+    }
+
+    const expectedConfig: ACCSConfig = {
+      mode: "proposer",
+      networkName: "mainnet",
+      network: bitcoin.networks.bitcoin,
+      type: "BTS",
+      priority: 0,
+      bitsharesAccount: "testAccount",
+      bitsharesPrivateKey: "5Z89Ve18ttnu7Ymd1nnCMsnGkfKk4KQnsfFrYEz7Cmw39FAMOSS",
+      keyPairCompressedBTC: bitcoin.ECPair.fromPrivateKey(
+        bitcoin.ECPair.fromWIF("L2kFjyRuJ3gEUwgw7JGRP72b4Fmgcw7kXX793BKNCXJvDfNHebRC", bitcoin.networks.bitcoin)
+          .privateKey!,
+        { compressed: true },
+      ),
+      counterpartyKeyPairCompressedBTC: bitcoin.ECPair.fromPublicKey(
+        Buffer.from("034c7ddacc16fa5e53aa5dc19748e3877ba07b981fdbbcdb97b8b19de240241f61", "hex"),
+        {
+          compressed: true,
+        },
+      ),
+      counterpartyBitsharesAccountName: "testBTSCounterpartyAccount",
+      timelockBTC: 6,
+      timelockBTS: 3600,
+      amountBTSMini: 20000000,
+      amountSatoshi: 100000,
+      secret: secretObject,
+      bitcoinTxID: "testBTCTxID",
+      bitsharesAsset: "BTS",
+      bitsharesEndpoint: "wss://api.dex.trading/",
+    }
+
+    const config = await ACCS.parseUserInput(fields)
+
+    expect(config.mode).toBe(expectedConfig.mode)
+    expect(config.networkName).toBe(expectedConfig.networkName)
+    expect(config.bitsharesPrivateKey).toBe(expectedConfig.bitsharesPrivateKey)
+    expect(JSON.stringify(config.network)).toBe(JSON.stringify(expectedConfig.network))
+    expect(JSON.stringify(config.keyPairCompressedBTC)).toBe(JSON.stringify(expectedConfig.keyPairCompressedBTC))
+    expect(JSON.stringify(config.counterpartyKeyPairCompressedBTC)).toBe(
+      JSON.stringify(expectedConfig.counterpartyKeyPairCompressedBTC),
+    )
+    expect(config.amountBTSMini).toBe(expectedConfig.amountBTSMini)
+    expect(config.amountSatoshi).toBe(expectedConfig.amountSatoshi)
+    expect(config.timelockBTC).toBe(expectedConfig.timelockBTC)
+    expect(config.timelockBTS).toBe(expectedConfig.timelockBTS)
+    expect(config.bitsharesEndpoint).toBe(expectedConfig.bitsharesEndpoint)
+  })
+})
+
+describe("run()", () => {
+  const preimage = "TOPSECRETTOPSECRETTOPSECRETTOPSE"
+  const secretObject = {
+    preimage,
+    hash: bitcoin.crypto.sha256(Buffer.from(preimage)),
+  }
+
+  const fields: ACCSFields = {
+    mode: "proposer",
+    networkToTrade: "mainnet",
+    currencyToGive: "BTS",
+    amountToSend: 200,
+    rate: 200000,
+    amountToReceive: 0.001,
+    priority: 0,
+    bitcoinPrivateKey: "L2kFjyRuJ3gEUwgw7JGRP72b4Fmgcw7kXX793BKNCXJvDfNHebRC",
+    bitsharesPrivateKey: "5Z89Ve18ttnu7Ymd1nnCMsnGkfKk4KQnsfFrYEz7Cmw39FAMOSS",
+    counterpartyBitcoinPublicKey: "034c7ddacc16fa5e53aa5dc19748e3877ba07b981fdbbcdb97b8b19de240241f61",
+    counterpartyBitsharesAccountName: "testBTSCounterpartyAccount",
+    timelock: 6,
+    secret: secretObject,
+    bitcoinTxID: "testBTCTxID",
+  }
+
+  const config = {
+    networkName: "mainnet",
+    network: bitcoin.networks.bitcoin,
+    priority: 0,
+    bitsharesAccount: "testAccount",
+    bitsharesPrivateKey: "5Z89Ve18ttnu7Ymd1nnCMsnGkfKk4KQnsfFrYEz7Cmw39FAMOSS",
+    keyPairCompressedBTC: bitcoin.ECPair.fromPrivateKey(
+      bitcoin.ECPair.fromWIF("L2kFjyRuJ3gEUwgw7JGRP72b4Fmgcw7kXX793BKNCXJvDfNHebRC", bitcoin.networks.bitcoin)
+        .privateKey!,
+      { compressed: true },
+    ),
+    counterpartyKeyPairCompressedBTC: bitcoin.ECPair.fromPublicKey(
+      Buffer.from("034c7ddacc16fa5e53aa5dc19748e3877ba07b981fdbbcdb97b8b19de240241f61", "hex"),
+      {
+        compressed: true,
+      },
+    ),
+    counterpartyBitsharesAccountName: "testBTSCounterpartyAccount",
+    timelockBTC: 6,
+    timelockBTS: 3600,
+    amountBTSMini: 20000000,
+    amountSatoshi: 100000,
+    secret: secretObject,
+    bitcoinTxID: "testBTCTxID",
+    bitsharesAsset: "BTS",
+    bitsharesEndpoint: "wss://api.dex.trading/",
+  }
+
+  it("calls parseUserInput and proposeBTSForBTC", async () => {
+    const caseConfig = {
+      type: "BTC",
+      mode: "proposer",
+      ...config,
+    }
+    const mockParseUserInput = jest.spyOn(ACCS, "parseUserInput").mockImplementation(
+      async (fields: ACCSFields): Promise<ACCSConfig> => {
+        return caseConfig
+      },
+    )
+    const mockProposeBTSForBTC = jest.spyOn(ACCS, "proposeBTSForBTC").mockImplementation(() => Promise.resolve())
+
+    await ACCS.run(fields)
+    expect(mockParseUserInput).toHaveBeenCalledTimes(1)
+    expect(mockProposeBTSForBTC).toHaveBeenCalledTimes(1)
+  })
+  it("calls parseUserInput and proposeBTCForBTS", async () => {
+    const caseConfig = {
+      type: "BTS",
+      mode: "proposer",
+      ...config,
+    }
+    const mockParseUserInput = jest.spyOn(ACCS, "parseUserInput").mockImplementation(
+      async (fields: ACCSFields): Promise<ACCSConfig> => {
+        return caseConfig
+      },
+    )
+    const mockProposeBTCForBTS = jest.spyOn(ACCS, "proposeBTCForBTS").mockImplementation(() => Promise.resolve())
+
+    await ACCS.run(fields)
+    expect(mockParseUserInput).toHaveBeenCalledTimes(1)
+    expect(mockProposeBTCForBTS).toHaveBeenCalledTimes(1)
+  })
+  it("calls parseUserInput and takeBTSForBTC", async () => {
+    const caseConfig = {
+      type: "BTC",
+      mode: "accepter",
+      ...config,
+    }
+    const mockParseUserInput = jest.spyOn(ACCS, "parseUserInput").mockImplementation(
+      async (fields: ACCSFields): Promise<ACCSConfig> => {
+        return caseConfig
+      },
+    )
+    const mockTakeBTSForBTC = jest.spyOn(ACCS, "takeBTSForBTC").mockImplementation(() => Promise.resolve())
+
+    await ACCS.run(fields)
+    expect(mockParseUserInput).toHaveBeenCalledTimes(1)
+    expect(mockTakeBTSForBTC).toHaveBeenCalledTimes(1)
+  })
+  it("calls parseUserInput and takeBTCForBTS", async () => {
+    const caseConfig = {
+      type: "BTS",
+      mode: "accepter",
+      ...config,
+    }
+    const mockParseUserInput = jest.spyOn(ACCS, "parseUserInput").mockImplementation(
+      async (fields: ACCSFields): Promise<ACCSConfig> => {
+        return caseConfig
+      },
+    )
+    const mockTakeBTCForBTS = jest.spyOn(ACCS, "takeBTCForBTS").mockImplementation(() => Promise.resolve())
+
+    await ACCS.run(fields)
+    expect(mockParseUserInput).toHaveBeenCalledTimes(1)
+    expect(mockTakeBTCForBTS).toHaveBeenCalledTimes(1)
   })
 })

@@ -1,4 +1,4 @@
-import ACCS, { ACCSFields } from "../web/src/accs/accs"
+import ACCS from "../web/src/accs/accs"
 import figlet from "figlet"
 import { getUserInput } from "./getUserInput"
 
