@@ -7,9 +7,7 @@ import { getAccount } from "../pkg/bitshares/util"
 jest.mock("../pkg/bitshares/util")
 console.log = jest.fn()
 
-describe("parseUserInput()", () => {
-  
-})
+describe("parseUserInput()", () => {})
 
 describe("run()", () => {
   const defaultConfig = {

@@ -27,14 +27,16 @@ new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
   console.log("Welcome to swapchain-cli.")
   console.log("")
 
-  getUserInput().then((fields) => {
-    ACCS.run(fields).then(() => {
-      console.log("Success! Thanks for swapping with Swapchain.")
-      console.log("Bye.")
-      process.exit(0)
+  getUserInput()
+    .then((fields) => {
+      ACCS.run(fields).then(() => {
+        console.log("Success! Thanks for swapping with Swapchain.")
+        console.log("Bye.")
+        process.exit(0)
+      })
     })
-  }).catch((err) => {
-    console.error(err)
-    process.exit(1)
-  })
+    .catch((err) => {
+      console.error(err)
+      process.exit(1)
+    })
 })

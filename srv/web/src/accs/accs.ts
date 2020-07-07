@@ -164,7 +164,7 @@ export interface ACCSConfig {
    * The network name. Either mainnet or testnet.
    */
   networkName: string
-  
+
   /**
    * The asset on Bitshares blockchain. Either BTS or TEST.
    */
@@ -184,7 +184,7 @@ export interface ACCSConfig {
 export default class ACCS {
   /**
    * Parse user input to create config
-   * 
+   *
    * @param fields
    */
   public static async parseUserInput(fields: ACCSFields): Promise<ACCSConfig> {
@@ -203,7 +203,11 @@ export default class ACCS {
     config.mode = fields.mode
     config.type = fields.currencyToGive
     config.priority = fields.priority
-    config.bitsharesAccount = await getAccount(fields.bitsharesPrivateKey, config.bitsharesEndpoint, fields.networkToTrade)
+    config.bitsharesAccount = await getAccount(
+      fields.bitsharesPrivateKey,
+      config.bitsharesEndpoint,
+      fields.networkToTrade,
+    )
     config.bitsharesPrivateKey = fields.bitsharesPrivateKey
     config.counterpartyBitsharesAccountName = fields.counterpartyBitsharesAccountName
 
@@ -219,10 +223,10 @@ export default class ACCS {
     config.keyPairCompressedBTC = bitcoin.ECPair.fromPrivateKey(keyPairBTC.privateKey!, { compressed: true })
 
     config.counterpartyKeyPairCompressedBTC = bitcoin.ECPair.fromPublicKey(
-        Buffer.from(fields.counterpartyBitcoinPublicKey, "hex"),
-        {
-          compressed: true,
-        },
+      Buffer.from(fields.counterpartyBitcoinPublicKey, "hex"),
+      {
+        compressed: true,
+      },
     )
 
     config.bitcoinTxID = fields.bitcoinTxID
@@ -372,7 +376,11 @@ export default class ACCS {
     config.timelockBTC = Math.round(config.timelockBTC / 2)
 
     // Look for BTS HTLC and only continue if there is one
-    const htlcBTSAccepter = new BitsharesHTLC(config.bitsharesEndpoint, config.counterpartyBitsharesAccountName, config.bitsharesAccount)
+    const htlcBTSAccepter = new BitsharesHTLC(
+      config.bitsharesEndpoint,
+      config.counterpartyBitsharesAccountName,
+      config.bitsharesAccount,
+    )
 
     let timeToWait = 120 / 2 // We only check API every 2 seconds
 
@@ -496,7 +504,11 @@ export default class ACCS {
 
     console.log(`Found the HTLC for you on Bitcoin ${config.networkName}!`)
     // Create BTS HTLC
-    const htlcBTSAccepter = new BitsharesHTLC(config.bitsharesEndpoint, config.bitsharesAccount, config.counterpartyBitsharesAccountName)
+    const htlcBTSAccepter = new BitsharesHTLC(
+      config.bitsharesEndpoint,
+      config.bitsharesAccount,
+      config.counterpartyBitsharesAccountName,
+    )
 
     await htlcBTSAccepter.create({
       amount: config.amountBTSMini,
