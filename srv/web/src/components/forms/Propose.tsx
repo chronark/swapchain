@@ -12,6 +12,7 @@ import { isValidBitcoinPrivateKey, isValidBitsharesPrivateKey, isValidBitcoinPub
 import ACCS from "../../accs/accs"
 import { getSecret } from "../../pkg/secret/secret"
 import { toPublicKey } from "../../util"
+import { timeout } from "cron"
 export const Propose = () => {
     // Application stae for handling the flow
     const [state, setState] = useState(State.IDLE)
@@ -126,7 +127,7 @@ export const Propose = () => {
      * This hook handles the SubmitButton.
      * When a user thinks he is done filling out the form it is validated first and feedback is given to the user.
      */
-    const submitHandler = () => {
+    const submitHandler = async () => {
         const errorMessage = validate()
         setValid(errorMessage === "")
 
@@ -137,15 +138,14 @@ export const Propose = () => {
             return
         }
 
-
         setState(State.RUNNING)
 
-         ACCS.run(fields).then(() => {
-             setState(State.SUCCESS)
-         }).catch((err) => {
-             setState(State.ERROR)
-             setErrorMessage(err)
-         })
+        ACCS.run(fields).then(() => {
+            setState(State.SUCCESS)
+        }).catch((err) => {
+            setState(State.FAILURE)
+            setErrorMessage(err.toString())
+        })
     }
 
 
@@ -385,7 +385,7 @@ export const Propose = () => {
                             case State.SUCCESS:
                                 return <div className="flex items-center justify-center mt-8"><p className="py-4 text-xl font-bold text-teal-400 uppercase">success</p></div>
                             case State.FAILURE:
-                                return  <div className="flex items-center justify-center mt-8"><p className="py-4 text-xl font-bold text-red-500 uppercase">failure</p></div>
+                                return <div className="flex items-center justify-center mt-8"><p className="py-4 text-xl font-bold text-red-500 uppercase">failure</p></div>
 
                         }
                     }()}
@@ -404,7 +404,7 @@ export const Propose = () => {
                             case State.SUCCESS:
                                 return <p className="py-4 font-bold text-gray-700">Thank you for using swapchain.</p>
                             case State.FAILURE:
-                        return <p className="py-4 font-bold text-gray-700">{errorMessage}</p>
+                                return <p className="py-4 font-bold text-gray-700">{errorMessage}</p>
 
                         }
                     }()}
