@@ -12,6 +12,7 @@ import { State, Currency, Network, Timelock, Priority } from "./enums"
 export const Propose = () => {
     // Application stae for handling the flow
     const [state, setState] = useState(State.IDLE)
+    const [isValid, setValid] = useState(false)
 
     // Used to display helpful error messages to the user
     const [errorMessage, setErrorMessage] = useState("")
@@ -91,12 +92,13 @@ export const Propose = () => {
     useEffect(() => {
         // Failure state is final
         if (state !== State.FAILURE) {
-            if (state !== State.RUNNING && validate() === "") {
+            if (state !== State.RUNNING && isValid) {
                 setErrorMessage("")
                 setState(State.IDLE)
             }
         }
-    }, [fields])
+    }, [fields, state, isValid])
+
 
     /**
      * Update the field state from a FormEvent
@@ -125,14 +127,16 @@ export const Propose = () => {
      * When a user thinks he is done filling out the form it is validated first and feedback is given to the user.
      */
     const submitHandler = () => {
-        const validationError = validate()
-
-
-        if (validationError !== "") {
-            setErrorMessage(validationError)
+        const errorMessage = validate()
+        setValid(errorMessage === "")
+        
+        // Checking "manually" because the state is updated asynchronously
+        if (errorMessage !== "") {
+            setErrorMessage(errorMessage)
             setState(State.INVALID_INPUT)
             return
         }
+
 
         setState(State.RUNNING)
 
