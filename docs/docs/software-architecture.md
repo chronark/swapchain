@@ -77,7 +77,7 @@ The Verification contains the signature verification sub-component which is cons
 
 ### 3.1. UML Diagram
 
-![](./docs/static/img/UML.png)
+![](./docs/static/img/UML_new.svg)
 Figure 2: UML Diagram (Swapchain, 2020) [4]
 
 
