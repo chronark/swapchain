@@ -66,7 +66,7 @@ export function getBTSAddress(network: string): BTSAddress {
   } else if (network === "testnet") {
     ChainConfig.setChainId("39f5e2ede1f8bc1a3a54a7914414e3779e33193f1f5693510e73cb7a87617447")
   } else {
-    throw new Error("Invalid network name. Choose bitshares or testnet.")
+    throw new Error("Invalid network name. Choose mainnet or testnet.")
   }
 
   const privateKey = PrivateKey.fromSeed(key.normalize_brainKey(crypto({ length: 64, type: "base64" })))

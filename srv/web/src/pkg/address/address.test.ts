@@ -40,6 +40,6 @@ describe("BTS address generator", () => {
     expect(address).toBe(addressPair2.address)
   })
   it("should return an error with an invalid network", () => {
-    expect(() => getBTSAddress("XYZ")).toThrow("Invalid network name. Choose bitshares or testnet.")
+    expect(() => getBTSAddress("XYZ")).toThrow("Invalid network name. Choose mainnet or testnet.")
   })
 })

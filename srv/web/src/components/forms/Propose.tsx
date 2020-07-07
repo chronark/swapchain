@@ -8,6 +8,9 @@ import { ReactComponent as Exclamation } from "../../icons/exclamation.svg"
 import { Form } from "./Form"
 import { Spinner } from "../Spinner"
 import { State, Currency, Network, Timelock, Priority } from "./enums"
+import { isValidBitcoinPrivateKey, isValidBitsharesPrivateKey, isValidBitcoinPublicKey } from "../../pkg/address/validator"
+import ACCS from "../../accs/accs"
+import { Secret, getSecret } from "../../pkg/secret/secret"
 
 export const Propose = () => {
     // Application stae for handling the flow
@@ -19,20 +22,20 @@ export const Propose = () => {
 
     // Collects the user input in one place
     const [fields, setFields] = useState({
+        mode: "proposer",
         networkToTrade: Network.MAINNET,
         currencyToGive: Currency.BTC,
         amountToSend: 0,
         rate: 0,
-        amountYouReceive: 0,
+        amountToReceive: 0,
         bitcoinPrivateKey: "",
-        bitcoinPublicKey: "",
         bitsharesPrivateKey: "",
-        bitsharesAccountName: "",
         counterpartyBitcoinPublicKey: "",
         counterpartyBitsharesAccountName: "",
-        timelockDuration: Timelock.SHORT,
-        orderDuration: 7,
+        bitcoinTxID: "",
+        timelock: Timelock.SHORT,
         priority: Priority.HIGH,
+        secret: {} as Secret,
     })
 
     /**
@@ -50,10 +53,10 @@ export const Propose = () => {
 
     //calculate received funds
     useEffect(() => {
-        if (fields.amountYouReceive !== fields.amountToSend * fields.rate) {
+        if (fields.amountToReceive !== fields.amountToSend * fields.rate) {
             setFields({
                 ...fields,
-                amountYouReceive: fields.amountToSend * fields.rate
+                amountToReceive: fields.amountToSend * fields.rate
             })
         }
     }, [fields])
@@ -69,17 +72,17 @@ export const Propose = () => {
         if (fields.rate <= 0) {
             return "Rate is empty"
         }
-        if (fields.amountYouReceive <= 0) {
+        if (fields.amountToReceive <= 0) {
             return "Amount you receive is not valid"
         }
-        if (fields.bitcoinPrivateKey.length === 32) {
-            return "Bitcoin private key is not 32 characters long"
+        if (!isValidBitcoinPrivateKey(fields.bitcoinPrivateKey, fields.networkToTrade)) {
+            return "Bitcoin private key is not valid"
         }
-        if (fields.bitsharesPrivateKey === "") {
+        if (!isValidBitsharesPrivateKey(fields.bitsharesPrivateKey)) {
             return "Bitshares private key is empty"
         }
-        if (fields.counterpartyBitcoinPublicKey === "") {
-            return "Counterparty bitcoin public key is empty"
+        if (isValidBitcoinPublicKey(fields.counterpartyBitcoinPublicKey)) {
+            return "Counterparty bitcoin public key is not valid"
         }
         if (fields.counterpartyBitsharesAccountName === "") {
             return "Counterparty bitshares account name is empty"
@@ -140,15 +143,12 @@ export const Propose = () => {
 
         setState(State.RUNNING)
 
-        // TODO: Replace with accs
-        setTimeout(() => {
-            if (Math.random() > 0.5) {
-                setState(State.SUCCESS)
-            } else {
-                setState(State.ERROR)
-                setErrorMessage("Nico didn't do his job, should we fire him?")
-            }
-        }, 5000)
+        ACCS.run(fields).then(() => {
+            setState(State.SUCCESS)
+        }).catch((err) => {
+            setState(State.ERROR)
+            setErrorMessage(err)
+        })
     }
 
     return (
@@ -237,7 +237,7 @@ export const Propose = () => {
                                     <div className="relative">
                                         <span className="absolute inset-y-0 right-0 flex items-center mr-6 text-sm text-gray-600">
                                             {rateUnit()[1]}           </span>
-                                        <span className="block w-full py-3 font-mono text-center text-gray-700 border border-gray-200 rounded focus:border-teal-500">{fields.amountYouReceive}</span>
+                                        <span className="block w-full py-3 font-mono text-center text-gray-700 border border-gray-200 rounded focus:border-teal-500">{fields.amountToReceive}</span>
                                     </div>
                                 </div>
                             </div>
@@ -307,24 +307,24 @@ export const Propose = () => {
                                 <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
                                     <RadioButton
                                         description="Around 1 hour. This is the shortest duration possible while making sure the transactions are confirmed in time."
-                                        hint="6 blocks"
+                                        hint={Timelock.SHORT + " blocks"}
                                         name={Timelock[Timelock.SHORT]}
-                                        onClick={() => updateFieldByKey("timelockDuration", Timelock.SHORT)}
-                                        selected={fields.timelockDuration === Timelock.SHORT}
+                                        onClick={() => updateFieldByKey("timelock", Timelock.SHORT)}
+                                        selected={fields.timelock === Timelock.SHORT}
                                     ></RadioButton>
                                     <RadioButton
                                         description="Around 2 hours. Offers more time for the counterparty to come online."
-                                        hint="13 blocks"
+                                        hint={Timelock.MEDIUM + " blocks"}
                                         name={Timelock[Timelock.MEDIUM]}
-                                        onClick={() => updateFieldByKey("timelockDuration", Timelock.MEDIUM)}
-                                        selected={fields.timelockDuration === Timelock.MEDIUM}
+                                        onClick={() => updateFieldByKey("timelock", Timelock.MEDIUM)}
+                                        selected={fields.timelock === Timelock.MEDIUM}
                                     ></RadioButton>
                                     <RadioButton
                                         description="Around 3 hours. Gives your counterparty even more time."
-                                        hint="20 blocks"
+                                        hint={Timelock.LONG + " blocks"}
                                         name={Timelock[Timelock.LONG]}
-                                        onClick={() => updateFieldByKey("timelockDuration", Timelock.LONG)}
-                                        selected={fields.timelockDuration === Timelock.LONG}
+                                        onClick={() => updateFieldByKey("timelock", Timelock.LONG)}
+                                        selected={fields.timelock === Timelock.LONG}
                                     ></RadioButton>
                                 </div>
                                 <p className="px-4 mx-auto mt-2 text-sm text-center text-gray-500">

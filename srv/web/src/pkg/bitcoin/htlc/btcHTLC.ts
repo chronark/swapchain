@@ -326,7 +326,7 @@ export default class BitcoinHTLC {
     const redeemTransaction = await this.bitcoinAPI.pushTX(redeemHex)
 
     if (!redeemTransaction) {
-      throw new Error(`Error pushing redeemHex to endpoint. Hex for redeem transaction: ${redeemHex}`)
+      throw new Error(`Could not push redeemHex to endpoint. Hex for redeem transaction: ${redeemHex}`)
     }
   }
 
