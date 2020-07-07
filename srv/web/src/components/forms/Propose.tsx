@@ -12,7 +12,7 @@ import { isValidBitcoinPrivateKey, isValidBitsharesPrivateKey, isValidBitcoinPub
 import ACCS from "../../accs/accs"
 import { getSecret } from "../../pkg/secret/secret"
 import { toPublicKey } from "../../util"
-import { timeout } from "cron"
+
 export const Propose = () => {
     // Application stae for handling the flow
     const [state, setState] = useState(State.IDLE)
