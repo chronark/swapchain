@@ -36,9 +36,9 @@ SaaS - Software as a Service
 
 The report will present a detailed analysis of the architecture of a platform enabling ACCS between BTC and BTS. Initial sections of the document cover the architectural goals and constraints, use case realizations, and architectural representation. The later sections cover the specific details of the implementation and deployment of the platform. Furthermore, the document also describes the performance and quality.
 
-## 2. Architectural Represantition
+## 2. Architectural Representation
 
-Swapchain offers a command-line interface (CLI) and a basic mockup which follow the Clean Architecture pattern. Main reason to use this pattern is to separate functions into layers and thus, improve the maintainability and reusability. Figure 1 visualizes the Clean Architecture by using color-coded schemes.
+Swapchain offers a command-line interface (CLI) and a basic UI which both follow the Clean Architecture pattern. Main reason to use this pattern is to separate functions into layers and thus, improve the maintainability and reusability. Figure 1 visualizes the Clean Architecture by using color-coded schemes.
 
 ![](./docs/static/img/CleanArchitecture.svg)
 Figure 1: The Clean Architecture (Martin, 2020) [3]
@@ -46,7 +46,7 @@ Figure 1: The Clean Architecture (Martin, 2020) [3]
 So, in the context of our application:
 
 1. Yellow Layer: This layer is highly abstract, general, and thus very stable. Hence, in this case, the entity is the atomic swap of cryptocurrencies.
-2. Red Layer: This layer contains the Use-Case, which is the swapping of BTC to BTS and vice versa.
+2. Red Layer: This layer contains the Use-Case, which is the swapping between two parties of BTC to BTS and vice versa.
 3. Green Layer: This layer is used to separate the Red layer from the Blue layer. It has the framework specific code which is to be used by the application.
 4. Blue Layer: This layer (framework and drivers) contains the graphical UI, API, and the database.
 
@@ -62,7 +62,7 @@ A significant feature of this architecture is the flow of dependencies, which ca
 The logical view of the Swapchain Web Application is comprised of 3 main components: User Interface, HTLC, and Verification.
 
 UI:
-The UI contains an interface for the user authentication as well as a command-line tool.
+The UI contains an interface for the user to propose or accept a swap. Also a command-line tool has been developed which offers the exact same functionality of conducting an ACCS.
 
 HTLC:
 The HTLC contains several sub-components. A crucial part here, is the secret and hash generator that first generates a random secret that is then cryptographically hashed. In order to further conduct the swap, a hash lock sub-component and a time lock sub-component need to be set up. The hash lock accesses the hash generator to retrieve the hashed password, while the time lock cooperates with the refund process, so as soon as the time lock expires, the refund process can be initialized.
@@ -88,11 +88,11 @@ Figure 3: Use Case Diagram (Swapchain, 2020) [4]
 
 | Use Case Name           | Scenario                               | Triggering Event                   | Actors            | Related Use Case | Preconditions                                                                                                                                       | Post Conditions                                                     | Flow of Events                                                                                                                                                                                                           | Exception Conditions                                          |
 | ----------------------- | -------------------------------------- | ---------------------------------- | ----------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
-| Atomic cross-chain swap | Two users want to exchange BTC and BTS | The user submits an exchange order | User 1 and User 2 | None             | - Users should be in possession of the cryptocurrency that is desired by the other party - Users should open a HTLC in their respective Blockchains | - Validating the user - Hash and time lock conditions should be met | - Check order book - Submit desired order - Start a HTLC - Fund and redeem a swap - Key pair generator - Verification process of validity between private and public keys - Transaction successful or funds are refunded | - Network failure - App crashing - Too much market volatility |
+| Atomic cross-chain swap | Two users want to exchange BTC and BTS | The user submits an exchange order | User 1 and User 2 | None             | - Users should be in possession of the cryptocurrency that is desired by the other party - Users should open a HTLC in their respective Blockchains | - Validating the user - Hash and time lock conditions should be met | - Submit desired order - Start a HTLC - Fund and redeem a swap - Key pair generator - Verification process of validity between private and public keys - Transaction successful or funds are refunded | - Network failure - App crashing - Too much market volatility |
 
 ## 5. Architectural Goals and Constraints
 
-There are some key requirements and system constraints that have a significant bearing on the architecture. They are:
+There are some key requirements and system constraints that have a significant bearing on the architecture. They are:ƒ
 
 - The Swapchain platform should satisfy all requirements set by the AMOS project, i.e. licenses, schedule, tools, etc.
 - The BOM should be within a reasonable amount.
@@ -106,7 +106,7 @@ This UI is a system which is hosted in an API. The database will be hosted by Ch
 
 ### 6.1. Technology Stack Description
 
-All services will be running in docker containers at first and orchestrated by docker-compose for simplicity sake. As Swapchain gets closer to mid-term release, the project team will be moving to a Kubernetes deployment on GCE. [1][2]
+All services will be running in docker containers at first and orchestrated by docker-compose for simplicity sake. [1][2]
 
 Frontend:
 
