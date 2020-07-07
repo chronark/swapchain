@@ -53,7 +53,7 @@ exports[`renders correctly 1`] = `
       >
         <li>
           <a
-            className="p-6 font-medium text-gray-700 transition duration-300 ease-in-out border-transparent hover:text-teal-400 md:border-b-2 hover:border-teal-400 focus:outline-none"
+            className="p-6 text-gray-700 transition duration-300 ease-in-out border-transparent hover:text-teal-400 md:border-b-2 hover:border-teal-400 focus:outline-none"
             href="/trade"
             onClick={[Function]}
           >
@@ -62,7 +62,7 @@ exports[`renders correctly 1`] = `
         </li>
         <li>
           <a
-            className="p-6 font-medium text-gray-700 transition duration-300 ease-in-out border-transparent hover:text-teal-400 md:border-b-2 hover:border-teal-400 focus:outline-none"
+            className="p-6 text-gray-700 transition duration-300 ease-in-out border-transparent hover:text-teal-400 md:border-b-2 hover:border-teal-400 focus:outline-none"
             href="https://github.com/chronark/swapchain#cli"
           >
             CLI
@@ -70,13 +70,13 @@ exports[`renders correctly 1`] = `
         </li>
         <li>
           <a
-            className="p-6 font-medium text-gray-700 transition duration-300 ease-in-out border-transparent hover:text-teal-400 md:border-b-2 hover:border-teal-400 focus:outline-none"
+            className="p-6 text-gray-700 transition duration-300 ease-in-out border-transparent hover:text-teal-400 md:border-b-2 hover:border-teal-400 focus:outline-none"
             href="/orderbook"
             onClick={[Function]}
           >
             Orderbook
             <span
-              className="px-2 py-1 ml-2 text-xs font-thin border border-teal-500 rounded"
+              className="px-2 py-1 ml-2 text-xs border border-teal-500 rounded"
             >
               WIP
             </span>
@@ -88,7 +88,7 @@ exports[`renders correctly 1`] = `
       >
         <li>
           <a
-            className="p-6 font-medium text-gray-700 transition duration-300 ease-in-out border-transparent hover:text-teal-400 md:border-b-2 hover:border-teal-400 focus:outline-none"
+            className="p-6 text-gray-700 transition duration-300 ease-in-out border-transparent hover:text-teal-400 md:border-b-2 hover:border-teal-400 focus:outline-none"
             href="trade"
           >
             Documentation

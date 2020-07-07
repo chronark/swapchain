@@ -2,7 +2,7 @@
 
 exports[`only name and description renders correctly 1`] = `
 <button
-  className="focus:outline-none flex w-full justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
+  className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
 >
   <div
     className="flex flex-col items-start justify-between p-4"
@@ -11,7 +11,7 @@ exports[`only name and description renders correctly 1`] = `
       className="flex items-center justify-between w-full"
     >
       <span
-        className="text-left font-bold text-gray-900"
+        className="text-left font-semibold text-gray-900"
       >
         name
       </span>
@@ -29,7 +29,7 @@ exports[`only name and description renders correctly 1`] = `
     className="flex items-center justify-center"
   >
     <span
-      className="mr-4 text-3xl font-bold hidden md:block text-gray-900 "
+      className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
     />
   </div>
 </button>
@@ -37,7 +37,7 @@ exports[`only name and description renders correctly 1`] = `
 
 exports[`with all attributes renders correctly 1`] = `
 <button
-  className="focus:outline-none flex w-full justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
+  className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
 >
   <div
     className="flex flex-col items-start justify-between p-4"
@@ -46,7 +46,7 @@ exports[`with all attributes renders correctly 1`] = `
       className="flex items-center justify-between w-full"
     >
       <span
-        className="text-left font-bold text-gray-900"
+        className="text-left font-semibold text-gray-900"
       >
         name
       </span>
@@ -66,7 +66,7 @@ exports[`with all attributes renders correctly 1`] = `
     className="flex items-center justify-center"
   >
     <span
-      className="mr-4 text-3xl font-bold hidden md:block text-gray-900 "
+      className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
     >
       tag
     </span>
@@ -76,7 +76,7 @@ exports[`with all attributes renders correctly 1`] = `
 
 exports[`without hint renders correctly 1`] = `
 <button
-  className="focus:outline-none flex w-full justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
+  className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
 >
   <div
     className="flex flex-col items-start justify-between p-4"
@@ -85,7 +85,7 @@ exports[`without hint renders correctly 1`] = `
       className="flex items-center justify-between w-full"
     >
       <span
-        className="text-left font-bold text-gray-900"
+        className="text-left font-semibold text-gray-900"
       >
         name
       </span>
@@ -103,7 +103,7 @@ exports[`without hint renders correctly 1`] = `
     className="flex items-center justify-center"
   >
     <span
-      className="mr-4 text-3xl font-bold hidden md:block text-gray-900 "
+      className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
     >
       tag
     </span>
@@ -113,7 +113,7 @@ exports[`without hint renders correctly 1`] = `
 
 exports[`without tag renders correctly 1`] = `
 <button
-  className="focus:outline-none flex w-full justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
+  className="focus:outline-none flex w-full items-center justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
 >
   <div
     className="flex flex-col items-start justify-between p-4"
@@ -122,7 +122,7 @@ exports[`without tag renders correctly 1`] = `
       className="flex items-center justify-between w-full"
     >
       <span
-        className="text-left font-bold text-gray-600"
+        className="text-left font-semibold text-gray-600"
       >
         name
       </span>
@@ -142,7 +142,7 @@ exports[`without tag renders correctly 1`] = `
     className="flex items-center justify-center"
   >
     <span
-      className="mr-4 text-3xl font-bold hidden md:block text-gray-300"
+      className="mr-4 text-3xl font-semibold hidden md:block text-gray-300"
     >
       tag
     </span>

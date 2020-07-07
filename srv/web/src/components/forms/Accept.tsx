@@ -124,7 +124,7 @@ export const Accept = () => {
         <Form
             main={
                 <div className="flex flex-col justify-center w-full p-8">
-                    <h2 className="text-3xl font-bold leading-tight text-gray-800">Accept an Atomic Cross Chain Swap</h2>
+                    <h2 className="text-3xl font-semibold leading-tight text-gray-800">Accept an Atomic Cross Chain Swap</h2>
                     <div className="flex flex-col mt-12 space-y-10">
                         <section>
                             <Label label="On what network do you want to trade"></Label>
@@ -145,7 +145,7 @@ export const Accept = () => {
                             </div>
                         </section>
                         <section>
-                            <h2 className="text-xl font-bold leading-tight text-gray-800">Your Data</h2>
+                            <h2 className="text-xl font-semibold leading-tight text-gray-800">Your Data</h2>
                             <div className="items-center justify-between mt-4 md:space-x-4 md:flex">
 
                                 <div className="md:w-1/2">
@@ -175,7 +175,7 @@ export const Accept = () => {
                         </section>
 
                         <section>
-                            <h2 className="text-xl font-bold leading-tight text-gray-800">Counterparty Data</h2>
+                            <h2 className="text-xl font-semibold leading-tight text-gray-800">Counterparty Data</h2>
                             <div className="items-center justify-between mt-4 md:space-x-4 md:flex">
 
                                 <div className="md:w-1/2">
@@ -209,7 +209,7 @@ export const Accept = () => {
 
                         </section>
                         <section>
-                            <h2 className="text-xl font-bold leading-tight text-gray-800">HTLC settings</h2>
+                            <h2 className="text-xl font-semibold leading-tight text-gray-800">HTLC settings</h2>
                             <div className="mt-4">
                                 <Label label="Choose your timelock"></Label>
                                 <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">

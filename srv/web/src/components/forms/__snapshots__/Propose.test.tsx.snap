@@ -11,7 +11,7 @@ exports[`renders correctly 1`] = `
       className="flex flex-col justify-center w-full p-8"
     >
       <h2
-        className="text-3xl font-bold leading-tight text-gray-800 "
+        className="text-3xl font-semibold leading-tight text-gray-800 "
       >
         Propose a new Atomic Cross Chain Swap
       </h2>
@@ -20,7 +20,7 @@ exports[`renders correctly 1`] = `
       >
         <section>
           <label
-            className="text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
+            className="text-xs leading-4 tracking-wider text-gray-700 uppercase"
           >
             On what network do you want to trade
           </label>
@@ -28,7 +28,7 @@ exports[`renders correctly 1`] = `
             className="flex flex-col justify-center space-y-4 md:flex-row md:space-x-4 md:space-y-0"
           >
             <button
-              className="focus:outline-none flex w-full justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
+              className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
               onClick={[Function]}
             >
               <div
@@ -38,7 +38,7 @@ exports[`renders correctly 1`] = `
                   className="flex items-center justify-between w-full"
                 >
                   <span
-                    className="text-left font-bold text-gray-900"
+                    className="text-left font-semibold text-gray-900"
                   >
                     Mainnet
                   </span>
@@ -56,7 +56,7 @@ exports[`renders correctly 1`] = `
                 className="flex items-center justify-center"
               >
                 <span
-                  className="mr-4 text-3xl font-bold hidden md:block text-gray-900 "
+                  className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
                 >
                   <svg
                     className="h-8 text-red-600 "
@@ -67,7 +67,7 @@ exports[`renders correctly 1`] = `
               </div>
             </button>
             <button
-              className="focus:outline-none flex w-full justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
+              className="focus:outline-none flex w-full items-center justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
               onClick={[Function]}
             >
               <div
@@ -77,7 +77,7 @@ exports[`renders correctly 1`] = `
                   className="flex items-center justify-between w-full"
                 >
                   <span
-                    className="text-left font-bold text-gray-600"
+                    className="text-left font-semibold text-gray-600"
                   >
                     Testnet
                   </span>
@@ -95,7 +95,7 @@ exports[`renders correctly 1`] = `
                 className="flex items-center justify-center"
               >
                 <span
-                  className="mr-4 text-3xl font-bold hidden md:block text-gray-300"
+                  className="mr-4 text-3xl font-semibold hidden md:block text-gray-300"
                 />
               </div>
             </button>
@@ -103,7 +103,7 @@ exports[`renders correctly 1`] = `
         </section>
         <section>
           <label
-            className="text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
+            className="text-xs leading-4 tracking-wider text-gray-700 uppercase"
           >
             What do you want to trade
           </label>
@@ -111,7 +111,7 @@ exports[`renders correctly 1`] = `
             className="flex flex-col items-center space-y-4 md:flex-row md:space-x-4 md:space-y-0"
           >
             <button
-              className="focus:outline-none flex w-full justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
+              className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
               onClick={[Function]}
             >
               <div
@@ -121,7 +121,7 @@ exports[`renders correctly 1`] = `
                   className="flex items-center justify-between w-full"
                 >
                   <span
-                    className="text-left font-bold text-gray-900"
+                    className="text-left font-semibold text-gray-900"
                   >
                     Bitcoin
                   </span>
@@ -139,14 +139,14 @@ exports[`renders correctly 1`] = `
                 className="flex items-center justify-center"
               >
                 <span
-                  className="mr-4 text-3xl font-bold hidden md:block text-gray-900 "
+                  className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
                 >
                   BTC
                 </span>
               </div>
             </button>
             <button
-              className="focus:outline-none flex w-full justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
+              className="focus:outline-none flex w-full items-center justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
               onClick={[Function]}
             >
               <div
@@ -156,7 +156,7 @@ exports[`renders correctly 1`] = `
                   className="flex items-center justify-between w-full"
                 >
                   <span
-                    className="text-left font-bold text-gray-600"
+                    className="text-left font-semibold text-gray-600"
                   >
                     Bitshares
                   </span>
@@ -174,7 +174,7 @@ exports[`renders correctly 1`] = `
                 className="flex items-center justify-center"
               >
                 <span
-                  className="mr-4 text-3xl font-bold hidden md:block text-gray-300"
+                  className="mr-4 text-3xl font-semibold hidden md:block text-gray-300"
                 >
                   BTS
                 </span>
@@ -184,7 +184,7 @@ exports[`renders correctly 1`] = `
         </section>
         <section>
           <h2
-            className="text-xl font-bold leading-tight text-gray-800"
+            className="text-xl font-semibold leading-tight text-gray-800"
           >
             Amount
           </h2>
@@ -195,7 +195,7 @@ exports[`renders correctly 1`] = `
               className="flex-grow"
             >
               <label
-                className="text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
+                className="text-xs leading-4 tracking-wider text-gray-700 uppercase"
               >
                 Amount to send
               </label>
@@ -224,7 +224,7 @@ exports[`renders correctly 1`] = `
               className="flex-grow"
             >
               <label
-                className="text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
+                className="text-xs leading-4 tracking-wider text-gray-700 uppercase"
               >
                 Rate
               </label>
@@ -260,7 +260,7 @@ exports[`renders correctly 1`] = `
               className="flex-grow"
             >
               <label
-                className="text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
+                className="text-xs leading-4 tracking-wider text-gray-700 uppercase"
               >
                 excluding fees you will receive
               </label>
@@ -284,7 +284,7 @@ exports[`renders correctly 1`] = `
         </section>
         <section>
           <h2
-            className="text-xl font-bold leading-tight text-gray-800"
+            className="text-xl font-semibold leading-tight text-gray-800"
           >
             Your Data
           </h2>
@@ -295,7 +295,7 @@ exports[`renders correctly 1`] = `
               className="md:w-1/2"
             >
               <label
-                className="text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
+                className="text-xs leading-4 tracking-wider text-gray-700 uppercase"
               >
                 Bitcoin private key
               </label>
@@ -313,7 +313,7 @@ exports[`renders correctly 1`] = `
               className="md:w-1/2"
             >
               <label
-                className="text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
+                className="text-xs leading-4 tracking-wider text-gray-700 uppercase"
               >
                 Bitshares private key
               </label>
@@ -342,7 +342,7 @@ exports[`renders correctly 1`] = `
         </section>
         <section>
           <h2
-            className="text-xl font-bold leading-tight text-gray-800"
+            className="text-xl font-semibold leading-tight text-gray-800"
           >
             Counterparty Data
           </h2>
@@ -353,7 +353,7 @@ exports[`renders correctly 1`] = `
               className="md:w-1/2"
             >
               <label
-                className="text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
+                className="text-xs leading-4 tracking-wider text-gray-700 uppercase"
               >
                 Bitcoin public key
               </label>
@@ -371,7 +371,7 @@ exports[`renders correctly 1`] = `
               className="md:w-1/2"
             >
               <label
-                className="text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
+                className="text-xs leading-4 tracking-wider text-gray-700 uppercase"
               >
                 Bitshares account name
               </label>
@@ -389,7 +389,7 @@ exports[`renders correctly 1`] = `
         </section>
         <section>
           <h2
-            className="text-xl font-bold leading-tight text-gray-800"
+            className="text-xl font-semibold leading-tight text-gray-800"
           >
             HTLC settings
           </h2>
@@ -397,7 +397,7 @@ exports[`renders correctly 1`] = `
             className="mt-4"
           >
             <label
-              className="text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
+              className="text-xs leading-4 tracking-wider text-gray-700 uppercase"
             >
               Choose your timelock
             </label>
@@ -405,7 +405,7 @@ exports[`renders correctly 1`] = `
               className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0"
             >
               <button
-                className="focus:outline-none flex w-full justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
+                className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
                 onClick={[Function]}
               >
                 <div
@@ -415,7 +415,7 @@ exports[`renders correctly 1`] = `
                     className="flex items-center justify-between w-full"
                   >
                     <span
-                      className="text-left font-bold text-gray-900"
+                      className="text-left font-semibold text-gray-900"
                     >
                       SHORT
                     </span>
@@ -435,12 +435,12 @@ exports[`renders correctly 1`] = `
                   className="flex items-center justify-center"
                 >
                   <span
-                    className="mr-4 text-3xl font-bold hidden md:block text-gray-900 "
+                    className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
                   />
                 </div>
               </button>
               <button
-                className="focus:outline-none flex w-full justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
+                className="focus:outline-none flex w-full items-center justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
                 onClick={[Function]}
               >
                 <div
@@ -450,7 +450,7 @@ exports[`renders correctly 1`] = `
                     className="flex items-center justify-between w-full"
                   >
                     <span
-                      className="text-left font-bold text-gray-600"
+                      className="text-left font-semibold text-gray-600"
                     >
                       MEDIUM
                     </span>
@@ -470,12 +470,12 @@ exports[`renders correctly 1`] = `
                   className="flex items-center justify-center"
                 >
                   <span
-                    className="mr-4 text-3xl font-bold hidden md:block text-gray-300"
+                    className="mr-4 text-3xl font-semibold hidden md:block text-gray-300"
                   />
                 </div>
               </button>
               <button
-                className="focus:outline-none flex w-full justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
+                className="focus:outline-none flex w-full items-center justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
                 onClick={[Function]}
               >
                 <div
@@ -485,7 +485,7 @@ exports[`renders correctly 1`] = `
                     className="flex items-center justify-between w-full"
                   >
                     <span
-                      className="text-left font-bold text-gray-600"
+                      className="text-left font-semibold text-gray-600"
                     >
                       LONG
                     </span>
@@ -505,7 +505,7 @@ exports[`renders correctly 1`] = `
                   className="flex items-center justify-center"
                 >
                   <span
-                    className="mr-4 text-3xl font-bold hidden md:block text-gray-300"
+                    className="mr-4 text-3xl font-semibold hidden md:block text-gray-300"
                   />
                 </div>
               </button>
@@ -519,7 +519,7 @@ exports[`renders correctly 1`] = `
         </section>
         <section>
           <label
-            className="text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
+            className="text-xs leading-4 tracking-wider text-gray-700 uppercase"
           >
             Choose your priority
           </label>
@@ -527,7 +527,7 @@ exports[`renders correctly 1`] = `
             className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0"
           >
             <button
-              className="focus:outline-none flex w-full justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
+              className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
               onClick={[Function]}
             >
               <div
@@ -537,7 +537,7 @@ exports[`renders correctly 1`] = `
                   className="flex items-center justify-between w-full"
                 >
                   <span
-                    className="text-left font-bold text-gray-900"
+                    className="text-left font-semibold text-gray-900"
                   >
                     HIGH
                   </span>
@@ -555,12 +555,12 @@ exports[`renders correctly 1`] = `
                 className="flex items-center justify-center"
               >
                 <span
-                  className="mr-4 text-3xl font-bold hidden md:block text-gray-900 "
+                  className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
                 />
               </div>
             </button>
             <button
-              className="focus:outline-none flex w-full justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
+              className="focus:outline-none flex w-full items-center justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
               onClick={[Function]}
             >
               <div
@@ -570,7 +570,7 @@ exports[`renders correctly 1`] = `
                   className="flex items-center justify-between w-full"
                 >
                   <span
-                    className="text-left font-bold text-gray-600"
+                    className="text-left font-semibold text-gray-600"
                   >
                     MEDIUM
                   </span>
@@ -588,12 +588,12 @@ exports[`renders correctly 1`] = `
                 className="flex items-center justify-center"
               >
                 <span
-                  className="mr-4 text-3xl font-bold hidden md:block text-gray-300"
+                  className="mr-4 text-3xl font-semibold hidden md:block text-gray-300"
                 />
               </div>
             </button>
             <button
-              className="focus:outline-none flex w-full justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
+              className="focus:outline-none flex w-full items-center justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
               onClick={[Function]}
             >
               <div
@@ -603,7 +603,7 @@ exports[`renders correctly 1`] = `
                   className="flex items-center justify-between w-full"
                 >
                   <span
-                    className="text-left font-bold text-gray-600"
+                    className="text-left font-semibold text-gray-600"
                   >
                     LOW
                   </span>
@@ -621,7 +621,7 @@ exports[`renders correctly 1`] = `
                 className="flex items-center justify-center"
               >
                 <span
-                  className="mr-4 text-3xl font-bold hidden md:block text-gray-300"
+                  className="mr-4 text-3xl font-semibold hidden md:block text-gray-300"
                 />
               </div>
             </button>

@@ -2,7 +2,7 @@
 
 exports[`renders correctly 1`] = `
 <label
-  className="text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase"
+  className="text-xs leading-4 tracking-wider text-gray-700 uppercase"
 >
   label
 </label>

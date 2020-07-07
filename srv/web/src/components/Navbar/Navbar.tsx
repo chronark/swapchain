@@ -10,7 +10,7 @@ export const Navbar = () => {
         setOpen(!open)
     }
 
-    const linkStyle = "p-6 font-medium text-gray-700 transition duration-300 ease-in-out border-transparent hover:text-teal-400 md:border-b-2 hover:border-teal-400 focus:outline-none"
+    const linkStyle = "p-6 text-gray-700 transition duration-300 ease-in-out border-transparent hover:text-teal-400 md:border-b-2 hover:border-teal-400 focus:outline-none"
 
 
     return (
@@ -42,7 +42,7 @@ export const Navbar = () => {
                         </li>
                         <li>
                             <Link className={linkStyle} to="/orderbook">Orderbook
-                            <span className="px-2 py-1 ml-2 text-xs font-thin border border-teal-500 rounded">WIP</span>
+                            <span className="px-2 py-1 ml-2 text-xs border border-teal-500 rounded">WIP</span>
                             </Link>
                         </li>
                     </ul>
