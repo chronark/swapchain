@@ -29,7 +29,6 @@ export const Propose = () => {
         amountToSend: 1,
         rate: 1,
         amountToReceive: 1,
-        btcTxID: "",
         bitcoinPrivateKey: "cVPwsbE8HNMCoLGz8N4R2SfyQTMQzznL9x3vEHJqPtuZ1rhBkTo7",
         bitsharesPrivateKey: "5Z89Ve18ttnu7Ymd1nnCMsnGkfKk4KQnsfFrYEz7Cmw39FAMOSS",
         counterpartyBitcoinPublicKey: "034c7ddacc16fa5e53aa5dc19748e3877ba07b981fdbbcdb97b8b19de240241f61",
@@ -89,7 +88,7 @@ export const Propose = () => {
         if (fields.counterpartyBitsharesAccountName === "") {
             return "Counterparty bitshares account name is empty"
         }
-        if (fields.btcTxID.length !== 64) {
+        if (fields.bitcoinTxID.length !== 64) {
             return "Bitcoin Transaction ID to spend is not 64 chars long"
         }
         return ""
@@ -273,11 +272,11 @@ export const Propose = () => {
 
                 <Label label="Bitcoin transaction ID to spend"></Label>
                 <Input
-                    name="btcTxID"
+                    name="bitcoinTxID"
                     onChange={updateField}
                     placeholder={fakeKey(30, "testnet")}
                     type="text"
-                    value={fields.btcTxID}
+                    value={fields.bitcoinTxID}
                 ></Input>
             </div>
         </section>
@@ -371,7 +370,7 @@ export const Propose = () => {
         <div>
             <section className="px-3 py-2">
                 <Label label="Your secret hash"></Label>
-                <p className="p-3 font-mono text-center text-teal-900 break-all border border-teal-400 rounded">{fields.secret.hash}</p>
+                <p className="p-3 font-mono text-center text-teal-900 break-all border border-teal-400 rounded">{fields.secret.hash.toString("hex")}</p>
             </section>
             <section className="px-3 py-2">
                 <Label label="Your Bitcoin public key"></Label>

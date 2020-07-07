@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "./node_modules/.bin/tsc -p ./tsconfig.prod.json --pretty",
-    "docs:build": "./node_modules/.bin/typedoc && cd docs && npm run && npm run build",
+    "docs:build": "./node_modules/.bin/typedoc && cd docs && npm i && npm run && npm run build",
     "docs:show": "./node_modules/.bin/typedoc && cd docs && npm run start",
     "eslint": "./node_modules/.bin/eslint --fix --ext .ts --resolve-plugins-relative-to ./",
     "fmt": "npm run lint && npm run prettier",
