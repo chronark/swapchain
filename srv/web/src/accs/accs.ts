@@ -197,7 +197,7 @@ export default class ACCS {
     } else {
       config.network = bitcoin.networks.testnet
       config.bitsharesAsset = "TEST"
-      config.bitsharesEndpoint = "wss://testnet.dex.trading"
+      config.bitsharesEndpoint = "wss://testnet.dex.trading/"
     }
 
     config.networkName = fields.networkToTrade
