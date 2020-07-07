@@ -100,7 +100,7 @@ export const Accept = () => {
         setValid(errorMessage === "")
         
         // Checking "manually" because the state is updated asynchronously
-        if (errorMessage !==) {
+        if (errorMessage !== "") {
             setErrorMessage(errorMessage)
             setState(State.INVALID_INPUT)
             return
