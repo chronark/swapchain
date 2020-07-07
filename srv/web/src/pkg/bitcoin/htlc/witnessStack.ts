@@ -1,6 +1,4 @@
-/* eslint-disable jsdoc/require-param-description */
-/* eslint-disable jsdoc/require-returns */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable */
 
 import varuint from "varuint-bitcoin"
 
