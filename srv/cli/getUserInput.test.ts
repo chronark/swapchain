@@ -1,5 +1,5 @@
 import { getUserInput } from "./getUserInput"
-import { askUser } from "./util"
+import * as util from "./util"
 import { getSecret } from "../web/src/pkg/secret/secret"
 import * as bitcoin from "bitcoinjs-lib"
 import { ACCSFields } from "../web/src/accs/accs"
@@ -9,6 +9,7 @@ jest.mock("../web/src/pkg/secret/secret")
 jest.mock("./util")
 console.log = jest.fn()
 readline.createInterface = jest.fn()
+const read = {} as readline.Interface
 
 describe("getUserInput()", () => {
   it("it returns user input as ACCS fields object correctly for proposer BTS", async () => {
@@ -18,7 +19,8 @@ describe("getUserInput()", () => {
       hash: bitcoin.crypto.sha256(Buffer.from(preimage)),
     }
     mocked(getSecret).mockReturnValueOnce(secretObject)
-    mocked(askUser)
+    jest
+      .spyOn(util, "askUser")
       .mockReturnValueOnce(Promise.resolve("proposer")) //mode
       .mockReturnValueOnce(Promise.resolve("testnet")) //networkToTrade
       .mockReturnValueOnce(Promise.resolve("BTC")) // currencyToGive
@@ -49,7 +51,7 @@ describe("getUserInput()", () => {
       bitcoinTxID: "testBTCTxID",
     }
 
-    const accsFields = await getUserInput()
+    const accsFields = await getUserInput(read)
 
     expect(accsFields.mode).toBe(expectedACCSFields.mode)
     expect(accsFields.currencyToGive).toBe(expectedACCSFields.currencyToGive)
@@ -67,7 +69,8 @@ describe("getUserInput()", () => {
       preimage: undefined,
       hash: bitcoin.crypto.sha256(Buffer.from(preimage)),
     }
-    mocked(askUser)
+    jest
+      .spyOn(util, "askUser")
       .mockReturnValueOnce(Promise.resolve("accepter")) //mode
       .mockReturnValueOnce(Promise.resolve("testnet")) //networkToTrade
       .mockReturnValueOnce(Promise.resolve("BTS")) // currencyToGive
@@ -98,7 +101,7 @@ describe("getUserInput()", () => {
       bitcoinTxID: "testBTCTxID",
     }
 
-    const accsFields = await getUserInput()
+    const accsFields = await getUserInput(read)
 
     expect(accsFields.mode).toBe(expectedACCSFields.mode)
     expect(accsFields.currencyToGive).toBe(expectedACCSFields.currencyToGive)

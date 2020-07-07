@@ -6,11 +6,6 @@ import readline from "readline"
  * @param str - A question to ask the user.
  * @returns answer from the user
  */
-export async function askUser(str: string): Promise<string> {
-  const read = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  })
-
+export async function askUser(read: readline.Interface, str: string): Promise<string> {
   return new Promise((resolve) => read.question("\u001b[36;1m" + str + "\u001b[0m", resolve))
 }

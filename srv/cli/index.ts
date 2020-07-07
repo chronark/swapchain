@@ -1,6 +1,12 @@
 import ACCS from "../web/src/accs/accs"
 import figlet from "figlet"
 import { getUserInput } from "./getUserInput"
+import readline from "readline"
+
+const read = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+})
 
 const argv = process.argv.slice(2)
 
@@ -27,7 +33,7 @@ new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
   console.log("Welcome to swapchain-cli.")
   console.log("")
 
-  getUserInput()
+  getUserInput(read)
     .then((fields) => {
       ACCS.run(fields).then(() => {
         console.log("Success! Thanks for swapping with Swapchain.")

@@ -65,7 +65,7 @@ describe("parseUserInput()", () => {
       secret: secretObject,
       bitcoinTxID: "testBTCTxID",
       bitsharesAsset: "TEST",
-      bitsharesEndpoint: "wss://testnet.dex.trading",
+      bitsharesEndpoint: "wss://testnet.dex.trading/",
     }
 
     const config = await ACCS.parseUserInput(fields)
