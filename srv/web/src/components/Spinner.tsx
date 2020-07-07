@@ -8,6 +8,6 @@ type Props = {
 
 export const Spinner = (props: Props) => {
     return (
-        <img className={props.className} src={gif} />
+        <img alt="Spinner animation" className={props.className} src={gif} />
     )
 }

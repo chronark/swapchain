@@ -5,28 +5,18 @@ import { Input } from "./Input"
 import { SubmitButton } from "./SubmitButton"
 import { Form } from "./Form"
 import { ReactComponent as Exclamation } from "../../icons/exclamation.svg"
+import { Spinner } from "../Spinner"
+import { RadioButton } from "./RadioButton"
+import { State, Network, Timelock, Priority } from "./enums"
 
-import {RadioButton} from "./RadioButton"
 export const Accept = () => {
-    enum Network {
-        MAINNET = "mainnet",
-        TESTNET = "testnet",
-    }
+    // Application stae for handling the flow
+    const [state, setState] = useState(State.IDLE)
 
+    // Used to display helpful error messages to the user
+    const [errorMessage, setErrorMessage] = useState("")
 
-    enum Timelock {
-        LONG,
-        MEDIUM,
-        SHORT,
-    }
-
-    enum Priority {
-        HIGH,
-        MEDIUM,
-        LOW,
-    }
-
-
+    // Collects the user input in one place
     const [fields, setFields] = useState({
         networkToTrade: Network.MAINNET,
         hash: "",
@@ -40,65 +30,111 @@ export const Accept = () => {
         orderDuration: 7,
         priority: Priority.HIGH,
     })
-    const [isValid, setValid] = useState(false)
-    const [showError, setShowError] = useState(false)
 
+    /**
+     * Validate all fields.
+     * @returns The respective error messsage or empty string if valid.
+     */
+    const validate = (): string => {
+        if (fields.hash === "") {
+            return "Hash is empty"
+        }
+        if (fields.bitcoinPrivateKey.length === 32) {
+            return "Bitcoin private key is not 32 characters long"
+        }
+        if (fields.bitsharesPrivateKey === "") {
+            return "Bitshares private key is empty"
+        }
+        if (fields.counterpartyBitcoinPublicKey === "") {
+            return "Counterparty bitcoin public key is empty"
+        }
+        if (fields.counterpartyBitsharesAccountName === "") {
+            return "Counterparty bitshares account name is empty"
+        }
+        return ""
+    }
 
-    //validation
+    // Go back to idle when the user fixes their input errors.
+    // Does nothing if the accs is already running
     useEffect(() => {
-        const isValid = fields.bitcoinPrivateKey !== "" &&
-            fields.bitsharesPrivateKey !== "" &&
-            fields.counterpartyBitcoinPublicKey !== "" &&
-            fields.counterpartyBitsharesAccountName !== "" &&
-            fields.hash !== ""
-
-
-        setValid(isValid)
-        if (isValid) {
-            setShowError(false)
+        // Failure state is final
+        if (state !== State.FAILURE) {
+            if (state !== State.RUNNING && validate() === "") {
+                setErrorMessage("")
+                setState(State.IDLE)
+            }
         }
     }, [fields])
 
+    /**
+     * Update the field state from a FormEvent
+     * @param e - HTMLInput FormEvent.
+     */
     const updateField = (e: React.FormEvent<HTMLInputElement>) => {
         setFields({
             ...fields,
             [e.currentTarget.name]: e.currentTarget.value
         })
     }
-    const updateFieldByName = (name: string, value: number | string) => {
+
+    /**
+    * Update the field state manually via onClick for example.
+    * @param key - The key in the field state.
+    * @param value - New value to be stored.
+    */
+    const updateFieldByKey = (key: string, value: number | string) => {
         setFields({
             ...fields,
-            [name]: value
+            [key]: value
         })
     }
 
+    /**
+     * This hook handles the SubmitButton.
+     * When a user thinks he is done filling out the form it is validated first and feedback is given to the user.
+     */
     const submitHandler = () => {
-        if (!isValid) {
-            setShowError(true)
+        const validationError = validate()
+
+        if (validationError !== "") {
+            setErrorMessage(validationError)
+            setState(State.INVALID_INPUT)
             return
         }
-        console.log(fields)
+
+        setState(State.RUNNING)
+
+        // TODO: Replace with accs
+        setTimeout(() => {
+            if (Math.random() > 0.5) {
+                setState(State.SUCCESS)
+            } else {
+                setState(State.ERROR)
+                setErrorMessage("Joab didn't do his job, should we fire him?")
+            }
+        }, 5000)
     }
+
     return (
         <Form
             main={
                 <div className="flex flex-col justify-center w-full p-8">
                     <h2 className="text-3xl font-bold leading-tight text-gray-800">Accept an Atomic Cross Chain Swap</h2>
                     <div className="flex flex-col mt-12 space-y-10">
-                    <section>
+                        <section>
                             <Label label="On what network do you want to trade"></Label>
                             <div className="flex flex-col justify-center space-y-4 md:flex-row md:space-x-4 md:space-y-0">
                                 <RadioButton
                                     description="You are sending real money!"
                                     name="Mainnet"
                                     tag={<Exclamation className={`h-8 text-red-600 ${fields.networkToTrade === Network.MAINNET ? "" : "hidden"}`}></Exclamation>}
-                                    onClick={() => updateFieldByName("networkToTrade", Network.MAINNET)}
+                                    onClick={() => updateFieldByKey("networkToTrade", Network.MAINNET)}
                                     selected={fields.networkToTrade === Network.MAINNET}
                                 ></RadioButton>
                                 <RadioButton
                                     description="Send test currencies on the testnet"
                                     name="Testnet"
-                                    onClick={() => updateFieldByName("networkToTrade", Network.TESTNET)}
+                                    onClick={() => updateFieldByKey("networkToTrade", Network.TESTNET)}
                                     selected={fields.networkToTrade === Network.TESTNET}
                                 ></RadioButton>
                             </div>
@@ -176,21 +212,21 @@ export const Accept = () => {
                                         description="Around 1 hour. This is the shortest duration possible while making sure the transactions are confirmed in time."
                                         hint="6 blocks"
                                         name={Timelock[Timelock.SHORT]}
-                                        onClick={() => updateFieldByName("timelockDuration", Timelock.SHORT)}
+                                        onClick={() => updateFieldByKey("timelockDuration", Timelock.SHORT)}
                                         selected={fields.timelockDuration === Timelock.SHORT}
                                     ></RadioButton>
                                     <RadioButton
                                         description="Around 2 hours. Offers more time for the counterparty to come online."
                                         hint="13 blocks"
                                         name={Timelock[Timelock.MEDIUM]}
-                                        onClick={() => updateFieldByName("timelockDuration", Timelock.MEDIUM)}
+                                        onClick={() => updateFieldByKey("timelockDuration", Timelock.MEDIUM)}
                                         selected={fields.timelockDuration === Timelock.MEDIUM}
                                     ></RadioButton>
                                     <RadioButton
                                         description="Around 3 hours. Gives your counterparty even more time."
                                         hint="20 blocks"
                                         name={Timelock[Timelock.LONG]}
-                                        onClick={() => updateFieldByName("timelockDuration", Timelock.LONG)}
+                                        onClick={() => updateFieldByKey("timelockDuration", Timelock.LONG)}
                                         selected={fields.timelockDuration === Timelock.LONG}
                                     ></RadioButton>
                                 </div>
@@ -206,19 +242,19 @@ export const Accept = () => {
                                 <RadioButton
                                     description="You pay the highest fees to increase the chance for your transaction to be picked up by the miners."
                                     name={Priority[Priority.HIGH]}
-                                    onClick={() => updateFieldByName("priority", Priority.HIGH)}
+                                    onClick={() => updateFieldByKey("priority", Priority.HIGH)}
                                     selected={fields.priority === Priority.HIGH}
                                 ></RadioButton>
                                 <RadioButton
                                     description="You pay a moderate amount of fees so miners will probably confirm your transaction soon."
                                     name={Priority[Priority.MEDIUM]}
-                                    onClick={() => updateFieldByName("priority", Priority.MEDIUM)}
+                                    onClick={() => updateFieldByKey("priority", Priority.MEDIUM)}
                                     selected={fields.priority === Priority.MEDIUM}
                                 ></RadioButton>
                                 <RadioButton
                                     description="You pay the lowest fees but might have to wait a few more blocks for your transaction to be confirmed."
                                     name={Priority[Priority.LOW]}
-                                    onClick={() => updateFieldByName("priority", Priority.LOW)}
+                                    onClick={() => updateFieldByKey("priority", Priority.LOW)}
                                     selected={fields.priority === Priority.LOW}
                                 ></RadioButton>
                             </div>
@@ -226,11 +262,31 @@ export const Accept = () => {
                     </div>
                 </div>
             }
-            footer={
-                <div>
-                    <p className={`-mt-4 pb-4 text-red-500 text-sm ${showError ? "" : "hidden"}`}>Please fill in all fields</p>
-                    <SubmitButton borderColor={isValid ? "teal" : "gray"} label="Submit" onClick={submitHandler}></SubmitButton>
-                </div>
+            footer={<>
+                {(function () {
+                    switch (state) {
+                        case State.IDLE:
+                            return <SubmitButton borderColor="teal" label="Submit" onClick={submitHandler}></SubmitButton>
+                        case State.INVALID_INPUT:
+                            return < div className="flex flex-col">
+                                <p className="pb-4 text-red-400 text-bold">{errorMessage}</p>
+                                <SubmitButton borderColor="gray" label="Submit" onClick={submitHandler}></SubmitButton>
+                            </div>
+                        case State.RUNNING:
+                            return <Spinner className="h-20 bg-transparent"></Spinner>
+                        case State.SUCCESS:
+                            return <span className="p-10 text-teal-400 text-bold">SUCCESS</span>
+                        case State.ERROR:
+                            return < div className="flex flex-col">
+                                <p className="pb-4 text-red-400 text-bold">{errorMessage}</p>
+                                <SubmitButton borderColor="gray" label="Try again" onClick={submitHandler}></SubmitButton>
+                            </div>
+                        case State.FAILURE:
+                            return <p className="pb-4 text-xl text-red-400 text-bold">{errorMessage}</p>
+                           
+                    }
+                })()}
+            </>
             }></Form>
     )
 }
