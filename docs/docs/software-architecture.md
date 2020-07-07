@@ -40,7 +40,7 @@ The report will present a detailed analysis of the architecture of a platform en
 
 Swapchain offers a command-line interface (CLI) and a basic mockup which follow the Clean Architecture pattern. Main reason to use this pattern is to separate functions into layers and thus, improve the maintainability and reusability. Figure 1 visualizes the Clean Architecture by using color-coded schemes.
 
-![](./docs/static/img/CleanArchitecture.jpg)
+![](./docs/static/img/CleanArchitecture.svg)
 Figure 1: The Clean Architecture (Martin, 2020) [3]
 
 So, in the context of our application:
@@ -104,14 +104,7 @@ There are some key requirements and system constraints that have a significant b
 
 This UI is a system which is hosted in an API. The database will be hosted by ChainSquad once the software is delivered. Atomic transactions are conducted in the backend, so that the client computer does not have to spend much of CPU power.
 
-### 6.1. Deployment Diagram
-
-Figure 4 follows the Clean Architecture principle. The frontend and database depict the outer blue layer. The Blockchain gateway functions as controller and hence, start the green layer. The HTLC blocks below the Blockchain gateway depict the red layer as they are use cases. The ACCS itself depicts the yellow layer at the core of the Clean Architecture.
-
-![](./docs/static/img/Deployment.png)
-Figure 4: Deployment Diagram (Swapchain, 2020) [4]
-
-### 6.2. Technology Stack Description
+### 6.1. Technology Stack Description
 
 All services will be running in docker containers at first and orchestrated by docker-compose for simplicity sake. As Swapchain gets closer to mid-term release, the project team will be moving to a Kubernetes deployment on GCE. [1][2]
 
@@ -159,7 +152,7 @@ Figure 5: Implementation Diagram (Swapchain, 2020) [4]
 ### 7.2. Implementation Description
 
 End-User:
-The user interacts with Swapchain’s UI by authenticating his/her account. Once logged in, the user can submit a swap offer. In case a potential offer is found, the user initiates the atomic swap by submitting the respective order.
+The user interacts with the Swapchain UI without signing-up or authenticating an account. For now, we assume that proposer and taker already know each other. Next, both exchange partners have to fill out a form to either accept or propose an atomic cross-chain swap. The user initiates the atomic swap by submitting the respective order.
 
 System:
 After the system receives the order submitted by the user a swap request is carried out using a HTLC. For that an API verifies the signatures and ensures that the private key matches the public key for the swap to take place. As soon as all required conditions are met it relays back and responds to the system to successfully transfer the funds. The involved users will receive a notification if the transaction was successful or not. In case the transaction fails, the users will receive a notification that they will be receiving the refund.
@@ -169,13 +162,13 @@ After the system receives the order submitted by the user a swap request is carr
 The chosen software architecture supports the following requirements:
 
 1. The system shall support two simultaneous users against the central database at any given time.
-2. The system shall be able to complete an ACCS transaction within 2 minutes once all HTLC requirements are met.
+2. The system shall be able to complete an ACCS transaction within 5 minutes once all HTLC requirements are met.
 
 ## 9. Quality
 
 The software architecture supports the following quality requirements:
 
-1. The UI will be a web application.
+1. The UI will be a basic mockup.
 2. The UI of the Swapchain platform will be designed for ease-of-use and shall be appropriate for a computer-literate user community with some knowledge of cryptocurrency exchanges.
 3. Each feature of the Swapchain platform is documented in a subdomain of Github (Github, 2020) by following this link: https://chronark.github.io/swapchain [1]
 4. The Swapchain platform will be available 24 hours a day, 7 days a week.
