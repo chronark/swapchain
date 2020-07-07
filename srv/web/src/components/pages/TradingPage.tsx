@@ -29,8 +29,9 @@ export const TradingPage = () => {
                     Atomic Cross Chain Swaps
                 </h2>
                 <p className="mt-4 leading-7 text-gray-500">
-                    Even more Explanation
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.
+                    No more enterprise wallets saving your confidential data and contradicting the idea behind distributed ledger. 
+                    No more transactions with mediocre safety measures leaving you worried about fraudulent exchange partners.
+                    Swapchain is here to combine trustless safety measures with user data privacy. Because cryptocurrency trading deserves better.
 
                 </p>
                 <ul className="flex flex-col mt-8 space-y-4">
@@ -42,10 +43,10 @@ export const TradingPage = () => {
                                 </div>
                             </div>
                             <div className="ml-4">
-                                <h4 className="text-lg leading-6 text-gray-900">It's super cool</h4>
+                                <h4 className="text-lg leading-6 text-gray-900">The important stuff stays with you.</h4>
                                 <p className="mt-2 text-base leading-6 text-gray-500">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.
-              </p>
+                                    Swapchain lets you keep your public keys, private keys and addresses in your browser exclusively. Nothing is stored in an external database, giving you full control over your confidential data.
+                                    </p>
                             </div></div>
                     </li>
                     <li>
@@ -56,9 +57,9 @@ export const TradingPage = () => {
                                 </div>
                             </div>
                             <div className="ml-4">
-                                <h4 className="text-lg leading-6 text-gray-900">Zero trust required</h4>
+                                <h4 className="text-lg leading-6 text-gray-900">No need to trust your exchange partner.</h4>
                                 <p className="mt-2 text-base leading-6 text-gray-500">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.
+                                    As Swapchain uses hash-time-lock-contracts (HTLCs), counterparty risks are minimized. This means you don't have to trust your exchange partner and still can trade safely.
                                     </p>
                             </div></div>
                     </li>
@@ -70,9 +71,9 @@ export const TradingPage = () => {
                                 </div>
                             </div>
                             <div className="ml-4">
-                                <h4 className="text-lg leading-6 text-gray-900">Because..</h4>
+                                <h4 className="text-lg leading-6 text-gray-900">Trade crypto assets the way you like it.</h4>
                                 <p className="mt-2 text-base leading-6 text-gray-500">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.
+                                    With Swapchain, you can choose your preferred transaction duration and time-lock length, making your cryptocurrency transactions both more flexible to your needs and safer.
                                 </p>
                             </div></div>
                     </li>
