@@ -14,11 +14,11 @@ export const RadioButton = (props: Props) => {
     return (
         <button
             onClick={onClick}
-            className={`focus:outline-none flex w-full justify-between border rounded ${selected ? "border-teal-400 shadow" : "bg-gray-100"} hover:bg-white hover:shadow-sm`}>
+            className={`focus:outline-none flex w-full items-center justify-between border rounded ${selected ? "border-teal-400 shadow" : "bg-gray-100"} hover:bg-white hover:shadow-sm`}>
             <div className="flex flex-col items-start justify-between p-4">
                 <div className="flex items-center justify-between w-full">
 
-                    <span className={`text-left font-bold ${selected ? "text-gray-900" : "text-gray-600"}`}>
+                    <span className={`text-left font-semibold ${selected ? "text-gray-900" : "text-gray-600"}`}>
                         {name}
                     </span>
                     <span className={`text-xs font-thin ${selected ? "text-gray-600" : "text-gray-400"}`}>{hint}</span>
@@ -28,7 +28,7 @@ export const RadioButton = (props: Props) => {
                 </p>
             </div>
             <div className="flex items-center justify-center">
-                <span className={`mr-4 text-3xl font-bold hidden md:block ${selected ? "text-gray-900 " : "text-gray-300"}`}>
+                <span className={`mr-4 text-3xl font-semibold hidden md:block ${selected ? "text-gray-900 " : "text-gray-300"}`}>
                     {tag}
                 </span>
             </div>

@@ -12,6 +12,7 @@ import { State, Network, Timelock, Priority } from "./enums"
 export const Accept = () => {
     // Application stae for handling the flow
     const [state, setState] = useState(State.IDLE)
+    const [isValid, setValid] = useState(false)
 
     // Used to display helpful error messages to the user
     const [errorMessage, setErrorMessage] = useState("")
@@ -59,12 +60,13 @@ export const Accept = () => {
     useEffect(() => {
         // Failure state is final
         if (state !== State.FAILURE) {
-            if (state !== State.RUNNING && validate() === "") {
+            if (state !== State.RUNNING && isValid) {
                 setErrorMessage("")
                 setState(State.IDLE)
             }
         }
-    }, [fields])
+    }, [fields, state, isValid])
+
 
     /**
      * Update the field state from a FormEvent
@@ -94,13 +96,16 @@ export const Accept = () => {
      * When a user thinks he is done filling out the form it is validated first and feedback is given to the user.
      */
     const submitHandler = () => {
-        const validationError = validate()
-
-        if (validationError !== "") {
-            setErrorMessage(validationError)
+        const errorMessage = validate()
+        setValid(errorMessage === "")
+        
+        // Checking "manually" because the state is updated asynchronously
+        if (errorMessage !== "") {
+            setErrorMessage(errorMessage)
             setState(State.INVALID_INPUT)
             return
         }
+
 
         setState(State.RUNNING)
 
@@ -119,7 +124,7 @@ export const Accept = () => {
         <Form
             main={
                 <div className="flex flex-col justify-center w-full p-8">
-                    <h2 className="text-3xl font-bold leading-tight text-gray-800">Accept an Atomic Cross Chain Swap</h2>
+                    <h2 className="text-3xl font-semibold leading-tight text-gray-800">Accept an Atomic Cross Chain Swap</h2>
                     <div className="flex flex-col mt-12 space-y-10">
                         <section>
                             <Label label="On what network do you want to trade"></Label>
@@ -140,7 +145,7 @@ export const Accept = () => {
                             </div>
                         </section>
                         <section>
-                            <h2 className="text-xl font-bold leading-tight text-gray-800">Your Data</h2>
+                            <h2 className="text-xl font-semibold leading-tight text-gray-800">Your Data</h2>
                             <div className="items-center justify-between mt-4 md:space-x-4 md:flex">
 
                                 <div className="md:w-1/2">
@@ -170,7 +175,7 @@ export const Accept = () => {
                         </section>
 
                         <section>
-                            <h2 className="text-xl font-bold leading-tight text-gray-800">Counterparty Data</h2>
+                            <h2 className="text-xl font-semibold leading-tight text-gray-800">Counterparty Data</h2>
                             <div className="items-center justify-between mt-4 md:space-x-4 md:flex">
 
                                 <div className="md:w-1/2">
@@ -204,7 +209,7 @@ export const Accept = () => {
 
                         </section>
                         <section>
-                            <h2 className="text-xl font-bold leading-tight text-gray-800">HTLC settings</h2>
+                            <h2 className="text-xl font-semibold leading-tight text-gray-800">HTLC settings</h2>
                             <div className="mt-4">
                                 <Label label="Choose your timelock"></Label>
                                 <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">

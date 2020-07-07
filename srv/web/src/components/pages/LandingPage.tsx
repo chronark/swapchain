@@ -8,7 +8,7 @@ export const LandingPage = () => {
                 <div className="flex items-center">
                     <main className="max-w-screen-xl px-4 mx-auto mt-10 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
                         <div className="sm:text-center md:text-left">
-                            <h2 className="text-2xl font-extrabold leading-10 tracking-tight text-gray-900 sm:text-2xl sm:leading-none md:text-5xl">
+                            <h2 className="text-2xl font-semibold leading-10 tracking-tight text-gray-900 sm:text-2xl sm:leading-none md:text-5xl">
                                 Cryptocurrency exchange
                                     <span className="text-teal-500"> without trust</span>
                             </h2>

@@ -15,6 +15,7 @@ import { Secret, getSecret } from "../../pkg/secret/secret"
 export const Propose = () => {
     // Application stae for handling the flow
     const [state, setState] = useState(State.IDLE)
+    const [isValid, setValid] = useState(false)
 
     // Used to display helpful error messages to the user
     const [errorMessage, setErrorMessage] = useState("")
@@ -94,12 +95,13 @@ export const Propose = () => {
     useEffect(() => {
         // Failure state is final
         if (state !== State.FAILURE) {
-            if (state !== State.RUNNING && validate() === "") {
+            if (state !== State.RUNNING && isValid) {
                 setErrorMessage("")
                 setState(State.IDLE)
             }
         }
-    }, [fields])
+    }, [fields, state, isValid])
+
 
     /**
      * Update the field state from a FormEvent
@@ -128,13 +130,16 @@ export const Propose = () => {
      * When a user thinks he is done filling out the form it is validated first and feedback is given to the user.
      */
     const submitHandler = () => {
-        const validationError = validate()
-
-        if (validationError !== "") {
-            setErrorMessage(validationError)
+        const errorMessage = validate()
+        setValid(errorMessage === "")
+        
+        // Checking "manually" because the state is updated asynchronously
+        if (errorMessage !== "") {
+            setErrorMessage(errorMessage)
             setState(State.INVALID_INPUT)
             return
         }
+
 
         setState(State.RUNNING)
 
@@ -150,7 +155,7 @@ export const Propose = () => {
         <Form
             main={
                 <div className="flex flex-col justify-center w-full p-8">
-                    <h2 className="text-3xl font-bold leading-tight text-gray-800 ">Propose a new Atomic Cross Chain Swap</h2>
+                    <h2 className="text-3xl font-semibold leading-tight text-gray-800 ">Propose a new Atomic Cross Chain Swap</h2>
                     <div className="flex flex-col mt-12 space-y-10">
                         <section>
                             <Label label="On what network do you want to trade"></Label>
@@ -192,7 +197,7 @@ export const Propose = () => {
                         </section>
 
                         <section>
-                            <h2 className="text-xl font-bold leading-tight text-gray-800">Amount</h2>
+                            <h2 className="text-xl font-semibold leading-tight text-gray-800">Amount</h2>
                             <div className="items-center justify-between mt-4 md:space-x-4 md:flex">
                                 <div className="flex-grow">
                                     <Label label="Amount to send"></Label>
@@ -240,7 +245,7 @@ export const Propose = () => {
 
 
                         <section>
-                            <h2 className="text-xl font-bold leading-tight text-gray-800">Your Data</h2>
+                            <h2 className="text-xl font-semibold leading-tight text-gray-800">Your Data</h2>
                             <div className="items-center justify-between mt-4 md:space-x-4 md:flex">
 
                                 <div className="md:w-1/2">
@@ -270,7 +275,7 @@ export const Propose = () => {
                         </section>
 
                         <section>
-                            <h2 className="text-xl font-bold leading-tight text-gray-800">Counterparty Data</h2>
+                            <h2 className="text-xl font-semibold leading-tight text-gray-800">Counterparty Data</h2>
                             <div className="items-center justify-between mt-4 md:space-x-4 md:flex">
                                 <div className="md:w-1/2">
                                     <Label label="Bitcoin public key"></Label>
@@ -296,7 +301,7 @@ export const Propose = () => {
                         </section>
 
                         <section>
-                            <h2 className="text-xl font-bold leading-tight text-gray-800">HTLC settings</h2>
+                            <h2 className="text-xl font-semibold leading-tight text-gray-800">HTLC settings</h2>
                             <div className="mt-4">
                                 <Label label="Choose your timelock"></Label>
                                 <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">

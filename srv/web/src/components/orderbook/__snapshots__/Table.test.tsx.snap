@@ -30,7 +30,7 @@ exports[`renders correctly 1`] = `
         exclamation.svg
       </svg>
       <span
-        className="ml-3 text-xs font-bold text-orange-900"
+        className="ml-3 text-xs font-semibold text-orange-900"
       >
         Looks like there is nothing here, try removing some filters.
       </span>

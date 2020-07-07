@@ -85,7 +85,7 @@ export const Table = (props: Props) => {
                 </div>
                 <div className={` flex items-center px-4 py-2 mr-8 bg-yellow-100 rounded transition duration-300 transform ease-in-out ${orders.length > 0 ? "opacity-0 translate-x-20" : "opacity-100"}`}>
                     <Exclamation className="w-4 h-4 text-orange-700"></Exclamation>
-                    <span className="ml-3 text-xs font-bold text-orange-900">
+                    <span className="ml-3 text-xs font-semibold text-orange-900">
                         Looks like there is nothing here, try removing some filters.
                         </span>
                 </div>
