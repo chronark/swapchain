@@ -29,6 +29,7 @@ export const Propose = () => {
         amountToSend: 1,
         rate: 1,
         amountToReceive: 1,
+        btcTxID: "",
         bitcoinPrivateKey: "cVPwsbE8HNMCoLGz8N4R2SfyQTMQzznL9x3vEHJqPtuZ1rhBkTo7",
         bitsharesPrivateKey: "5Z89Ve18ttnu7Ymd1nnCMsnGkfKk4KQnsfFrYEz7Cmw39FAMOSS",
         counterpartyBitcoinPublicKey: "034c7ddacc16fa5e53aa5dc19748e3877ba07b981fdbbcdb97b8b19de240241f61",
@@ -87,6 +88,9 @@ export const Propose = () => {
         }
         if (fields.counterpartyBitsharesAccountName === "") {
             return "Counterparty bitshares account name is empty"
+        }
+        if (fields.btcTxID.length !== 64) {
+            return "Bitcoin Transaction ID to spend is not 64 chars long"
         }
         return ""
     }
@@ -265,6 +269,17 @@ export const Propose = () => {
             <p className="px-4 mx-auto mt-2 text-sm text-center text-gray-500">
                 Your public Bitcoin key and Bitshares account name can be derived from your private key. Your private keys will never leave your browser, they are only used to sign your transactions. <a href="/" className="relative text-xs text-blue-500">Read more in our docs.</a>
             </p>
+            <div>
+
+                <Label label="Bitcoin transaction ID to spend"></Label>
+                <Input
+                    name="btcTxID"
+                    onChange={updateField}
+                    placeholder={fakeKey(30, "testnet")}
+                    type="text"
+                    value={fields.btcTxID}
+                ></Input>
+            </div>
         </section>
 
         <section>
