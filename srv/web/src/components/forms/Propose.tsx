@@ -140,23 +140,12 @@ export const Propose = () => {
 
         setState(State.RUNNING)
 
-        setTimeout(() => {
-
-            if (false) {
-                console.log("set success")
-                setState(State.SUCCESS)
-            } else {
-                console.log("set failure")
-                setErrorMessage("Nico was lazuy")
-                setState(State.FAILURE)
-            }
-        }, 2000)
-        // ACCS.run(fields).then(() => {
-        //     setState(State.SUCCESS)
-        // }).catch((err) => {
-        //     setState(State.ERROR)
-        //     setErrorMessage(err)
-        // })
+         ACCS.run(fields).then(() => {
+             setState(State.SUCCESS)
+         }).catch((err) => {
+             setState(State.ERROR)
+             setErrorMessage(err)
+         })
     }
 
 
