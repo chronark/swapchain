@@ -27,9 +27,6 @@ jobs:
         run: npm install
       - name: lint and format
         run: npm run fmt
-      - name: Hadolint
-        run: |
-          docker run --rm -i hadolint/hadolint < ./srv/bitcoinTimelockBackend/Dockerfile
   tests:
     strategy:
       matrix:
@@ -52,8 +49,6 @@ jobs:
           npm ci
       - name: Unittests
         run: npm test
-        env:
-          BLOCKCYPHER_API_TOKEN: "I_LOOK_LIKE_A_TOKEN"
 
       - name: Unittests web
         run: cd srv/web/ && npm test
@@ -79,13 +74,4 @@ jobs:
           npm ci
       - name: Build
         run: npm run build
-  docker:
-    runs-on: ubuntu-latest
-    name: Build docker
-    steps:
-      - uses: actions/checkout@v2
-      - name: Build
-        run: |
-          echo "BLOCKCYPHER_API_TOKEN=I_LOOK_LIKE_A_TOKEN" > .env
-          npm run docker:build
-          
+ 
