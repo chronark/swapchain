@@ -38,7 +38,7 @@ export const Navbar = () => {
                             <Link className={linkStyle} to="/trade">Trade</Link>
                         </li>
                         <li>
-                            <a className={linkStyle} href="https://github.com/chronark/swapchain#cli">CLI</a>
+                            <a className={linkStyle} target="blank" href="https://github.com/chronark/swapchain#cli">CLI</a>
                         </li>
                         <li>
                             <Link className={linkStyle} to="/orderbook">Orderbook
