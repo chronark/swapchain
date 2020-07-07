@@ -171,7 +171,7 @@ The software architecture supports the following quality requirements:
 1. The UI will be a basic mockup.
 2. The UI of the Swapchain platform will be designed for ease-of-use and shall be appropriate for a computer-literate user community with some knowledge of cryptocurrency exchanges.
 3. Each feature of the Swapchain platform is documented in a subdomain of Github (Github, 2020) by following this link: https://chronark.github.io/swapchain [1]
-4. The Swapchain platform will be available 24 hours a day, 7 days a week.
+4. The Swapchain platform will be available 24 hours a day, 7 days a week. 
 
 ## 10. References
 
