@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { fakeKey } from "../../util"
+import { fakeKey, hash } from "../../util"
 import { Label } from "./Label"
 import { Input } from "./Input"
 import { SubmitButton } from "./SubmitButton"
@@ -7,7 +7,10 @@ import { Form } from "./Form"
 import { ReactComponent as Exclamation } from "../../icons/exclamation.svg"
 import { Spinner } from "../Spinner"
 import { RadioButton } from "./RadioButton"
-import { State, Network, Timelock, Priority } from "./enums"
+import { State, Network, Timelock, Priority, Currency } from "./enums"
+import ACCS from "../../accs/accs"
+import { isValidBitcoinPrivateKey, isValidBitsharesPrivateKey, isValidBitcoinPublicKey } from "../../pkg/address/validator"
+import { Secret, getSecret } from "../../pkg/secret/secret"
 
 export const Accept = () => {
     // Application stae for handling the flow
@@ -19,41 +22,88 @@ export const Accept = () => {
 
     // Collects the user input in one place
     const [fields, setFields] = useState({
+        mode: "accepter",
         networkToTrade: Network.MAINNET,
-        hash: "",
+        currencyToGive: Currency.BTC,
+        amountToSend: 0,
+        rate: 0,
+        amountToReceive: 0,
         bitcoinPrivateKey: "",
-        bitcoinPublicKey: "",
         bitsharesPrivateKey: "",
-        bitsharesAccountName: "",
         counterpartyBitcoinPublicKey: "",
         counterpartyBitsharesAccountName: "",
-        timelockDuration: Timelock.SHORT,
-        orderDuration: 7,
+        bitcoinTxID: "",
+        timelock: Timelock.SHORT,
         priority: Priority.HIGH,
+        secret: {} as Secret,
+        hash: "", 
+
     })
+
+    fields.secret = {
+        preimage: undefined, 
+        hash: Buffer.from(fields.hash)
+    }
+
+        /**
+     * Get the unit of the rate multiplier.
+     * @returns Either BTC/BTS or BTS/BTC
+     */
+    const rateUnit = (): string[] => {
+        switch (fields.currencyToGive) {
+            case Currency.BTC:
+                return ["BTC", "BTS"]
+            case Currency.BTS:
+                return ["BTS", "BTC"]
+        }
+    }
+    
+        //calculate received funds
+        useEffect(() => {
+            if (fields.amountToReceive !== fields.amountToSend * fields.rate) {
+                setFields({
+                    ...fields,
+                    amountToReceive: fields.amountToSend * fields.rate
+                })
+            }
+        }, [fields])
 
     /**
      * Validate all fields.
      * @returns The respective error messsage or empty string if valid.
      */
     const validate = (): string => {
-        if (fields.hash === "") {
-            return "Hash is empty"
+        if (fields.amountToSend <= 0) {
+            return "Amount to send is empty"
         }
-        if (fields.bitcoinPrivateKey.length === 32) {
-            return "Bitcoin private key is not 32 characters long"
+        if (fields.rate <= 0) {
+            return "Rate is empty"
         }
-        if (fields.bitsharesPrivateKey === "") {
+        if (fields.amountToReceive <= 0) {
+            return "Amount you receive is not valid"
+        }
+        if (!isValidBitcoinPrivateKey(fields.bitcoinPrivateKey, fields.networkToTrade)) {
+            return "Bitcoin private key is not valid"
+        }
+        if (!isValidBitsharesPrivateKey(fields.bitsharesPrivateKey)) {
             return "Bitshares private key is empty"
         }
-        if (fields.counterpartyBitcoinPublicKey === "") {
-            return "Counterparty bitcoin public key is empty"
+        if (isValidBitcoinPublicKey(fields.counterpartyBitcoinPublicKey)) {
+            return "Counterparty bitcoin public key is not valid"
         }
         if (fields.counterpartyBitsharesAccountName === "") {
             return "Counterparty bitshares account name is empty"
         }
+        if (fields.bitcoinTxID === "") {
+            return "Bitcoin transaction ID is empty"
+        }
+        if (!fields.secret) {
+            return "Hash is empty"
+        }
         return ""
     }
+
+
 
     // Go back to idle when the user fixes their input errors.
     // Does nothing if the accs is already running
@@ -110,14 +160,12 @@ export const Accept = () => {
         setState(State.RUNNING)
 
         // TODO: Replace with accs
-        setTimeout(() => {
-            if (Math.random() > 0.5) {
-                setState(State.SUCCESS)
-            } else {
-                setState(State.ERROR)
-                setErrorMessage("Joab didn't do his job, should we fire him?")
-            }
-        }, 5000)
+        ACCS.run(fields).then(() => {
+            setState(State.SUCCESS)
+        }).catch((err) => {
+            setState(State.ERROR)
+            setErrorMessage(err)
+        })
     }
 
     return (
@@ -144,6 +192,76 @@ export const Accept = () => {
                                 ></RadioButton>
                             </div>
                         </section>
+
+                        <section>
+                            <Label label="What do you want to trade"></Label>
+                            <div className="flex flex-col items-center space-y-4 md:flex-row md:space-x-4 md:space-y-0">
+                                <RadioButton
+                                    description="You are giving Bitcoin away"
+                                    name="Bitcoin"
+                                    onClick={() => updateFieldByKey("currencyToGive", Currency.BTC)}
+                                    selected={fields.currencyToGive === Currency.BTC}
+                                    tag="BTC"
+                                ></RadioButton>
+                                <RadioButton
+                                    description="You are giving Bitshares away"
+                                    name="Bitshares"
+                                    onClick={() => updateFieldByKey("currencyToGive", Currency.BTS)}
+                                    selected={fields.currencyToGive === Currency.BTS}
+                                    tag="BTS"
+                                ></RadioButton>
+                            </div>
+                        </section>
+
+                        <section>
+                            <h2 className="text-xl font-semibold leading-tight text-gray-800">Amount</h2>
+                            <div className="items-center justify-between mt-4 md:space-x-4 md:flex">
+                                <div className="flex-grow">
+                                    <Label label="Amount to send"></Label>
+                                    <div className="relative">
+                                        <span className="absolute inset-y-0 right-0 flex items-center mr-6 text-sm text-gray-600">{rateUnit()[0]}</span>
+                                        <Input
+                                            min={0}
+                                            name="amountToSend"
+                                            onChange={updateField}
+                                            placeholder="0.00000000"
+                                            step={0.00000001}
+                                            type="number"
+                                            value={fields.amountToSend}
+                                        ></Input>
+                                    </div>
+                                </div>
+                                <div className="flex-grow">
+                                    <Label label="Rate"></Label>
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 right-0 flex flex-col items-center justify-center mr-6 text-xs text-gray-600">
+                                            <span>{rateUnit()[1]}</span>
+                                            <span className="border-t border-gray-500">{rateUnit()[0]}</span>
+                                        </div>
+                                        <Input
+                                            min={0}
+                                            name="rate"
+                                            onChange={updateField}
+                                            placeholder="0.0000"
+                                            step={0.00000001}
+                                            type="number"
+                                            value={fields.rate}
+                                        ></Input>
+                                    </div>
+                                </div>
+                                <div className="flex-grow">
+                                    <Label label="excluding fees you will receive"></Label>
+                                    <div className="relative">
+                                        <span className="absolute inset-y-0 right-0 flex items-center mr-6 text-sm text-gray-600">
+                                            {rateUnit()[1]}           </span>
+                                        <span className="block w-full py-3 font-mono text-center text-gray-700 border border-gray-200 rounded focus:border-teal-500">{fields.amountToReceive}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+
+
                         <section>
                             <h2 className="text-xl font-semibold leading-tight text-gray-800">Your Data</h2>
                             <div className="items-center justify-between mt-4 md:space-x-4 md:flex">
@@ -163,7 +281,7 @@ export const Accept = () => {
                                     <Input
                                         name="bitsharesPrivateKey"
                                         onChange={updateField}
-                                        placeholder="amos"
+                                        placeholder={fakeKey(51, fields.networkToTrade)}
                                         type="text"
                                         value={fields.bitsharesPrivateKey}
                                     ></Input>
@@ -193,7 +311,7 @@ export const Accept = () => {
                                     <Input
                                         name="counterpartyBitsharesAccountName"
                                         onChange={updateField}
-                                        placeholder=""
+                                        placeholder="amos"
                                         type="text"
                                         value={fields.counterpartyBitsharesAccountName}
                                     ></Input>
@@ -206,7 +324,12 @@ export const Accept = () => {
                                 <Label label="Hash from Counterparty"></Label>
                                 <Input name="hash" value={fields.hash} onChange={updateField} type="text" placeholder="Please enter the hash you received from your trading partner"></Input>
                             </div>
-
+                        </section>
+                        <section>
+                            <div className="block">
+                                <Label label="Bitcoin Transaction ID"></Label>
+                                <Input name="bitcoinTxID" value={fields.bitcoinTxID} onChange={updateField} type="text" placeholder="Please enter the Bitcoin transaction ID"></Input>
+                            </div>
                         </section>
                         <section>
                             <h2 className="text-xl font-semibold leading-tight text-gray-800">HTLC settings</h2>
@@ -218,21 +341,21 @@ export const Accept = () => {
                                         hint="6 blocks"
                                         name={Timelock[Timelock.SHORT]}
                                         onClick={() => updateFieldByKey("timelockDuration", Timelock.SHORT)}
-                                        selected={fields.timelockDuration === Timelock.SHORT}
+                                        selected={fields.timelock === Timelock.SHORT}
                                     ></RadioButton>
                                     <RadioButton
                                         description="Around 2 hours. Offers more time for the counterparty to come online."
                                         hint="13 blocks"
                                         name={Timelock[Timelock.MEDIUM]}
                                         onClick={() => updateFieldByKey("timelockDuration", Timelock.MEDIUM)}
-                                        selected={fields.timelockDuration === Timelock.MEDIUM}
+                                        selected={fields.timelock === Timelock.MEDIUM}
                                     ></RadioButton>
                                     <RadioButton
                                         description="Around 3 hours. Gives your counterparty even more time."
                                         hint="20 blocks"
                                         name={Timelock[Timelock.LONG]}
                                         onClick={() => updateFieldByKey("timelockDuration", Timelock.LONG)}
-                                        selected={fields.timelockDuration === Timelock.LONG}
+                                        selected={fields.timelock === Timelock.LONG}
                                     ></RadioButton>
                                 </div>
                                 <p className="px-4 mx-auto mt-2 text-sm text-center text-gray-500">
