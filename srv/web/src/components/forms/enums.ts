@@ -8,8 +8,8 @@ export enum State {
 }
 
 export enum Currency {
-  BTC,
-  BTS,
+  BTC = "BTC",
+  BTS = "BTS",
 }
 
 export enum Network {
@@ -18,9 +18,9 @@ export enum Network {
 }
 
 export enum Timelock {
-  LONG,
-  MEDIUM,
-  SHORT,
+  LONG = 20,
+  MEDIUM = 13,
+  SHORT = 6,
 }
 
 export enum Priority {
