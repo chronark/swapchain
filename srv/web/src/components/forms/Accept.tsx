@@ -102,7 +102,7 @@ export const Accept = () => {
         // Checking "manually" because the state is updated asynchronously
         if (errorMessage !== "") {
             setErrorMessage(errorMessage)
-            setState(State.INVALID_INPUT)
+            setState(State.ERROR)
             return
         }
 
@@ -272,7 +272,7 @@ export const Accept = () => {
                     switch (state) {
                         case State.IDLE:
                             return <SubmitButton borderColor="teal" label="Submit" onClick={submitHandler}></SubmitButton>
-                        case State.INVALID_INPUT:
+                        case State.ERROR:
                             return < div className="flex flex-col">
                                 <p className="pb-4 text-red-400 text-bold">{errorMessage}</p>
                                 <SubmitButton borderColor="gray" label="Submit" onClick={submitHandler}></SubmitButton>

@@ -1,4 +1,4 @@
-import crypto from "crypto"
+import * as bitcoin from "bitcoinjs-lib"
 
 export const fakeKey = (length: number, network: string) => {
   let prefix: string
@@ -14,5 +14,11 @@ export const fakeKey = (length: number, network: string) => {
 }
 
 export const hash = (s: string): string => {
-  return crypto.createHash("SHA256").update(s).digest("hex")
+  return bitcoin.crypto.hash256(Buffer.from(s)).toString("hex")
+}
+
+export const toPublicKey = (privateKey: string): string => {
+  const keyPair = bitcoin.ECPair.fromWIF(privateKey, bitcoin.networks.testnet)
+  const keyPairCompressed = bitcoin.ECPair.fromPrivateKey(keyPair.privateKey!, { compressed: true })
+  return keyPairCompressed.publicKey.toString("hex")
 }

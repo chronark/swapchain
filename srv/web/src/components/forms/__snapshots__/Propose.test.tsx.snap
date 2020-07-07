@@ -28,45 +28,6 @@ exports[`renders correctly 1`] = `
             className="flex flex-col justify-center space-y-4 md:flex-row md:space-x-4 md:space-y-0"
           >
             <button
-              className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
-              onClick={[Function]}
-            >
-              <div
-                className="flex flex-col items-start justify-between p-4"
-              >
-                <div
-                  className="flex items-center justify-between w-full"
-                >
-                  <span
-                    className="text-left font-semibold text-gray-900"
-                  >
-                    Mainnet
-                  </span>
-                  <span
-                    className="text-xs font-thin text-gray-600"
-                  />
-                </div>
-                <p
-                  className="mt-2 text-sm text-left text-gray-600"
-                >
-                  You are sending real money!
-                </p>
-              </div>
-              <div
-                className="flex items-center justify-center"
-              >
-                <span
-                  className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
-                >
-                  <svg
-                    className="h-8 text-red-600 "
-                  >
-                    exclamation.svg
-                  </svg>
-                </span>
-              </div>
-            </button>
-            <button
               className="focus:outline-none flex w-full items-center justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
               onClick={[Function]}
             >
@@ -79,7 +40,7 @@ exports[`renders correctly 1`] = `
                   <span
                     className="text-left font-semibold text-gray-600"
                   >
-                    Testnet
+                    Mainnet
                   </span>
                   <span
                     className="text-xs font-thin text-gray-400"
@@ -88,7 +49,7 @@ exports[`renders correctly 1`] = `
                 <p
                   className="mt-2 text-sm text-left text-gray-400"
                 >
-                  Send test currencies on the testnet
+                  You are sending real money!
                 </p>
               </div>
               <div
@@ -96,6 +57,45 @@ exports[`renders correctly 1`] = `
               >
                 <span
                   className="mr-4 text-3xl font-semibold hidden md:block text-gray-300"
+                >
+                  <svg
+                    className="h-8 text-red-600 hidden"
+                  >
+                    exclamation.svg
+                  </svg>
+                </span>
+              </div>
+            </button>
+            <button
+              className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
+              onClick={[Function]}
+            >
+              <div
+                className="flex flex-col items-start justify-between p-4"
+              >
+                <div
+                  className="flex items-center justify-between w-full"
+                >
+                  <span
+                    className="text-left font-semibold text-gray-900"
+                  >
+                    Testnet
+                  </span>
+                  <span
+                    className="text-xs font-thin text-gray-600"
+                  />
+                </div>
+                <p
+                  className="mt-2 text-sm text-left text-gray-600"
+                >
+                  Send test currencies on the testnet
+                </p>
+              </div>
+              <div
+                className="flex items-center justify-center"
+              >
+                <span
+                  className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
                 />
               </div>
             </button>
@@ -216,7 +216,7 @@ exports[`renders correctly 1`] = `
                   required={true}
                   step={1e-8}
                   type="number"
-                  value=""
+                  value={1}
                 />
               </div>
             </div>
@@ -252,7 +252,7 @@ exports[`renders correctly 1`] = `
                   required={true}
                   step={1e-8}
                   type="number"
-                  value=""
+                  value={1}
                 />
               </div>
             </div>
@@ -276,7 +276,7 @@ exports[`renders correctly 1`] = `
                 <span
                   className="block w-full py-3 font-mono text-center text-gray-700 border border-gray-200 rounded focus:border-teal-500"
                 >
-                  0
+                  1
                 </span>
               </div>
             </div>
@@ -306,7 +306,7 @@ exports[`renders correctly 1`] = `
                 placeholder="randomLookingHash"
                 required={true}
                 type="text"
-                value=""
+                value="cVPwsbE8HNMCoLGz8N4R2SfyQTMQzznL9x3vEHJqPtuZ1rhBkTo7"
               />
             </div>
             <div
@@ -324,7 +324,7 @@ exports[`renders correctly 1`] = `
                 placeholder="5randomLookingHash"
                 required={true}
                 type="text"
-                value=""
+                value="5Z89Ve18ttnu7Ymd1nnCMsnGkfKk4KQnsfFrYEz7Cmw39FAMOSS"
               />
             </div>
           </div>
@@ -364,7 +364,7 @@ exports[`renders correctly 1`] = `
                 placeholder="02randomLookingHash"
                 required={true}
                 type="text"
-                value=""
+                value="034c7ddacc16fa5e53aa5dc19748e3877ba07b981fdbbcdb97b8b19de240241f61"
               />
             </div>
             <div
@@ -382,7 +382,7 @@ exports[`renders correctly 1`] = `
                 placeholder="amos"
                 required={true}
                 type="text"
-                value=""
+                value="amos"
               />
             </div>
           </div>
@@ -633,13 +633,15 @@ exports[`renders correctly 1`] = `
   <footer
     className="flex justify-center w-full p-4 bg-gray-100 border-t border-gray-200"
   >
-    <button
-      className="px-8 py-3 font-semibold text-gray-900 uppercase transition duration-200 ease-in-out bg-white border rounded-sm shadow-sm focus:outline-none hover:border-teal-500 hover:bg-white border-teal-300"
-      onClick={[Function]}
-      type="button"
-    >
-      Submit
-    </button>
+    <div>
+      <button
+        className="px-8 py-3 font-semibold text-gray-900 uppercase transition duration-200 ease-in-out bg-white border rounded-sm shadow-sm focus:outline-none hover:border-teal-500 hover:bg-white border-teal-300"
+        onClick={[Function]}
+        type="button"
+      >
+        Submit
+      </button>
+    </div>
   </footer>
 </div>
 `;

@@ -1,6 +1,5 @@
 export enum State {
   IDLE,
-  INVALID_INPUT,
   RUNNING,
   SUCCESS,
   ERROR,
