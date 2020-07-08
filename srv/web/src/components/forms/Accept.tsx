@@ -83,13 +83,13 @@ export const Accept = () => {
             return "Amount you receive is not valid"
         }
         if (!isValidBitcoinPrivateKey(fields.bitcoinPrivateKey, fields.networkToTrade)) {
-            return "Bitcoin private key is not valid"
+            return "Bitcoin private key is invalid"
         }
         if (!isValidBitsharesPrivateKey(fields.bitsharesPrivateKey)) {
-            return "Bitshares private key is empty"
+            return "Bitshares private key is invalid"
         }
-        if (isValidBitcoinPublicKey(fields.counterpartyBitcoinPublicKey)) {
-            return "Counterparty bitcoin public key is not valid"
+        if (!isValidBitcoinPublicKey(fields.counterpartyBitcoinPublicKey)) {
+            return "Counterparty bitcoin public key is invalid"
         }
         if (fields.counterpartyBitsharesAccountName === "") {
             return "Counterparty bitshares account name is empty"
