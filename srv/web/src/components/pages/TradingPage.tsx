@@ -43,7 +43,7 @@ export const TradingPage = () => {
                                 </div>
                             </div>
                             <div className="ml-4">
-                                <h4 className="text-lg leading-6 text-gray-900">The important stuff stays with you. </h4>
+                                <h4 className="text-lg leading-6 text-gray-900">You own your private keys</h4>
                                 <p className="mt-2 text-base leading-6 text-gray-500">
                                     If you don't own the private keys, you don't own the coins. With swapchain your private keys belong to you again. Your private keys will never leave your browser or CLI, giving you full control over them.
                                     </p>
@@ -57,7 +57,7 @@ export const TradingPage = () => {
                                 </div>
                             </div>
                             <div className="ml-4">
-                                <h4 className="text-lg leading-6 text-gray-900">No need to trust your exchange partner. </h4>
+                                <h4 className="text-lg leading-6 text-gray-900">Zero trust required</h4>
                                 <p className="mt-2 text-base leading-6 text-gray-500">
                                     Since Swapchain uses Hash TimeLock Contracts (HTLCs), there are no more counterparty risks. This means you don't have to trust your exchange partner and still can trade safely.
                                     </p>
@@ -71,7 +71,7 @@ export const TradingPage = () => {
                                 </div>
                             </div>
                             <div className="ml-4">
-                                <h4 className="text-lg leading-6 text-gray-900">Trade crypto assets the way you like it. </h4>
+                                <h4 className="text-lg leading-6 text-gray-900">Trade crypto assets the way you like it</h4>
                                 <p className="mt-2 text-base leading-6 text-gray-500">
                                     With Swapchain, you can choose your preferred transaction duration and timelock length, making your cryptocurrency transactions both more flexible to your needs and safer.
                                 </p>
