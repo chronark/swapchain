@@ -12,6 +12,7 @@ import { isValidBitcoinPrivateKey, isValidBitsharesPrivateKey, isValidBitcoinPub
 import ACCS from "../../accs/accs"
 import { getSecret } from "../../pkg/secret/secret"
 import { toPublicKey } from "../../util"
+
 export const Propose = () => {
     // Application stae for handling the flow
     const [state, setState] = useState(State.IDLE)
@@ -87,6 +88,9 @@ export const Propose = () => {
         if (fields.counterpartyBitsharesAccountName === "") {
             return "Counterparty bitshares account name is empty"
         }
+        if (fields.bitcoinTxID.length !== 64) {
+            return "Bitcoin Transaction ID to spend is not 64 chars long"
+        }
         return ""
     }
 
@@ -126,7 +130,7 @@ export const Propose = () => {
      * This hook handles the SubmitButton.
      * When a user thinks he is done filling out the form it is validated first and feedback is given to the user.
      */
-    const submitHandler = () => {
+    const submitHandler = async () => {
         const errorMessage = validate()
         setValid(errorMessage === "")
 
@@ -137,26 +141,14 @@ export const Propose = () => {
             return
         }
 
-
         setState(State.RUNNING)
 
-        setTimeout(() => {
-
-            if (false) {
-                console.log("set success")
-                setState(State.SUCCESS)
-            } else {
-                console.log("set failure")
-                setErrorMessage("Nico was lazuy")
-                setState(State.FAILURE)
-            }
-        }, 2000)
-        // ACCS.run(fields).then(() => {
-        //     setState(State.SUCCESS)
-        // }).catch((err) => {
-        //     setState(State.ERROR)
-        //     setErrorMessage(err)
-        // })
+        ACCS.run(fields).then(() => {
+            setState(State.SUCCESS)
+        }).catch((err) => {
+            setState(State.FAILURE)
+            setErrorMessage(err.toString())
+        })
     }
 
 
@@ -276,6 +268,17 @@ export const Propose = () => {
             <p className="px-4 mx-auto mt-2 text-sm text-center text-gray-500">
                 Your public Bitcoin key and Bitshares account name can be derived from your private key. Your private keys will never leave your browser, they are only used to sign your transactions. <a href="/" className="relative text-xs text-blue-500">Read more in our docs.</a>
             </p>
+            <div>
+
+                <Label label="Bitcoin transaction ID to spend"></Label>
+                <Input
+                    name="bitcoinTxID"
+                    onChange={updateField}
+                    placeholder={fakeKey(30, "testnet")}
+                    type="text"
+                    value={fields.bitcoinTxID}
+                ></Input>
+            </div>
         </section>
 
         <section>
@@ -367,7 +370,7 @@ export const Propose = () => {
         <div>
             <section className="px-3 py-2">
                 <Label label="Your secret hash"></Label>
-                <p className="p-3 font-mono text-center text-teal-900 break-all border border-teal-400 rounded">{fields.secret.hash}</p>
+                <p className="p-3 font-mono text-center text-teal-900 break-all border border-teal-400 rounded">{fields.secret.hash.toString("hex")}</p>
             </section>
             <section className="px-3 py-2">
                 <Label label="Your Bitcoin public key"></Label>
@@ -396,7 +399,7 @@ export const Propose = () => {
                             case State.SUCCESS:
                                 return <div className="flex items-center justify-center mt-8"><p className="py-4 text-xl font-bold text-teal-400 uppercase">success</p></div>
                             case State.FAILURE:
-                                return  <div className="flex items-center justify-center mt-8"><p className="py-4 text-xl font-bold text-red-500 uppercase">failure</p></div>
+                                return <div className="flex items-center justify-center mt-8"><p className="py-4 text-xl font-bold text-red-500 uppercase">failure</p></div>
 
                         }
                     }()}
@@ -415,7 +418,7 @@ export const Propose = () => {
                             case State.SUCCESS:
                                 return <p className="py-4 font-bold text-gray-700">Thank you for using swapchain.</p>
                             case State.FAILURE:
-                        return <p className="py-4 font-bold text-gray-700">{errorMessage}</p>
+                                return <p className="py-4 font-bold text-gray-700">{errorMessage}</p>
 
                         }
                     }()}

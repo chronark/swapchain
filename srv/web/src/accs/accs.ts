@@ -91,7 +91,7 @@ export interface ACCSConfig {
   mode: string
 
   /**
-   * The transaction type (1 = BTS for BTC, 2 = BTC for BTS).
+   * The transaction type. Either BTC or BTS.
    */
   type: string
 
@@ -197,9 +197,10 @@ export default class ACCS {
     } else {
       config.network = bitcoin.networks.testnet
       config.bitsharesAsset = "TEST"
-      config.bitsharesEndpoint = "wss://testnet.dex.trading"
+      config.bitsharesEndpoint = "wss://testnet.dex.trading/"
     }
 
+    config.networkName = fields.networkToTrade
     config.mode = fields.mode
     config.type = fields.currencyToGive
     config.priority = fields.priority
@@ -211,7 +212,7 @@ export default class ACCS {
     config.bitsharesPrivateKey = fields.bitsharesPrivateKey
     config.counterpartyBitsharesAccountName = fields.counterpartyBitsharesAccountName
 
-    if (config.type === "1") {
+    if (config.type === "BTC") {
       config.amountBTSMini = fields.amountToReceive * 10e4
       config.amountSatoshi = fields.amountToSend * 10e7
     } else {
@@ -572,13 +573,13 @@ export default class ACCS {
   public static async run(fields: ACCSFields): Promise<void> {
     const config = await ACCS.parseUserInput(fields)
 
-    if (config.type === "1" && config.mode === "proposer") {
+    if (config.type === "BTC" && config.mode === "proposer") {
       await ACCS.proposeBTSForBTC(config)
-    } else if (config.type === "2" && config.mode === "proposer") {
+    } else if (config.type === "BTS" && config.mode === "proposer") {
       await ACCS.proposeBTCForBTS(config)
-    } else if (config.type === "1" && config.mode === "accepter") {
+    } else if (config.type === "BTC" && config.mode === "accepter") {
       await ACCS.takeBTSForBTC(config)
-    } else if (config.type === "2" && config.mode === "accepter") {
+    } else if (config.type === "BTS" && config.mode === "accepter") {
       await ACCS.takeBTCForBTS(config)
     }
   }

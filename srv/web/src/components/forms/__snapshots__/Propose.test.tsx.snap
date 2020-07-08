@@ -339,6 +339,22 @@ exports[`renders correctly 1`] = `
               Read more in our docs.
             </a>
           </p>
+          <div>
+            <label
+              className="text-xs leading-4 tracking-wider text-gray-700 uppercase"
+            >
+              Bitcoin transaction ID to spend
+            </label>
+            <input
+              className="w-full py-3 font-mono text-center text-gray-700 bg-gray-100 border border-gray-200 rounded focus:bg-white focus:border-teal-400"
+              name="bitcoinTxID"
+              onChange={[Function]}
+              placeholder="randomLookingHash"
+              required={true}
+              type="text"
+              value=""
+            />
+          </div>
         </section>
         <section>
           <h2
