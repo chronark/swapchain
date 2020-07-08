@@ -2,21 +2,19 @@
 import React, { useState, useEffect } from "react"
 import { ReactComponent as QRCode } from "../../icons/qrcode.svg"
 import { Table } from "./Table"
-import Modal from "./Modal"
+import { Modal } from "../util/Modal"
 import { FilterButton } from "./FilterButton"
-import DatePicker from "react-datepicker"
-import crypto from "crypto"
-
-import "react-datepicker/dist/react-datepicker.css"
-
-const hash = (s: string): string => {
-  return crypto.createHash("SHA256").update(s).digest("hex")
-}
+import { hash, fakeKey } from "../../util"
+import { ReactComponent as ChevronDown } from "../../icons/chevron-down.svg"
+import { ReactComponent as ArrowRight } from "../../icons/arrow-narrow-right.svg"
+import { ReactComponent as Refresh } from "../../icons/refresh.svg"
+import { Form } from "../forms/Form"
+import { SubmitButton } from "../forms/SubmitButton"
 
 export const status = {
   active: {
     label: "active",
-    color: "green",
+    color: "teal",
   },
   fulfilled: {
     label: "fulfilled",
@@ -78,7 +76,7 @@ type Props = {
   orders: Order[]
 }
 
-export default (props: Props) => {
+export const Orderbook = (props: Props) => {
   const { orders } = props
   const [modalOpen, setModalOpen] = useState(false)
 
@@ -89,9 +87,6 @@ export default (props: Props) => {
   const [addressFilter, setAddressFilter] = useState("")
 
   const [visibleOrders, setVisibleOrders] = useState(orders)
-
-  const [startDate, setStartDate] = useState(new Date("2020/06/17"))
-  const [endDate, setEndDate] = useState(new Date("2020/07/17"))
 
   useEffect(() => {
     // Create new list to filter in the following steps
@@ -155,7 +150,7 @@ export default (props: Props) => {
             </span>
             <input
               className="block w-full py-1 pl-10 text-gray-900 placeholder-gray-600 bg-gray-100 border border-gray-400 rounded"
-              placeholder={hash(Math.random().toString()).substring(0, 15) + "..."}
+              placeholder={fakeKey(15, "mainnet")}
               onChange={handleAddressChange}
             ></input>
           </div>
@@ -172,28 +167,7 @@ export default (props: Props) => {
             </div>
           </div>
           <div className="flex flex-col sm:items-center sm:justify-between sm:flex-row lg:flex-col lg:items-start">
-            <div className="mt-8">
-              <span className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase">
-                date picker
-              </span>
-              <div className="mt-2 ml-2">
-                <DatePicker
-                  selected={startDate}
-                  onChange={(date) => date && setStartDate(date)}
-                  selectsStart
-                  startDate={startDate}
-                  endDate={endDate}
-                />
-                <DatePicker
-                  selected={endDate}
-                  onChange={(date) => date && setEndDate(date)}
-                  selectsEnd
-                  startDate={startDate}
-                  endDate={endDate}
-                  minDate={startDate}
-                />
-              </div>
-            </div>
+
             <div className="mt-8">
               <span className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-gray-700 uppercase">
                 asset you pay
@@ -210,7 +184,74 @@ export default (props: Props) => {
       <div className="flex flex-grow">
         <Table orders={visibleOrders} onRowClick={selectOrder}></Table>
       </div>
-      <Modal order={selectedOrder} open={modalOpen} close={() => setModalOpen(false)}></Modal>
+
+      <Modal open={modalOpen} close={() => setModalOpen(false)}>
+        <Form
+          main={
+            <div>
+              <div className="flex flex-col items-center justify-around md:flex-row ">
+
+                <div className="flex flex-col mx-8 md:items-center">
+                  <span className="text-sm font-semibold text-gray-400">{selectedOrder.give.asset}</span>
+                  <span className="font-mono text-lg text-gray-700">
+                    {selectedOrder.give.value.toFixed(10)}
+                  </span>
+                </div>
+
+                <div className="flex flex-col items-center justify-around font-mono text-gray-600 ">
+                  <ChevronDown className="h-12 text-gray-400 md:hidden"></ChevronDown>
+
+                  <div className="flex-row items-center hidden md:flex">
+                    <div className="flex items-center">
+
+                      <span>{selectedOrder.exchangeRate.toFixed(4)}</span>
+                      <div className="flex flex-col ml-1 text-xs tracking-tight text-gray-500">
+                        <span>{selectedOrder.receive.asset}</span>
+                        <div className="border-t border-gray-400 "></div>
+                        <span>{selectedOrder.give.asset}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <ArrowRight className="hidden h-12 text-gray-400 md:block"></ArrowRight>
+                </div>
+                <div className="flex flex-col mx-8 md:items-center">
+                  <span className="text-sm font-semibold text-gray-400">{selectedOrder.receive.asset}</span>
+                  <span className="font-mono text-lg text-gray-700">
+                    {selectedOrder.receive.value.toFixed(10)}
+                  </span>
+                </div>
+              </div>
+              <div className="flex flex-col items-center mt-8 text-gray-500">
+                <span className="text-xs">
+                  Valid until:
+                            </span>
+                <span className="text-sm font-semibold">
+
+                  {selectedOrder.validUntil.toLocaleString("default", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" })}
+                </span>
+              </div></div>
+          }
+          footer={
+            <div>
+              {(selectedOrder.status.label === "active") ?
+                <SubmitButton borderColor="teal" onClick={() => { }} label={
+                  <div className="flex">
+                    <Refresh className="w-6 h-6"></Refresh>
+                    <span className="ml-2">Trade</span>
+                  </div>
+                }
+                ></SubmitButton>
+                : <span className={`py-2 px-4 uppercase font-semibold rounded bg-${selectedOrder.status.color}-200 text-${selectedOrder.status.color}-900`}>
+                  {selectedOrder.status.label}
+                </span>
+              }
+            </div>
+
+          }
+        ></Form>
+
+      </Modal>
+
     </div>
   )
 }
