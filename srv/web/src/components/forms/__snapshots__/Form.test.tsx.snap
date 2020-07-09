@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="flex flex-col items-center w-full bg-white border rounded shadow-lg"
+>
+  <div
+    className="flex flex-col justify-center w-full p-4 space-y-4"
+  >
+    <h1>
+      hello
+    </h1>
+  </div>
+  <footer
+    className="flex justify-center w-full p-4 bg-gray-100 border-t border-gray-200"
+  >
+    <h1>
+      world
+    </h1>
+  </footer>
+</div>
+`;
