@@ -302,7 +302,7 @@ export default class BitcoinHTLC {
 
     const averageTransactionSize = 150 // On average our transaction size is about 150 vBytes
 
-    return feeEstimates[Math.min(feeEstimates.length - 1, this.priority)] * averageTransactionSize
+    return Math.round(feeEstimates[Math.min(feeEstimates.length - 1, this.priority)] * averageTransactionSize)
   }
 
   /**
