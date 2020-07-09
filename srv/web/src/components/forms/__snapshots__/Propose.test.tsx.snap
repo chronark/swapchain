@@ -216,7 +216,7 @@ exports[`renders correctly 1`] = `
                   required={true}
                   step={1e-8}
                   type="number"
-                  value={1}
+                  value=""
                 />
               </div>
             </div>
@@ -252,7 +252,7 @@ exports[`renders correctly 1`] = `
                   required={true}
                   step={1e-8}
                   type="number"
-                  value={1}
+                  value=""
                 />
               </div>
             </div>
@@ -276,7 +276,7 @@ exports[`renders correctly 1`] = `
                 <span
                   className="block w-full py-3 font-mono text-center text-gray-700 border border-gray-200 rounded focus:border-teal-500"
                 >
-                  1
+                  0
                 </span>
               </div>
             </div>
@@ -306,7 +306,7 @@ exports[`renders correctly 1`] = `
                 placeholder="randomLookingHash"
                 required={true}
                 type="text"
-                value="cVPwsbE8HNMCoLGz8N4R2SfyQTMQzznL9x3vEHJqPtuZ1rhBkTo7"
+                value=""
               />
             </div>
             <div
@@ -324,7 +324,7 @@ exports[`renders correctly 1`] = `
                 placeholder="5randomLookingHash"
                 required={true}
                 type="text"
-                value="5Z89Ve18ttnu7Ymd1nnCMsnGkfKk4KQnsfFrYEz7Cmw39FAMOSS"
+                value=""
               />
             </div>
           </div>
@@ -339,7 +339,9 @@ exports[`renders correctly 1`] = `
               Read more in our docs.
             </a>
           </p>
-          <div>
+          <div
+            className="mt-2 "
+          >
             <label
               className="text-xs leading-4 tracking-wider text-gray-700 uppercase"
             >
@@ -380,7 +382,7 @@ exports[`renders correctly 1`] = `
                 placeholder="02randomLookingHash"
                 required={true}
                 type="text"
-                value="034c7ddacc16fa5e53aa5dc19748e3877ba07b981fdbbcdb97b8b19de240241f61"
+                value=""
               />
             </div>
             <div
@@ -398,7 +400,7 @@ exports[`renders correctly 1`] = `
                 placeholder="amos"
                 required={true}
                 type="text"
-                value="amos"
+                value=""
               />
             </div>
           </div>

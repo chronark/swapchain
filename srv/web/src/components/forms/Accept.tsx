@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { fakeKey, hash } from "../../util"
+import { fakeKey } from "../../util"
 import { Label } from "./Label"
 import { Input } from "./Input"
 import { SubmitButton } from "./SubmitButton"
@@ -10,7 +10,7 @@ import { RadioButton } from "./RadioButton"
 import { State, Network, Timelock, Priority, Currency } from "./enums"
 import ACCS from "../../accs/accs"
 import { isValidBitcoinPrivateKey, isValidBitsharesPrivateKey, isValidBitcoinPublicKey } from "../../pkg/address/validator"
-import { Secret, getSecret } from "../../pkg/secret/secret"
+import { Secret } from "../../pkg/secret/secret"
 
 export const Accept = () => {
     // Application stae for handling the flow
@@ -36,16 +36,10 @@ export const Accept = () => {
         timelock: Timelock.SHORT,
         priority: Priority.HIGH,
         secret: {} as Secret,
-        hash: "", 
-
+        hash: "",
     })
 
-    fields.secret = {
-        preimage: undefined, 
-        hash: Buffer.from(fields.hash)
-    }
-
-        /**
+    /**
      * Get the unit of the rate multiplier.
      * @returns Either BTC/BTS or BTS/BTC
      */
@@ -57,16 +51,16 @@ export const Accept = () => {
                 return ["BTS", "BTC"]
         }
     }
-    
-        //calculate received funds
-        useEffect(() => {
-            if (fields.amountToReceive !== fields.amountToSend * fields.rate) {
-                setFields({
-                    ...fields,
-                    amountToReceive: fields.amountToSend * fields.rate
-                })
-            }
-        }, [fields])
+
+    //calculate received funds
+    useEffect(() => {
+        if (fields.amountToReceive !== fields.amountToSend * fields.rate) {
+            setFields({
+                ...fields,
+                amountToReceive: fields.amountToSend * fields.rate
+            })
+        }
+    }, [fields])
 
     /**
      * Validate all fields.
@@ -94,16 +88,14 @@ export const Accept = () => {
         if (fields.counterpartyBitsharesAccountName === "") {
             return "Counterparty bitshares account name is empty"
         }
-        if (fields.bitcoinTxID === "") {
-            return "Bitcoin transaction ID is empty"
+        if (fields.currencyToGive === Currency.BTC && fields.bitcoinTxID.length !== 64) {
+            return "Bitcoin Transaction ID to spend is invalid"
         }
-        if (!fields.secret) {
-            return "Hash is empty"
+        if (fields.hash.length !== 64) {
+            return "Secret hash is invalid"
         }
         return ""
     }
-
-
 
     // Go back to idle when the user fixes their input errors.
     // Does nothing if the accs is already running
@@ -116,7 +108,6 @@ export const Accept = () => {
             }
         }
     }, [fields, state, isValid])
-
 
     /**
      * Update the field state from a FormEvent
@@ -148,7 +139,7 @@ export const Accept = () => {
     const submitHandler = () => {
         const errorMessage = validate()
         setValid(errorMessage === "")
-        
+
         // Checking "manually" because the state is updated asynchronously
         if (errorMessage !== "") {
             setErrorMessage(errorMessage)
@@ -156,15 +147,18 @@ export const Accept = () => {
             return
         }
 
+        fields.secret = {
+            preimage: undefined,
+            hash: Buffer.from(fields.hash, "hex")
+        }
 
         setState(State.RUNNING)
 
-        // TODO: Replace with accs
         ACCS.run(fields).then(() => {
             setState(State.SUCCESS)
         }).catch((err) => {
-            setState(State.ERROR)
-            setErrorMessage(err)
+            setState(State.FAILURE)
+            setErrorMessage(err.toString())
         })
     }
 
@@ -260,8 +254,6 @@ export const Accept = () => {
                             </div>
                         </section>
 
-
-
                         <section>
                             <h2 className="text-xl font-semibold leading-tight text-gray-800">Your Data</h2>
                             <div className="items-center justify-between mt-4 md:space-x-4 md:flex">
@@ -290,6 +282,16 @@ export const Accept = () => {
                             <p className="px-4 mx-auto mt-2 text-sm text-center text-gray-500">
                                 Your public Bitcoin key and Bitshares account name can be calculated from your private key. Your private keys will never leave your browser, it is only used to sign your transactions. <a href="/" className="relative text-xs text-blue-500">Read more in our docs.</a>
                             </p>
+                            <div className={`mt-2 ${fields.currencyToGive === Currency.BTC ? "" : "hidden"}`}>
+                                <Label label="Bitcoin transaction ID to spend"></Label>
+                                <Input
+                                    name="bitcoinTxID"
+                                    onChange={updateField}
+                                    placeholder={fakeKey(30, "testnet")}
+                                    type="text"
+                                    value={fields.bitcoinTxID}
+                                ></Input>
+                            </div>
                         </section>
 
                         <section>
@@ -317,20 +319,12 @@ export const Accept = () => {
                                     ></Input>
                                 </div>
                             </div>
+                            <div className="block mt-4">
+                                <Label label="Secret hash from Counterparty"></Label>
+                                <Input name="hash" value={fields.hash} onChange={updateField} type="text" placeholder="TODO: random string"></Input>
+                            </div>
                         </section>
 
-                        <section>
-                            <div className="block">
-                                <Label label="Hash from Counterparty"></Label>
-                                <Input name="hash" value={fields.hash} onChange={updateField} type="text" placeholder="Please enter the hash you received from your trading partner"></Input>
-                            </div>
-                        </section>
-                        <section>
-                            <div className="block">
-                                <Label label="Bitcoin Transaction ID"></Label>
-                                <Input name="bitcoinTxID" value={fields.bitcoinTxID} onChange={updateField} type="text" placeholder="Please enter the Bitcoin transaction ID"></Input>
-                            </div>
-                        </section>
                         <section>
                             <h2 className="text-xl font-semibold leading-tight text-gray-800">HTLC settings</h2>
                             <div className="mt-4">
@@ -340,21 +334,21 @@ export const Accept = () => {
                                         description="Around 1 hour. This is the shortest duration possible while making sure the transactions are confirmed in time."
                                         hint="6 blocks"
                                         name={Timelock[Timelock.SHORT]}
-                                        onClick={() => updateFieldByKey("timelockDuration", Timelock.SHORT)}
+                                        onClick={() => updateFieldByKey("timelock", Timelock.SHORT)}
                                         selected={fields.timelock === Timelock.SHORT}
                                     ></RadioButton>
                                     <RadioButton
                                         description="Around 2 hours. Offers more time for the counterparty to come online."
                                         hint="13 blocks"
                                         name={Timelock[Timelock.MEDIUM]}
-                                        onClick={() => updateFieldByKey("timelockDuration", Timelock.MEDIUM)}
+                                        onClick={() => updateFieldByKey("timelock", Timelock.MEDIUM)}
                                         selected={fields.timelock === Timelock.MEDIUM}
                                     ></RadioButton>
                                     <RadioButton
                                         description="Around 3 hours. Gives your counterparty even more time."
                                         hint="20 blocks"
                                         name={Timelock[Timelock.LONG]}
-                                        onClick={() => updateFieldByKey("timelockDuration", Timelock.LONG)}
+                                        onClick={() => updateFieldByKey("timelock", Timelock.LONG)}
                                         selected={fields.timelock === Timelock.LONG}
                                     ></RadioButton>
                                 </div>
@@ -411,7 +405,7 @@ export const Accept = () => {
                             </div>
                         case State.FAILURE:
                             return <p className="pb-4 text-xl text-red-400 text-bold">{errorMessage}</p>
-                           
+
                     }
                 })()}
             </>
