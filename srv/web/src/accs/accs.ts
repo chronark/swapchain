@@ -7,6 +7,11 @@ import { BlockStream } from "../pkg/bitcoin/api/blockstream"
 import { Timer } from "./timer"
 import { getAccount } from "../pkg/bitshares/util"
 
+/**
+ * Contains raw user input to run an ACCS. Needs to get parsed.
+ *
+ * @interface ACCSFields
+ */
 export interface ACCSFields {
   /**
    * The transaction mode. Either proposer or accepter.
@@ -80,7 +85,7 @@ export interface ACCSFields {
 }
 
 /**
- * Contains all necessary information to run an ACCS.
+ * Contains all necessary information to run an ACCS after parsing.
  *
  * @interface ACCSConfig
  */
