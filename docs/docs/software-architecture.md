@@ -41,7 +41,7 @@ The report will present a detailed analysis of the architecture of a platform en
 
 Swapchain offers a command-line interface (CLI) and a basic UI which both follow the Clean Architecture pattern. Main reason to use this pattern is to separate functions into layers and thus, improve the maintainability and reusability. Figure 1 visualizes the Clean Architecture by using color-coded schemes.
 
-![](./docs/static/img/CleanArchitecture.svg)
+![](img/CleanArchitecture.svg)   
 Figure 1: The Clean Architecture (Martin, 2020) [3]
 
 So, in the context of our application:
@@ -77,7 +77,7 @@ The Verification contains the signature verification sub-component which is cons
 
 ### 3.1. UML Diagram
 
-![](./docs/static/img/UML_new.svg)
+![](img/UML_new.svg)   
 Figure 2: UML Diagram (Swapchain, 2020) [4]
 
 
@@ -87,14 +87,14 @@ The use case diagram is used to visualize the Swapchain application and its acto
 
 ### 4.1. Use Case Diagram
 
-![](./docs/static/img/newSW_Architecture.svg)  
+![](img/newSW_Architecture.svg)     
 Figure 3: Use Case Diagram (Swapchain, 2020) [4]
 
 ### 4.2. Use Case Description
 
 | Use Case Name           | Scenario                               | Triggering Event                   | Actors            | Related Use Case | Preconditions                                                                                                                                       | Post Conditions                                                     | Flow of Events                                                                                                                                                                                                           | Exception Conditions                                          |
 | ----------------------- | -------------------------------------- | ---------------------------------- | ----------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
-| Atomic cross-chain swap | Two users want to exchange BTC and BTS | The user submits an exchange order | User 1 and User 2 | None             | - Users should be in possession of the cryptocurrency that is desired by the other party   - Users should open a HTLC in their respective Blockchains | - Validating the user   - Hash and time lock conditions should be met | - Submit desired order   - Start a HTLC   - Fund and redeem a swap   - Key pair generator   - Verification process of validity between private and public keys   - Transaction successful or funds are refunded | - Network failure   - App crashing   - Too much market volatility |
+| Atomic cross-chain swap | Two users want to exchange BTC and BTS | The user submits an exchange order | User 1 and User 2 | None             | - Users should be in possession of the cryptocurrency that is desired by the other party     - Users should open a HTLC in their respective Blockchains | - Validating the user     - Hash and time lock conditions should be met | - Submit desired order     - Start a HTLC     - Fund and redeem a swap     - Key pair generator     - Verification process of validity between private and public keys     - Transaction successful or funds are refunded | - Network failure   - App crashing   - Too much market volatility |
 
 
 ## 5. Architectural Goals and Constraints
@@ -155,7 +155,7 @@ The implementation diagram is used to visualize the flow of control and the impl
 
 ### 7.1. Implementation Diagram
 
-![](./docs/static/img/newImplementation.svg)
+![](img/newImplementation.svg)   
 Figure 5: Implementation Diagram (Swapchain, 2020) [4]
 
 ### 7.2. Implementation Description
