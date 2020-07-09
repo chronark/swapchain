@@ -4,6 +4,7 @@ title: Swapchain Software Architecture
 sidebar_label: Swapchain Software Architecture
 ---
 
+
 ## 1. Introduction
 
 Swapchain is a platform that enables users to perform atomic cross-chain swaps of Bitcoins and Bitshares and vice versa. It caters to the need of users who want to carry out OTC (over-the-counter) transactions between the Bitcoin and the Bitshare blockchains. The platform helps users to submit desired swap orders and perform a Hashed Time Lock Contract to safely carry out the swap. Furthermore, it provides the functionality of a simple user interface to track the transactions made by the user. The use of an atomic cross-chain swap helps avoiding counterparty risks and high fees charged by other intermediaries. [5]
