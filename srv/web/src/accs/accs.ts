@@ -345,6 +345,7 @@ export default class ACCS {
     while (txID === null && timeToWait > 0) {
       htlcBTCProposer.bitcoinAPI
         .getValueFromLastTransaction(p2wsh.address!)
+        // eslint-disable-next-line
         .then((res) => {
           txID = res.txID
         })
@@ -429,6 +430,7 @@ export default class ACCS {
 
       htlcBTCAccepter.bitcoinAPI
         .getPreimageFromLastTransaction(p2wsh.address!)
+        // eslint-disable-next-line
         .then((preimage) => (preimageFromBlockchain = preimage))
 
       await new Promise((resolve) => setTimeout(resolve, 10_000))

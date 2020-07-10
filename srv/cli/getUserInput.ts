@@ -5,7 +5,6 @@ import {
   isValidBitsharesPrivateKey,
   isValidBitcoinPublicKey,
 } from "../web/src/pkg/address/validator"
-import { Timelock } from "../web/src/components/forms/enums"
 import { ACCSFields } from "../web/src/accs/accs"
 import readline from "readline"
 

@@ -1,6 +1,6 @@
 import React from "react"
 
-import gif from "../icons/spinner.gif"
+import gif from "../../icons/spinner.gif"
 
 type Props = {
     className?: string

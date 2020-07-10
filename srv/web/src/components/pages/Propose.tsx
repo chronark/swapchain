@@ -6,13 +6,14 @@ import { Input } from "../forms/Input"
 import { SubmitButton } from "../forms/SubmitButton"
 import { ReactComponent as Exclamation } from "../../icons/exclamation.svg"
 import { Form } from "../forms/Form"
-import { Spinner } from "../Spinner"
-import { State, Currency, Network, Timelock, Priority } from "../forms/enums"
+import { Spinner } from "../util/Spinner"
+import { State, Currency, Network, Priority } from "../util/enums"
 import { isValidBitcoinPrivateKey, isValidBitsharesPrivateKey, isValidBitcoinPublicKey } from "../../pkg/address/validator"
 import ACCS from "../../accs/accs"
 import { getSecret } from "../../pkg/secret/secret"
 import { toPublicKey } from "../../util"
-
+import {ReactComponent as ShieldSuccess} from "../../icons/shield-check.svg"
+import {ReactComponent as ShieldFailure} from "../../icons/shield-exclamation.svg"
 export const Propose = () => {
     // Application stae for handling the flow
     const [state, setState] = useState(State.IDLE)
@@ -371,9 +372,15 @@ export const Propose = () => {
                             case State.RUNNING:
                                 return running
                             case State.SUCCESS:
-                                return <div className="flex items-center justify-center mt-8"><p className="py-4 text-xl font-bold text-teal-400 uppercase">success</p></div>
+                                    return <div className="flex flex-col items-center justify-center mt-8 text-teal-400">
+                                        <ShieldSuccess className="h-8 "></ShieldSuccess>
+                                        <span className="text-xl font-bold ">Success</span>
+                                    </div>
                             case State.FAILURE:
-                                return <div className="flex items-center justify-center mt-8"><p className="py-4 text-xl font-bold text-red-500 uppercase">failure</p></div>
+                                return<div className="flex flex-col items-center justify-center mt-8 text-red-500">
+                                <ShieldFailure className="h-8 "></ShieldFailure>
+                                <span className="text-xl font-bold ">Failure</span>
+                            </div>
 
                         }
                     }()}
@@ -386,16 +393,16 @@ export const Propose = () => {
                             case State.IDLE:
                                 return submit
                             case State.ERROR:
-                                return <p className="py-4 font-bold text-red-500">{errorMessage}</p>
+                                return <p className="py-4 text-red-500">{errorMessage}</p>
                             case State.RUNNING:
                                 return <SubmitButton label={copyButtonLabel} borderColor="teal" onClick={() => {
                                     copyAll()
                                     setCopyButtonLabel("copied")
                                 }}></SubmitButton>
                             case State.SUCCESS:
-                                return <p className="py-4 font-bold text-gray-700">Thank you for using swapchain.</p>
+                                return <p className="py-4 font-semibold text-gray-700">Thank you for using swapchain</p>
                             case State.FAILURE:
-                                return <p className="py-4 font-bold text-gray-700">{errorMessage}</p>
+                                return <p className="py-4 font-semibold text-gray-700">{errorMessage}</p>
 
                         }
                     }()}

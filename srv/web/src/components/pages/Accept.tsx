@@ -5,15 +5,14 @@ import { Input } from "../forms/Input"
 import { SubmitButton } from "../forms/SubmitButton"
 import { Form } from "../forms/Form"
 import { ReactComponent as Exclamation } from "../../icons/exclamation.svg"
-import { Spinner } from "../Spinner"
+import { Spinner } from "../util/Spinner"
 import { RadioButton } from "../forms/RadioButton"
-import { State, Network, Timelock, Priority, Currency } from "../forms/enums"
+import { State, Network, Priority, Currency } from "../util/enums"
 import ACCS from "../../accs/accs"
 import { isValidBitcoinPrivateKey, isValidBitsharesPrivateKey, isValidBitcoinPublicKey } from "../../pkg/address/validator"
 import { Secret } from "../../pkg/secret/secret"
-import { toPublicKey } from "../../util"
-import { createSecretKey } from "crypto"
-import { updateHeritageClause } from "typescript"
+import {ReactComponent as ShieldSuccess} from "../../icons/shield-check.svg"
+import {ReactComponent as ShieldFailure} from "../../icons/shield-exclamation.svg"
 
 export const Accept = () => {
     // Application stae for handling the flow
@@ -366,9 +365,15 @@ export const Accept = () => {
                             case State.RUNNING:
                                 return running
                             case State.SUCCESS:
-                                return <div className="flex items-center justify-center mt-8"><p className="py-4 text-xl font-bold text-teal-400 uppercase">success</p></div>
+                                return <div className="flex flex-col items-center justify-center mt-8 text-teal-400">
+                                    <ShieldSuccess className="h-8 "></ShieldSuccess>
+                                    <span className="text-xl font-bold ">Success</span>
+                                </div>
                             case State.FAILURE:
-                                return <div className="flex items-center justify-center mt-8"><p className="py-4 text-xl font-bold text-red-500 uppercase">failure</p></div>
+                                return <div className="flex flex-col items-center justify-center mt-8 text-red-500">
+                                    <ShieldFailure className="h-8 "></ShieldFailure>
+                                    <span className="text-xl font-bold ">Failure</span>
+                                </div>
 
                         }
                     }()}
@@ -385,9 +390,9 @@ export const Accept = () => {
                             case State.RUNNING:
                                 return <p className="py-4 text-gray-700">Please wait until we find the HTLC from your counterparty.</p>
                             case State.SUCCESS:
-                                return <p className="py-4 font-bold text-gray-700">Thank you for using swapchain.</p>
+                                return <p className="py-4 font-semibold text-gray-700">Thank you for using swapchain</p>
                             case State.FAILURE:
-                                return <p className="py-4 font-bold text-gray-700">{errorMessage}</p>
+                                return <p className="py-4 font-semibold text-gray-700">{errorMessage}</p>
 
                         }
                     }()}
