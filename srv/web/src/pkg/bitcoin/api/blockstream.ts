@@ -120,7 +120,8 @@ export class BlockStream implements BitcoinAPI {
         }
       }
     }
-    // This can actually never occur but otherwise typescript will cry.
+
+    // No address found. This should actually not occur.
     throw new Error("Could not find matching address.")
   }
 
@@ -156,7 +157,7 @@ export class BlockStream implements BitcoinAPI {
       }
     }
 
-    // This can actually never occur but otherwise typescript will cry.
+    // No address found yet
     throw new Error("Could not find matching address.")
   }
 
