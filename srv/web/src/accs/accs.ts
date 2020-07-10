@@ -64,11 +64,6 @@ export interface ACCSFields {
   bitcoinTxID: string
 
   /**
-   * The timelock of the transactions. Either 20 (long), 13 (medium) or 6 (short).
-   */
-  timelock: number
-
-  /**
    * The priority of the transactions. Either 0 (high), 1 (medium) or 2 (low).
    */
   priority: number
@@ -232,7 +227,7 @@ export default class ACCS {
 
     config.bitcoinTxID = fields.bitcoinTxID
 
-    const timer = new Timer(fields.timelock, fields.networkToTrade, BlockStream)
+    const timer = new Timer(6, fields.networkToTrade, BlockStream)
 
     config.timelockBTC = timer.toBTC() // number of blocks to wait
     config.timelockBTS = await timer.toBTS() // seconds to wait

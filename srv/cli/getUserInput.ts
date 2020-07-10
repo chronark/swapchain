@@ -125,16 +125,5 @@ export async function getUserInput(read: readline.Interface): Promise<ACCSFields
     // TODO: Errorhandling for missing transaction (now: getWitnessUtxo fails with "length of undefined")
   }
 
-  switch (timelock) {
-    case "0":
-      fields.timelock = Timelock.LONG
-      break
-    case "1":
-      fields.timelock = Timelock.MEDIUM
-      break
-    default:
-      fields.timelock = Timelock.SHORT
-  }
-
   return fields
 }

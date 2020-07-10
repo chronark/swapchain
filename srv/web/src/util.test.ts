@@ -1,10 +1,19 @@
 import { fakeKey, hash, toPublicKey } from "./util"
 
 describe("fakeKey()", () => {
-  it("returns a random string with the desired length + 4", () => {
-    const randomString = fakeKey(16, "testnet")
+  describe("with a network defined", () => {
+    it("returns a random string with the desired length + 4", () => {
+      const randomString = fakeKey(19, "testnet")
 
-    expect(randomString.length).toBe(20)
+      expect(randomString.length).toBe(20)
+    })
+  })
+  describe("without a network", () => {
+    it("returns a random string with the desired length + 4", () => {
+      const randomString = fakeKey(32)
+
+      expect(randomString.length).toBe(32)
+    })
   })
 })
 
