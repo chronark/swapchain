@@ -219,7 +219,7 @@ export default class BitsharesHTLC {
    * @returns HTLC ID of an instance or empty string if no matching HTLC was found.
    * @memberof BitsharesHTLC
    */
-  public async getID(amount: number, hash: Buffer): Promise<string> {
+  public async getID(amount: number, hash: Buffer, timelock?: number): Promise<string> {
     if (this.websocket === null) {
       await this.openSocket(this.node)
     }
@@ -231,14 +231,26 @@ export default class BitsharesHTLC {
 
       /* eslint-disable @typescript-eslint/no-explicit-any */
       const htlc = history.filter((element: any) => {
-        return (
-          typeof element.result[1] === "string" &&
-          element.result[1].startsWith("1.16.") &&
-          element.op[1].from === senderAccount.id &&
-          element.op[1].to === toAccount.id &&
-          element.op[1].preimage_hash[1] === hash.toString("hex") &&
-          element.op[1].amount.amount === amount
-        )
+        if (timelock) {
+          return (
+            typeof element.result[1] === "string" &&
+            element.result[1].startsWith("1.16.") &&
+            element.op[1].from === senderAccount.id &&
+            element.op[1].to === toAccount.id &&
+            element.op[1].preimage_hash[1] === hash.toString("hex") &&
+            element.op[1].amount.amount === amount &&
+            element.op[1].claim_period_seconds >= timelock * 0.8
+          ) // Timelock must be in 20% tolerance range
+        } else {
+          return (
+            typeof element.result[1] === "string" &&
+            element.result[1].startsWith("1.16.") &&
+            element.op[1].from === senderAccount.id &&
+            element.op[1].to === toAccount.id &&
+            element.op[1].preimage_hash[1] === hash.toString("hex") &&
+            element.op[1].amount.amount === amount
+          )
+        }
       })
       /* eslint-enable @typescript-eslint/camelcase */
 

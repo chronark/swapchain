@@ -405,7 +405,7 @@ export default class ACCS {
     )
 
     let id = ""
-    htlcBTSAccepter.getID(config.amountBTSMini, config.secret.hash).then((res) => (id = res))
+    htlcBTSAccepter.getID(config.amountBTSMini, config.secret.hash, config.timelockBTS).then((res) => (id = res))
 
     while (!id && timeToWait > 0) {
       await new Promise((resolve) => setTimeout(resolve, config.checkAPIInterval * 1_000))
