@@ -395,7 +395,10 @@ export default class ACCS {
       config.bitsharesAccount,
     )
 
-    let timeToWait = 300 // This can be changed, but 5 minutes waiting seem to be fine. Must be a multiple of config.checkAPIInterval!
+    // This can be changed, but 5 minutes waiting seem to be fine,
+    // since mining on Bitshares is fast.
+    // Must be a multiple of config.checkAPIInterval!
+    let timeToWait = 300
 
     console.log(
       `Looking for an HTLC for you on Bitshares ${config.networkName}. This can take up to ${timeToWait / 60} min.`,
@@ -494,7 +497,10 @@ export default class ACCS {
       BlockStream,
     )
 
-    let timeToWait = 300 // This can be changed, but 5 minutes waiting seem to be fine. Must be a multiple of config.checkAPIInterval!
+    // This can be changed, but 30 minutes waiting seem to be fine,
+    // since it might take up to 20 mins on Bitcoin testnet for the next block to get mined.
+    // Must be a multiple of config.checkAPIInterval!
+    let timeToWait = 1800
 
     console.log(
       `Looking for an HTLC for you on Bitcoin ${config.networkName}. This can take up to ${timeToWait / 60} min.`,

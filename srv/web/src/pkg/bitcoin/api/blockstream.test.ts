@@ -126,6 +126,9 @@ describe("getValueFromLastTransaction()", () => {
               value: 111111111,
             },
           ],
+          status: {
+            confirmed: true,
+          },
         },
       ],
       out: true,
@@ -150,6 +153,9 @@ describe("getValueFromLastTransaction()", () => {
               value: 3,
             },
           ],
+          status: {
+            confirmed: true,
+          },
         },
       ],
       out: true,
@@ -168,6 +174,23 @@ describe("getValueFromLastTransaction()", () => {
       expect(mockedAxios).toHaveBeenCalledTimes(1)
       expect(mockedAxios).toHaveBeenCalledWith(`https://blockstream.info/api/address/${address}/txs`)
     })
+  })
+  it("throws if address is correct but transaction isn't confirmed yet", async () => {
+    const mockedAxios = jest.spyOn(axios, "get").mockResolvedValueOnce({
+      status: 200,
+      data: {
+        txid: "testID",
+        vout: [
+          {
+            scriptpubkey_address: address,
+            value: 1,
+          },
+        ],
+        status: { confirmed: false },
+      },
+    })
+
+    await expect(blockstream.getValueFromLastTransaction(address)).rejects.toThrow()
   })
 })
 
