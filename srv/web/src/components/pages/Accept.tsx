@@ -25,8 +25,8 @@ export const Accept = () => {
     // Collects the user input in one place
     const [fields, setFields] = useState({
         mode: "accepter",
-        networkToTrade: Network.MAINNET,
-        currencyToGive: Currency.BTC,
+        networkToTrade: Network.TESTNET,
+        currencyToGive: Currency.BTS,
         amountToSend: 0,
         rate: 0,
         amountToReceive: 0,
@@ -42,10 +42,10 @@ export const Accept = () => {
 
     //calculate received funds
     useEffect(() => {
-        if (fields.amountToReceive !== fields.amountToSend * fields.rate) {
+        if (fields.amountToReceive !== fields.amountToSend * fields.rate && fields.amountToReceive !== fields.amountToSend / fields.rate) {
             setFields({
                 ...fields,
-                amountToReceive: (fields.currencyToGive === Currency.BTC) ? fields.amountToSend * fields.rate : fields.amountToReceive / fields.rate
+                amountToReceive: (fields.currencyToGive === Currency.BTC) ? fields.amountToSend * fields.rate : fields.amountToSend / fields.rate
             })
         }
     }, [fields])
@@ -88,12 +88,9 @@ export const Accept = () => {
     // Go back to idle when the user fixes their input errors.
     // Does nothing if the accs is already running
     useEffect(() => {
-        // Failure state is final
-        if (state !== State.FAILURE) {
-            if (state !== State.RUNNING && isValid) {
-                setErrorMessage("")
-                setState(State.IDLE)
-            }
+        if (state === State.ERROR && isValid) {
+            setErrorMessage("")
+            setState(State.IDLE)
         }
     }, [fields, state, isValid])
 
@@ -138,15 +135,13 @@ export const Accept = () => {
             return
         }
 
-        // Set the secret properly
-        setFields({
-            ...fields,
-            secret: {
-                preimage: undefined,
-                hash: Buffer.from(fields.hash)
-            }
-        })
+        fields.secret = {
+            preimage: undefined,
+            hash: Buffer.from(fields.hash, "hex")
+        }
+
         setState(State.RUNNING)
+
         ACCS.run(fields).then(() => {
             setState(State.SUCCESS)
         }).catch((err) => {

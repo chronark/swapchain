@@ -376,7 +376,7 @@ export default class BitcoinHTLC {
     }
 
     // Wait for the funding transaction to be broadcasted
-    await new Promise((resolve) => setTimeout(resolve, 5000))
+    await new Promise((resolve) => setTimeout(resolve, 10_000))
 
     // Substract second fee for potential refund transaction
     this.amountAfterFees = this.amountAfterFees - fees.want

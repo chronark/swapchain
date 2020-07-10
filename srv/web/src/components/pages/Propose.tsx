@@ -40,13 +40,13 @@ export const Propose = () => {
         secret: getSecret(),
     })
 
-
+    
     //calculate received funds
     useEffect(() => {
-        if (fields.amountToReceive !== fields.amountToSend * fields.rate) {
+        if (fields.amountToReceive !== fields.amountToSend * fields.rate && fields.amountToReceive !== fields.amountToSend / fields.rate) {
             setFields({
                 ...fields,
-                amountToReceive: (fields.currencyToGive === Currency.BTC) ? fields.amountToSend * fields.rate : fields.amountToReceive / fields.rate
+                amountToReceive: (fields.currencyToGive === Currency.BTC) ? fields.amountToSend * fields.rate : fields.amountToSend / fields.rate
             })
         }
     }, [fields])

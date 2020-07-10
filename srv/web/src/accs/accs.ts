@@ -504,15 +504,19 @@ export default class ACCS {
     )
 
     const p2wsh = htlcBTCAccepter.getP2WSH(config.secret.hash, config.timelockBTC)
+
     let txID: string | null = null
     let value: number | null = null
 
     while (txID === null && timeToWait > 0) {
       // eslint-disable-next-line
-      htlcBTCAccepter.bitcoinAPI.getValueFromLastTransaction(p2wsh.address!).then((res) => {
-        txID = res.txID
-        value = res.value
-      })
+      htlcBTCAccepter.bitcoinAPI
+        .getValueFromLastTransaction(p2wsh.address!)
+        .then((res) => {
+          txID = res.txID
+          value = res.value
+        })
+        .catch((err: Error) => {}) // This error is intentional and expected to occur for most iterations
 
       await new Promise((resolve) => setTimeout(resolve, config.checkAPIInterval * 1_000))
 
