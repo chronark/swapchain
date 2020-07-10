@@ -138,10 +138,6 @@ export const Propose = () => {
      * When a user thinks he is done filling out the form it is validated first and feedback is given to the user.
      */
     const submitHandler = async () => {
-        setState(State.RUNNING)
-        return
-
-
         const errorMessage = validate()
         setValid(errorMessage === "")
 
