@@ -66,6 +66,7 @@ describe("parseUserInput()", () => {
       bitcoinTxID: "testBTCTxID",
       bitsharesAsset: "TEST",
       bitsharesEndpoint: "wss://testnet.dex.trading/",
+      checkAPIInterval: 4,
     }
 
     const config = await ACCS.parseUserInput(fields)
@@ -139,6 +140,7 @@ describe("parseUserInput()", () => {
       bitcoinTxID: "testBTCTxID",
       bitsharesAsset: "BTS",
       bitsharesEndpoint: "wss://api.dex.trading/",
+      checkAPIInterval: 4,
     }
 
     const config = await ACCS.parseUserInput(fields)
@@ -209,6 +211,7 @@ describe("run()", () => {
     bitcoinTxID: "testBTCTxID",
     bitsharesAsset: "BTS",
     bitsharesEndpoint: "wss://api.dex.trading/",
+    checkAPIInterval: 4,
   }
 
   it("calls parseUserInput and proposeBTSForBTC", async () => {
