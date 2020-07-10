@@ -5,7 +5,6 @@ import {
   isValidBitsharesPrivateKey,
   isValidBitcoinPublicKey,
 } from "../web/src/pkg/address/validator"
-import { Timelock } from "../web/src/components/forms/enums"
 import { ACCSFields } from "../web/src/accs/accs"
 import readline from "readline"
 
@@ -123,17 +122,6 @@ export async function getUserInput(read: readline.Interface): Promise<ACCSFields
     )
     // TODO: Validate txid
     // TODO: Errorhandling for missing transaction (now: getWitnessUtxo fails with "length of undefined")
-  }
-
-  switch (timelock) {
-    case "0":
-      fields.timelock = Timelock.LONG
-      break
-    case "1":
-      fields.timelock = Timelock.MEDIUM
-      break
-    default:
-      fields.timelock = Timelock.SHORT
   }
 
   return fields

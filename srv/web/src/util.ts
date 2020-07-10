@@ -1,16 +1,14 @@
 import * as bitcoin from "bitcoinjs-lib"
 
-export const fakeKey = (length: number, network: string) => {
-  let prefix: string
+export const fakeKey = (length: number, network?: string) => {
+  let prefix = ""
   if (network === "mainnet") {
     prefix = "L"
   } else if (network === "testnet") {
     prefix = "c"
-  } else {
-    throw new Error("Invalid network name. Choose mainnet or testnet.")
   }
 
-  return prefix + hash(Math.random().toString()).substring(0, length) + "..."
+  return prefix + hash(Math.random().toString()).substring(0, length)
 }
 
 export const hash = (s: string): string => {

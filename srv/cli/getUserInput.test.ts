@@ -46,7 +46,6 @@ describe("getUserInput()", () => {
       bitsharesPrivateKey: "5Z89Ve18ttnu7Ymd1nnCMsnGkfKk4KQnsfFrYEz7Cmw39FAMOSS",
       counterpartyBitcoinPublicKey: "034c7ddacc16fa5e53aa5dc19748e3877ba07b981fdbbcdb97b8b19de240241f61",
       counterpartyBitsharesAccountName: "testBTSCounterpartyAccount",
-      timelock: 6,
       secret: secretObject,
       bitcoinTxID: "testBTCTxID",
     }
@@ -58,7 +57,6 @@ describe("getUserInput()", () => {
     expect(accsFields.priority).toBe(expectedACCSFields.priority)
     expect(accsFields.amountToSend).toBe(expectedACCSFields.amountToSend)
     expect(accsFields.amountToReceive).toBe(expectedACCSFields.amountToReceive)
-    expect(accsFields.timelock).toBe(expectedACCSFields.timelock)
     expect(accsFields.rate).toBe(expectedACCSFields.rate)
     expect(accsFields.secret).toEqual(expectedACCSFields.secret)
   })
@@ -96,7 +94,6 @@ describe("getUserInput()", () => {
       bitsharesPrivateKey: "5Z89Ve18ttnu7Ymd1nnCMsnGkfKk4KQnsfFrYEz7Cmw39FAMOSS",
       counterpartyBitcoinPublicKey: "034c7ddacc16fa5e53aa5dc19748e3877ba07b981fdbbcdb97b8b19de240241f61",
       counterpartyBitsharesAccountName: "testBTSCounterpartyAccount",
-      timelock: 20,
       secret: secretObjectAccepter,
       bitcoinTxID: "testBTCTxID",
     }
@@ -108,7 +105,6 @@ describe("getUserInput()", () => {
     expect(accsFields.priority).toBe(expectedACCSFields.priority)
     expect(accsFields.amountToSend).toBe(expectedACCSFields.amountToSend)
     expect(accsFields.amountToReceive).toBe(expectedACCSFields.amountToReceive)
-    expect(accsFields.timelock).toBe(expectedACCSFields.timelock)
     expect(accsFields.rate).toBe(expectedACCSFields.rate)
     expect(accsFields.secret.preimage).toBeUndefined()
     expect(accsFields.secret.hash.toString("hex")).toBe(expectedACCSFields.secret.hash.toString("hex"))

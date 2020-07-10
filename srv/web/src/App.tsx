@@ -2,14 +2,14 @@
 import React from 'react';
 import { LandingPage } from './components/pages/LandingPage';
 import { Navbar } from "./components/Navbar/Navbar"
-import { Propose } from "./components/forms/Propose"
+import { Propose } from "./components/pages/Propose"
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
 import { ComponentPage } from './components/util/ComponentPage';
-import { Accept } from './components/forms/Accept';
+import { Accept } from './components/pages/Accept';
 import { OrderbookPage } from './components/pages/OrderbookPage';
 import { TradingPage } from './components/pages/TradingPage';
 

@@ -2,6 +2,7 @@ import * as bitcoin from "bitcoinjs-lib"
 import { PsbtInput } from "bip174/src/lib/interfaces"
 import { witnessStackToScriptWitness } from "./witnessStack"
 import { Secret } from "../../../pkg/secret/secret"
+// eslint-disable-next-line
 import { BitcoinAPI, BitcoinAPIConstructor } from "../../types/bitcoinApi"
 
 /**

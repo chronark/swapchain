@@ -69,11 +69,6 @@ export interface ACCSFields {
   bitcoinTxID: string
 
   /**
-   * The timelock of the transactions. Either 20 (long), 13 (medium) or 6 (short).
-   */
-  timelock: number
-
-  /**
    * The priority of the transactions. Either 0 (high), 1 (medium) or 2 (low).
    */
   priority: number
@@ -242,7 +237,7 @@ export default class ACCS {
 
     config.bitcoinTxID = fields.bitcoinTxID
 
-    const timer = new Timer(fields.timelock, fields.networkToTrade, BlockStream)
+    const timer = new Timer(6, fields.networkToTrade, BlockStream)
 
     config.timelockBTC = timer.toBTC() // number of blocks to wait
     config.timelockBTS = await timer.toBTS() // seconds to wait
@@ -362,6 +357,7 @@ export default class ACCS {
     while (txID === null && timeToWait > 0) {
       htlcBTCProposer.bitcoinAPI
         .getValueFromLastTransaction(p2wsh.address!)
+        // eslint-disable-next-line
         .then((res) => {
           txID = res.txID
         })
@@ -445,12 +441,13 @@ export default class ACCS {
     const maxBlockHeight = htlcBTCAccepter.getFundingTxBlockHeight()! + config.timelockBTC
     let currentBlockHeight = 0
 
-    htlcBTCAccepter.bitcoinAPI
-      .getPreimageFromLastTransaction(p2wsh.address!)
-      .then((preimage) => (preimageFromBlockchain = preimage))
-
     while (preimageFromBlockchain === null && currentBlockHeight < maxBlockHeight) {
       currentBlockHeight = (await htlcBTCAccepter.bitcoinAPI.getLastBlock()).height
+
+      htlcBTCAccepter.bitcoinAPI
+        .getPreimageFromLastTransaction(p2wsh.address!)
+        // eslint-disable-next-line
+        .then((preimage) => (preimageFromBlockchain = preimage))
 
       await new Promise((resolve) => setTimeout(resolve, config.checkAPIInterval * 1_000))
     }

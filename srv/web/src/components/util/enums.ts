@@ -16,12 +16,6 @@ export enum Network {
   TESTNET = "testnet",
 }
 
-export enum Timelock {
-  LONG = 20,
-  MEDIUM = 13,
-  SHORT = 6,
-}
-
 export enum Priority {
   HIGH,
   MEDIUM,

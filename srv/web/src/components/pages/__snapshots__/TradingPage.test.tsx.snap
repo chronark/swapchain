@@ -5,7 +5,7 @@ exports[`renders correctly 1`] = `
   className="flex flex-col items-center justify-between mt-12 space-y-8 rounded md:space-x-8 md:flex-row md:space-y-0"
 >
   <div
-    className="flex-grow"
+    className="md:w-8/12"
   >
     <h2
       className="mt-2 text-3xl leading-8 tracking-tight text-gray-900 sm:text-4xl sm:leading-10"
@@ -15,7 +15,7 @@ exports[`renders correctly 1`] = `
     <p
       className="mt-4 leading-7 text-gray-500"
     >
-      Even more Explanation Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.
+      No more enterprise wallets saving your confidential data and contradicting the idea behind distributed ledger. No more transactions with mediocre safety measures leaving you worried about fraudulent exchange partners. Swapchain is here to combine trustless safety measures with user data privacy. Because cryptocurrency trading deserves better.
     </p>
     <ul
       className="flex flex-col mt-8 space-y-4"
@@ -29,13 +29,11 @@ exports[`renders correctly 1`] = `
           <div
             className="flex-shrink-0"
           >
-            <div
+            <svg
               className="flex items-center justify-center w-8 text-teal-500"
             >
-              <svg>
-                eye-off.svg
-              </svg>
-            </div>
+              key.svg
+            </svg>
           </div>
           <div
             className="ml-4"
@@ -43,12 +41,12 @@ exports[`renders correctly 1`] = `
             <h4
               className="text-lg leading-6 text-gray-900"
             >
-              It's super cool
+              You own your private keys
             </h4>
             <p
               className="mt-2 text-base leading-6 text-gray-500"
             >
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.
+              If you don't own the private keys, you don't own the coins. With swapchain your private keys belong to you. Your private keys will never leave your browser or CLI, giving you full control over them.
             </p>
           </div>
         </div>
@@ -60,13 +58,11 @@ exports[`renders correctly 1`] = `
           <div
             className="flex-shrink-0"
           >
-            <div
+            <svg
               className="flex items-center justify-center w-8 text-teal-500"
             >
-              <svg>
-                annotation.svg
-              </svg>
-            </div>
+              lock-closed.svg
+            </svg>
           </div>
           <div
             className="ml-4"
@@ -79,7 +75,7 @@ exports[`renders correctly 1`] = `
             <p
               className="mt-2 text-base leading-6 text-gray-500"
             >
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.
+              Since Swapchain uses Hash TimeLock Contracts (HTLCs), there are no more counterparty risks. This means you don't have to trust your exchange partner and can trade safely.
             </p>
           </div>
         </div>
@@ -91,13 +87,11 @@ exports[`renders correctly 1`] = `
           <div
             className="flex-shrink-0"
           >
-            <div
+            <svg
               className="flex items-center justify-center w-8 text-teal-500"
             >
-              <svg>
-                qrcode.svg
-              </svg>
-            </div>
+              collection.svg
+            </svg>
           </div>
           <div
             className="ml-4"
@@ -105,12 +99,12 @@ exports[`renders correctly 1`] = `
             <h4
               className="text-lg leading-6 text-gray-900"
             >
-              Because..
+              Trade crypto assets the way you like
             </h4>
             <p
               className="mt-2 text-base leading-6 text-gray-500"
             >
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.
+              With Swapchain, you can choose your preferred rate and priority, making your cryptocurrency transactions both more flexible to your needs and safer.
             </p>
           </div>
         </div>
@@ -118,109 +112,113 @@ exports[`renders correctly 1`] = `
     </ul>
   </div>
   <div
-    className="flex flex-col items-center w-full bg-white border rounded shadow-lg"
+    className="md:w-4/12"
   >
     <div
-      className="flex flex-col justify-center w-full p-4 space-y-4"
+      className="flex flex-col items-center bg-white border rounded shadow-lg"
     >
       <div
-        className="flex flex-col justify-center w-full p-8 space-y-4"
+        className="flex flex-col justify-center p-4 space-y-4"
       >
-        <div>
-          <h2
-            className="text-xl leading-tight text-gray-900"
-          >
-            Start trading
-          </h2>
-          <p
-            className="mt-1 text-sm leading-4 text-gray-600"
-          >
-            Create a new ACCS or accept an existing proposal from your trading partner.
-          </p>
-        </div>
         <div
-          className="flex flex-col space-y-4 lg:flex-row lg:space-y-0 lg:space-x-4"
+          className="flex flex-col justify-center w-full p-4 space-y-4"
         >
-          <button
-            className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
-            onClick={[Function]}
+          <div>
+            <h2
+              className="text-xl leading-tight text-gray-900"
+            >
+              Start trading
+            </h2>
+            <p
+              className="mt-1 text-sm leading-4 text-gray-600"
+            >
+              Create a new ACCS or accept an existing proposal from your trading partner.
+            </p>
+          </div>
+          <div
+            className="flex flex-col space-y-4 xl:flex-row xl:space-y-0 xl:space-x-4"
           >
-            <div
-              className="flex flex-col items-start justify-between p-4"
+            <button
+              className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
+              onClick={[Function]}
             >
               <div
-                className="flex items-center justify-between w-full"
+                className="flex flex-col items-start justify-between p-4"
+              >
+                <div
+                  className="flex items-center justify-between w-full"
+                >
+                  <span
+                    className="text-left font-semibold text-gray-900"
+                  >
+                    Propose
+                  </span>
+                  <span
+                    className="text-xs font-thin text-gray-600"
+                  />
+                </div>
+                <p
+                  className="mt-2 text-sm text-left text-gray-600"
+                >
+                  a new Atomic Cross Chain Swap
+                </p>
+              </div>
+              <div
+                className="flex items-center justify-center"
               >
                 <span
-                  className="text-left font-semibold text-gray-900"
-                >
-                  Propose
-                </span>
-                <span
-                  className="text-xs font-thin text-gray-600"
+                  className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
                 />
               </div>
-              <p
-                className="mt-2 text-sm text-left text-gray-600"
-              >
-                a new Atomic Cross Chain Swap
-              </p>
-            </div>
-            <div
-              className="flex items-center justify-center"
-            >
-              <span
-                className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
-              />
-            </div>
-          </button>
-          <button
-            className="focus:outline-none flex w-full items-center justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
-            onClick={[Function]}
-          >
-            <div
-              className="flex flex-col items-start justify-between p-4"
+            </button>
+            <button
+              className="focus:outline-none flex w-full items-center justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
+              onClick={[Function]}
             >
               <div
-                className="flex items-center justify-between w-full"
+                className="flex flex-col items-start justify-between p-4"
+              >
+                <div
+                  className="flex items-center justify-between w-full"
+                >
+                  <span
+                    className="text-left font-semibold text-gray-600"
+                  >
+                    Accept
+                  </span>
+                  <span
+                    className="text-xs font-thin text-gray-400"
+                  />
+                </div>
+                <p
+                  className="mt-2 text-sm text-left text-gray-400"
+                >
+                  an Atomic Cross Chain Swap proposal
+                </p>
+              </div>
+              <div
+                className="flex items-center justify-center"
               >
                 <span
-                  className="text-left font-semibold text-gray-600"
-                >
-                  Accept
-                </span>
-                <span
-                  className="text-xs font-thin text-gray-400"
+                  className="mr-4 text-3xl font-semibold hidden md:block text-gray-300"
                 />
               </div>
-              <p
-                className="mt-2 text-sm text-left text-gray-400"
-              >
-                an Atomic Cross Chain Swap proposal
-              </p>
-            </div>
-            <div
-              className="flex items-center justify-center"
-            >
-              <span
-                className="mr-4 text-3xl font-semibold hidden md:block text-gray-300"
-              />
-            </div>
-          </button>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <footer
-      className="flex justify-center w-full p-4 bg-gray-100 border-t border-gray-200"
-    >
-      <a
-        className="px-8 py-3 text-gray-900 uppercase transition duration-200 ease-in-out bg-white border rounded-sm shadow-sm focus:outline-none hover:border-teal-500 hover:bg-white"
-        href="/propose"
-        onClick={[Function]}
+      <footer
+        className="flex justify-center w-full p-4 bg-gray-100 border-t border-gray-200"
       >
-        Start
-      </a>
-    </footer>
+        <a
+          className="px-8 py-3 font-semibold text-gray-900 uppercase transition duration-200 ease-in-out bg-white border border-teal-400 rounded-sm shadow-sm focus:outline-none hover:border-teal-500 hover:bg-white"
+          href="/propose"
+          onClick={[Function]}
+        >
+          Start
+        </a>
+      </footer>
+    </div>
   </div>
 </div>
 `;

@@ -33,7 +33,6 @@ describe("parseUserInput()", () => {
       bitsharesPrivateKey: "5Z89Ve18ttnu7Ymd1nnCMsnGkfKk4KQnsfFrYEz7Cmw39FAMOSS",
       counterpartyBitcoinPublicKey: "034c7ddacc16fa5e53aa5dc19748e3877ba07b981fdbbcdb97b8b19de240241f61",
       counterpartyBitsharesAccountName: "testBTSCounterpartyAccount",
-      timelock: 6,
       secret: secretObject,
       bitcoinTxID: "testBTCTxID",
     }
@@ -107,7 +106,6 @@ describe("parseUserInput()", () => {
       bitsharesPrivateKey: "5Z89Ve18ttnu7Ymd1nnCMsnGkfKk4KQnsfFrYEz7Cmw39FAMOSS",
       counterpartyBitcoinPublicKey: "034c7ddacc16fa5e53aa5dc19748e3877ba07b981fdbbcdb97b8b19de240241f61",
       counterpartyBitsharesAccountName: "testBTSCounterpartyAccount",
-      timelock: 6,
       secret: secretObject,
       bitcoinTxID: "testBTCTxID",
     }
@@ -180,7 +178,6 @@ describe("run()", () => {
     bitsharesPrivateKey: "5Z89Ve18ttnu7Ymd1nnCMsnGkfKk4KQnsfFrYEz7Cmw39FAMOSS",
     counterpartyBitcoinPublicKey: "034c7ddacc16fa5e53aa5dc19748e3877ba07b981fdbbcdb97b8b19de240241f61",
     counterpartyBitsharesAccountName: "testBTSCounterpartyAccount",
-    timelock: 6,
     secret: secretObject,
     bitcoinTxID: "testBTCTxID",
   }

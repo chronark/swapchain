@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import { BitcoinAPIConstructor, BitcoinAPI } from "../pkg/types/bitcoinApi"
 
 /**
@@ -8,7 +9,7 @@ export class Timer {
   private blockSequence: number
 
   /**
-   * Creates an instance of Timer.
+   * Creates an instance of Timer
    *
    * @param blockSequence
    * @param network
