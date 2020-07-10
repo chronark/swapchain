@@ -179,6 +179,11 @@ export interface ACCSConfig {
    * The endpoint address of the Bitshares node to connect to.
    */
   bitsharesEndpoint: string
+
+  /**
+   * The interval in seconds the APIs get called.
+   */
+  checkAPIInterval: number
 }
 
 /**
@@ -244,6 +249,8 @@ export default class ACCS {
 
     config.secret = fields.secret
 
+    config.checkAPIInterval = 4 // This can be changed. It's a trade-off. Lower values might make swaping faster, but spam APIs.
+
     return config
   }
 
@@ -294,7 +301,7 @@ export default class ACCS {
     while (!success && currentBlockHeight < maxBlockHeight) {
       currentBlockHeight = (await htlcBTCProposer.bitcoinAPI.getLastBlock()).height
 
-      await new Promise((resolve) => setTimeout(resolve, 10_000))
+      await new Promise((resolve) => setTimeout(resolve, config.checkAPIInterval * 1_000))
     }
 
     if (!success) {
@@ -304,7 +311,7 @@ export default class ACCS {
         `No HTLC found on Bitshares ${config.networkName}. Your HTLC was refunded with transaction ID ${refundTXId}.`,
       )
     }
-
+    // TODO: Seperate this message when Bitshares API is ready
     console.log(`Found the HTLC for you on Bitshares ${config.networkName}! Redeeming the HTLC...`)
   }
 
@@ -348,7 +355,7 @@ export default class ACCS {
 
     const p2wsh = htlcBTCProposer.getP2WSH(config.secret.hash, config.timelockBTC)
 
-    let timeToWait = Math.round(config.timelockBTS / 2) // We only check API every 2 seconds
+    let timeToWait = Math.round(config.timelockBTS / config.checkAPIInterval) // We only check API every X seconds
 
     let txID: string | null = null
 
@@ -360,7 +367,7 @@ export default class ACCS {
         })
         .catch((err: Error) => {}) // This error is intentional and expected to occur for most iterations
 
-      await new Promise((resolve) => setTimeout(resolve, 2_000))
+      await new Promise((resolve) => setTimeout(resolve, config.checkAPIInterval * 1_000))
 
       timeToWait--
     }
@@ -370,7 +377,7 @@ export default class ACCS {
     }
 
     // redeem
-    await htlcBTCProposer.redeem(p2wsh, config.secret)
+    await htlcBTCProposer.redeem(p2wsh, config.amountSatoshi, config.secret)
   }
 
   /**
@@ -388,7 +395,7 @@ export default class ACCS {
       config.bitsharesAccount,
     )
 
-    let timeToWait = 120 / 2 // We only check API every 2 seconds
+    let timeToWait = 300 // This can be changed, but 5 minutes waiting seem to be fine. Must be a multiple of config.checkAPIInterval!
 
     console.log(
       `Looking for an HTLC for you on Bitshares ${config.networkName}. This can take up to ${timeToWait / 60} min.`,
@@ -398,11 +405,12 @@ export default class ACCS {
     htlcBTSAccepter.getID(config.amountBTSMini, config.secret.hash).then((res) => (id = res))
 
     while (!id && timeToWait > 0) {
-      await new Promise((resolve) => setTimeout(resolve, 2_000))
+      await new Promise((resolve) => setTimeout(resolve, config.checkAPIInterval * 1_000))
 
-      timeToWait--
+      timeToWait -= config.checkAPIInterval
     }
 
+    // TODO: Improve user feedback, e. g. if looking fails due to wrong amount.
     if (!id) {
       htlcBTSAccepter.stopLooking()
       throw new Error(`No HTLC found on Bitshares ${config.networkName}. Please contact proposer.`)
@@ -434,14 +442,14 @@ export default class ACCS {
     const maxBlockHeight = htlcBTCAccepter.getFundingTxBlockHeight()! + config.timelockBTC
     let currentBlockHeight = 0
 
+    htlcBTCAccepter.bitcoinAPI
+      .getPreimageFromLastTransaction(p2wsh.address!)
+      .then((preimage) => (preimageFromBlockchain = preimage))
+
     while (preimageFromBlockchain === null && currentBlockHeight < maxBlockHeight) {
       currentBlockHeight = (await htlcBTCAccepter.bitcoinAPI.getLastBlock()).height
 
-      htlcBTCAccepter.bitcoinAPI
-        .getPreimageFromLastTransaction(p2wsh.address!)
-        .then((preimage) => (preimageFromBlockchain = preimage))
-
-      await new Promise((resolve) => setTimeout(resolve, 10_000))
+      await new Promise((resolve) => setTimeout(resolve, config.checkAPIInterval * 1_000))
     }
 
     if (preimageFromBlockchain === null) {
@@ -486,7 +494,7 @@ export default class ACCS {
       BlockStream,
     )
 
-    let timeToWait = 120 / 2 // We only check API every 2 seconds
+    let timeToWait = 300 // This can be changed, but 5 minutes waiting seem to be fine. Must be a multiple of config.checkAPIInterval!
 
     console.log(
       `Looking for an HTLC for you on Bitcoin ${config.networkName}. This can take up to ${timeToWait / 60} min.`,
@@ -494,21 +502,32 @@ export default class ACCS {
 
     const p2wsh = htlcBTCAccepter.getP2WSH(config.secret.hash, config.timelockBTC)
     let txID: string | null = null
-    htlcBTCAccepter.bitcoinAPI.getValueFromLastTransaction(p2wsh.address!).then((res) => {
-      txID = res.txID
-    })
+    let value: number | null = null
 
     while (txID === null && timeToWait > 0) {
-      await new Promise((resolve) => setTimeout(resolve, 2_000))
+      htlcBTCAccepter.bitcoinAPI.getValueFromLastTransaction(p2wsh.address!).then((res) => {
+        txID = res.txID
+        value = res.value
+      })
 
-      timeToWait--
+      await new Promise((resolve) => setTimeout(resolve, config.checkAPIInterval * 1_000))
+
+      timeToWait -= config.checkAPIInterval
     }
 
     if (timeToWait === 0) {
       throw new Error(`No HTLC found on Bitcoin ${config.networkName}. Please contact proposer.`)
     }
 
+    // Check if amount of proposer's HTLC is sufficient
+    const fees = await htlcBTCAccepter.calculateFee()
+
+    if (value! < config.amountSatoshi - fees.max) {
+      throw new Error(`The amount of Satoshi sent (${value}) is not sufficient. Please contact proposer.`)
+    }
+
     console.log(`Found the HTLC for you on Bitcoin ${config.networkName}!`)
+
     // Create BTS HTLC
     const htlcBTSAccepter = new BitsharesHTLC(
       config.bitsharesEndpoint,
@@ -566,7 +585,7 @@ export default class ACCS {
     )
 
     // Redeem BTC HTLC
-    await htlcBTCAccepter.redeem(p2wsh, config.secret)
+    await htlcBTCAccepter.redeem(p2wsh, config.amountSatoshi, config.secret)
   }
 
   /**

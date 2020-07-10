@@ -292,35 +292,48 @@ export default class BitcoinHTLC {
   }
 
   /**
-   * Get fee estimates and calculate fee depending on priority
+   * Get wanted and max fee.
    *
-   * @returns Fee for a single transaction in Satoshi.
+   * @returns A fee object with a max fee, which is the maximum fee the redeemer of the HTLC should accept and a want fee, which is the desired fee according to the selected priority.
    * @memberof BitcoinHTLC
    */
-  private async calculateFee(): Promise<number> {
+  public async calculateFee(): Promise<{ want: number; max: number }> {
     const feeEstimates = await this.bitcoinAPI.getFeeEstimates()
 
     const averageTransactionSize = 150 // On average our transaction size is about 150 vBytes
+    const toleranceRangeFactor = 1.2 // Tolerance range is 20%
 
-    return feeEstimates[Math.min(feeEstimates.length - 1, this.priority)] * averageTransactionSize
+    const want = Math.round(feeEstimates[Math.min(feeEstimates.length - 1, this.priority)] * averageTransactionSize) // The desired fee according to the selected priority
+
+    const max = Math.round(feeEstimates[0] * toleranceRangeFactor * averageTransactionSize) // Redeemer should not accept an HTLC that has deducted more than these fees
+
+    return {
+      want,
+      max,
+    }
   }
 
   /**
    * Redeems an HTLC.
    *
    * @param p2wsh - The Pay-to-witness-script-hash object to redeem.
+   * @param amount - The amount of satoshi to exchange.
    * @param secret - The secret object with the correct preimage inside.
    * @memberof BitcoinHTLC
    */
-  public async redeem(p2wsh: bitcoin.Payment, secret: Secret): Promise<void> {
+  public async redeem(p2wsh: bitcoin.Payment, amount: number, secret: Secret): Promise<void> {
     // Save preimage as attribute to inject it into the getFinalScriptsRedeem method
     this.preimage = secret.preimage!
 
-    const { value, txID } = await this.bitcoinAPI.getValueFromLastTransaction(p2wsh.address!) // TODO: Check if amount is enough!
+    const { value, txID } = await this.bitcoinAPI.getValueFromLastTransaction(p2wsh.address!)
 
-    const fee = await this.calculateFee()
+    const fees = await this.calculateFee()
 
-    this.amountAfterFees = value - fee
+    if (value < amount - fees.max) {
+      throw new Error(`The amount of Satoshi sent (${value}) is not sufficient. Please contact proposer.`)
+    }
+
+    this.amountAfterFees = value - fees.want
     const redeemHex = await this.getRedeemHex(txID, p2wsh)
 
     const redeemTransaction = await this.bitcoinAPI.pushTX(redeemHex)
@@ -340,14 +353,14 @@ export default class BitcoinHTLC {
   public async create(config: HTLCConfigBTC): Promise<string> {
     const { transactionID, amount, sequence, hash } = config
 
-    const fee = await this.calculateFee()
+    const fees = await this.calculateFee()
 
     // Substract first fee for funding transaction
-    this.amountAfterFees = amount - fee
+    this.amountAfterFees = amount - fees.want
 
     if (this.amountAfterFees <= 0) {
       throw new Error(
-        `You are trying to send less money than the fees to transfer it, please use a value higher than ${fee}`,
+        `You are trying to send less money than the fees to transfer it, please use a value higher than ${fees.want}`,
       )
     }
 
@@ -365,7 +378,7 @@ export default class BitcoinHTLC {
     await new Promise((resolve) => setTimeout(resolve, 5000))
 
     // Substract second fee for potential refund transaction
-    this.amountAfterFees = this.amountAfterFees - fee
+    this.amountAfterFees = this.amountAfterFees - fees.want
 
     // Refunding
     const refundHex = await this.getRefundHex(fundingTransactionID, sequence, p2wsh)
@@ -376,17 +389,8 @@ export default class BitcoinHTLC {
       await new Promise((resolve) => setTimeout(resolve, 10_000))
     }
 
+    // Return refund hex for pushing when the time comes. NB: This is a Replace by fee transaction!
     return refundHex
-    /*
-    const payload = { hex: refundHex, validAfterBlockHeight: this.fundingTxBlockHeight + sequence }
-    const res = await fetch("http://localhost:13000", { method: "POST", body: JSON.stringify(payload) }).then((res) =>
-      res.json(),
-    )
-
-    if (!res.success) {
-      throw new Error(`Posting refundHex to database. Hex for refund transaction: ${refundHex}`)
-    }
-    */
   }
 
   /**
