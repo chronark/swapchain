@@ -508,6 +508,7 @@ export default class ACCS {
     let value: number | null = null
 
     while (txID === null && timeToWait > 0) {
+      // eslint-disable-next-line
       htlcBTCAccepter.bitcoinAPI.getValueFromLastTransaction(p2wsh.address!).then((res) => {
         txID = res.txID
         value = res.value
