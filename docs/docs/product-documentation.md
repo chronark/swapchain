@@ -12,8 +12,6 @@ This document provides information regarding the product of Swapchain from the p
 
 - The following product documentation is based upon the technical documentation guideline of altexsoft (2019 [1]).
 
-//- Chapters marked with "***" are not specified yet due to the necessity of further planning and will be completed upon the final release.
-
 ### 1.2. Definitions, Acronyms, Abbreviations
 
 AMOS   -   Agile methods and Open-Source Software  
@@ -63,7 +61,6 @@ The team's goals include both fulfilling the requirements about the application 
 The team goals for fullfilling AMOS requirements include self-dependent and motivated participation in the project planning, meeting the schedules specified in the deliverables overview, appropriate usage and listing of third-party components with fitting licensing and taking care of proper documentation so that the development process can be retraced. The three main sources for assessing the work quality as postulated by AMOS are the weekly team meetings, the planning document and the published and tagged code artifacts accessible on GitHub.
 The team goals for satisfying the industry partner consist of delivering a functional software prototype ready for further (final) development and eventual commercial utilisation. Hereby, the team aims at delivering flawless code components, a clean software architecture and documentation papers of high quality, all of which are considered the main source for assessing work quality from the industry partner's side.
 
-//Müssen wir hier das Endziel der Anwendung beschreiben oder das Ziel der Anwendung, die wir im Rahmen des Projektes machen? Dann mpssen wir das nochmal umschreiben 
 Business objective:  
 The Swapchain business objective is to offer a popular platform able to trade different cryptocurrencies across multiple blockchains with each other. Realising atomic over-the-counter (OTC) transactions that feature hash-time-locked contracts (HTLC) and real-time orderbooks, Swapchain is determined to place a safe, reliable and lightweight solution for the atomic exchange of various cryptocurrency assets across different blockchains on the market. As the market for cryptocurrency applications based on distributed ledger technology experiences considerable growth, while technological approaches based on ACCS are only evolving, the product is expected to fill in a market gap and thus experience increasing user numbers across various target groups. Due to its intuitivity and ease-of-use, Swapchain is aimed at becoming a viable alternative to a large user base with an intermediate to advanced understanding of cryptocurrencies, a strong sense of data and risk protection and an intent to swap digital assets.
 
@@ -82,13 +79,13 @@ It is assumed that future users of the Swapchain web application have a good und
 
 #### 2.1.5. User stories
 
-As a user of Swapchain, I want to exchange BTC for BTS or vice versa without trusting the other party. Also I do not want my personal or private keys to be stored by the system and I do not want to rely on a third party // warum haben wir hier nen Zitat? (Zipkin, 2020 [2]).
+As a user of Swapchain, I want to exchange BTC for BTS or vice versa without trusting the other party. Also I do not want my personal or private keys to be stored by the system and I do not want to rely on a third party (Zipkin, 2020 [2]).
 
 #### 2.1.6. User interaction and design
 
 The system communicates with the user via a user interface (UI). React.js will be used to create a basic frontend.
 
-// Hier Screenshots von der Landingpage und den Forms einfügen. 
+// Screenshots with explanation - to be added  
 
 Furthermore, the user might use Swapchain's service via a command-line tool through any command prompt. 
 
@@ -103,7 +100,6 @@ Intuitivity:
 Second, the Swapchain application is expected to provide an intuitive, easy-to-use interface. While related to the first aspect (simplicity), ease-of-use also includes the necessity of aspects such as obvious call to action to start trading. Moreover, users must be enabled to give input into the application without circumstances, which could for instance appear in the form of autofill patterns if they repeatedly want to set up the same swap offer. Moreover, barrier-free accessibility is also an important topic to be covered, however this functionality makes sense to be rolled out only when all other basic features have been implemented. Voice commands (of course excluding sensitive parts such as private keys) could prove viable support for impaired people imaginably. 
 
 Adaptability: 
-//den Teil verstehe ich nicht so recht, lass uns da noch mal drüber quatschen 
 With more sophisticated versions of the software, users are given more opportunities to adapt the software design according to their own needs. This might include an activatable retrospective and analysis on prior transactions if the user wishes to receive in-depth intel on previous swaps.
 
 Reliability:  
@@ -119,12 +115,6 @@ A typical user persona for the Swapchain would be Bob/Alice. Bob/Alice, 27 years
 #### 2.2.2. User scenario
 
 As a user I am either in possession of BTC, BTS or both. Let us assume I am in possession of BTCs. However, I would like to exchange BTC for BTS so that I am also in possession of BTS. Since I want to avoid counterparty risks and I do not trust people I do not know, I want to have maximum guarantees that my cryptocurrency exchange meets these requirements. As I already have an exchange partner, Swapchain offers my desired services and satisfies my needs. I simply access the Swapchain app and put my information, such as currency and amount I want to swap, transaction fee priority to influence the speed of my block being mined and my private and public key to sign the transaction. Subsequently, the app generates a secret hash that serves as the hashlock on the created ACCS. I pass this hashed secret to my exchange partner so he/she can put the same hash lock on the counterpart transaction. Now, the ACCS is triggered. If everything goes well, I have successfully exchanged BTC for BTS. If my swap partner tries to fool the system or the time lock runs out of time, the transaction is cancelled and I receive my refunded BTC.
-
-#### 2.2.3. UX style guide
-
-A draft of the UI mockup can be found with the following link: https://framer.com/share/swapchain-8fTM7MfGO6B5Axijk3Dy.
-
-//das müssen wir unbedingt noch ändern, da der Style ja jetzt ganz anders ist, für das Mockup haben wir aber ja besprochen, dass wir das Orderbook drinlassen 
 
 ### 2.3. Architecture descriptions
 
@@ -153,7 +143,7 @@ Figure 2: Product feature diagram (Swapchain, 2020c) [5]
 
 ### 3.2. Tutorials
 
-//sollen wir hier am Ende einen Screencast einfügen, in dem man sieht, wie man die App bedienen muss? 
+//Screencast - to be added 
 
 ### 3.3. User guides
 
@@ -178,10 +168,10 @@ To trade cryptocurrency with Swapchain no user account is needed. You just enter
 
 #### 3.3.4 How do I initiate the swap? 
 
-1. Fill out the form with all the needed information 
-2. A secret hash is generated. Copy the hash and send it to your exchange partner. 
-// hier müssen wir dann noch mal schauen, wie der Button genau heißt 3. Click on submit 
-4. Stay in the browser until the transaction is completed. Do not leave the browser by no means. 
+1. Enter the Swapchain app and choose the proposer option in order to initiate a swap.
+2. Fill out the form with all the needed information and click Submit. 
+3. A secret hash is generated. Copy the hash and send it to your exchange partner together with your Bitcoin publickey and your Bitshares account name. 
+4. Stay in the browser until the transaction is completed. Do not leave the browser by any means. 
 5. After the the successful transaction or redemption because of timelock expiry you are notified and free to leave the browser. 
 
 #### 3.3.5 How do I complete the swap as a counterpart? 
@@ -189,7 +179,7 @@ To trade cryptocurrency with Swapchain no user account is needed. You just enter
 1. Enter the Swapchain app and choose the option to accept a swap.
 2. Enter the hash that was previously passed to you by your exchange partner that set up the HTLC.
 3. Sign the transaction with your provate key. 
-4. Do not leave the browser before receiving a notification of either a successful transaction of the expiration of the timelock. 
+4. Do not leave the browser before receiving a notification of either a successful transaction or failure.
 
 #### 3.3.6 What happens if something goes wrong? 
 
