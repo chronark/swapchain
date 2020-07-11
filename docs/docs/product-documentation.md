@@ -85,8 +85,6 @@ As a user of Swapchain, I want to exchange BTC for BTS or vice versa without tru
 
 The system communicates with the user via a user interface (UI). React.js will be used to create a basic frontend.
 
-// Screenshots with explanation - to be added  
-
 Furthermore, the user might use Swapchain's service via a command-line tool through any command prompt. 
 
 ### 2.2. Design decisions
@@ -143,7 +141,86 @@ Figure 2: Product feature diagram (Swapchain, 2020c) [5]
 
 ### 3.2. Tutorials
 
-//Screencast - to be added 
+#### 3.2.1 Interface functionality explanation 
+
+//Landing Page Screenshot 
+
+1. Button to start trading either as a proposer or an acceptor
+2. Link leading to explanation of how to use the command-line-interface
+3. Link to orderbook to store and browse open orders (currently work-in-progress) 
+4. Link leading to software documentation
+5. Link leading to GitHub repository
+6. Button to start trading either as a proposer or an acceptor
+7. Link leading to GitHub repository
+
+// Choose Trade Mode Page 
+
+1. Home Button 
+2. ACCS Proposer Mode Choice 
+3. ACCS Accepter Mode Choice 
+4. Button to confirm mode choice and lead the user to the respective form
+
+//Proposer Form 
+
+1. Setting up the HTLC on the mainnet. 
+2. Seeting up the HTLC on the testnet. 
+3. Giving away Bitcoin to receive Bitshares from the swap partner. 
+4. Giving away Bitshares to receive Bitcoin from the swap partner. 
+5. The amount of Bitcoin that you wish to exchange. 
+6. The exchange rate between Bitcoin and Bitshares the two partners want to apply in their exchange. E.g. when you want to trade 0.001 Bitcoin for 10 Bitshares, the exchange rate would be 10,000. 
+7. Amout you receive in the respective countercurrency after applying the exchange rate to the amout of currency you give away.
+
+**Your Data:** 
+8. Insert field for your Bitcoin private key to validate the set up of an HTLC. 
+9. Insert field for your Bitshares private key used to validate the receival of Bitshares from a swap partner's HTLC. 
+10. Insert field for Bitcoin Transaction ID to identify the transaction's output supposed to be used as the input for the HTLC (applies only for the partner giving away Bitcoin). 
+**Counterparty Data:**
+11. Insert field for the counterparty's Bitcoin Public Key as the destination for HTLC's funds. 
+12. Insert field for the counterparty's Bitshares account name as the destination for the HTLC's funds.
+13. Choice of priority and speed of transaction processing via choosing either a high, medium or low amount of transaction fees. 
+14. Submit the information to create the HTLC on the blockchain. 
+
+//Accepter Form 
+
+1. Setting up the HTLC on the mainnet. 
+2. Seeting up the HTLC on the testnet. 
+3. Giving away Bitcoin to receive Bitshares from the swap partner. 
+4. Giving away Bitshares to receive Bitcoin from the swap partner. 
+5. The amount of Bitshares that you wish to exchange. 
+6. The exchange rate between Bitcoin and Bitshares the two partners want to apply in their exchange. E.g. when you want to trade 0.001 Bitcoin for 10 Bitshares, the exchange rate would be 10.000. 
+7. Amout you receive in the respective countercurrency after applying the exchange rate to the amout of currency you give away.
+**Your Data:** 
+8. Insert field for your Bitcoin private key used to validate the receival of Bitshares from a swap partner's HTLC. 
+9. Insert field for your Bitshares private key to validate the set up of an HTLC. 
+**Counterparty Data:** 
+10. Insert field for the counterparty's Bitcoin Public Key as the destination for HTLC's funds. 
+11. Insert field for the counterparty's Bitshares account name as the destination for the HTLC's funds.
+12. Insert field for secret hash given to you by your swap partner to set up an HTLC with the same secret hash.  
+13. Choice of priority and speed of transaction processing via choosing either a high, medium or low amount of transaction fees. 
+14. Submit the information to create the HTLC on the blockchain. 
+
+//Information-for-Partner Page
+
+1. The secret hash you have to pass to your swap partner in order for him/her to set up an HTLC with the same secret hash.
+2. Your Bitcoin Public Key as information for your partner in order to set up the counter-HTLC. 
+3. //ggf. Your Bitshares account name as information for your partner in order to set up the counter-HTLC. 
+4. Button to copy all the information to easily send it to your swap partner via any means of communication. 
+
+// Transaction Processing Page 
+
+1. Don't leave the browser until you do not get shown a success of failure notification. Your transaction is being processed.
+
+//Success notification page 
+
+1. Your transaction was successfully processed and can be seen on the blockchain.
+
+// Failure notification page 
+
+1. Something went wrong during the transaction processing. Funds previously sent to the HTLC are refunded. 
+
+
+**//Screencast - to be added** 
+
 
 ### 3.3. User guides
 
