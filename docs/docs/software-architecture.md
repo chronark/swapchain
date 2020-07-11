@@ -87,7 +87,7 @@ The use case diagram is used to visualize the Swapchain application and its acto
    
 ### 4.1. Use Case Diagram
 
-![](img/newSW_Architecture.svg)     
+![](img/UseCase.svg)     
 Figure 3: Use Case Diagram (Swapchain, 2020) [4]
    
 ### 4.2. Use Case Description
@@ -151,7 +151,7 @@ The implementation diagram is used to visualize the flow of control and the impl
    
 ### 7.1. Implementation Diagram
 
-![](img/newImplementation.svg)   
+![](img/Implementation.svg)   
 Figure 5: Implementation Diagram (Swapchain, 2020) [4]
    
 ### 7.2. Implementation Description
