@@ -27,9 +27,6 @@ jobs:
         run: npm install
       - name: lint and format
         run: npm run fmt
-      - name: Hadolint
-        run: |
-          docker run --rm -i hadolint/hadolint < ./srv/bitcoin/timelockBackend/Dockerfile
   tests:
     strategy:
       matrix:
@@ -46,9 +43,15 @@ jobs:
         with:
           node-version: '${{ matrix.node }}'
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm ci
+          cd ./srv/web
+          npm ci
       - name: Unittests
-        run: npm run test
+        run: npm test
+
+      - name: Unittests web
+        run: cd srv/web/ && npm test
   build:
     strategy:
       matrix:
@@ -65,13 +68,10 @@ jobs:
         with:
           node-version: '${{ matrix.node }}'
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm ci
+          cd srv/web/
+          npm ci
       - name: Build
         run: npm run build
-  docker:
-    runs-on: ubuntu-latest
-    name: Build docker
-    steps:
-      - uses: actions/checkout@v2
-      - name: Build
-        run: npm run docker:build
+ 

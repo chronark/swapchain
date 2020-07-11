@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`only name and description renders correctly 1`] = `
+<button
+  className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
+>
+  <div
+    className="flex flex-col items-start justify-between p-4"
+  >
+    <div
+      className="flex items-center justify-between w-full"
+    >
+      <span
+        className="text-left font-semibold text-gray-900"
+      >
+        name
+      </span>
+      <span
+        className="text-xs font-thin text-gray-600"
+      />
+    </div>
+    <p
+      className="mt-2 text-sm text-left text-gray-600"
+    >
+      description
+    </p>
+  </div>
+  <div
+    className="flex items-center justify-center"
+  >
+    <span
+      className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
+    />
+  </div>
+</button>
+`;
+
+exports[`with all attributes renders correctly 1`] = `
+<button
+  className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
+>
+  <div
+    className="flex flex-col items-start justify-between p-4"
+  >
+    <div
+      className="flex items-center justify-between w-full"
+    >
+      <span
+        className="text-left font-semibold text-gray-900"
+      >
+        name
+      </span>
+      <span
+        className="text-xs font-thin text-gray-600"
+      >
+        hint
+      </span>
+    </div>
+    <p
+      className="mt-2 text-sm text-left text-gray-600"
+    >
+      description
+    </p>
+  </div>
+  <div
+    className="flex items-center justify-center"
+  >
+    <span
+      className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
+    >
+      tag
+    </span>
+  </div>
+</button>
+`;
+
+exports[`without hint renders correctly 1`] = `
+<button
+  className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
+>
+  <div
+    className="flex flex-col items-start justify-between p-4"
+  >
+    <div
+      className="flex items-center justify-between w-full"
+    >
+      <span
+        className="text-left font-semibold text-gray-900"
+      >
+        name
+      </span>
+      <span
+        className="text-xs font-thin text-gray-600"
+      />
+    </div>
+    <p
+      className="mt-2 text-sm text-left text-gray-600"
+    >
+      description
+    </p>
+  </div>
+  <div
+    className="flex items-center justify-center"
+  >
+    <span
+      className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
+    >
+      tag
+    </span>
+  </div>
+</button>
+`;
+
+exports[`without tag renders correctly 1`] = `
+<button
+  className="focus:outline-none flex w-full items-center justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
+>
+  <div
+    className="flex flex-col items-start justify-between p-4"
+  >
+    <div
+      className="flex items-center justify-between w-full"
+    >
+      <span
+        className="text-left font-semibold text-gray-600"
+      >
+        name
+      </span>
+      <span
+        className="text-xs font-thin text-gray-400"
+      >
+        hint
+      </span>
+    </div>
+    <p
+      className="mt-2 text-sm text-left text-gray-400"
+    >
+      description
+    </p>
+  </div>
+  <div
+    className="flex items-center justify-center"
+  >
+    <span
+      className="mr-4 text-3xl font-semibold hidden md:block text-gray-300"
+    >
+      tag
+    </span>
+  </div>
+</button>
+`;

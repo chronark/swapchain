@@ -21,13 +21,13 @@ module.exports = {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ["pkg/**/*.ts", "srv/**/*.ts", "!*.d.ts", "!srv/**/index.ts"],
+  collectCoverageFrom: ["srv/web/src/pkg/**/*.ts", "srv/**/*.ts", "!*.d.ts", "!srv/**/index.ts", "!pkg/**/index.ts"],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: "coverage",
 
   // An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: ["/node_modules/"],
+  coveragePathIgnorePatterns: ["/node_modules/", "/srv/web/", "/pkg/bitcoin/htlc/witnessStack.ts"],
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
@@ -40,8 +40,7 @@ module.exports = {
   // An object that configures minimum threshold enforcement for coverage results
   coverageThreshold: {
     global: {
-      lines: 70,
-      statements: -70,
+      lines: 65,
     },
   },
 
@@ -144,13 +143,10 @@ module.exports = {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  // testMatch: [
-  //   "**/__tests__/**/*.[jt]s?(x)",
-  //   "**/?(*.)+(spec|test).[tj]s?(x)"
-  // ],
+  testMatch: ["/**/*.test.ts"],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-  testPathIgnorePatterns: ["/dist/", "/node_modules/"],
+  // testPathIgnorePatterns: ["/dist/", "/node_modules/", "/srv/web/components"],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
   // testRegex: [],
