@@ -34,7 +34,7 @@ SaaS - Software as a Service
    
 ### 1.4 Overview
 
-The report will present a detailed analysis of the architecture of a platform enabling ACCS between BTC and BTS. Initial sections of the document cover the architectural goals and constraints, use case realizations, and architectural representation. The later sections cover the specific details of the implementation and deployment of the platform. Furthermore, the document also describes the performance and quality.
+The documentation will present a detailed analysis of the architecture of a platform enabling ACCS between BTC and BTS. Initial sections of the document cover the architectural goals and constraints, use case realizations, and architectural representation. The later sections cover the specific details of the implementation and deployment of the platform. Furthermore, the document also describes the performance and quality.
 
    
 ## 2. Architectural Representation
@@ -49,14 +49,14 @@ So, in the context of our application:
 1. Yellow Layer: This layer is highly abstract, general, and thus very stable. Hence, in this case, the entity is the atomic swap of cryptocurrencies.
 2. Red Layer: This layer contains the Use-Case, which is the swapping between two parties of BTC to BTS and vice versa.
 3. Green Layer: This layer is used to separate the Red layer from the Blue layer. It has the framework specific code which is to be used by the application.
-4. Blue Layer: This layer (framework and drivers) contains the graphical UI, API, and the database.
+4. Blue Layer: This layer (framework and drivers) contains the graphical UI and API.
 
 | Clean Architecture Layers | Entities                                    | Use Cases                                | Controllers, Gateways, Presenters                           | UI, Web, Devices, DB              |
 | ------------------------- | ------------------------------------------- | ---------------------------------------- | ----------------------------------------------------------- | --------------------------------- |
 | General Description       | Main features of the application            | Application of the main ideas            | Encapsulates framework-specific code                        | Contains frameworks and tools     |
-| Swapchain Specific        | Atomic cross-chain swap of cryptocurrencies | Cross-chain swaps, cross-consensus swaps | Interaction, libraries, data-structures from UI to use case | Database, APIs, Web UI |
+| Swapchain Specific        | Atomic cross-chain swap of cryptocurrencies | Cross-chain swaps, cross-consensus swaps | Interaction, libraries, data-structures from UI to use case | APIs, Web UI |
 
-A significant feature of this architecture is the flow of dependencies, which can be seen by the arrows moving in from the blue layer to the yellow layer in figure 1. This signifies that an outer layer can depend on an inner layer, but an inner layer cannot depend on an outer layer. The things that are most likely to change are kept on the outer layers and the things are less likely to change are kept on the inner most layers, helping the application stand the test of time. This makes the inner layers much more stable than the outer layers thus, the tools used to build the application can be modified easily (blue layer) but the core concepts and ideas behind the application are less likely to change (yellow layer). [3]
+A significant feature of this architecture is the flow of dependencies, which can be seen by the arrows moving in from the blue layer to the yellow layer in figure 1. This signifies that an outer layer can depend on an inner layer, but an inner layer cannot depend on an outer layer. The things that are most likely to change are kept on the outer layers and the things are less likely to change are kept on the inner most layers, helping the application to ensure possible changes that come over time due to technology changes etc. This makes the inner layers much more stable than the outer layers thus, the tools used to build the application can be modified easily (blue layer) but the core concepts and ideas behind the application are less likely to change (yellow layer). [3]
 
    
 ## 3. Logical and Code Component Overview
@@ -70,7 +70,7 @@ ACCS Class:
 The ACCS class is the interface between the UI and the HTLC. Values set in the UI are respectively set in the config of the ACCS class needed to perform a swap.
 
 HTLC:   
-The HTLC contains several sub-components. A crucial part here, is the secret and hash generator that first generates a random secret that is then cryptographically hashed. In order to further conduct the swap, a hash lock sub-component and a time lock sub-component need to be set up. The hash lock accesses the hash generator to retrieve the hashed password, while the time lock cooperates with the refund process, so as soon as the time lock expires, the refund process can be initialized.
+The HTLC contains several sub-components. A crucial part here is the secret and hash generator that first generates a random secret that is then cryptographically hashed. In order to further conduct the swap, a hash lock sub-component and a time lock sub-component need to be set up. The hash lock accesses the hash generator to retrieve the hashed password, while the time lock cooperates with the refund process, so as soon as the time lock expires, the refund process can be initialized.
 
 Verification:   
 The Verification contains the signature verification sub-component which is consulted to verify the swap partners’ signatures. This sub-component comprises of a sign-transaction interface which locally compares the private key to the public key in the browser. If the verification is successful, the swap is executed. If not, the verification fails, and the refund process is initiated.
@@ -94,7 +94,7 @@ Figure 3: Use Case Diagram (Swapchain, 2020) [4]
 
 | Use Case Name           | Scenario                               | Triggering Event                   | Actors            | Related Use Case | Preconditions                                                                                                                                       | Post Conditions                                                     | Flow of Events                                                                                                                                                                                                           | Exception Conditions                                          |
 | ----------------------- | -------------------------------------- | ---------------------------------- | ----------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
-| Atomic cross-chain swap | Two users want to exchange BTC and BTS | The user submits an exchange order | User 1 and User 2 | None             | - Users should be in possession of the cryptocurrency that is desired by the other party     - Users should open a HTLC in their respective Blockchains | - Validating the user     - Hash and time lock conditions should be met | - Submit desired order     - Start a HTLC     - Fund and redeem a swap     - Key pair generator     - Verification process of validity between private and public keys     - Transaction successful or funds are refunded | - Network failure   - App crashing   - Too much market volatility |
+| Atomic cross-chain swap | Two users want to exchange BTC and BTS | Users provide each other addresses to conduct swap | User 1 and User 2 | None             | - Users should be in possession of the cryptocurrency that is desired by the other party     - Users should open an HTLC in their respective Blockchains | - Validating the user     - Hash and time lock conditions should be met | - Start an HTLC     - Fund and redeem a swap     - Key pair generator     - Verification process of validity between private and public keys     - Transaction successful or funds are refunded | - Network failure   - App crashing   - Too much market volatility |
 
    
 ## 5. Architectural Goals and Constraints
@@ -105,46 +105,42 @@ There are some key requirements and system constraints that have a significant b
 - The BOM should be within a reasonable amount.
 - Swapchain platform should be accessible with local and remote PCs.
 - All private and public information of the clients using the platform should be secured safely.
-- The Swapchain platform will be implemented as a client-server system. The client portion resides on PCs and the server portion must operate on the APIs and databases used.
+- The Swapchain platform will be implemented as a client-server system. The client portion resides on PCs and the server portion must operate on the APIs used.
 
    
 ## 6. Deployment
 
-This UI is a system which is hosted in an API. The database will be hosted by ChainSquad once the software is delivered. Atomic transactions are conducted in the backend, so that the client computer does not have to spend much of CPU power.
+This UI is an API which is hosted in Netlify. After finishing the AMOS course and therewith the project, the software will be hosted by ChainSquad. Atomic transactions are conducted in the backend, so that the client computer does not have to spend much of CPU power.
    
 ### 6.1. Technology Stack Description
 
 All services will be running in docker containers at first and orchestrated by docker-compose for simplicity sake. [1][2]
 
-Frontend:
+Frontend:   
 
 - JavaScript, CSS, HTML
 - React.tsx
 - Nginx container
 
-Backend:
+Backend:   
 
 - Microservice architecture
 - TypeScript, Node.js, Express
 - Communication is JSON over HTTP
 - Docker / Kubernetes
 
-Blockchain Gateway:
+Blockchain Gateway:   
 
 - Bitcoin libraries:
   - Bitcoinjs (junderw, 2020)
 - Bitshare libraries:
   - Bitsharejs
 
-HTLC/XXX:
+HTLC:   
 
 - Creates the HTLC on its own blockchain
 
-Database:
-
-- Mongoose/MongoDB
-
-Logging:
+Logging:   
 
 - To be decided by ChainSquad if it gets outsourced to a dedicated SaaS
 
@@ -161,10 +157,10 @@ Figure 5: Implementation Diagram (Swapchain, 2020) [4]
 ### 7.2. Implementation Description
 
 End-User:   
-The user interacts with the Swapchain UI without signing-up or authenticating an account. For now, we assume that proposer and taker already know each other. Next, both exchange partners have to fill out a form to either accept or propose an atomic cross-chain swap. The user initiates the atomic swap by submitting the respective order.
+The user interacts with the Swapchain UI without signing-up or authenticating an account. For now, we assume that proposer and taker already know each other. Next, both exchange partners have to fill out a form to either accept or propose an atomic cross-chain swap. The user initiates the atomic swap by submitting the respective form and therewith opening an HTLC.
 
 System:   
-After the system receives the proposal submitted by the user a swap request is carried out using an HTLC. Therefore, the signatures are verified so that the private key matches the public key for the swap to take place. As soon as all required conditions are met it relays back and responds to the system to successfully transfer the funds. The involved users will receive a notification if the transaction was successful or not. In case the transaction fails, the users will receive a notification that they will be receiving the refund.
+After the system receives the proposal created by the user, a swap request is carried out using an HTLC. Therefore, the signatures are verified so that the private key matches the public key for the swap to take place. As soon as all required conditions are met it relays back and responds to the system to successfully transfer the funds. The involved users will receive a error message if the transaction was unsuccessfull. In this case the users will be receiving the refund.
 
    
 ## 8. Size and Performance
@@ -172,7 +168,7 @@ After the system receives the proposal submitted by the user a swap request is c
 The chosen software architecture supports the following requirements:
 
 1. The system shall support at least two simultaneous users at a time.
-2. The system shall be able to complete an ACCS transaction within 5 minutes once all HTLC requirements are met.
+2. The system shall be able to complete an ACCS transaction within a reasonable time once all HTLC requirements are met. The exact time, however, depends on the miners.
 
    
 ## 9. Quality
