@@ -184,11 +184,11 @@ The software architecture supports the following quality requirements:
 ## 10. References
 
 1. Github. (2020, May 2). Github swapchain repository. Retrieved from https://github.com/chronark/swapchain
-
+   
 2. junderw. (2020, May 5). Github bitcoinjs-lib. Retrieved from https://github.com/bitcoinjs/bitcoinjs-lib
-
+   
 3. Martin, R. C. (2020, May 4). The Clean Code Blog. Retrieved from https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
-
+   
 4. Swapchain. (2020, May 4). draw.io. Retrieved from https://www.draw.io/
-
+   
 5. Zipkin, M. (2020, May 3). bcoin. Retrieved from https://bcoin.io/guides/swaps.html
