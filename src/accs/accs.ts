@@ -350,8 +350,8 @@ export default class ACCS {
     while (txID === null && timeToWait > 0) {
       htlcBTCProposer.bitcoinAPI
         .getValueFromLastTransaction(p2wsh.address!)
-        //eslint-ignore-next-line
         .then((res) => {
+          //eslint-disable-next-line
           txID = res.txID
         })
         .catch((err: Error) => {}) // This error is intentional and expected to occur for most iterations
@@ -435,7 +435,7 @@ export default class ACCS {
 
       htlcBTCAccepter.bitcoinAPI
         .getPreimageFromLastTransaction(p2wsh.address!)
-        //eslint-ignore-next-line
+        //eslint-disable-next-line
         .then((preimage) => (preimageFromBlockchain = preimage))
 
       await new Promise((resolve) => setTimeout(resolve, 10_000))
