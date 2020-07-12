@@ -9,7 +9,6 @@ module.exports = {
     "plugin:jest/recommended",
     "plugin:jsdoc/recommended",
     "react-app",
-    "shared-config",
   ],
   parserOptions: {
     project: "./tsconfig.json",
