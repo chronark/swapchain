@@ -55,6 +55,8 @@
     "@types/react-test-renderer": "^16.9.2",
     "eslint": "^6.6.0",
     "figlet": "^1.4.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
     "postcss-cli": "^7.1.1",
     "prettier": "^2.0.5",
     "purgecss": "^2.3.0",
@@ -64,5 +66,18 @@
     "ts-jest": "^26.1.1",
     "typedoc": "^0.17.8",
     "typedoc-plugin-markdown": "^2.3.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && jest"
+    }
+  },
+  "lint-staged": {
+    "**/*.{json,md, yml}": [
+      "npm run fmt"
+    ],
+    "**/*.{ts,tsx,js}": [
+      "npm run fmt"
+    ]
   }
 }
