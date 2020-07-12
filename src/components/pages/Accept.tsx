@@ -8,7 +8,7 @@ import { ReactComponent as Exclamation } from "../../icons/exclamation.svg"
 import { Spinner } from "../util/Spinner"
 import { RadioButton } from "../forms/RadioButton"
 import { State, Network, Priority, Currency } from "../util/enums"
-import ACCS from "../../accs/accs"
+import ACCS from "../../pkg/accs/accs"
 import {
   isValidBitcoinPrivateKey,
   isValidBitsharesPrivateKey,

@@ -2,7 +2,7 @@ import { getUserInput } from "./getUserInput"
 import * as util from "./util"
 import { getSecret } from "../pkg/secret/secret"
 import * as bitcoin from "bitcoinjs-lib"
-import { ACCSFields } from "../accs/accs"
+import { ACCSFields } from "../pkg/accs/accs"
 import { mocked } from "ts-jest/utils"
 import readline from "readline"
 jest.mock("../pkg/secret/secret")

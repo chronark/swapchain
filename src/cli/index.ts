@@ -1,4 +1,4 @@
-import ACCS from "../accs/accs"
+import ACCS from "../pkg/accs/accs"
 import figlet from "figlet"
 import { getUserInput } from "./getUserInput"
 import readline from "readline"
