@@ -19,7 +19,7 @@ export async function getUserInput(): Promise<ACCSFields> {
     .option("-f, --file <path>", "run swapchain CLI with config file at <path>")
     .parse(process.argv)
 
-  let fields: ACCSFields
+  let fields = {} as ACCSFields
 
   if (program.file) {
     const rawFile = fs.readFileSync(program.file)
@@ -27,44 +27,44 @@ export async function getUserInput(): Promise<ACCSFields> {
     try {
       fields = JSON.parse(Buffer.from(rawFile).toString())
     } catch {
-      throw new Error("Invalid JSON config file.")
+      errorHandler("Invalid JSON config file.")
     }
 
     if (!("mode" in fields) || (fields.mode !== "proposer" && fields.mode !== "accepter")) {
-      throw new Error("Invalid mode. Choose proposer or accepter")
+      errorHandler("Invalid mode. Choose proposer or accepter")
     } else if (
       !("networkToTrade" in fields) ||
       (fields.networkToTrade !== "mainnet" && fields.networkToTrade !== "testnet")
     ) {
-      throw new Error("Invalid network. Choose mainnet or testnet.")
+      errorHandler("Invalid network. Choose mainnet or testnet.")
     } else if (!("currencyToGive" in fields) || (fields.currencyToGive !== "BTC" && fields.currencyToGive !== "BTS")) {
-      throw new Error("Invalid currency to give. Choose BTC or BTS.")
+      errorHandler("Invalid currency to give. Choose BTC or BTS.")
     } else if (!("priority" in fields) || ![0, 1, 2].includes(fields.priority)) {
-      throw new Error("Invalid priority. Must be 0, 1 or 2.")
+      errorHandler("Invalid priority. Must be 0, 1 or 2.")
     } else if (
       !("bitcoinPrivateKey" in fields) ||
       !isValidBitcoinPrivateKey(fields.bitcoinPrivateKey, fields.networkToTrade)
     ) {
-      throw new Error("Invalid Bitcoin private key.")
+      errorHandler("Invalid Bitcoin private key.")
     } else if (!("bitsharesPrivateKey" in fields) || !isValidBitsharesPrivateKey(fields.bitsharesPrivateKey)) {
-      throw new Error("Invalid Bitshares private key.")
+      errorHandler("Invalid Bitshares private key.")
     } else if (
       !("counterpartyBitcoinPublicKey" in fields) ||
       !isValidBitcoinPublicKey(fields.counterpartyBitcoinPublicKey)
     ) {
-      throw new Error("Invalid Bitcoin public key.")
+      errorHandler("Invalid Bitcoin public key.")
     } else if (!("counterpartyBitsharesAccountName" in fields)) {
-      throw new Error("Invalid Bitshares account name.")
+      errorHandler("Invalid Bitshares account name.")
     } else if (!("rate" in fields) || typeof fields.rate !== "number") {
-      throw new Error("Invalid exchange rate.")
+      errorHandler("Invalid exchange rate.")
     } else if (!("amountToSend" in fields) || typeof fields.amountToSend !== "number") {
-      throw new Error("Invalid amount to send.")
+      errorHandler("Invalid amount to send.")
     } else if ("amountToReceive" in fields && typeof fields.amountToReceive !== "number") {
-      throw new Error("Invalid amount to receive.")
+      errorHandler("Invalid amount to receive.")
     } else if (fields.mode === "accepter" && (!("secretHash" in fields) || fields.secretHash!.length !== 64)) {
-      throw new Error("Invalid secret hash.")
+      errorHandler("Invalid secret hash.")
     } else if (fields.currencyToGive === "BTC" && (!("bitcoinTxID" in fields) || fields.bitcoinTxID.length !== 64)) {
-      throw new Error("Invalid Bitcoin Transaction ID")
+      errorHandler("Invalid Bitcoin Transaction ID")
     }
   } else {
     const questions: inquirer.QuestionCollection = [
@@ -217,4 +217,14 @@ export async function getUserInput(): Promise<ACCSFields> {
   }
 
   return fields
+}
+
+/**
+ * An errorhandler for errors in CLI.
+ *
+ * @param message - The message to print.
+ */
+function errorHandler(message: string): void {
+  console.error(message)
+  process.exit(1)
 }
