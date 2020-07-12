@@ -46,13 +46,8 @@ jobs:
       - name: Install dependencies
         run: |
           npm ci
-          cd ./srv/web
-          npm ci
       - name: Unittests
         run: npm test
-
-      - name: Unittests web
-        run: cd srv/web/ && npm test
   build:
     strategy:
       matrix:
