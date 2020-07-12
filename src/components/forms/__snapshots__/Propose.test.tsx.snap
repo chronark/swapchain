@@ -271,7 +271,7 @@ exports[`renders correctly 1`] = `
                   className="absolute inset-y-0 right-0 flex items-center mr-6 text-sm text-gray-600"
                 >
                   BTS
-                             
+                   
                 </span>
                 <span
                   className="block w-full py-3 font-mono text-center text-gray-700 border border-gray-200 rounded focus:border-teal-500"
@@ -331,7 +331,8 @@ exports[`renders correctly 1`] = `
           <p
             className="px-4 mx-auto mt-2 text-sm text-center text-gray-500"
           >
-            Your public Bitcoin key and Bitshares account name can be derived from your private key. Your private keys will never leave your browser, they are only used to sign your transactions. 
+            Your public Bitcoin key and Bitshares account name can be derived from your private key. Your private keys will never leave your browser, they are only used to sign your transactions.
+             
             <a
               className="relative text-xs text-blue-500"
               href="/"

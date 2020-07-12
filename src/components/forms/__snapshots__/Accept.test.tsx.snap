@@ -150,7 +150,8 @@ exports[`renders correctly 1`] = `
           <p
             className="px-4 mx-auto mt-2 text-sm text-center text-gray-500"
           >
-            Your public Bitcoin key and Bitshares account name can be calculated from your private key. Your private keys will never leave your browser, it is only used to sign your transactions. 
+            Your public Bitcoin key and Bitshares account name can be calculated from your private key. Your private keys will never leave your browser, it is only used to sign your transactions.
+             
             <a
               className="relative text-xs text-blue-500"
               href="/"
