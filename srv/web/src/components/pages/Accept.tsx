@@ -37,7 +37,7 @@ export const Accept = () => {
         bitcoinTxID: "",
         priority: Priority.HIGH,
         secret: {} as Secret,
-        hash: "",
+        secretHash: "",
     })
 
     //calculate received funds
@@ -79,7 +79,7 @@ export const Accept = () => {
         if (fields.currencyToGive === Currency.BTC && fields.bitcoinTxID.length !== 64) {
             return "Bitcoin Transaction ID to spend is invalid"
         }
-        if (fields.hash.length !== 64) {
+        if (fields.secretHash.length !== 64) {
             return "Secret hash is invalid"
         }
         return ""
@@ -137,7 +137,7 @@ export const Accept = () => {
 
         fields.secret = {
             preimage: undefined,
-            hash: Buffer.from(fields.hash, "hex")
+            hash: Buffer.from(fields.secretHash, "hex")
         }
 
         setState(State.RUNNING)
@@ -310,7 +310,7 @@ export const Accept = () => {
                     </div>
                     <div className="block">
                         <Label label="Secret hash from Counterparty"></Label>
-                        <Input name="hash" value={fields.hash} onChange={updateField} type="text" placeholder={fakeKey(30, fields.networkToTrade)}></Input>
+                        <Input name="secretHash" value={fields.secretHash} onChange={updateField} type="text" placeholder={fakeKey(30, fields.networkToTrade)}></Input>
                     </div>
                 </div>
             </section>

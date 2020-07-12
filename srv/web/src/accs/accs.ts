@@ -77,6 +77,11 @@ export interface ACCSFields {
    * A secret object with a random preimage and its corresponding SHA256 hash.
    */
   secret: Secret
+
+  /**
+   * A secret SHA256 hash.
+   */
+  secretHash?: string
 }
 
 /**
@@ -218,11 +223,11 @@ export default class ACCS {
     config.counterpartyBitsharesAccountName = fields.counterpartyBitsharesAccountName
 
     if (config.type === "BTC") {
-      config.amountBTSMini = fields.amountToReceive * 10e4
-      config.amountSatoshi = fields.amountToSend * 10e7
+      config.amountBTSMini = Math.round(fields.amountToReceive * 10e4)
+      config.amountSatoshi = Math.round(fields.amountToSend * 10e7)
     } else {
-      config.amountBTSMini = fields.amountToSend * 10e4
-      config.amountSatoshi = fields.amountToReceive * 10e7
+      config.amountBTSMini = Math.round(fields.amountToSend * 10e4)
+      config.amountSatoshi = Math.round(fields.amountToReceive * 10e7)
     }
 
     const keyPairBTC = bitcoin.ECPair.fromWIF(fields.bitcoinPrivateKey, config.network)
