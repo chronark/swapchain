@@ -1,4 +1,4 @@
-// eslint-ignore-next-line
+// eslint-disable-next-line
 import { BitcoinAPIConstructor, BitcoinAPI } from "../pkg/types/bitcoinApi"
 
 /**

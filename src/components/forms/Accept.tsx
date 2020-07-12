@@ -294,13 +294,6 @@ export const Accept = () => {
                 return <Spinner className="h-20 bg-transparent"></Spinner>
               case State.SUCCESS:
                 return <span className="p-10 text-teal-400 text-bold">SUCCESS</span>
-              case State.ERROR:
-                return (
-                  <div className="flex flex-col">
-                    <p className="pb-4 text-red-400 text-bold">{errorMessage}</p>
-                    <SubmitButton borderColor="gray" label="Try again" onClick={submitHandler}></SubmitButton>
-                  </div>
-                )
               case State.FAILURE:
                 return <p className="pb-4 text-xl text-red-400 text-bold">{errorMessage}</p>
             }
