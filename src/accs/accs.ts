@@ -350,8 +350,8 @@ export default class ACCS {
     while (txID === null && timeToWait > 0) {
       htlcBTCProposer.bitcoinAPI
         .getValueFromLastTransaction(p2wsh.address!)
+        //eslint-disable-next-line
         .then((res) => {
-          //eslint-disable-next-line
           txID = res.txID
         })
         .catch((err: Error) => {}) // This error is intentional and expected to occur for most iterations
