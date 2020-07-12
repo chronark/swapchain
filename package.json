@@ -84,5 +84,13 @@
     "**/*.{ts,tsx,js}": [
       "npm run fmt"
     ]
+  },
+  "jest": {
+    "collectCoverageFrom": ["src/**/*.{ts,tsx}", "!**/*.d.ts", "!src/cli/*.ts", "!**/witnessStack.ts", "!**/index.ts"],
+    "coverageThreshold": {
+      "global": {
+        "lines": 65
+      }
+    }
   }
 }
