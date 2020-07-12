@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import { BitcoinAPIConstructor, BitcoinAPI } from "../pkg/types/bitcoinApi"
+import { BitcoinAPIConstructor, BitcoinAPI } from "../types/bitcoinApi"
 
 /**
  * Handler to transform timelocks between blockchains.

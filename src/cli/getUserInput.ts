@@ -3,7 +3,7 @@ import commander from "commander"
 import fs from "fs"
 import { getSecret } from "../pkg/secret/secret"
 import { isValidBitcoinPrivateKey, isValidBitsharesPrivateKey, isValidBitcoinPublicKey } from "../pkg/address/validator"
-import { ACCSFields } from "../accs/accs"
+import { ACCSFields } from "../pkg/accs/accs"
 
 /**
  * Get user input from JSON config file or stdin and store everything in a fields object.

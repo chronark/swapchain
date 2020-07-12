@@ -1,11 +1,11 @@
-import { Secret } from "../pkg/secret/secret"
+import { Secret } from "../secret/secret"
 import * as bitcoin from "bitcoinjs-lib"
 import { Apis as btsWebsocketApi } from "bitsharesjs-ws"
-import BitcoinHTLC from "../pkg/bitcoin/htlc/btcHTLC"
-import BitsharesHTLC from "../pkg/bitshares/htlc/btsHTLC"
-import { BlockStream } from "../pkg/bitcoin/api/blockstream"
+import BitcoinHTLC from "../bitcoin/htlc/btcHTLC"
+import BitsharesHTLC from "../bitshares/htlc/btsHTLC"
+import { BlockStream } from "../bitcoin/api/blockstream"
 import { Timer } from "./timer"
-import { getAccount } from "../pkg/bitshares/util"
+import { getAccount } from "../bitshares/util"
 
 /**
  * Contains raw user input to run an ACCS. Needs to get parsed.

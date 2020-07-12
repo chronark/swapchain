@@ -13,7 +13,7 @@ import {
   isValidBitsharesPrivateKey,
   isValidBitcoinPublicKey,
 } from "../../pkg/address/validator"
-import ACCS from "../../accs/accs"
+import ACCS from "../../pkg/accs/accs"
 import { getSecret } from "../../pkg/secret/secret"
 import { toPublicKey } from "../../pkg/util/util"
 import { ReactComponent as ShieldSuccess } from "../../icons/shield-check.svg"
