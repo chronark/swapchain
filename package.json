@@ -74,7 +74,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && jest"
+      "pre-commit": "lint-staged && npm test"
     }
   },
   "lint-staged": {
@@ -86,7 +86,13 @@
     ]
   },
   "jest": {
-    "collectCoverageFrom": ["src/**/*.{ts,tsx}", "!**/*.d.ts", "!src/cli/*.ts", "!**/witnessStack.ts", "!**/index.ts"],
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!**/*.d.ts",
+      "!src/cli/*.ts",
+      "!**/witnessStack.ts",
+      "!**/index.ts"
+    ],
     "coverageThreshold": {
       "global": {
         "lines": 65
