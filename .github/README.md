@@ -23,8 +23,8 @@
 
 |           | mainnet            | testnet            | regtest |
 | --------- | ------------------ | ------------------ | ------- |
-| Bitcoin   | :white_check_mark: | :white_check_mark: | :x:     |
-| Bitshares | :white_check_mark: | :white_check_mark: | :x:     |
+| Bitcoin   | :heavy_check_mark: | :heavy_check_mark: | :x:     |
+| Bitshares | :heavy_check_mark: | :heavy_check_mark: | :x:     |
 
 ## Installation
 
@@ -45,13 +45,13 @@ npm run build
 Command-line tool to swap cryptocurrencies with a known counterparty.
 
 ```bash
-node dist/srv/accs/index.js testnet // Either testnet or mainnet
+node build/cli/index.js
 ```
 
 Or use the npm script:
 
 ```bash
-npm run cli -- testnet
+npm run cli
 ```
 
 ## Documentation
