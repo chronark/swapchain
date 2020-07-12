@@ -94,7 +94,7 @@ Figure 3: Use Case Diagram (Swapchain, 2020) [4]
 
 | Use Case Name           | Scenario                               | Triggering Event                   | Actors            | Related Use Case | Preconditions                                                                                                                                       | Post Conditions                                                     | Flow of Events                                                                                                                                                                                                           | Exception Conditions                                          |
 | ----------------------- | -------------------------------------- | ---------------------------------- | ----------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
-| Atomic cross-chain swap | Two users want to exchange BTC and BTS | Users provide each other addresses to conduct swap | User 1 and User 2 | None             | - Users should be in possession of the cryptocurrency that is desired by the other party     - Users should open an HTLC in their respective Blockchains | - Validating the user     - Hash and time lock conditions should be met | - Start an HTLC     - Fund and redeem a swap     - Key pair generator     - Verification process of validity between private and public keys     - Transaction successful or funds are refunded | - Network failure   - App crashing   - Too much market volatility |
+| Atomic cross-chain swap | Two users want to exchange BTC and BTS | Two HTLCs are created in the respective blockchains which locked by the same secret hash provided by the proposer/proposing party | User 1 and User 2 | None             | - Users should be in possession of the cryptocurrency that is desired by the other party     - Users should create an HTLC in their respective Blockchains by signing their transactions | - Validating the user     - Hash and time lock conditions should be met | - Start an HTLC     - Fund and redeem a swap     - Key pair generator     - Verification process of validity between private and public keys     - Transaction successful or funds are refunded | - Network failure   - App crashing   - Too much market volatility |
 
    
 ## 5. Architectural Goals and Constraints
@@ -120,6 +120,7 @@ Frontend:
 
 - JavaScript, CSS, HTML
 - React.tsx
+- Tailwind.css
 - Nginx container
 
 Backend:   
@@ -127,14 +128,14 @@ Backend:
 - Microservice architecture
 - TypeScript, Node.js, Express
 - Communication is JSON over HTTP
-- Docker / Kubernetes
+- Docker
 
 Blockchain Gateway:   
 
 - Bitcoin libraries:
-  - Bitcoinjs (junderw, 2020)
+  - Bitcoinjs-lib (junderw, 2020)
 - Bitshare libraries:
-  - Bitsharejs
+  - bitsharesjs
 
 HTLC:   
 
@@ -157,10 +158,10 @@ Figure 5: Implementation Diagram (Swapchain, 2020) [4]
 ### 7.2. Implementation Description
 
 End-User:   
-The user interacts with the Swapchain UI without signing-up or authenticating an account. For now, we assume that proposer and taker already know each other. Next, both exchange partners have to fill out a form to either accept or propose an atomic cross-chain swap. The user initiates the atomic swap by submitting the respective form and therewith opening an HTLC.
+The user interacts with the Swapchain UI without signing-up or authenticating an account. For now, we assume that proposer and accepter already know each other. Next, both exchange partners have to fill out a form to either accept or propose an atomic cross-chain swap. The user initiates the atomic swap by submitting the respective form and therewith opening an HTLC.
 
 System:   
-After the system receives the proposal created by the user, a swap request is carried out using an HTLC. Therefore, the signatures are verified so that the private key matches the public key for the swap to take place. As soon as all required conditions are met it relays back and responds to the system to successfully transfer the funds. The involved users will receive a error message if the transaction was unsuccessfull. In this case the users will be receiving the refund.
+After the system receives the proposal created by the user, a swap request is carried out using an HTLC. Therefore, the signatures are verified so that the private key matches the public key for the swap to take place. As soon as all required conditions are met it relays back and responds to the system to successfully transfer the funds. The involved users will receive a error message if the transaction was unsuccessful. In this case the users will be receiving the refund.
 
    
 ## 8. Size and Performance
