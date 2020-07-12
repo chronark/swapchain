@@ -216,11 +216,5 @@ export async function getUserInput(): Promise<ACCSFields> {
     }
   }
 
-  console.log(fields)
   return fields
 }
-
-getUserInput()
-/**
-"create secret and print to stdout"
-*/
