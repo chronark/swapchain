@@ -48,7 +48,7 @@ export const Navbar = () => {
                     </ul>
                     <ul className="flex flex-col pt-4 mt-4 -mx-4 space-y-4 border-t md:flex-row md:items-center md:mx-0 md:ml-auto md:mt-0 md:pt-0 md:border-0 md:space-y-0 md:space-x-4">
                         <li>
-                            <a className={linkStyle} href="trade">Documentation</a>
+                            <a className={linkStyle} target="blank" href="https://swapchain.netlify.app/">Documentation</a>
                         </li>
                         <li>
                             <a className="flex items-center px-6 text-gray-800 transition duration-300 ease-in-out hover:text-teal-400 focus:outline-none" href="https://github.com/chronark/swapchain">
