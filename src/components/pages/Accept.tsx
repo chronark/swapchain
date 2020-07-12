@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { fakeKey } from "../../util"
+import { fakeKey } from "../../pkg/util/util"
 import { Label } from "../forms/Label"
 import { Input } from "../forms/Input"
 import { SubmitButton } from "../forms/SubmitButton"
@@ -393,14 +393,14 @@ export const Accept = () => {
               case State.SUCCESS:
                 return (
                   <div className="flex flex-col items-center justify-center mt-8 text-teal-400">
-                    <ShieldSuccess className="h-8 "></ShieldSuccess>
+                    <ShieldSuccess className="h-8"></ShieldSuccess>
                     <span className="text-xl font-bold ">Success</span>
                   </div>
                 )
               case State.FAILURE:
                 return (
                   <div className="flex flex-col items-center justify-center mt-8 text-red-500">
-                    <ShieldFailure className="h-8 "></ShieldFailure>
+                    <ShieldFailure className="h-8"></ShieldFailure>
                     <span className="text-xl font-bold ">Failure</span>
                   </div>
                 )

@@ -18,7 +18,6 @@
     "build:web": "NODE_ENV=production npm run build:css && react-scripts build",
     "cli": "npm run build:cli && node ./build/cli/index.js",
     "dev": "npm run build:css && react-scripts start",
-    "docs:show": "./node_modules/.bin/typedoc && cd docs && npm run start",
     "eject": "react-scripts eject",
     "lint": "./node_modules/.bin/eslint --fix --ext ./**/*.ts",
     "fmt": "npm run lint && npm run prettier",

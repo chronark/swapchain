@@ -1,8 +1,8 @@
 import React from "react"
 import { Accept } from "./Accept"
 import renderer from "react-test-renderer"
-import * as util from "../../util"
-jest.mock("../../util")
+import * as util from "../../pkg/util/util"
+jest.mock("../../pkg/util/util")
 
 jest.spyOn(util, "fakeKey").mockReturnValue("randomLookingHash")
 

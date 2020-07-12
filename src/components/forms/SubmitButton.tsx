@@ -7,7 +7,7 @@ type Props = {
 }
 
 export const SubmitButton = (props: Props) => {
-  const borderColor = "border-" + props.borderColor + "-300"
+  const borderColor = "border-" + props.borderColor + "-400"
 
   return (
     <button

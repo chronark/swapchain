@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { fakeKey } from "../../util"
+import { fakeKey } from "../../pkg/util/util"
 import { RadioButton } from "../forms/RadioButton"
 import { Label } from "../forms/Label"
 import { Input } from "../forms/Input"
@@ -15,7 +15,7 @@ import {
 } from "../../pkg/address/validator"
 import ACCS from "../../accs/accs"
 import { getSecret } from "../../pkg/secret/secret"
-import { toPublicKey } from "../../util"
+import { toPublicKey } from "../../pkg/util/util"
 import { ReactComponent as ShieldSuccess } from "../../icons/shield-check.svg"
 import { ReactComponent as ShieldFailure } from "../../icons/shield-exclamation.svg"
 export const Propose = () => {
