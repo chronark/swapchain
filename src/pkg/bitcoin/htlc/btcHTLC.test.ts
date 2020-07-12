@@ -5,7 +5,7 @@ import { BlockStream } from "../api/blockstream"
 jest.mock("axios")
 jest.mock("../api/blockstream")
 
-jest.setTimeout(10000)
+jest.setTimeout(20000)
 const alice = bitcoin.ECPair.fromWIF("cU3CS1SGfFQ5FvCHTWyo7JEBjWWEAcqMM84JJwGnQg9Deugj8Skw", bitcoin.networks.testnet)
 const bob = bitcoin.ECPair.fromWIF("cNaEjitvA19JZxWAFyCFMsm16TvGEmVAW3AkPnVr8E9vgwdZWMGV", bitcoin.networks.testnet)
 const bobCompressed = bitcoin.ECPair.fromPrivateKey(bob.privateKey!, { compressed: true })
