@@ -1,0 +1,13 @@
+// {
+//   "extends": "./tsconfig.json",
+//   "outDir": "./dist",
+//   "exclude": ["**/*.test.ts"]
+// }
+{
+  "include": ["src/accs/*", "src/pkg/**/*", "src/cli/*"],
+  "compilerOptions": {
+    "outDir": "./build" /* Redirect output structure to the directory. */,
+    "strict": true /* Enable all strict type-checking options. */,
+    "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
+  }
+}

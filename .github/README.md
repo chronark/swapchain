@@ -23,8 +23,8 @@
 
 |           | mainnet            | testnet            | regtest |
 | --------- | ------------------ | ------------------ | ------- |
-| Bitcoin   | :white_check_mark: | :white_check_mark: | :x:     |
-| Bitshares | :white_check_mark: | :white_check_mark: | :x:     |
+| Bitcoin   | :heavy_check_mark: | :heavy_check_mark: | :x:     |
+| Bitshares | :heavy_check_mark: | :heavy_check_mark: | :x:     |
 
 ## Installation
 

@@ -17,6 +17,7 @@ All branches must be categorized and prefixed in the following way:
 | `feature/`    | A new feature you want to add |
 | `fix/`        | Bugfixes                      |
 | `docs/`       | All documentation work        |
+| `refactor/`   | No new features or bugs       |
 
 You can read more over at [atlassian.com](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
 
@@ -39,7 +40,7 @@ You can read more over at [atlassian.com](https://www.atlassian.com/git/tutorial
 
 ## Programming style
 
-We practice TDD and expect a high code coverage, the exact threshold can be seen in `jest.config.js`.
+We practice TDD and expect a 70% code coverage.
 
 Please run your tests with `npm run test`.
 
