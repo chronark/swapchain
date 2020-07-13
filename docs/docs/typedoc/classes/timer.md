@@ -4,96 +4,96 @@ title: "Timer"
 sidebar_label: "Timer"
 ---
 
-[swapchain documentation](../index.md) › [Globals](../globals.md) › [Timer](timer.md)
+[swapchain documentation](../globals.md) › [Timer](timer.md)
 
 Handler to transform timelocks between blockchains.
 
 ## Hierarchy
 
-- **Timer**
+* **Timer**
 
 ## Index
 
 ### Constructors
 
-- [constructor](timer.md#constructor)
+* [constructor](timer.md#constructor)
 
 ### Properties
 
-- [bitcoinAPI](timer.md#private-bitcoinapi)
-- [blockSequence](timer.md#private-blocksequence)
+* [bitcoinAPI](timer.md#private-bitcoinapi)
+* [blockSequence](timer.md#private-blocksequence)
 
 ### Methods
 
-- [toBTC](timer.md#tobtc)
-- [toBTS](timer.md#tobts)
+* [toBTC](timer.md#tobtc)
+* [toBTS](timer.md#tobts)
 
 ## Constructors
 
-### constructor
+###  constructor
 
-\+ **new Timer**(`blockSequence`: number, `network`: string, `BitcoinAPIConstructor`: [BitcoinAPIConstructor](../interfaces/bitcoinapiconstructor.md)): _[Timer](timer.md)_
+\+ **new Timer**(`blockSequence`: number, `network`: string, `BitcoinAPIConstructor`: [BitcoinAPIConstructor](../interfaces/bitcoinapiconstructor.md)): *[Timer](timer.md)*
 
-Defined in accs/timer.ts:8
+*Defined in [accs/timer.ts:9](https://github.com/chronark/swapchain/blob/11f7027/src/accs/timer.ts#L9)*
 
-Creates an instance of Timer.
+Creates an instance of Timer
 
 **Parameters:**
 
-| Name                    | Type                                                            | Description |
-| ----------------------- | --------------------------------------------------------------- | ----------- |
-| `blockSequence`         | number                                                          | -           |
-| `network`               | string                                                          | -           |
-| `BitcoinAPIConstructor` | [BitcoinAPIConstructor](../interfaces/bitcoinapiconstructor.md) |             |
+Name | Type | Description |
+------ | ------ | ------ |
+`blockSequence` | number | - |
+`network` | string | - |
+`BitcoinAPIConstructor` | [BitcoinAPIConstructor](../interfaces/bitcoinapiconstructor.md) |   |
 
-**Returns:** _[Timer](timer.md)_
+**Returns:** *[Timer](timer.md)*
 
 ## Properties
 
 ### `Private` bitcoinAPI
 
-• **bitcoinAPI**: _[BitcoinAPI](../interfaces/bitcoinapi.md)_
+• **bitcoinAPI**: *[BitcoinAPI](../interfaces/bitcoinapi.md)*
 
-Defined in accs/timer.ts:7
+*Defined in [accs/timer.ts:8](https://github.com/chronark/swapchain/blob/11f7027/src/accs/timer.ts#L8)*
 
----
+___
 
 ### `Private` blockSequence
 
-• **blockSequence**: _number_
+• **blockSequence**: *number*
 
-Defined in accs/timer.ts:8
+*Defined in [accs/timer.ts:9](https://github.com/chronark/swapchain/blob/11f7027/src/accs/timer.ts#L9)*
 
 ## Methods
 
-### toBTC
+###  toBTC
 
-▸ **toBTC**(): _number_
+▸ **toBTC**(): *number*
 
-Defined in accs/timer.ts:33
+*Defined in [accs/timer.ts:34](https://github.com/chronark/swapchain/blob/11f7027/src/accs/timer.ts#L34)*
 
 Get Bitcoin timelock.
 
-**Returns:** _number_
+**Returns:** *number*
 
 Bitcoin timelock in number of blocks.
 
----
+___
 
-### toBTS
+###  toBTS
 
-▸ **toBTS**(`blockHeightDifference`: number): _Promise‹number›_
+▸ **toBTS**(`blockHeightDifference`: number): *Promise‹number›*
 
-Defined in accs/timer.ts:43
+*Defined in [accs/timer.ts:44](https://github.com/chronark/swapchain/blob/11f7027/src/accs/timer.ts#L44)*
 
 Calculate Bitshares timelock based on bitcoin blockchain mining speed.
 
 **Parameters:**
 
-| Name                    | Type   | Default | Description                             |
-| ----------------------- | ------ | ------- | --------------------------------------- |
-| `blockHeightDifference` | number | 10      | The number of blocks to calculate mean. |
+Name | Type | Default | Description |
+------ | ------ | ------ | ------ |
+`blockHeightDifference` | number | 10 | The number of blocks to calculate mean. |
 
-**Returns:** _Promise‹number›_
+**Returns:** *Promise‹number›*
 
 Bitshares timelock in seconds.

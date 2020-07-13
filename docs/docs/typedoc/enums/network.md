@@ -4,27 +4,31 @@ title: "Network"
 sidebar_label: "Network"
 ---
 
-[swapchain documentation](../index.md) › [Globals](../globals.md) › [Network](network.md)
+[swapchain documentation](../globals.md) › [Network](network.md)
 
 ## Index
 
 ### Enumeration members
 
-- [MAINNET](network.md#mainnet)
-- [TESTNET](network.md#testnet)
+* [MAINNET](network.md#mainnet)
+* [TESTNET](network.md#testnet)
 
 ## Enumeration members
 
-### MAINNET
+###  MAINNET
 
 • **MAINNET**: = "mainnet"
 
-Defined in components/forms/enums.ts:15
+*Defined in [components/util/enums.ts:15](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/enums.ts#L15)*
 
----
+*Defined in [components/forms/enums.ts:15](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/enums.ts#L15)*
 
-### TESTNET
+___
+
+###  TESTNET
 
 • **TESTNET**: = "testnet"
 
-Defined in components/forms/enums.ts:16
+*Defined in [components/util/enums.ts:16](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/enums.ts#L16)*
+
+*Defined in [components/forms/enums.ts:16](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/enums.ts#L16)*
