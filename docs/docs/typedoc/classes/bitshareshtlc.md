@@ -4,45 +4,45 @@ title: "BitsharesHTLC"
 sidebar_label: "BitsharesHTLC"
 ---
 
-[swapchain documentation](../index.md) › [Globals](../globals.md) › [BitsharesHTLC](bitshareshtlc.md)
+[swapchain documentation](../globals.md) › [BitsharesHTLC](bitshareshtlc.md)
 
 Handler to create HTLCs on the bitshares blockchain using a specified node.
 
 ## Hierarchy
 
-- **BitsharesHTLC**
+* **BitsharesHTLC**
 
 ## Index
 
 ### Constructors
 
-- [constructor](bitshareshtlc.md#constructor)
+* [constructor](bitshareshtlc.md#constructor)
 
 ### Properties
 
-- [keepLooking](bitshareshtlc.md#private-keeplooking)
-- [node](bitshareshtlc.md#private-node)
-- [receiver](bitshareshtlc.md#private-receiver)
-- [sender](bitshareshtlc.md#private-sender)
-- [websocket](bitshareshtlc.md#private-websocket)
+* [keepLooking](bitshareshtlc.md#private-keeplooking)
+* [node](bitshareshtlc.md#private-node)
+* [receiver](bitshareshtlc.md#private-receiver)
+* [sender](bitshareshtlc.md#private-sender)
+* [websocket](bitshareshtlc.md#private-websocket)
 
 ### Methods
 
-- [create](bitshareshtlc.md#create)
-- [createHTLC](bitshareshtlc.md#private-createhtlc)
-- [getID](bitshareshtlc.md#getid)
-- [openSocket](bitshareshtlc.md#private-opensocket)
-- [redeem](bitshareshtlc.md#redeem)
-- [redeemHTLC](bitshareshtlc.md#private-redeemhtlc)
-- [stopLooking](bitshareshtlc.md#stoplooking)
+* [create](bitshareshtlc.md#create)
+* [createHTLC](bitshareshtlc.md#private-createhtlc)
+* [getID](bitshareshtlc.md#getid)
+* [openSocket](bitshareshtlc.md#private-opensocket)
+* [redeem](bitshareshtlc.md#redeem)
+* [redeemHTLC](bitshareshtlc.md#private-redeemhtlc)
+* [stopLooking](bitshareshtlc.md#stoplooking)
 
 ## Constructors
 
-### constructor
+###  constructor
 
-\+ **new BitsharesHTLC**(`node`: string, `sender`: string, `receiver`: string): _[BitsharesHTLC](bitshareshtlc.md)_
+\+ **new BitsharesHTLC**(`node`: string, `sender`: string, `receiver`: string): *[BitsharesHTLC](bitshareshtlc.md)*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:58
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:58](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L58)*
 
 Creates an instance of BitsharesHTLC.
 
@@ -50,61 +50,61 @@ Creates an instance of BitsharesHTLC.
 
 **Parameters:**
 
-| Name       | Type   | Description                                   |
-| ---------- | ------ | --------------------------------------------- |
-| `node`     | string | The Bitshares node you want to connect to.    |
-| `sender`   | string | The account that is creating the transaction. |
-| `receiver` | string | The receiving account.                        |
+Name | Type | Description |
+------ | ------ | ------ |
+`node` | string | The Bitshares node you want to connect to. |
+`sender` | string | The account that is creating the transaction. |
+`receiver` | string | The receiving account. |
 
-**Returns:** _[BitsharesHTLC](bitshareshtlc.md)_
+**Returns:** *[BitsharesHTLC](bitshareshtlc.md)*
 
 ## Properties
 
 ### `Private` keepLooking
 
-• **keepLooking**: _boolean_
+• **keepLooking**: *boolean*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:58
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:58](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L58)*
 
----
+___
 
 ### `Private` node
 
-• **node**: _string_
+• **node**: *string*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:54
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:54](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L54)*
 
----
+___
 
 ### `Private` receiver
 
-• **receiver**: _string_
+• **receiver**: *string*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:56
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:56](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L56)*
 
----
+___
 
 ### `Private` sender
 
-• **sender**: _string_
+• **sender**: *string*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:55
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:55](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L55)*
 
----
+___
 
 ### `Private` websocket
 
-• **websocket**: _Promise‹void› | null_
+• **websocket**: *Promise‹void› | null*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:57
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:57](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L57)*
 
 ## Methods
 
-### create
+###  create
 
-▸ **create**(`config`: [HTLCConfig](../interfaces/htlcconfig.md)): _Promise‹boolean›_
+▸ **create**(`config`: [HTLCConfig](../interfaces/htlcconfig.md)): *Promise‹boolean›*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:102
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:102](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L102)*
 
 Wrapper function to open the websocket if necessary.
 
@@ -112,21 +112,21 @@ Wrapper function to open the websocket if necessary.
 
 **Parameters:**
 
-| Name     | Type                                      | Description       |
-| -------- | ----------------------------------------- | ----------------- |
-| `config` | [HTLCConfig](../interfaces/htlcconfig.md) | HTLC information. |
+Name | Type | Description |
+------ | ------ | ------ |
+`config` | [HTLCConfig](../interfaces/htlcconfig.md) | HTLC information. |
 
-**Returns:** _Promise‹boolean›_
+**Returns:** *Promise‹boolean›*
 
 Success or failure.
 
----
+___
 
 ### `Private` createHTLC
 
-▸ **createHTLC**(`config`: [HTLCConfig](../interfaces/htlcconfig.md)): _Promise‹boolean›_
+▸ **createHTLC**(`config`: [HTLCConfig](../interfaces/htlcconfig.md)): *Promise‹boolean›*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:138
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:138](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L138)*
 
 Create and send the actual HTLC.
 
@@ -137,21 +137,21 @@ That's because the websocket must be open before creating an HTLC.
 
 **Parameters:**
 
-| Name     | Type                                      | Description                        |
-| -------- | ----------------------------------------- | ---------------------------------- |
-| `config` | [HTLCConfig](../interfaces/htlcconfig.md) | Configuration object for the HTLC. |
+Name | Type | Description |
+------ | ------ | ------ |
+`config` | [HTLCConfig](../interfaces/htlcconfig.md) | Configuration object for the HTLC. |
 
-**Returns:** _Promise‹boolean›_
+**Returns:** *Promise‹boolean›*
 
 Success status. Can be used for user feedback.
 
----
+___
 
-### getID
+###  getID
 
-▸ **getID**(`amount`: number, `hash`: Buffer): _Promise‹string›_
+▸ **getID**(`amount`: number, `hash`: Buffer): *Promise‹string›*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:222
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:222](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L222)*
 
 Get the HTLC BitShares ID.
 
@@ -163,22 +163,22 @@ Websocket must be open.
 
 **Parameters:**
 
-| Name     | Type   | Description                       |
-| -------- | ------ | --------------------------------- |
-| `amount` | number | The amount of assets of the HTLC. |
-| `hash`   | Buffer | The SHA256 hash of the secret.    |
+Name | Type | Description |
+------ | ------ | ------ |
+`amount` | number | The amount of assets of the HTLC. |
+`hash` | Buffer | The SHA256 hash of the secret. |
 
-**Returns:** _Promise‹string›_
+**Returns:** *Promise‹string›*
 
 HTLC ID of an instance or empty string if no matching HTLC was found.
 
----
+___
 
 ### `Private` openSocket
 
-▸ **openSocket**(`node`: string): _Promise‹void›_
+▸ **openSocket**(`node`: string): *Promise‹void›*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:84
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:84](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L84)*
 
 Opens a websocket to a bitshares node
 
@@ -188,19 +188,19 @@ This has to be done before you can interact with the blockchain.
 
 **Parameters:**
 
-| Name   | Type   | Description           |
-| ------ | ------ | --------------------- |
-| `node` | string | The address of a node |
+Name | Type | Description |
+------ | ------ | ------ |
+`node` | string | The address of a node |
 
-**Returns:** _Promise‹void›_
+**Returns:** *Promise‹void›*
 
----
+___
 
-### redeem
+###  redeem
 
-▸ **redeem**(`amount`: number, `privateKey`: string, `secret`: [Secret](../interfaces/secret.md)): _Promise‹boolean›_
+▸ **redeem**(`amount`: number, `privateKey`: string, `secret`: [Secret](../interfaces/secret.md)): *Promise‹boolean›*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:119
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:119](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L119)*
 
 Wrapper function to open the websocket if necessary.
 
@@ -208,23 +208,23 @@ Wrapper function to open the websocket if necessary.
 
 **Parameters:**
 
-| Name         | Type                              | Description                                |
-| ------------ | --------------------------------- | ------------------------------------------ |
-| `amount`     | number                            | The asset amount of the HTLC.              |
-| `privateKey` | string                            | Private key of the redeemer in WIF format. |
-| `secret`     | [Secret](../interfaces/secret.md) | A secret object.                           |
+Name | Type | Description |
+------ | ------ | ------ |
+`amount` | number | The asset amount of the HTLC. |
+`privateKey` | string | Private key of the redeemer in WIF format. |
+`secret` | [Secret](../interfaces/secret.md) | A secret object. |
 
-**Returns:** _Promise‹boolean›_
+**Returns:** *Promise‹boolean›*
 
 Success or failure.
 
----
+___
 
 ### `Private` redeemHTLC
 
-▸ **redeemHTLC**(`amount`: number, `privateKey`: string, `secret`: [Secret](../interfaces/secret.md)): _Promise‹boolean›_
+▸ **redeemHTLC**(`amount`: number, `privateKey`: string, `secret`: [Secret](../interfaces/secret.md)): *Promise‹boolean›*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:181
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:181](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L181)*
 
 Redeem the actual HTLC.
 
@@ -235,24 +235,24 @@ That's because the websocket must be open before redeeming an HTLC.
 
 **Parameters:**
 
-| Name         | Type                              | Description                                |
-| ------------ | --------------------------------- | ------------------------------------------ |
-| `amount`     | number                            | The amount of assets of the HTLC.          |
-| `privateKey` | string                            | Private key of the redeemer in WIF format. |
-| `secret`     | [Secret](../interfaces/secret.md) | A secret object with the correct preimage. |
+Name | Type | Description |
+------ | ------ | ------ |
+`amount` | number | The amount of assets of the HTLC. |
+`privateKey` | string | Private key of the redeemer in WIF format. |
+`secret` | [Secret](../interfaces/secret.md) | A secret object with the correct preimage. |
 
-**Returns:** _Promise‹boolean›_
+**Returns:** *Promise‹boolean›*
 
 Success status. Can be used for user feedback.
 
----
+___
 
-### stopLooking
+###  stopLooking
 
-▸ **stopLooking**(): _void_
+▸ **stopLooking**(): *void*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:91
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:91](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L91)*
 
 Stops looking for matching HTLC.
 
-**Returns:** _void_
+**Returns:** *void*

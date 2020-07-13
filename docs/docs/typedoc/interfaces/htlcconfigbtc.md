@@ -4,7 +4,7 @@ title: "HTLCConfigBTC"
 sidebar_label: "HTLCConfigBTC"
 ---
 
-[swapchain documentation](../index.md) › [Globals](../globals.md) › [HTLCConfigBTC](htlcconfigbtc.md)
+[swapchain documentation](../globals.md) › [HTLCConfigBTC](htlcconfigbtc.md)
 
 Contains all necessary information to create an HTLC on Bitcoin blockchain
 
@@ -12,60 +12,60 @@ Contains all necessary information to create an HTLC on Bitcoin blockchain
 
 ## Hierarchy
 
-- **HTLCConfigBTC**
+* **HTLCConfigBTC**
 
 ## Index
 
 ### Properties
 
-- [amount](htlcconfigbtc.md#amount)
-- [hash](htlcconfigbtc.md#hash)
-- [sequence](htlcconfigbtc.md#sequence)
-- [transactionID](htlcconfigbtc.md#transactionid)
+* [amount](htlcconfigbtc.md#amount)
+* [hash](htlcconfigbtc.md#hash)
+* [sequence](htlcconfigbtc.md#sequence)
+* [transactionID](htlcconfigbtc.md#transactionid)
 
 ## Properties
 
-### amount
+###  amount
 
-• **amount**: _number_
+• **amount**: *number*
 
-Defined in pkg/bitcoin/htlc/btcHTLC.ts:25
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:26](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L26)*
 
 The amount of satoshi to exchange.
 
 **`memberof`** HTLCConfigBTC
 
----
+___
 
-### hash
+###  hash
 
-• **hash**: _Buffer_
+• **hash**: *Buffer*
 
-Defined in pkg/bitcoin/htlc/btcHTLC.ts:39
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:40](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L40)*
 
 SHA256 hash of the secret.
 
 **`memberof`** HTLCConfigBTC
 
----
+___
 
-### sequence
+###  sequence
 
-• **sequence**: _number_
+• **sequence**: *number*
 
-Defined in pkg/bitcoin/htlc/btcHTLC.ts:32
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:33](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L33)*
 
 How many blocks need to be mined before refund is possible.
 
 **`memberof`** HTLCConfigBTC
 
----
+___
 
-### transactionID
+###  transactionID
 
-• **transactionID**: _string_
+• **transactionID**: *string*
 
-Defined in pkg/bitcoin/htlc/btcHTLC.ts:18
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:19](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L19)*
 
 The transaction id from the preceeding transaction.
 

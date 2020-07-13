@@ -4,7 +4,7 @@ title: "HTLCConfig"
 sidebar_label: "HTLCConfig"
 ---
 
-[swapchain documentation](../index.md) › [Globals](../globals.md) › [HTLCConfig](htlcconfig.md)
+[swapchain documentation](../globals.md) › [HTLCConfig](htlcconfig.md)
 
 Contains all necessary information to create an HTLC on Bitshares blockchain
 
@@ -12,73 +12,73 @@ Contains all necessary information to create an HTLC on Bitshares blockchain
 
 ## Hierarchy
 
-- **HTLCConfig**
+* **HTLCConfig**
 
 ## Index
 
 ### Properties
 
-- [amount](htlcconfig.md#amount)
-- [asset](htlcconfig.md#asset)
-- [hash](htlcconfig.md#hash)
-- [privateKey](htlcconfig.md#privatekey)
-- [time](htlcconfig.md#time)
+* [amount](htlcconfig.md#amount)
+* [asset](htlcconfig.md#asset)
+* [hash](htlcconfig.md#hash)
+* [privateKey](htlcconfig.md#privatekey)
+* [time](htlcconfig.md#time)
 
 ## Properties
 
-### amount
+###  amount
 
-• **amount**: _number_
+• **amount**: *number*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:16
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:16](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L16)*
 
 How much you want to send.
 
 **`memberof`** HTLCConfig
 
----
+___
 
-### asset
+###  asset
 
-• **asset**: _string_
+• **asset**: *string*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:23
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:23](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L23)*
 
 The type/currency you want to send.
 
 **`memberof`** HTLCConfig
 
----
+___
 
-### hash
+###  hash
 
-• **hash**: _Buffer_
+• **hash**: *Buffer*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:37
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:37](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L37)*
 
 SHA256 hash of the secret.
 
 **`memberof`** HTLCConfig
 
----
+___
 
-### privateKey
+###  privateKey
 
-• **privateKey**: _string_
+• **privateKey**: *string*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:45
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:45](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L45)*
 
 Private key of the creator in WIF format.
 
 **`memberof`** HTLCConfig
 
----
+___
 
-### time
+###  time
 
-• **time**: _number_
+• **time**: *number*
 
-Defined in pkg/bitshares/htlc/btsHTLC.ts:30
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:30](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L30)*
 
 TTL for the timelock in seconds. After this time passes the contract will be automatically redeemed by the sender.
 

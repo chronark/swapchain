@@ -4,54 +4,64 @@ title: "State"
 sidebar_label: "State"
 ---
 
-[swapchain documentation](../index.md) › [Globals](../globals.md) › [State](state.md)
+[swapchain documentation](../globals.md) › [State](state.md)
 
 ## Index
 
 ### Enumeration members
 
-- [ERROR](state.md#error)
-- [FAILURE](state.md#failure)
-- [IDLE](state.md#idle)
-- [RUNNING](state.md#running)
-- [SUCCESS](state.md#success)
+* [ERROR](state.md#error)
+* [FAILURE](state.md#failure)
+* [IDLE](state.md#idle)
+* [RUNNING](state.md#running)
+* [SUCCESS](state.md#success)
 
 ## Enumeration members
 
-### ERROR
+###  ERROR
 
 • **ERROR**:
 
-Defined in components/forms/enums.ts:5
+*Defined in [components/util/enums.ts:5](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/enums.ts#L5)*
 
----
+*Defined in [components/forms/enums.ts:5](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/enums.ts#L5)*
 
-### FAILURE
+___
+
+###  FAILURE
 
 • **FAILURE**:
 
-Defined in components/forms/enums.ts:6
+*Defined in [components/util/enums.ts:6](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/enums.ts#L6)*
 
----
+*Defined in [components/forms/enums.ts:6](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/enums.ts#L6)*
 
-### IDLE
+___
+
+###  IDLE
 
 • **IDLE**:
 
-Defined in components/forms/enums.ts:2
+*Defined in [components/util/enums.ts:2](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/enums.ts#L2)*
 
----
+*Defined in [components/forms/enums.ts:2](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/enums.ts#L2)*
 
-### RUNNING
+___
+
+###  RUNNING
 
 • **RUNNING**:
 
-Defined in components/forms/enums.ts:3
+*Defined in [components/util/enums.ts:3](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/enums.ts#L3)*
 
----
+*Defined in [components/forms/enums.ts:3](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/enums.ts#L3)*
 
-### SUCCESS
+___
+
+###  SUCCESS
 
 • **SUCCESS**:
 
-Defined in components/forms/enums.ts:4
+*Defined in [components/util/enums.ts:4](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/enums.ts#L4)*
+
+*Defined in [components/forms/enums.ts:4](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/enums.ts#L4)*

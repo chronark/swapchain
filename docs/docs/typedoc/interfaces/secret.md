@@ -4,33 +4,33 @@ title: "Secret"
 sidebar_label: "Secret"
 ---
 
-[swapchain documentation](../index.md) › [Globals](../globals.md) › [Secret](secret.md)
+[swapchain documentation](../globals.md) › [Secret](secret.md)
 
 An interface for a secret/hash pair
 
 ## Hierarchy
 
-- **Secret**
+* **Secret**
 
 ## Index
 
 ### Properties
 
-- [hash](secret.md#hash)
-- [preimage](secret.md#optional-preimage)
+* [hash](secret.md#hash)
+* [preimage](secret.md#optional-preimage)
 
 ## Properties
 
-### hash
+###  hash
 
-• **hash**: _Buffer_
+• **hash**: *Buffer*
 
-Defined in pkg/secret/secret.ts:9
+*Defined in [pkg/secret/secret.ts:9](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/secret/secret.ts#L9)*
 
----
+___
 
 ### `Optional` preimage
 
-• **preimage**? : _undefined | string_
+• **preimage**? : *undefined | string*
 
-Defined in pkg/secret/secret.ts:8
+*Defined in [pkg/secret/secret.ts:8](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/secret/secret.ts#L8)*

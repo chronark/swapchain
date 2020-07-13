@@ -4,42 +4,42 @@ title: "BTCAddress"
 sidebar_label: "BTCAddress"
 ---
 
-[swapchain documentation](../index.md) › [Globals](../globals.md) › [BTCAddress](btcaddress.md)
+[swapchain documentation](../globals.md) › [BTCAddress](btcaddress.md)
 
 An interface for a Bitcoin key/address pair
 
 ## Hierarchy
 
-- **BTCAddress**
+* **BTCAddress**
 
 ## Index
 
 ### Properties
 
-- [address](btcaddress.md#address)
-- [privateKey](btcaddress.md#privatekey)
-- [publicKey](btcaddress.md#publickey)
+* [address](btcaddress.md#address)
+* [privateKey](btcaddress.md#privatekey)
+* [publicKey](btcaddress.md#publickey)
 
 ## Properties
 
-### address
+###  address
 
-• **address**: _string_
+• **address**: *string*
 
-Defined in pkg/address/address.ts:12
+*Defined in [pkg/address/address.ts:12](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/address/address.ts#L12)*
 
----
+___
 
-### privateKey
+###  privateKey
 
-• **privateKey**: _string_
+• **privateKey**: *string*
 
-Defined in pkg/address/address.ts:10
+*Defined in [pkg/address/address.ts:10](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/address/address.ts#L10)*
 
----
+___
 
-### publicKey
+###  publicKey
 
-• **publicKey**: _string_
+• **publicKey**: *string*
 
-Defined in pkg/address/address.ts:11
+*Defined in [pkg/address/address.ts:11](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/address/address.ts#L11)*
