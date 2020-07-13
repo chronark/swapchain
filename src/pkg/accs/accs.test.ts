@@ -1,10 +1,9 @@
 import ACCS, { ACCSConfig, ACCSFields } from "./accs"
-import readline from "readline"
 import * as bitcoin from "bitcoinjs-lib"
 import { mocked } from "ts-jest/utils"
 import { Timer } from "./timer"
 import { getAccount } from "../bitshares/util"
-jest.mock("../pkg/bitshares/util")
+jest.mock("../bitshares/util")
 console.log = jest.fn()
 
 beforeEach(() => {
