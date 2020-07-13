@@ -3,7 +3,7 @@ import commander from "commander"
 import fs from "fs"
 import { getSecret } from "../pkg/secret/secret"
 import { isValidBitcoinPrivateKey, isValidBitsharesPrivateKey, isValidBitcoinPublicKey } from "../pkg/address/validator"
-import { ACCSFields } from "../pkg/accs/accs"
+import ACCS, { ACCSFields } from "../pkg/accs/accs"
 
 /**
  * Get user input from JSON config file or stdin and store everything in a fields object.
@@ -19,7 +19,7 @@ export async function getUserInput(): Promise<ACCSFields> {
     .option("-f, --file <path>", "run swapchain CLI with config file at <path>")
     .parse(process.argv)
 
-  let fields = {} as ACCSFields
+  let fields!: ACCSFields
 
   if (program.file) {
     const rawFile = fs.readFileSync(program.file)
