@@ -1,19 +1,14 @@
 module.exports = {
-  "docs": {
-    "Classes": [
+  docs: {
+    Classes: [
       "typedoc/classes/accs",
       "typedoc/classes/bitcoinhtlc",
       "typedoc/classes/bitshareshtlc",
       "typedoc/classes/blockstream",
-      "typedoc/classes/timer"
+      "typedoc/classes/timer",
     ],
-    "Enums": [
-      "typedoc/enums/currency",
-      "typedoc/enums/network",
-      "typedoc/enums/priority",
-      "typedoc/enums/state"
-    ],
-    "Interfaces": [
+    Enums: ["typedoc/enums/currency", "typedoc/enums/network", "typedoc/enums/priority", "typedoc/enums/state"],
+    Interfaces: [
       "typedoc/interfaces/accsconfig",
       "typedoc/interfaces/accsfields",
       "typedoc/interfaces/btcaddress",
@@ -23,7 +18,7 @@ module.exports = {
       "typedoc/interfaces/htlcconfig",
       "typedoc/interfaces/htlcconfigbtc",
       "typedoc/interfaces/order",
-      "typedoc/interfaces/secret"
-    ]
-  }
-};
+      "typedoc/interfaces/secret",
+    ],
+  },
+}
