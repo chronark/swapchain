@@ -4,167 +4,171 @@ title: "ACCSFields"
 sidebar_label: "ACCSFields"
 ---
 
-[swapchain documentation](../index.md) › [Globals](../globals.md) › [ACCSFields](accsfields.md)
+[swapchain documentation](../globals.md) › [ACCSFields](accsfields.md)
+
+Contains raw user input to run an ACCS. Needs to get parsed.
+
+**`interface`** ACCSFields
 
 ## Hierarchy
 
-- **ACCSFields**
+* **ACCSFields**
 
 ## Index
 
 ### Properties
 
-- [amountToReceive](accsfields.md#amounttoreceive)
-- [amountToSend](accsfields.md#amounttosend)
-- [bitcoinPrivateKey](accsfields.md#bitcoinprivatekey)
-- [bitcoinTxID](accsfields.md#bitcointxid)
-- [bitsharesPrivateKey](accsfields.md#bitsharesprivatekey)
-- [counterpartyBitcoinPublicKey](accsfields.md#counterpartybitcoinpublickey)
-- [counterpartyBitsharesAccountName](accsfields.md#counterpartybitsharesaccountname)
-- [currencyToGive](accsfields.md#currencytogive)
-- [mode](accsfields.md#mode)
-- [networkToTrade](accsfields.md#networktotrade)
-- [priority](accsfields.md#priority)
-- [rate](accsfields.md#rate)
-- [secret](accsfields.md#secret)
-- [timelock](accsfields.md#timelock)
+* [amountToReceive](accsfields.md#amounttoreceive)
+* [amountToSend](accsfields.md#amounttosend)
+* [bitcoinPrivateKey](accsfields.md#bitcoinprivatekey)
+* [bitcoinTxID](accsfields.md#bitcointxid)
+* [bitsharesPrivateKey](accsfields.md#bitsharesprivatekey)
+* [counterpartyBitcoinPublicKey](accsfields.md#counterpartybitcoinpublickey)
+* [counterpartyBitsharesAccountName](accsfields.md#counterpartybitsharesaccountname)
+* [currencyToGive](accsfields.md#currencytogive)
+* [mode](accsfields.md#mode)
+* [networkToTrade](accsfields.md#networktotrade)
+* [priority](accsfields.md#priority)
+* [rate](accsfields.md#rate)
+* [secret](accsfields.md#secret)
+* [secretHash](accsfields.md#optional-secrethash)
 
 ## Properties
 
-### amountToReceive
+###  amountToReceive
 
-• **amountToReceive**: _number_
+• **amountToReceive**: *number*
 
-Defined in accs/accs.ts:39
+*Defined in [pkg/accs/accs.ts:44](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L44)*
 
 The amount to receive.
 
----
+___
 
-### amountToSend
+###  amountToSend
 
-• **amountToSend**: _number_
+• **amountToSend**: *number*
 
-Defined in accs/accs.ts:29
+*Defined in [pkg/accs/accs.ts:34](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L34)*
 
 The amount to send.
 
----
+___
 
-### bitcoinPrivateKey
+###  bitcoinPrivateKey
 
-• **bitcoinPrivateKey**: _string_
+• **bitcoinPrivateKey**: *string*
 
-Defined in accs/accs.ts:44
+*Defined in [pkg/accs/accs.ts:49](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L49)*
 
 The Bitcoin private key.
 
----
+___
 
-### bitcoinTxID
+###  bitcoinTxID
 
-• **bitcoinTxID**: _string_
+• **bitcoinTxID**: *string*
 
-Defined in accs/accs.ts:64
+*Defined in [pkg/accs/accs.ts:69](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L69)*
 
 The Bitcoin transaction ID to spend.
 
----
+___
 
-### bitsharesPrivateKey
+###  bitsharesPrivateKey
 
-• **bitsharesPrivateKey**: _string_
+• **bitsharesPrivateKey**: *string*
 
-Defined in accs/accs.ts:49
+*Defined in [pkg/accs/accs.ts:54](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L54)*
 
 The Bitshares private key.
 
----
+___
 
-### counterpartyBitcoinPublicKey
+###  counterpartyBitcoinPublicKey
 
-• **counterpartyBitcoinPublicKey**: _string_
+• **counterpartyBitcoinPublicKey**: *string*
 
-Defined in accs/accs.ts:54
+*Defined in [pkg/accs/accs.ts:59](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L59)*
 
 The Bitcoin public key of the counterparty.
 
----
+___
 
-### counterpartyBitsharesAccountName
+###  counterpartyBitsharesAccountName
 
-• **counterpartyBitsharesAccountName**: _string_
+• **counterpartyBitsharesAccountName**: *string*
 
-Defined in accs/accs.ts:59
+*Defined in [pkg/accs/accs.ts:64](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L64)*
 
 The Bitshares account name of the counterparty.
 
----
+___
 
-### currencyToGive
+###  currencyToGive
 
-• **currencyToGive**: _string_
+• **currencyToGive**: *string*
 
-Defined in accs/accs.ts:24
+*Defined in [pkg/accs/accs.ts:29](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L29)*
 
 The currency to give. Either BTC or BTS.
 
----
+___
 
-### mode
+###  mode
 
-• **mode**: _string_
+• **mode**: *string*
 
-Defined in accs/accs.ts:14
+*Defined in [pkg/accs/accs.ts:19](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L19)*
 
 The transaction mode. Either proposer or accepter.
 
----
+___
 
-### networkToTrade
+###  networkToTrade
 
-• **networkToTrade**: _string_
+• **networkToTrade**: *string*
 
-Defined in accs/accs.ts:19
+*Defined in [pkg/accs/accs.ts:24](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L24)*
 
 The network name. Either mainnet or testnet.
 
----
+___
 
-### priority
+###  priority
 
-• **priority**: _number_
+• **priority**: *number*
 
-Defined in accs/accs.ts:74
+*Defined in [pkg/accs/accs.ts:74](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L74)*
 
 The priority of the transactions. Either 0 (high), 1 (medium) or 2 (low).
 
----
+___
 
-### rate
+###  rate
 
-• **rate**: _number_
+• **rate**: *number*
 
-Defined in accs/accs.ts:34
+*Defined in [pkg/accs/accs.ts:39](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L39)*
 
 The exchange rate both parties agreed on.
 
----
+___
 
-### secret
+###  secret
 
-• **secret**: _[Secret](secret.md)_
+• **secret**: *[Secret](secret.md)*
 
-Defined in accs/accs.ts:79
+*Defined in [pkg/accs/accs.ts:79](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L79)*
 
 A secret object with a random preimage and its corresponding SHA256 hash.
 
----
+___
 
-### timelock
+### `Optional` secretHash
 
-• **timelock**: _number_
+• **secretHash**? : *undefined | string*
 
-Defined in accs/accs.ts:69
+*Defined in [pkg/accs/accs.ts:84](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L84)*
 
-The timelock of the transactions. Either 20 (long), 13 (medium) or 6 (short).
+A secret SHA256 hash.

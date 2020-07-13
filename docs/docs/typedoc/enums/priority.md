@@ -4,36 +4,42 @@ title: "Priority"
 sidebar_label: "Priority"
 ---
 
-[swapchain documentation](../index.md) › [Globals](../globals.md) › [Priority](priority.md)
+[swapchain documentation](../globals.md) › [Priority](priority.md)
 
 ## Index
 
 ### Enumeration members
 
-- [HIGH](priority.md#high)
-- [LOW](priority.md#low)
-- [MEDIUM](priority.md#medium)
+* [HIGH](priority.md#high)
+* [LOW](priority.md#low)
+* [MEDIUM](priority.md#medium)
 
 ## Enumeration members
 
-### HIGH
+###  HIGH
 
 • **HIGH**:
 
-Defined in components/forms/enums.ts:26
+*Defined in [components/util/enums.ts:20](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/enums.ts#L20)*
 
----
+*Defined in [components/forms/enums.ts:20](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/enums.ts#L20)*
 
-### LOW
+___
+
+###  LOW
 
 • **LOW**:
 
-Defined in components/forms/enums.ts:28
+*Defined in [components/util/enums.ts:22](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/enums.ts#L22)*
 
----
+*Defined in [components/forms/enums.ts:22](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/enums.ts#L22)*
 
-### MEDIUM
+___
+
+###  MEDIUM
 
 • **MEDIUM**:
 
-Defined in components/forms/enums.ts:27
+*Defined in [components/util/enums.ts:21](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/enums.ts#L21)*
+
+*Defined in [components/forms/enums.ts:21](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/enums.ts#L21)*

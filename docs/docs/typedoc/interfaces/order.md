@@ -4,103 +4,103 @@ title: "Order"
 sidebar_label: "Order"
 ---
 
-[swapchain documentation](../index.md) › [Globals](../globals.md) › [Order](order.md)
+[swapchain documentation](../globals.md) › [Order](order.md)
 
 ## Hierarchy
 
-- **Order**
+* **Order**
 
 ## Index
 
 ### Properties
 
-- [addressHash](order.md#addresshash)
-- [created](order.md#created)
-- [exchangeRate](order.md#exchangerate)
-- [give](order.md#give)
-- [receive](order.md#receive)
-- [selected](order.md#selected)
-- [status](order.md#status)
-- [validUntil](order.md#validuntil)
+* [addressHash](order.md#addresshash)
+* [created](order.md#created)
+* [exchangeRate](order.md#exchangerate)
+* [give](order.md#give)
+* [receive](order.md#receive)
+* [selected](order.md#selected)
+* [status](order.md#status)
+* [validUntil](order.md#validuntil)
 
 ## Properties
 
-### addressHash
+###  addressHash
 
-• **addressHash**: _string_
+• **addressHash**: *string*
 
-Defined in components/orderbook/Orderbook.tsx:31
+*Defined in [components/orderbook/Orderbook.tsx:31](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L31)*
 
----
+___
 
-### created
+###  created
 
-• **created**: _Date_
+• **created**: *Date*
 
-Defined in components/orderbook/Orderbook.tsx:32
+*Defined in [components/orderbook/Orderbook.tsx:32](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L32)*
 
----
+___
 
-### exchangeRate
+###  exchangeRate
 
-• **exchangeRate**: _number_
+• **exchangeRate**: *number*
 
-Defined in components/orderbook/Orderbook.tsx:39
+*Defined in [components/orderbook/Orderbook.tsx:39](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L39)*
 
----
+___
 
-### give
+###  give
 
-• **give**: _object_
+• **give**: *object*
 
-Defined in components/orderbook/Orderbook.tsx:35
-
-#### Type declaration:
-
-- **asset**: _string_
-
-- **value**: _number_
-
----
-
-### receive
-
-• **receive**: _object_
-
-Defined in components/orderbook/Orderbook.tsx:40
+*Defined in [components/orderbook/Orderbook.tsx:35](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L35)*
 
 #### Type declaration:
 
-- **asset**: _string_
+* **asset**: *string*
 
-- **value**: _number_
+* **value**: *number*
 
----
+___
 
-### selected
+###  receive
 
-• **selected**: _boolean_
+• **receive**: *object*
 
-Defined in components/orderbook/Orderbook.tsx:30
-
----
-
-### status
-
-• **status**: _object_
-
-Defined in components/orderbook/Orderbook.tsx:34
+*Defined in [components/orderbook/Orderbook.tsx:40](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L40)*
 
 #### Type declaration:
 
-- **color**: _string_
+* **asset**: *string*
 
-- **label**: _string_
+* **value**: *number*
 
----
+___
 
-### validUntil
+###  selected
 
-• **validUntil**: _Date_
+• **selected**: *boolean*
 
-Defined in components/orderbook/Orderbook.tsx:33
+*Defined in [components/orderbook/Orderbook.tsx:30](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L30)*
+
+___
+
+###  status
+
+• **status**: *object*
+
+*Defined in [components/orderbook/Orderbook.tsx:34](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L34)*
+
+#### Type declaration:
+
+* **color**: *string*
+
+* **label**: *string*
+
+___
+
+###  validUntil
+
+• **validUntil**: *Date*
+
+*Defined in [components/orderbook/Orderbook.tsx:33](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L33)*

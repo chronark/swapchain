@@ -4,33 +4,33 @@ title: "BTSAddress"
 sidebar_label: "BTSAddress"
 ---
 
-[swapchain documentation](../index.md) › [Globals](../globals.md) › [BTSAddress](btsaddress.md)
+[swapchain documentation](../globals.md) › [BTSAddress](btsaddress.md)
 
 An interface for a Bitshares privatekey/address pair
 
 ## Hierarchy
 
-- **BTSAddress**
+* **BTSAddress**
 
 ## Index
 
 ### Properties
 
-- [address](btsaddress.md#address)
-- [privateKey](btsaddress.md#privatekey)
+* [address](btsaddress.md#address)
+* [privateKey](btsaddress.md#privatekey)
 
 ## Properties
 
-### address
+###  address
 
-• **address**: _string_
+• **address**: *string*
 
-Defined in pkg/address/address.ts:20
+*Defined in [pkg/address/address.ts:20](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/address.ts#L20)*
 
----
+___
 
-### privateKey
+###  privateKey
 
-• **privateKey**: _string_
+• **privateKey**: *string*
 
-Defined in pkg/address/address.ts:19
+*Defined in [pkg/address/address.ts:19](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/address.ts#L19)*

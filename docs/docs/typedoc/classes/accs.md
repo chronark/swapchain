@@ -4,50 +4,50 @@ title: "ACCS"
 sidebar_label: "ACCS"
 ---
 
-[swapchain documentation](../index.md) › [Globals](../globals.md) › [ACCS](accs.md)
+[swapchain documentation](../globals.md) › [ACCS](accs.md)
 
 Handler to create HTLCs on the respective blockchains to run an ACCS.
 
 ## Hierarchy
 
-- **ACCS**
+* **ACCS**
 
 ## Index
 
 ### Methods
 
-- [parseUserInput](accs.md#static-parseuserinput)
-- [proposeBTCForBTS](accs.md#static-proposebtcforbts)
-- [proposeBTSForBTC](accs.md#static-proposebtsforbtc)
-- [run](accs.md#static-run)
-- [takeBTCForBTS](accs.md#static-takebtcforbts)
-- [takeBTSForBTC](accs.md#static-takebtsforbtc)
+* [parseUserInput](accs.md#static-parseuserinput)
+* [proposeBTCForBTS](accs.md#static-proposebtcforbts)
+* [proposeBTSForBTC](accs.md#static-proposebtsforbtc)
+* [run](accs.md#static-run)
+* [takeBTCForBTS](accs.md#static-takebtcforbts)
+* [takeBTSForBTC](accs.md#static-takebtsforbtc)
 
 ## Methods
 
 ### `Static` parseUserInput
 
-▸ **parseUserInput**(`fields`: [ACCSFields](../interfaces/accsfields.md)): _Promise‹[ACCSConfig](../interfaces/accsconfig.md)›_
+▸ **parseUserInput**(`fields`: [ACCSFields](../interfaces/accsfields.md)): *Promise‹[ACCSConfig](../interfaces/accsconfig.md)›*
 
-Defined in accs/accs.ts:190
+*Defined in [pkg/accs/accs.ts:200](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L200)*
 
 Parse user input to create config
 
 **Parameters:**
 
-| Name     | Type                                      | Description |
-| -------- | ----------------------------------------- | ----------- |
-| `fields` | [ACCSFields](../interfaces/accsfields.md) |             |
+Name | Type | Description |
+------ | ------ | ------ |
+`fields` | [ACCSFields](../interfaces/accsfields.md) |   |
 
-**Returns:** _Promise‹[ACCSConfig](../interfaces/accsconfig.md)›_
+**Returns:** *Promise‹[ACCSConfig](../interfaces/accsconfig.md)›*
 
----
+___
 
 ### `Static` proposeBTCForBTS
 
-▸ **proposeBTCForBTS**(`config`: [ACCSConfig](../interfaces/accsconfig.md)): _Promise‹void›_
+▸ **proposeBTCForBTS**(`config`: [ACCSConfig](../interfaces/accsconfig.md)): *Promise‹void›*
 
-Defined in accs/accs.ts:311
+*Defined in [pkg/accs/accs.ts:323](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L323)*
 
 Handles ACCS for proposer who wants BTC for BTS.
 
@@ -55,19 +55,19 @@ Handles ACCS for proposer who wants BTC for BTS.
 
 **Parameters:**
 
-| Name     | Type                                      |
-| -------- | ----------------------------------------- |
-| `config` | [ACCSConfig](../interfaces/accsconfig.md) |
+Name | Type |
+------ | ------ |
+`config` | [ACCSConfig](../interfaces/accsconfig.md) |
 
-**Returns:** _Promise‹void›_
+**Returns:** *Promise‹void›*
 
----
+___
 
 ### `Static` proposeBTSForBTC
 
-▸ **proposeBTSForBTC**(`config`: [ACCSConfig](../interfaces/accsconfig.md)): _Promise‹void›_
+▸ **proposeBTSForBTC**(`config`: [ACCSConfig](../interfaces/accsconfig.md)): *Promise‹void›*
 
-Defined in accs/accs.ts:250
+*Defined in [pkg/accs/accs.ts:262](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L262)*
 
 Handles ACCS for proposer who wants BTS for BTC.
 
@@ -75,19 +75,19 @@ Handles ACCS for proposer who wants BTS for BTC.
 
 **Parameters:**
 
-| Name     | Type                                      |
-| -------- | ----------------------------------------- |
-| `config` | [ACCSConfig](../interfaces/accsconfig.md) |
+Name | Type |
+------ | ------ |
+`config` | [ACCSConfig](../interfaces/accsconfig.md) |
 
-**Returns:** _Promise‹void›_
+**Returns:** *Promise‹void›*
 
----
+___
 
 ### `Static` run
 
-▸ **run**(`fields`: [ACCSFields](../interfaces/accsfields.md)): _Promise‹void›_
+▸ **run**(`fields`: [ACCSFields](../interfaces/accsfields.md)): *Promise‹void›*
 
-Defined in accs/accs.ts:573
+*Defined in [pkg/accs/accs.ts:610](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L610)*
 
 Entrypoint for web app and CLI. Calls respective parse and swap methods.
 
@@ -95,19 +95,19 @@ Entrypoint for web app and CLI. Calls respective parse and swap methods.
 
 **Parameters:**
 
-| Name     | Type                                      | Description                |
-| -------- | ----------------------------------------- | -------------------------- |
-| `fields` | [ACCSFields](../interfaces/accsfields.md) | The raw user input object. |
+Name | Type | Description |
+------ | ------ | ------ |
+`fields` | [ACCSFields](../interfaces/accsfields.md) | The raw user input object. |
 
-**Returns:** _Promise‹void›_
+**Returns:** *Promise‹void›*
 
----
+___
 
 ### `Static` takeBTCForBTS
 
-▸ **takeBTCForBTS**(`config`: [ACCSConfig](../interfaces/accsconfig.md)): _Promise‹void›_
+▸ **takeBTCForBTS**(`config`: [ACCSConfig](../interfaces/accsconfig.md)): *Promise‹void›*
 
-Defined in accs/accs.ts:472
+*Defined in [pkg/accs/accs.ts:490](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L490)*
 
 Handles ACCS for accepter who wants BTC for BTS.
 
@@ -115,19 +115,19 @@ Handles ACCS for accepter who wants BTC for BTS.
 
 **Parameters:**
 
-| Name     | Type                                      |
-| -------- | ----------------------------------------- |
-| `config` | [ACCSConfig](../interfaces/accsconfig.md) |
+Name | Type |
+------ | ------ |
+`config` | [ACCSConfig](../interfaces/accsconfig.md) |
 
-**Returns:** _Promise‹void›_
+**Returns:** *Promise‹void›*
 
----
+___
 
 ### `Static` takeBTSForBTC
 
-▸ **takeBTSForBTC**(`config`: [ACCSConfig](../interfaces/accsconfig.md)): _Promise‹void›_
+▸ **takeBTSForBTC**(`config`: [ACCSConfig](../interfaces/accsconfig.md)): *Promise‹void›*
 
-Defined in accs/accs.ts:376
+*Defined in [pkg/accs/accs.ts:389](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L389)*
 
 Handles ACCS for accepter who wants BTS for BTC.
 
@@ -135,8 +135,8 @@ Handles ACCS for accepter who wants BTS for BTC.
 
 **Parameters:**
 
-| Name     | Type                                      |
-| -------- | ----------------------------------------- |
-| `config` | [ACCSConfig](../interfaces/accsconfig.md) |
+Name | Type |
+------ | ------ |
+`config` | [ACCSConfig](../interfaces/accsconfig.md) |
 
-**Returns:** _Promise‹void›_
+**Returns:** *Promise‹void›*
