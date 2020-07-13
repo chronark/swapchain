@@ -1,6 +1,13 @@
 import { Apis as btsWebsocketApi } from "bitsharesjs-ws"
 import { ChainStore, FetchChain, TransactionBuilder, PrivateKey } from "bitsharesjs"
 import { Secret } from "../../../pkg/secret/secret"
+import { BitsharesAPI } from "../api/api"
+
+interface BitsharesSocket {
+  getAccounts: (sender: string, receiver: string) => Promise<BitsharesAccount[]>
+  getHistory: (receiver: string, limit: number) => Promise<BitsharesAccount[]>
+}
+
 
 /**
  * Contains all necessary information to create an HTLC on Bitshares blockchain
@@ -54,8 +61,8 @@ export default class BitsharesHTLC {
   private node: string
   private sender: string
   private receiver: string
-  private websocket: Promise<void> | null
   private keepLooking: boolean
+  private websocket: BitsharesSocket | null
   /**
    * Creates an instance of BitsharesHTLC.
    *
@@ -82,7 +89,7 @@ export default class BitsharesHTLC {
    * @memberof BitsharesHTLC
    */
   private async openSocket(node: string): Promise<void> {
-    this.websocket = await btsWebsocketApi.instance(node, true).init_promise
+    this.websocket = await BitsharesAPI.getInstance(this.node)
   }
 
   /**
@@ -138,7 +145,7 @@ export default class BitsharesHTLC {
   private async createHTLC(config: HTLCConfig): Promise<boolean> {
     // TODO: Requires proper error handling. Right now it always returns true.
     const { amount, asset, time, hash, privateKey } = config
-    await ChainStore.init(false)
+    
 
     const [senderAccount, toAccount, sendAsset] = await Promise.all([
       FetchChain("getAccount", this.sender),
@@ -179,7 +186,7 @@ export default class BitsharesHTLC {
    * @memberof BitsharesHTLC
    */
   private async redeemHTLC(amount: number, privateKey: string, secret: Secret): Promise<boolean> {
-    await ChainStore.init(false)
+    
 
     const [toAccount] = await Promise.all([FetchChain("getAccount", this.receiver)])
 
@@ -225,8 +232,10 @@ export default class BitsharesHTLC {
     }
     const limit = 100
 
+    //FIXME: replace
     const [senderAccount, toAccount] = await btsWebsocketApi.db.get_accounts([this.sender, this.receiver])
     while (this.keepLooking) {
+      // FIXME: replace
       const history = await btsWebsocketApi.history.get_relative_account_history(this.receiver, 0, limit, 0)
 
       /* eslint-disable @typescript-eslint/no-explicit-any */
