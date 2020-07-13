@@ -1,60 +1,74 @@
 {
-  "name": "swapchain",
-  "version": "0.0.1",
-  "description": "Swapchain is an application for performing ACCS (atomic cross chain swaps) via HTLCs (hash-time-locked contracts).",
-  "main": "index.js",
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bitcoinjs-lib": "^5.1.10",
+    "bitsharesjs": "^3.1.1",
+    "bitsharesjs-ws": "^3.1.1",
+    "crypto-random-string": "^3.2.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
   "scripts": {
-    "build": "./node_modules/.bin/tsc -p ./tsconfig.prod.json --pretty",
-    "docs:build": "./node_modules/.bin/typedoc && cd docs && npm i && npm run && npm run build",
-    "docs:show": "./node_modules/.bin/typedoc && cd docs && npm run start",
-    "eslint": "./node_modules/.bin/eslint --fix --ext .ts --resolve-plugins-relative-to ./",
+    "build:cli": "./node_modules/.bin/tsc -p ./tsconfig.cli.json --pretty",
+    "build:css": "tailwind build src/tailwind.src.css -c src/tailwind.config.js -o src/tailwind.css",
+    "build:docs": "./node_modules/.bin/typedoc && npm run build --prefix ./docs/",
+    "build:web": "NODE_ENV=production npm run build:css && react-scripts build",
+    "cli": "npm run build:cli && node ./build/cli/index.js",
+    "dev": "npm run build:css && react-scripts start",
+    "eject": "react-scripts eject",
+    "lint": "./node_modules/.bin/eslint --fix --ext ./**/*.ts",
     "fmt": "npm run lint && npm run prettier",
-    "lint": "npm run eslint",
     "prettier": "./node_modules/.bin/prettier --write ./**/*.{js,ts,json} --loglevel warn",
-    "test": "./node_modules/.bin/jest && cd srv/web && npm test",
-    "cli": "node dist/srv/accs/index.js"
+    "test": "CI=true react-scripts test --coverage --color"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/chronark/swapchain.git"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
-  "keywords": [
-    "blockchain",
-    "htlc",
-    "accs"
-  ],
-  "author": "David Joab, Fehn Katharina, Jordt Mads, Kohler Kevin, Koustas Spyridon, Steffener Julia, Thomas Andreas, Webersinke Nicolas",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/chronark/swapchain/issues"
-  },
-  "homepage": "https://github.com/chronark/swapchain#readme",
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.4.3",
+    "@testing-library/user-event": "^12.0.11",
     "@types/axios": "^0.14.0",
-    "@types/crypto-js": "^3.1.47",
     "@types/figlet": "^1.2.0",
     "@types/jest": "^26.0.3",
     "@types/node": "^14.0.14",
-    "@typescript-eslint/eslint-plugin": "^3.5.0",
-    "@typescript-eslint/parser": "^3.5.0",
-    "bip174": "^1.0.1",
-    "bitcoinjs-lib": "^5.1.10",
-    "eslint": "^7.3.1",
+    "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-responsive": "^8.0.2",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/react-test-renderer": "^16.9.2",
+    "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-flowtype": "^5.2.0",
-    "eslint-plugin-jest": "^23.17.1",
-    "eslint-plugin-jsdoc": "^28.5.1",
+    "eslint-plugin-jest": "^23.18.0",
+    "eslint-plugin-jsdoc": "^29.1.4",
     "eslint-plugin-prettier": "^3.1.4",
+    "figlet": "^1.4.0",
     "husky": "^4.2.5",
-    "jest": "^26.1.0",
     "lint-staged": "^10.2.11",
+    "postcss-cli": "^7.1.1",
     "prettier": "^2.0.5",
-    "standard": "^14.3.3",
+    "purgecss": "^2.3.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.1",
+    "react-test-renderer": "^16.13.1",
+    "standard": "^14.3.4",
+    "tailwindcss": "^1.4.6",
     "ts-jest": "^26.1.1",
     "typedoc": "^0.17.8",
     "typedoc-plugin-markdown": "^2.3.1",
-    "typescript": "^3.9.5",
-    "varuint-bitcoin": "^1.1.2"
+    "typescript": "^3.9.5"
   },
   "husky": {
     "hooks": {
@@ -65,14 +79,8 @@
     "**/*.{json,md, yml}": [
       "npm run fmt"
     ],
-    "**/*.{ts,js}": [
+    "**/*.{ts,tsx,js}": [
       "npm run fmt"
     ]
-  },
-  "dependencies": {
-    "axios": "^0.19.2",
-    "bitsharesjs": "^3.1.1",
-    "crypto-random-string": "^3.2.0",
-    "figlet": "^1.4.0"
   }
 }
