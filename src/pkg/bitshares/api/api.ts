@@ -26,7 +26,8 @@ export class BitsharesAPI {
    */
   public static async getInstance(node: string): Promise<BitsharesAPI> {
     if (!BitsharesAPI.instance) {
-      BitsharesAPI.instance = await btsWebsocketApi.instance(node, true).init_promise
+      BitsharesAPI.instance = new BitsharesAPI()
+      await btsWebsocketApi.instance(node, true).init_promise
       await ChainStore.init(false)
     }
     return BitsharesAPI.instance
