@@ -6,7 +6,7 @@ sidebar_label: Swapchain Software Architecture
 
 ## 1. Introduction
 
-Swapchain is a platform that enables users to perform atomic cross-chain swaps of Bitcoins and Bitshares and vice versa. It caters to the need of users who want to carry out OTC (over-the-counter) transactions between the Bitcoin and the Bitshare blockchains. The platform helps users to submit desired swap orders and perform a Hashed Time Lock Contract to safely carry out the swap. Furthermore, it provides the functionality of a simple user interface to track the transactions made by the user. The use of an atomic cross-chain swap helps avoiding counterparty risks and high fees charged by other intermediaries. [5]
+Swapchain is a platform that enables users to perform atomic cross-chain swaps between Bitcoins and Bitshares and vice versa. It caters to the need of users who want to carry out OTC (over-the-counter) transactions between the Bitcoin and the Bitshares blockchains. The platform helps users to submit desired swap orders and perform a Hashed Time Lock Contract to safely carry out the swap. Furthermore, it provides the functionality of a simple user interface to track the transactions made by the user. The use of an atomic cross-chain swap helps avoiding counterparty risks and high fees charged by other intermediaries. [5]
    
 ### 1.1 Purpose
 
@@ -79,7 +79,7 @@ The Verification contains the signature verification sub-component which is cons
    
 ### 3.1. UML Diagram
 
-![](img/UML_new.svg)   
+![](img/UML.svg)   
 Figure 2: UML Diagram (Swapchain, 2020) [4]
 
    
@@ -89,6 +89,8 @@ The use case diagram is used to visualize the Swapchain application and its acto
    
 ### 4.1. Use Case Diagram
 
+For the following use case diagram we assume that user 1 is in possession of Bitcoin while user 2 is in possession of Bitshares. Obviously, swapchain also supports swaps between these two cryptocurrencies that are vice versa, meaning user 1 proposes Bitshares in exchange for Bitcoin.
+
 ![](img/UseCase.svg)     
 Figure 3: Use Case Diagram (Swapchain, 2020) [4]
    
@@ -96,7 +98,7 @@ Figure 3: Use Case Diagram (Swapchain, 2020) [4]
 
 | Use Case Name           | Scenario                               | Triggering Event                   | Actors            | Related Use Case | Preconditions                                                                                                                                       | Post Conditions                                                     | Flow of Events                                                                                                                                                                                                           | Exception Conditions                                          |
 | ----------------------- | -------------------------------------- | ---------------------------------- | ----------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
-| Atomic cross-chain swap | Two users want to exchange BTC and BTS | Two HTLCs are created in the respective blockchains which locked by the same secret hash provided by the proposer/proposing party | User 1 and User 2 | None             | - Users should be in possession of the cryptocurrency that is desired by the other party     - Users should create an HTLC in their respective Blockchains by signing their transactions | - Validating the user     - Hash and time lock conditions should be met | - Start an HTLC     - Fund and redeem a swap     - Key pair generator     - Verification process of validity between private and public keys     - Transaction successful or funds are refunded | - Network failure   - App crashing   - Too much market volatility |
+| Atomic cross-chain swap | Two users want to exchange BTC and BTS | Two HTLCs are created in the respective blockchains which are locked by the same secret hash provided by the proposer/proposing party | User 1 and User 2 | None             | - Users should be in possession of the cryptocurrency that is desired by the other party <br> - Users should create an HTLC in their respective Blockchains by signing their transactions | - Validating the user <br> - Hash and time lock conditions should be met | - Start an HTLC <br> - Fund and redeem a swap <br> - Key pair generator <br> - Verification process of validity between private and public keys <br> - Transaction successful or funds are refunded | - Network failure <br> - App crashing  <br> - Too much market volatility |
 
    
 ## 5. Architectural Goals and Constraints
