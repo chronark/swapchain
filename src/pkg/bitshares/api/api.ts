@@ -4,13 +4,15 @@ import { ChainStore, ChainConfig, PrivateKey } from "bitsharesjs"
 export class BitsharesAPI {
   private static instance: BitsharesAPI
 
-  private constructor() {}
+
+
+  public constructor() {}
 
   public static async getInstance(node: string): Promise<BitsharesAPI> {
     if (!BitsharesAPI.instance) {
       BitsharesAPI.instance = await btsWebsocketApi.instance(node, true).init_promise
       await ChainStore.init(false)
-    }
+    } 
     return BitsharesAPI.instance
   }
 
@@ -44,9 +46,7 @@ export class BitsharesAPI {
     timelock?: number,
   ): Promise<string> {
     const history = await this.getHistory(receiverID)
-
     const htlc = history.filter((element: any) => {
-      if (timelock) {
         return (
           typeof element.result[1] === "string" &&
           element.op[1].from === senderID &&
@@ -55,18 +55,9 @@ export class BitsharesAPI {
           element.op[1].preimage_hash[1] === hash.toString("hex") &&
           element.op[1].amount.amount === amount &&
           /* eslint-disable-next-line @typescript-eslint/camelcase */
-          element.op[1].claim_period_seconds >= timelock * 0.8
-        ) // Timelock must be in 20% tolerance range
-      } else {
-        return (
-          typeof element.result[1] === "string" &&
-          element.op[1].from === senderID &&
-          element.op[1].to === receiverID &&
-          /* eslint-disable-next-line @typescript-eslint/camelcase */
-          element.op[1].preimage_hash[1] === hash.toString("hex") &&
-          element.op[1].amount.amount === amount
-        )
-      }
+          // Timelock must be in 20% tolerance range
+          (timelock ? element.op[1].claim_period_seconds >= timelock * 0.8 : true)
+        ) 
     })
 
     if (htlc.length === 1) {
@@ -84,7 +75,7 @@ export class BitsharesAPI {
     if (privateKey.length !== 51) {
       throw new Error("Invalid private key length.")
     }
-
+    
     // Set chain IDs to get correct prefix for public key
     if (network === "mainnet") {
       ChainConfig.setChainId("4018d7844c78f6a6c41c6a552b898022310fc5dec06da467ee7905a8dad512c8")
@@ -93,11 +84,13 @@ export class BitsharesAPI {
     } else {
       throw new Error("Invalid network name. Choose mainnet or testnet.")
     }
+    console.error("AAAAAAAA")
 
     const publicKey = PrivateKey.fromWif(privateKey).toPublicKey().toString()
 
     /* eslint-disable @typescript-eslint/camelcase */
     const accounts = await btsWebsocketApi.instance.db.get_key_references([publicKey])
+    console.error({accounts})
 
     if (typeof accounts[0][0] === "undefined") {
       throw new Error(`Could not find any accounts for private key ${privateKey} on ${network}`)
