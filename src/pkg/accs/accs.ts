@@ -293,7 +293,7 @@ export default class ACCS {
     let currentBlockHeight = 0
     // If no HTLC found immediately, continue looking until timelock
     while (!success && currentBlockHeight < maxBlockHeight) {
-      htlcBTSProposer
+      await htlcBTSProposer
         .redeem(config.amountBTSMini, config.bitsharesPrivateKey, config.secret)
         .then((s) => {
           success = s
@@ -576,7 +576,7 @@ export default class ACCS {
 
     let preimage = ""
     while (!preimage && timeToWait > 0) {
-      await (await websocket)
+      await websocket
         .getPreimageFromHTLC(
           config.bitsharesAccountID,
           config.counterpartyBitsharesAccountID,
@@ -612,6 +612,7 @@ export default class ACCS {
    */
   public static async run(fields: ACCSFields): Promise<void> {
     const config = await ACCS.parseUserInput(fields)
+    console.log(config)
 
     if (config.type === "BTC" && config.mode === "proposer") {
       await ACCS.proposeBTSForBTC(config)
