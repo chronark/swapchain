@@ -5,6 +5,7 @@ import { mocked } from "ts-jest/utils"
 jest.mock("bitsharesjs-ws")
 jest.mock("bitsharesjs")
 
+
 beforeEach(() => {
   jest.resetAllMocks()
   mocked(btsWebsocketApi)
@@ -39,7 +40,6 @@ describe("getInstance()", () => {
 describe("getAccountID()", () => {
   it("should call db.get_accounts correctly", async () => {
     const api = new BitsharesAPI()
-
     await api.getAccountID("Batman")
     expect(btsWebsocketApi.db.get_accounts).toHaveBeenCalledWith(["Batman"])
   })
