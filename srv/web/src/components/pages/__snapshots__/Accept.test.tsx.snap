@@ -29,45 +29,6 @@ exports[`renders correctly 1`] = `
               className="flex flex-col justify-center space-y-4 md:flex-row md:space-x-4 md:space-y-0"
             >
               <button
-                className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
-                onClick={[Function]}
-              >
-                <div
-                  className="flex flex-col items-start justify-between p-4"
-                >
-                  <div
-                    className="flex items-center justify-between w-full"
-                  >
-                    <span
-                      className="text-left font-semibold text-gray-900"
-                    >
-                      Mainnet
-                    </span>
-                    <span
-                      className="text-xs font-thin text-gray-600"
-                    />
-                  </div>
-                  <p
-                    className="mt-2 text-sm text-left text-gray-600"
-                  >
-                    You are sending real money!
-                  </p>
-                </div>
-                <div
-                  className="flex items-center justify-center"
-                >
-                  <span
-                    className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
-                  >
-                    <svg
-                      className="h-8 text-red-600 "
-                    >
-                      exclamation.svg
-                    </svg>
-                  </span>
-                </div>
-              </button>
-              <button
                 className="focus:outline-none flex w-full items-center justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
                 onClick={[Function]}
               >
@@ -80,7 +41,7 @@ exports[`renders correctly 1`] = `
                     <span
                       className="text-left font-semibold text-gray-600"
                     >
-                      Testnet
+                      Mainnet
                     </span>
                     <span
                       className="text-xs font-thin text-gray-400"
@@ -89,7 +50,7 @@ exports[`renders correctly 1`] = `
                   <p
                     className="mt-2 text-sm text-left text-gray-400"
                   >
-                    Send test currencies on the testnet
+                    You are sending real money!
                   </p>
                 </div>
                 <div
@@ -97,6 +58,45 @@ exports[`renders correctly 1`] = `
                 >
                   <span
                     className="mr-4 text-3xl font-semibold hidden md:block text-gray-300"
+                  >
+                    <svg
+                      className="h-8 text-red-600 hidden"
+                    >
+                      exclamation.svg
+                    </svg>
+                  </span>
+                </div>
+              </button>
+              <button
+                className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
+                onClick={[Function]}
+              >
+                <div
+                  className="flex flex-col items-start justify-between p-4"
+                >
+                  <div
+                    className="flex items-center justify-between w-full"
+                  >
+                    <span
+                      className="text-left font-semibold text-gray-900"
+                    >
+                      Testnet
+                    </span>
+                    <span
+                      className="text-xs font-thin text-gray-600"
+                    />
+                  </div>
+                  <p
+                    className="mt-2 text-sm text-left text-gray-600"
+                  >
+                    Send test currencies on the testnet
+                  </p>
+                </div>
+                <div
+                  className="flex items-center justify-center"
+                >
+                  <span
+                    className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
                   />
                 </div>
               </button>
@@ -112,41 +112,6 @@ exports[`renders correctly 1`] = `
               className="flex flex-col items-center space-y-4 md:flex-row md:space-x-4 md:space-y-0"
             >
               <button
-                className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
-                onClick={[Function]}
-              >
-                <div
-                  className="flex flex-col items-start justify-between p-4"
-                >
-                  <div
-                    className="flex items-center justify-between w-full"
-                  >
-                    <span
-                      className="text-left font-semibold text-gray-900"
-                    >
-                      Bitcoin
-                    </span>
-                    <span
-                      className="text-xs font-thin text-gray-600"
-                    />
-                  </div>
-                  <p
-                    className="mt-2 text-sm text-left text-gray-600"
-                  >
-                    You are giving Bitcoin away
-                  </p>
-                </div>
-                <div
-                  className="flex items-center justify-center"
-                >
-                  <span
-                    className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
-                  >
-                    BTC
-                  </span>
-                </div>
-              </button>
-              <button
                 className="focus:outline-none flex w-full items-center justify-between border rounded bg-gray-100 hover:bg-white hover:shadow-sm"
                 onClick={[Function]}
               >
@@ -159,7 +124,7 @@ exports[`renders correctly 1`] = `
                     <span
                       className="text-left font-semibold text-gray-600"
                     >
-                      Bitshares
+                      Bitcoin
                     </span>
                     <span
                       className="text-xs font-thin text-gray-400"
@@ -168,7 +133,7 @@ exports[`renders correctly 1`] = `
                   <p
                     className="mt-2 text-sm text-left text-gray-400"
                   >
-                    You are giving Bitshares away
+                    You are giving Bitcoin away
                   </p>
                 </div>
                 <div
@@ -176,6 +141,41 @@ exports[`renders correctly 1`] = `
                 >
                   <span
                     className="mr-4 text-3xl font-semibold hidden md:block text-gray-300"
+                  >
+                    BTC
+                  </span>
+                </div>
+              </button>
+              <button
+                className="focus:outline-none flex w-full items-center justify-between border rounded border-teal-400 shadow hover:bg-white hover:shadow-sm"
+                onClick={[Function]}
+              >
+                <div
+                  className="flex flex-col items-start justify-between p-4"
+                >
+                  <div
+                    className="flex items-center justify-between w-full"
+                  >
+                    <span
+                      className="text-left font-semibold text-gray-900"
+                    >
+                      Bitshares
+                    </span>
+                    <span
+                      className="text-xs font-thin text-gray-600"
+                    />
+                  </div>
+                  <p
+                    className="mt-2 text-sm text-left text-gray-600"
+                  >
+                    You are giving Bitshares away
+                  </p>
+                </div>
+                <div
+                  className="flex items-center justify-center"
+                >
+                  <span
+                    className="mr-4 text-3xl font-semibold hidden md:block text-gray-900 "
                   >
                     BTS
                   </span>
@@ -206,7 +206,7 @@ exports[`renders correctly 1`] = `
                   <span
                     className="absolute inset-y-0 right-0 flex items-center mr-6 text-sm text-gray-600"
                   >
-                    BTC
+                    BTS
                   </span>
                   <input
                     className="w-full py-3 font-mono text-center text-gray-700 bg-gray-100 border border-gray-200 rounded focus:bg-white focus:border-teal-400"
@@ -271,7 +271,7 @@ exports[`renders correctly 1`] = `
                   <span
                     className="absolute inset-y-0 right-0 flex items-center mr-6 text-sm text-gray-600"
                   >
-                    BTS
+                    BTC
                                
                   </span>
                   <span
@@ -345,7 +345,7 @@ exports[`renders correctly 1`] = `
               </p>
             </div>
             <div
-              className="mt-2 "
+              className="mt-2 hidden"
             >
               <label
                 className="text-xs leading-4 tracking-wider text-gray-700 uppercase"
