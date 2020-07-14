@@ -16,6 +16,7 @@ export class BitsharesAPI {
    * Only for testing purposes. If you call the constructor, the websocket will not be open.
    * Use getInstance instead.
    */
+  /* eslint-disable-next-line @typescript-eslint/no-useless-constructor*/
   public constructor() {}
 
   /**

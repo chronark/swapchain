@@ -295,6 +295,7 @@ export default class ACCS {
     while (!success && currentBlockHeight < maxBlockHeight) {
       await htlcBTSProposer
         .redeem(config.amountBTSMini, config.bitsharesPrivateKey, config.secret)
+        /* eslint-disable-next-line */
         .then((s) => {
           success = s
         })
@@ -418,6 +419,7 @@ export default class ACCS {
           config.secret.hash,
           config.timelockBTS,
         )
+        /* eslint-disable-next-line */
         .then((res) => (id = res))
         .catch((err: Error) => {}) // This error is intentional and expected to occur for most iterations
 
@@ -527,11 +529,12 @@ export default class ACCS {
     let value: number | null = null
 
     while (txID === null && timeToWait > 0) {
-      // eslint-disable-next-line
       await htlcBTCAccepter.bitcoinAPI
         .getValueFromLastTransaction(p2wsh.address!)
         .then((res) => {
+          /* eslint-disable-next-line */
           txID = res.txID
+          /* eslint-disable-next-line */
           value = res.value
         })
         .catch((err: Error) => {}) // This error is intentional and expected to occur for most iterations
@@ -582,6 +585,7 @@ export default class ACCS {
           config.counterpartyBitsharesAccountID,
           config.secret.hash.toString("hex"),
         )
+        // eslint-disable-next-line
         .then((s: string) => (preimage = s))
         .catch((err: Error) => {}) // This error is intentional and expected to occur for most iterations
 

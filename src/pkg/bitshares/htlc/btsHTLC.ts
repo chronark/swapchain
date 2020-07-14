@@ -1,5 +1,4 @@
-import { Apis as btsWebsocketApi } from "bitsharesjs-ws"
-import { ChainStore, FetchChain, TransactionBuilder, PrivateKey } from "bitsharesjs"
+import { FetchChain, TransactionBuilder, PrivateKey } from "bitsharesjs"
 import { Secret } from "../../../pkg/secret/secret"
 import { BitsharesAPI } from "../api/api"
 
