@@ -5,7 +5,6 @@ import { mocked } from "ts-jest/utils"
 jest.mock("bitsharesjs-ws")
 jest.mock("bitsharesjs")
 
-
 beforeEach(() => {
   jest.resetAllMocks()
   mocked(btsWebsocketApi)

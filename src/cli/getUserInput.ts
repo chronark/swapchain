@@ -203,8 +203,9 @@ export async function getUserInput(): Promise<ACCSFields> {
   }
 
   console.log(
-    `\u001b[32m!\u001b[37;1m You will get ${fields.amountToReceive} ${fields.currencyToGive === "BTC" ? "BTS" : "BTC"} for giving ${
-      fields.amountToSend} ${fields.currencyToGive}.\u001b[0m`,
+    `\u001b[32m!\u001b[37;1m You will get ${fields.amountToReceive} ${
+      fields.currencyToGive === "BTC" ? "BTS" : "BTC"
+    } for giving ${fields.amountToSend} ${fields.currencyToGive}.\u001b[0m`,
   )
 
   if (fields.mode === "proposer") {

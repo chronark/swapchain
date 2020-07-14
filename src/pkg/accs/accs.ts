@@ -360,7 +360,7 @@ export default class ACCS {
     let txID: string | null = null
 
     while (txID === null && timeToWait > 0) {
-      htlcBTCProposer.bitcoinAPI
+      await htlcBTCProposer.bitcoinAPI
         .getValueFromLastTransaction(p2wsh.address!)
         // eslint-disable-next-line
         .then((res) => {
@@ -410,7 +410,7 @@ export default class ACCS {
     let id = ""
 
     while (!id && timeToWait > 0) {
-      websocket
+      await websocket
         .getID(
           config.counterpartyBitsharesAccountID,
           config.bitsharesAccountID,
@@ -460,7 +460,7 @@ export default class ACCS {
     while (preimageFromBlockchain === null && currentBlockHeight < maxBlockHeight) {
       currentBlockHeight = (await htlcBTCAccepter.bitcoinAPI.getLastBlock()).height
 
-      htlcBTCAccepter.bitcoinAPI
+      await htlcBTCAccepter.bitcoinAPI
         .getPreimageFromLastTransaction(p2wsh.address!)
         // eslint-disable-next-line
         .then((preimage) => (preimageFromBlockchain = preimage))
@@ -528,7 +528,7 @@ export default class ACCS {
 
     while (txID === null && timeToWait > 0) {
       // eslint-disable-next-line
-      htlcBTCAccepter.bitcoinAPI
+      await htlcBTCAccepter.bitcoinAPI
         .getValueFromLastTransaction(p2wsh.address!)
         .then((res) => {
           txID = res.txID

@@ -2,21 +2,17 @@ import ACCS, { ACCSConfig, ACCSFields } from "./accs"
 import * as bitcoin from "bitcoinjs-lib"
 import { mocked } from "ts-jest/utils"
 import { Timer } from "./timer"
-import {BitsharesAPI} from "../bitshares/api/api"
+import { BitsharesAPI } from "../bitshares/api/api"
 
 jest.mock("../bitshares/api/api")
 console.log = jest.fn()
 
 beforeEach(() => {
   jest.resetAllMocks()
-
-
-
 })
 
 describe("parseUserInput()", () => {
   it.skip("parses the raw user input correctly and returns an ACCS config for BTC testnet", async () => {
-    
     const preimage = "TOPSECRETTOPSECRETTOPSECRETTOPSE"
     const secretObject = {
       preimage,
