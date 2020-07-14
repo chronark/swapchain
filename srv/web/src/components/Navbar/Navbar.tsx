@@ -9,7 +9,7 @@ export const Navbar = () => {
     const toggleMenu = () => {
         setOpen(!open)
     }
-
+ 
     const linkStyle = "p-6 text-gray-700 transition duration-300 ease-in-out border-transparent hover:text-teal-400 md:border-b-2 hover:border-teal-400 focus:outline-none"
 
 
