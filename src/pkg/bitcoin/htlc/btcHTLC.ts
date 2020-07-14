@@ -41,7 +41,7 @@ interface HTLCConfigBTC {
 }
 
 /**
- *
+ * Handle creation, redemption and refunding of HTLCs on the bitcoin blockchain
  */
 export default class BitcoinHTLC {
   private network: bitcoin.Network

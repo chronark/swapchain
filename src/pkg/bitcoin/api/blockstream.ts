@@ -221,7 +221,7 @@ export class BlockStream implements BitcoinAPI {
    */
   public async getFeeEstimates(): Promise<number[]> {
     // It's not necessary to call API on testnet since the fee estimates should always return 1.0 sat/vB on testnet
-    if (this.baseURL.endsWith("testnet/")) {
+    if (this.baseURL.endsWith("testnet/api")) {
       return [1.0]
     }
 

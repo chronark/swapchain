@@ -446,4 +446,10 @@ describe("getFeeEstimates()", () => {
     const mockedAxios = jest.spyOn(axios, "get").mockResolvedValueOnce({})
     await expect(blockstream.getFeeEstimates()).rejects.toThrow()
   })
+
+  it("sets the fees to 1.0 on the testnet", async () => {
+    const blockstream = new BlockStream("testnet")
+    const fees = await blockstream.getFeeEstimates()
+    expect(fees).toEqual([1.0])
+  })
 })

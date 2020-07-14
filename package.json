@@ -91,7 +91,9 @@
       "!**/*.d.ts",
       "!src/cli/*.ts",
       "!**/witnessStack.ts",
-      "!**/index.ts"
+      "!**/index.{ts,tsx}",
+      "!**/accs.ts",
+      "!**/types/*"
     ],
     "coverageThreshold": {
       "global": {
