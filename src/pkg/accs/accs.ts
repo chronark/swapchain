@@ -1,3 +1,4 @@
+/*eslint no-loop-func: "off"*/
 import { Secret } from "../secret/secret"
 import * as bitcoin from "bitcoinjs-lib"
 import BitcoinHTLC from "../bitcoin/htlc/btcHTLC"
