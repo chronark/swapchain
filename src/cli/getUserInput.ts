@@ -204,7 +204,8 @@ export async function getUserInput(): Promise<ACCSFields> {
 
   console.log(
     `You will get ${fields.amountToReceive} ${fields.currencyToGive === "BTC" ? "BTS" : "BTC"} for giving ${
-      fields.amountToSend} ${fields.currencyToGive}.`,
+      fields.amountToSend
+    } ${fields.currencyToGive}.`,
   )
 
   if (fields.mode === "proposer") {
