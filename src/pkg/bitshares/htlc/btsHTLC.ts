@@ -77,7 +77,7 @@ export default class BitsharesHTLC {
    * @returns Success status. Can be used for user feedback.
    * @memberof BitsharesHTLC
    */
-  public async create(config: HTLCConfig): Promise<void> {
+  public async create(config: HTLCConfig): Promise<boolean> {
     await BitsharesAPI.getInstance(this.node)
     const { amount, asset, time, hash, privateKey } = config
 
@@ -98,6 +98,8 @@ export default class BitsharesHTLC {
     await tr.set_required_fees()
     tr.add_signer(PrivateKey.fromWif(privateKey))
     tr.broadcast()
+
+    return true
   }
 
   /**
@@ -113,7 +115,7 @@ export default class BitsharesHTLC {
    * @returns Success status. Can be used for user feedback.
    * @memberof BitsharesHTLC
    */
-  public async redeem(amount: number, privateKey: string, secret: Secret): Promise<void> {
+  public async redeem(amount: number, privateKey: string, secret: Secret): Promise<boolean> {
     const websocket = await BitsharesAPI.getInstance(this.node)
 
     // Throws if nothing is found, you must handle this in accs.
@@ -130,5 +132,7 @@ export default class BitsharesHTLC {
     await tr.set_required_fees()
     tr.add_signer(PrivateKey.fromWif(privateKey))
     await tr.broadcast()
+
+    return true
   }
 }
