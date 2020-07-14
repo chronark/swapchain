@@ -123,7 +123,7 @@ export default class BitsharesHTLC {
     const tr = new TransactionBuilder()
     tr.add_type_operation("htlc_redeem", {
       preimage: Buffer.from(secret.preimage!).toString("hex"),
-      /* eslint-disable -next-line @typescript-eslint/camelcase */
+      /* eslint-disable-next-line @typescript-eslint/camelcase */
       htlc_id: htlcID,
       redeemer: this.receiverID,
       extensions: null,
