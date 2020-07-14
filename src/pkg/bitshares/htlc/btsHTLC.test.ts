@@ -26,10 +26,8 @@ beforeEach(() => {
   jest.resetAllMocks()
   mocked(btsWebsocketApi)
 
-
-
   btsWebsocketApi.instance = jest.fn().mockResolvedValue({
-    getID: () => "testID"
+    getID: () => "testID",
   })
   /* eslint-disable @typescript-eslint/camelcase */
   btsWebsocketApi.db.get_accounts = jest.fn().mockResolvedValue([{ id: "1.1.1" }, { id: "1.1.2" }])
@@ -65,7 +63,6 @@ describe("btsHTLC", () => {
   })
 
   it("redeems a single HTLC", async () => {
-
     jest.spyOn(BitsharesAPI.prototype, "getID").mockResolvedValue("1.16.111")
 
     /* eslint-disable @typescript-eslint/camelcase */
@@ -198,15 +195,13 @@ describe("btsHTLC", () => {
         /* eslint-disable @typescript-eslint/camelcase */
         btsWebsocketApi.history.get_relative_account_history = jest.fn().mockResolvedValue(tc.mockReturn)
         const broadcastMock = jest.spyOn(TransactionBuilder.prototype, "broadcast")
-        
-        
+
         const htlc = new BitsharesHTLC("node", "account1", "account2")
 
         htlc.redeem(htlcTestConfig.amount, otherPrivateKey, testSecret)
         await new Promise((resolve) => setTimeout(resolve, 100))
 
         expect(broadcastMock).toBeCalledTimes(1)
-
       })
     })
 
@@ -260,9 +255,7 @@ describe("btsHTLC", () => {
     })
 
     it("returns status", async () => {
-
       const broadcastMock = jest.spyOn(TransactionBuilder.prototype, "broadcast")
-
 
       const htlc = new BitsharesHTLC("node", "account1", "account2")
       await htlc.create(htlcTestConfig)
