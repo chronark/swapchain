@@ -236,7 +236,7 @@ To trade cryptocurrency with Swapchain no user account is needed. You just enter
 
 #### 3.3.2 What information do I need to trade? 
 
-- Your crpytocurrency address: Alphanumeric characters representing the destination for a payment.
+- Your cryptocurrency address: Alphanumeric characters representing the destination for a payment.
 - Your public key: Part of the keys used for encryption and decryption of information. The public key enables message encryption only when the respective private key is used. Is of no value without the respective private key.
 - Your private key: Secret key that should not be revealed to anybody else then the key owner.
 
@@ -252,8 +252,8 @@ To trade cryptocurrency with Swapchain no user account is needed. You just enter
 
 1. Enter the Swapchain app and choose the proposer option in order to initiate a swap.
 2. Fill out the form with all the needed information and click Submit. 
-3. A secret hash is generated. Copy the hash and send it to your exchange partner together with your Bitcoin publickey and your Bitshares account name. 
-4. Stay in the browser until the transaction is completed. Do not leave the browser by any means. 
+3. A secret hash is generated. Copy the hash and send it to your exchange partner together with your Bitcoin public key and your Bitshares account name. 
+4. Stay in the browser until the transaction is completed. Do not leave the browser by any means. You need to have a stable internet connection throughout the transaction.
 5. After the the successful transaction or redemption because of timelock expiry you are notified and free to leave the browser. 
 
 #### 3.3.5 How do I complete the swap as a counterpart? 
