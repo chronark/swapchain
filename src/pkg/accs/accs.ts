@@ -612,7 +612,6 @@ export default class ACCS {
    */
   public static async run(fields: ACCSFields): Promise<void> {
     const config = await ACCS.parseUserInput(fields)
-    console.log(config)
 
     if (config.type === "BTC" && config.mode === "proposer") {
       await ACCS.proposeBTSForBTC(config)

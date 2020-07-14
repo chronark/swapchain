@@ -31,7 +31,7 @@ export async function getUserInput(): Promise<ACCSFields> {
     }
 
     if (!("mode" in fields) || (fields.mode !== "proposer" && fields.mode !== "accepter")) {
-      errorHandler("Invalid mode. Choose proposer or accepter")
+      errorHandler("Invalid mode. Choose proposer or accepter.")
     } else if (
       !("networkToTrade" in fields) ||
       (fields.networkToTrade !== "mainnet" && fields.networkToTrade !== "testnet")
@@ -64,7 +64,7 @@ export async function getUserInput(): Promise<ACCSFields> {
     } else if (fields.mode === "accepter" && (!("secretHash" in fields) || fields.secretHash!.length !== 64)) {
       errorHandler("Invalid secret hash.")
     } else if (fields.currencyToGive === "BTC" && (!("bitcoinTxID" in fields) || fields.bitcoinTxID.length !== 64)) {
-      errorHandler("Invalid Bitcoin Transaction ID")
+      errorHandler("Invalid Bitcoin Transaction ID.")
     }
   } else {
     const questions: inquirer.QuestionCollection = [
@@ -203,8 +203,8 @@ export async function getUserInput(): Promise<ACCSFields> {
   }
 
   console.log(
-    `You will get ${fields.amountToReceive} ${fields.currencyToGive === "BTC" ? "BTS" : "BTC"} for giving ${
-      fields.amountToSend} ${fields.currencyToGive}.`,
+    `\u001b[32m!\u001b[37;1m You will get ${fields.amountToReceive} ${fields.currencyToGive === "BTC" ? "BTS" : "BTC"} for giving ${
+      fields.amountToSend} ${fields.currencyToGive}.\u001b[0m`,
   )
 
   if (fields.mode === "proposer") {
@@ -230,6 +230,6 @@ export async function getUserInput(): Promise<ACCSFields> {
  * @param message - The message to print.
  */
 function errorHandler(message: string): void {
-  console.error(message)
+  console.error("\u001b[31mError: \u001b[37;1m" + message + "\u001b[0m")
   process.exit(1)
 }
