@@ -1,6 +1,5 @@
 import { Secret } from "../secret/secret"
 import * as bitcoin from "bitcoinjs-lib"
-import { Apis as btsWebsocketApi } from "bitsharesjs-ws"
 import BitcoinHTLC from "../bitcoin/htlc/btcHTLC"
 import BitsharesHTLC from "../bitshares/htlc/btsHTLC"
 import { BlockStream } from "../bitcoin/api/blockstream"

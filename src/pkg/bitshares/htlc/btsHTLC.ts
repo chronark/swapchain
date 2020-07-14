@@ -80,9 +80,8 @@ export default class BitsharesHTLC {
    * @returns Success status. Can be used for user feedback.
    * @memberof BitsharesHTLC
    */
-  public async create(config: HTLCConfig): Promise<boolean> {
+  public async create(config: HTLCConfig): Promise<void> {
     await BitsharesAPI.getInstance(this.node)
-    // TODO: Requires proper error handling. Right now it always returns true.
     const { amount, asset, time, hash, privateKey } = config
 
     const sendAsset = await FetchChain("getAsset", asset)
@@ -102,8 +101,6 @@ export default class BitsharesHTLC {
     await tr.set_required_fees()
     tr.add_signer(PrivateKey.fromWif(privateKey))
     tr.broadcast()
-
-    return true
   }
 
   /**
@@ -119,17 +116,16 @@ export default class BitsharesHTLC {
    * @returns Success status. Can be used for user feedback.
    * @memberof BitsharesHTLC
    */
-  public async redeem(amount: number, privateKey: string, secret: Secret): Promise<boolean> {
+  public async redeem(amount: number, privateKey: string, secret: Secret): Promise<void> {
     const websocket = await BitsharesAPI.getInstance(this.node)
 
     // Throws if nothing is found, you must handle this in accs.
-    const htlcId = await websocket.getID(this.senderID, this.receiverID, amount, secret.hash)
-
+    const htlcID = await websocket.getID(this.senderID, this.receiverID, amount, secret.hash)
     const tr = new TransactionBuilder()
     tr.add_type_operation("htlc_redeem", {
       preimage: Buffer.from(secret.preimage!).toString("hex"),
       /* eslint-disable -next-line @typescript-eslint/camelcase */
-      htlc_id: htlcId,
+      htlc_id: htlcID,
       redeemer: this.receiverID,
       extensions: null,
     })
@@ -137,6 +133,5 @@ export default class BitsharesHTLC {
     await tr.set_required_fees()
     tr.add_signer(PrivateKey.fromWif(privateKey))
     await tr.broadcast()
-    return true
   }
 }

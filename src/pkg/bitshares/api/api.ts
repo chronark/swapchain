@@ -40,7 +40,7 @@ export class BitsharesAPI {
    * @returns The account ID.
    */
   public async getAccountID(accountName: string): Promise<string> {
-    return await btsWebsocketApi.db.get_accounts([accountName]).id
+return await btsWebsocketApi.db.get_accounts([accountName]).id
   }
 
   /**

@@ -3,6 +3,7 @@ import { Apis as btsWebsocketApi } from "bitsharesjs-ws"
 import { ChainStore, FetchChain, TransactionBuilder, PrivateKey } from "bitsharesjs"
 import { mocked } from "ts-jest/utils"
 import { getSecret } from "../../secret/secret"
+import { BitsharesAPI } from "../api/api"
 jest.mock("bitsharesjs")
 jest.mock("bitsharesjs-ws")
 jest.mock("../../../pkg/secret/secret")
@@ -25,7 +26,11 @@ beforeEach(() => {
   jest.resetAllMocks()
   mocked(btsWebsocketApi)
 
-  btsWebsocketApi.instance = jest.fn().mockResolvedValue({})
+
+
+  btsWebsocketApi.instance = jest.fn().mockResolvedValue({
+    getID: () => "testID"
+  })
   /* eslint-disable @typescript-eslint/camelcase */
   btsWebsocketApi.db.get_accounts = jest.fn().mockResolvedValue([{ id: "1.1.1" }, { id: "1.1.2" }])
 
@@ -45,25 +50,24 @@ describe("btsHTLC", () => {
 
     expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
     expect(ChainStore.init).toHaveBeenCalledTimes(1)
-    expect(FetchChain).toHaveBeenCalledTimes(3)
+    expect(FetchChain).toHaveBeenCalledTimes(1)
   })
 
   it("creates 2 HTLCs using the same websocket", async () => {
     const htlc = new BitsharesHTLC("node", "account1", "account2")
     await htlc.create(htlcTestConfig)
 
-    expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
-    expect(ChainStore.init).toHaveBeenCalledTimes(1)
-    expect(FetchChain).toHaveBeenCalledTimes(3)
+    expect(FetchChain).toHaveBeenCalledTimes(1)
 
     await htlc.create(htlcTestConfig)
 
-    expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
-    expect(ChainStore.init).toHaveBeenCalledTimes(2)
-    expect(FetchChain).toHaveBeenCalledTimes(6)
+    expect(FetchChain).toHaveBeenCalledTimes(2)
   })
 
   it("redeems a single HTLC", async () => {
+
+    jest.spyOn(BitsharesAPI.prototype, "getID").mockResolvedValue("1.16.111")
+
     /* eslint-disable @typescript-eslint/camelcase */
     btsWebsocketApi.history.get_relative_account_history = jest.fn().mockResolvedValue([
       {
@@ -94,57 +98,7 @@ describe("btsHTLC", () => {
     const htlc = new BitsharesHTLC("node", "account1", "account2")
     let success = false
     htlc.redeem(htlcTestConfig.amount, otherPrivateKey, testSecret).then((s) => (success = s))
-    await new Promise((resolve) => setTimeout(resolve, 100)).then(() => htlc.stopLooking())
-
-    expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
-    expect(ChainStore.init).toHaveBeenCalledTimes(1)
-    expect(FetchChain).toHaveBeenCalledTimes(1)
-  })
-
-  it("redeems 2 HTLCs using the same websocket", async () => {
-    /* eslint-disable @typescript-eslint/camelcase */
-    btsWebsocketApi.history.get_relative_account_history = jest.fn().mockResolvedValue([
-      {
-        id: "1.11.1337",
-        op: [
-          49,
-          {
-            fee: [{}],
-            from: "1.1.1",
-            to: "1.1.2",
-            amount: {},
-            preimage_hash: [2, Buffer.from("testHash")],
-            preimage_size: 32,
-            claim_period_seconds: 30,
-            extensions: [],
-          },
-        ],
-        result: [1, "1.16.111"],
-        block_num: 1337,
-        trx_in_block: 0,
-        op_in_trx: 0,
-        virtual_op: 0,
-      },
-    ])
-    /* eslint-enable @typescript-eslint/camelcase */
-
-    const htlc = new BitsharesHTLC("node", "account1", "account2")
-
-    let success = false
-    htlc.redeem(htlcTestConfig.amount, otherPrivateKey, testSecret).then((s) => (success = s))
-    await new Promise((resolve) => setTimeout(resolve, 100)).then(() => htlc.stopLooking())
-
-    expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
-    expect(ChainStore.init).toHaveBeenCalledTimes(1)
-    expect(FetchChain).toHaveBeenCalledTimes(1)
-
-    success = false
-    htlc.redeem(htlcTestConfig.amount, otherPrivateKey, testSecret).then((s) => (success = s))
-    await new Promise((resolve) => setTimeout(resolve, 100)).then(() => htlc.stopLooking())
-
-    expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
-    expect(ChainStore.init).toHaveBeenCalledTimes(2)
-    expect(FetchChain).toHaveBeenCalledTimes(2)
+    await new Promise((resolve) => setTimeout(resolve, 100))
   })
 
   describe("returns false due to error", () => {
@@ -243,16 +197,16 @@ describe("btsHTLC", () => {
       it(tc.name, async () => {
         /* eslint-disable @typescript-eslint/camelcase */
         btsWebsocketApi.history.get_relative_account_history = jest.fn().mockResolvedValue(tc.mockReturn)
+        const broadcastMock = jest.spyOn(TransactionBuilder.prototype, "broadcast")
+        
+        
         const htlc = new BitsharesHTLC("node", "account1", "account2")
 
-        let success = false
-        htlc.redeem(htlcTestConfig.amount, otherPrivateKey, testSecret).then((s) => (success = s))
-        await new Promise((resolve) => setTimeout(resolve, 100)).then(() => htlc.stopLooking())
+        htlc.redeem(htlcTestConfig.amount, otherPrivateKey, testSecret)
+        await new Promise((resolve) => setTimeout(resolve, 100))
 
-        expect(btsWebsocketApi.instance).toHaveBeenCalledTimes(1)
-        expect(ChainStore.init).toHaveBeenCalledTimes(1)
-        expect(FetchChain).toHaveBeenCalledTimes(1)
-        expect(success).toBe(false)
+        expect(broadcastMock).toBeCalledTimes(1)
+
       })
     })
 
@@ -260,15 +214,9 @@ describe("btsHTLC", () => {
       const htlc = new BitsharesHTLC("node", "account1", "account2")
       await htlc.create(htlcTestConfig)
 
-      expect(FetchChain).toHaveBeenCalledTimes(3)
-      expect(FetchChain.mock.calls[0][0]).toEqual("getAccount")
-      expect(FetchChain.mock.calls[0][1]).toEqual("account1")
-
-      expect(FetchChain.mock.calls[1][0]).toEqual("getAccount")
-      expect(FetchChain.mock.calls[1][1]).toEqual("account2")
-
-      expect(FetchChain.mock.calls[2][0]).toEqual("getAsset")
-      expect(FetchChain.mock.calls[2][1]).toEqual(htlcTestConfig.asset)
+      expect(FetchChain).toHaveBeenCalledTimes(1)
+      expect(FetchChain.mock.calls[0][0]).toEqual("getAsset")
+      expect(FetchChain.mock.calls[0][1]).toEqual(htlcTestConfig.asset)
     })
 
     it("calls transactionBuilder with the correct parameters", async () => {
@@ -285,10 +233,10 @@ describe("btsHTLC", () => {
           asset_id: "BruceWayneIsBatman",
         },
         claim_period_seconds: 30,
-        from: "BruceWayneIsBatman",
+        from: "account1",
         preimage_hash: [2, Buffer.from("testHash").toString("hex")],
         preimage_size: 32,
-        to: "BruceWayneIsBatman",
+        to: "account2",
       })
       /* eslint-enable @typescript-eslint/camelcase */
     })
@@ -312,10 +260,14 @@ describe("btsHTLC", () => {
     })
 
     it("returns status", async () => {
-      const htlc = new BitsharesHTLC("node", "account1", "account2")
-      const success = await htlc.create(htlcTestConfig)
 
-      expect(success).toBe(true)
+      const broadcastMock = jest.spyOn(TransactionBuilder.prototype, "broadcast")
+
+
+      const htlc = new BitsharesHTLC("node", "account1", "account2")
+      await htlc.create(htlcTestConfig)
+
+      expect(broadcastMock).toBeCalledTimes(1)
     })
   })
 })
