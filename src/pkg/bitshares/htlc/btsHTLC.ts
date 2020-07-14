@@ -72,9 +72,6 @@ export default class BitsharesHTLC {
   /**
    * Create and send the actual HTLC.
    *
-   * Never call this function directly but use `create()` instead.
-   * That's because the websocket must be open before creating an HTLC.
-   *
    * @private
    * @param config - Configuration object for the HTLC.
    * @returns Success status. Can be used for user feedback.
