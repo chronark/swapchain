@@ -1,7 +1,7 @@
 module.exports = {
   title: "swapchain documentation",
   tagline:
-    "Swapchain is an application for performing ACCS (atomic cross chain swaps) via HTLCs (hash-time-locked contracts",
+    "Swapchain creates a trustless environment for the decentralized exchange of assets using Hashed Time Lock Contracts",
   url: "https://chronark.github.io/swapchain",
   baseUrl: "/",
   favicon: "img/favicon.ico",
@@ -18,7 +18,7 @@ module.exports = {
         {
           to: "docs/architecture",
           activeBasePath: "docs",
-          label: "SW Architecture",
+          label: "Software Architecture",
           position: "left",
         },
         {
@@ -37,18 +37,6 @@ module.exports = {
     },
     footer: {
       style: "dark",
-      links: [
-        {
-          title: "More",
-          items: [
-            {
-              label: "GitHub",
-              href: "https://github.com/chronark/swapchain",
-            },
-          ],
-        },
-      ],
-      copyright: "", //`Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
     },
   },
   presets: [
