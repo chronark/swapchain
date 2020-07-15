@@ -1,5 +1,5 @@
 import React from "react"
-import { Orderbook, Order } from "./Orderbook"
+import { Orderbook, Order, orderFactory } from "./Orderbook"
 import renderer from "react-test-renderer"
 
 jest.spyOn(Math, "random").mockImplementation(() => 1)
@@ -31,4 +31,19 @@ it("renders correctly", () => {
 
   const tree = renderer.create(<Orderbook orders={orders}></Orderbook>).toJSON()
   expect(tree).toMatchSnapshot()
+})
+
+describe("orderFactory()", () => {
+  it("returns a new order", () => {
+    const order = orderFactory(1)[0]
+    expect(order.selected).toBe(false)
+    expect(order.addressHash.length).toBe(64)
+    expect(order.status.label.length > 0).toBe(true)
+    expect(order.status.color.length > 0).toBe(true)
+    expect(order.give.asset.length > 0).toBe(true)
+    expect(order.give.value > 0).toBe(true)
+    expect(order.exchangeRate > 0).toBe(true)
+    expect(order.receive.asset.length > 0).toBe(true)
+    expect(order.receive.value > 0).toBe(true)
+  })
 })

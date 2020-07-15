@@ -30,4 +30,7 @@ describe("key validators", () => {
   it("validates a wrong Bitshares private key as invalid", () => {
     expect(isValidBitsharesPrivateKey("TOTALLYWRONG")).toBe(false)
   })
+  it("validates a 51 character long bitcoin private key as invalid", () => {
+    expect(isValidBitcoinPrivateKey("123456789012345678901234567890123456789012345678901", "mainnet")).toBe(false)
+  })
 })

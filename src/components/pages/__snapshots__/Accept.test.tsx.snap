@@ -423,7 +423,7 @@ exports[`renders correctly 1`] = `
                 </label>
                 <input
                   className="w-full py-3 font-mono text-center text-gray-700 bg-gray-100 border border-gray-200 rounded focus:bg-white focus:border-teal-400"
-                  name="hash"
+                  name="secretHash"
                   onChange={[Function]}
                   placeholder="randomLookingHash"
                   required={true}

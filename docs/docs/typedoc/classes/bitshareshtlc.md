@@ -42,7 +42,7 @@ Handler to create HTLCs on the bitshares blockchain using a specified node.
 
 \+ **new BitsharesHTLC**(`node`: string, `sender`: string, `receiver`: string): *[BitsharesHTLC](bitshareshtlc.md)*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:58](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L58)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:58](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L58)*
 
 Creates an instance of BitsharesHTLC.
 
@@ -64,7 +64,7 @@ Name | Type | Description |
 
 • **keepLooking**: *boolean*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:58](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L58)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:58](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L58)*
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 • **node**: *string*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:54](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L54)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:54](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L54)*
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 • **receiver**: *string*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:56](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L56)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:56](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L56)*
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 • **sender**: *string*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:55](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L55)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:55](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L55)*
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 • **websocket**: *Promise‹void› | null*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:57](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L57)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:57](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L57)*
 
 ## Methods
 
@@ -104,7 +104,7 @@ ___
 
 ▸ **create**(`config`: [HTLCConfig](../interfaces/htlcconfig.md)): *Promise‹boolean›*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:102](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L102)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:102](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L102)*
 
 Wrapper function to open the websocket if necessary.
 
@@ -126,7 +126,7 @@ ___
 
 ▸ **createHTLC**(`config`: [HTLCConfig](../interfaces/htlcconfig.md)): *Promise‹boolean›*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:138](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L138)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:138](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L138)*
 
 Create and send the actual HTLC.
 
@@ -149,9 +149,9 @@ ___
 
 ###  getID
 
-▸ **getID**(`amount`: number, `hash`: Buffer): *Promise‹string›*
+▸ **getID**(`amount`: number, `hash`: Buffer, `timelock?`: undefined | number): *Promise‹string›*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:222](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L222)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:222](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L222)*
 
 Get the HTLC BitShares ID.
 
@@ -167,6 +167,7 @@ Name | Type | Description |
 ------ | ------ | ------ |
 `amount` | number | The amount of assets of the HTLC. |
 `hash` | Buffer | The SHA256 hash of the secret. |
+`timelock?` | undefined &#124; number | - |
 
 **Returns:** *Promise‹string›*
 
@@ -178,7 +179,7 @@ ___
 
 ▸ **openSocket**(`node`: string): *Promise‹void›*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:84](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L84)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:84](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L84)*
 
 Opens a websocket to a bitshares node
 
@@ -200,7 +201,7 @@ ___
 
 ▸ **redeem**(`amount`: number, `privateKey`: string, `secret`: [Secret](../interfaces/secret.md)): *Promise‹boolean›*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:119](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L119)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:119](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L119)*
 
 Wrapper function to open the websocket if necessary.
 
@@ -224,7 +225,7 @@ ___
 
 ▸ **redeemHTLC**(`amount`: number, `privateKey`: string, `secret`: [Secret](../interfaces/secret.md)): *Promise‹boolean›*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:181](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L181)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:181](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L181)*
 
 Redeem the actual HTLC.
 
@@ -251,7 +252,7 @@ ___
 
 ▸ **stopLooking**(): *void*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:91](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L91)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:91](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L91)*
 
 Stops looking for matching HTLC.
 

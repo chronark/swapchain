@@ -5,7 +5,7 @@ import { BlockStream } from "../api/blockstream"
 jest.mock("axios")
 jest.mock("../api/blockstream")
 
-jest.setTimeout(10000)
+jest.setTimeout(20000)
 const alice = bitcoin.ECPair.fromWIF("cU3CS1SGfFQ5FvCHTWyo7JEBjWWEAcqMM84JJwGnQg9Deugj8Skw", bitcoin.networks.testnet)
 const bob = bitcoin.ECPair.fromWIF("cNaEjitvA19JZxWAFyCFMsm16TvGEmVAW3AkPnVr8E9vgwdZWMGV", bitcoin.networks.testnet)
 const bobCompressed = bitcoin.ECPair.fromPrivateKey(bob.privateKey!, { compressed: true })
@@ -25,7 +25,7 @@ const getBlockstreamMock = () => {
       .mockResolvedValue("amos"),
     getValueFromLastTransaction: jest
       .spyOn(BlockStream.prototype, "getValueFromLastTransaction")
-      .mockResolvedValue({ value: 2, txID: "txID" }),
+      .mockResolvedValue({ value: 97000, txID: "txID" }),
     getOutput: jest.spyOn(BlockStream.prototype, "getOutput").mockResolvedValue({ vout: 1, value: 1_000_000 }),
     getBlockHeight: jest.spyOn(BlockStream.prototype, "getBlockHeight").mockResolvedValue(1_000_000),
     getFeeEstimates: jest.spyOn(BlockStream.prototype, "getFeeEstimates").mockResolvedValue([25.4, 14.2, 5.1]),
@@ -73,11 +73,7 @@ beforeEach(() => {
 })
 describe("btcHTLC", () => {
   describe("create()", () => {
-    // Disable logging
-    // Right now we are still printing the refund hex to console
-    console.log = jest.fn()
-
-    it("create method calls methods where bob redeems the HTLC", async () => {
+    it("calls methods to create the HTLC", async () => {
       const blockStreamMock = getBlockstreamMock()
 
       const htlc = new BitcoinHTLC("testnet", aliceCompressed, bobCompressed, 0, BlockStream)
@@ -113,7 +109,7 @@ describe("btcHTLC", () => {
 
       const p2wsh = htlc.getP2WSH(secret.hash, 1)
 
-      await htlc.redeem(p2wsh, secret)
+      await htlc.redeem(p2wsh, 100000, secret)
 
       expect(bitcoin.payments.p2wsh).toHaveBeenCalledTimes(1)
 
@@ -121,6 +117,14 @@ describe("btcHTLC", () => {
       expect(bitcoin.Psbt.prototype.finalizeInput).toHaveBeenCalledTimes(1)
       expect(bitcoin.Psbt.prototype.extractTransaction).toHaveBeenCalledTimes(1)
       expect(blockStreamMock.pushTX).toHaveBeenCalledTimes(1)
+    })
+    it("throws if amount sent is not sufficient", async () => {
+      const htlc = new BitcoinHTLC("testnet", aliceCompressed, bobCompressed, 1, BlockStream)
+
+      const p2wsh = htlc.getP2WSH(secret.hash, 1)
+
+      expect(bitcoin.payments.p2wsh).toHaveBeenCalledTimes(1)
+      await expect(htlc.redeem(p2wsh, 200000, secret)).rejects.toThrow()
     })
   })
 })

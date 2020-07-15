@@ -126,6 +126,9 @@ describe("getValueFromLastTransaction()", () => {
               value: 111111111,
             },
           ],
+          status: {
+            confirmed: true,
+          },
         },
       ],
       out: true,
@@ -150,6 +153,9 @@ describe("getValueFromLastTransaction()", () => {
               value: 3,
             },
           ],
+          status: {
+            confirmed: true,
+          },
         },
       ],
       out: true,
@@ -168,6 +174,23 @@ describe("getValueFromLastTransaction()", () => {
       expect(mockedAxios).toHaveBeenCalledTimes(1)
       expect(mockedAxios).toHaveBeenCalledWith(`https://blockstream.info/api/address/${address}/txs`)
     })
+  })
+  it("throws if address is correct but transaction isn't confirmed yet", async () => {
+    const mockedAxios = jest.spyOn(axios, "get").mockResolvedValueOnce({
+      status: 200,
+      data: {
+        txid: "testID",
+        vout: [
+          {
+            scriptpubkey_address: address,
+            value: 1,
+          },
+        ],
+        status: { confirmed: false },
+      },
+    })
+
+    await expect(blockstream.getValueFromLastTransaction(address)).rejects.toThrow()
   })
 })
 
@@ -422,5 +445,11 @@ describe("getFeeEstimates()", () => {
   it("should throw an error if the API does not return a status 200", async () => {
     const mockedAxios = jest.spyOn(axios, "get").mockResolvedValueOnce({})
     await expect(blockstream.getFeeEstimates()).rejects.toThrow()
+  })
+
+  it("sets the fees to 1.0 on the testnet", async () => {
+    const blockstream = new BlockStream("testnet")
+    const fees = await blockstream.getFeeEstimates()
+    expect(fees).toEqual([1.0])
   })
 })

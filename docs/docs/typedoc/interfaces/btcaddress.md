@@ -26,7 +26,7 @@ An interface for a Bitcoin key/address pair
 
 • **address**: *string*
 
-*Defined in [pkg/address/address.ts:12](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/address/address.ts#L12)*
+*Defined in [pkg/address/address.ts:12](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/address.ts#L12)*
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 • **privateKey**: *string*
 
-*Defined in [pkg/address/address.ts:10](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/address/address.ts#L10)*
+*Defined in [pkg/address/address.ts:10](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/address.ts#L10)*
 
 ___
 
@@ -42,4 +42,4 @@ ___
 
 • **publicKey**: *string*
 
-*Defined in [pkg/address/address.ts:11](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/address/address.ts#L11)*
+*Defined in [pkg/address/address.ts:11](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/address.ts#L11)*

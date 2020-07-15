@@ -22,7 +22,7 @@ sidebar_label: "BitcoinAPIConstructor"
 
 \+ **new BitcoinAPIConstructor**(`network`: string): *[BitcoinAPI](bitcoinapi.md)*
 
-*Defined in [pkg/types/bitcoinApi.ts:1](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/types/bitcoinApi.ts#L1)*
+*Defined in [pkg/types/bitcoinApi.ts:1](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L1)*
 
 Creates an instance of BitcoinAPI.
 

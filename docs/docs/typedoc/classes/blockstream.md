@@ -45,7 +45,7 @@ Handler to fetch and push data from the Blockstream API.
 
 \+ **new BlockStream**(`network`: string): *[BlockStream](blockstream.md)*
 
-*Defined in [pkg/bitcoin/api/blockstream.ts:11](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/api/blockstream.ts#L11)*
+*Defined in [pkg/bitcoin/api/blockstream.ts:11](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/api/blockstream.ts#L11)*
 
 Creates an instance of BlockStream.
 
@@ -65,7 +65,7 @@ Name | Type | Description |
 
 • **baseURL**: *string*
 
-*Defined in [pkg/bitcoin/api/blockstream.ts:11](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/api/blockstream.ts#L11)*
+*Defined in [pkg/bitcoin/api/blockstream.ts:11](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/api/blockstream.ts#L11)*
 
 ## Methods
 
@@ -73,7 +73,7 @@ Name | Type | Description |
 
 ▸ **getBlockHeight**(`transactionID`: string): *Promise‹number | undefined›*
 
-*Defined in [pkg/bitcoin/api/blockstream.ts:203](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/api/blockstream.ts#L203)*
+*Defined in [pkg/bitcoin/api/blockstream.ts:207](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/api/blockstream.ts#L207)*
 
 Return the block height of the transaction.
 
@@ -95,7 +95,7 @@ ___
 
 ▸ **getFeeEstimates**(): *Promise‹number[]›*
 
-*Defined in [pkg/bitcoin/api/blockstream.ts:218](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/api/blockstream.ts#L218)*
+*Defined in [pkg/bitcoin/api/blockstream.ts:222](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/api/blockstream.ts#L222)*
 
 Get fee estimates
 
@@ -111,7 +111,7 @@ ___
 
 ▸ **getLastBlock**(): *Promise‹object›*
 
-*Defined in [pkg/bitcoin/api/blockstream.ts:29](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/api/blockstream.ts#L29)*
+*Defined in [pkg/bitcoin/api/blockstream.ts:29](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/api/blockstream.ts#L29)*
 
 Get information of last block broadcasted
 
@@ -127,7 +127,7 @@ ___
 
 ▸ **getOutput**(`transactionID`: string, `address`: string): *Promise‹object›*
 
-*Defined in [pkg/bitcoin/api/blockstream.ts:171](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/api/blockstream.ts#L171)*
+*Defined in [pkg/bitcoin/api/blockstream.ts:175](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/api/blockstream.ts#L175)*
 
 Return the vout and value of the transaction.
 
@@ -150,7 +150,7 @@ ___
 
 ▸ **getPreimageFromLastTransaction**(`address`: string): *Promise‹string›*
 
-*Defined in [pkg/bitcoin/api/blockstream.ts:98](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/api/blockstream.ts#L98)*
+*Defined in [pkg/bitcoin/api/blockstream.ts:98](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/api/blockstream.ts#L98)*
 
 Return the Preimage of the last transacction.
 
@@ -172,7 +172,7 @@ ___
 
 ▸ **getTimestampAtHeight**(`blockHeight`: number): *Promise‹number›*
 
-*Defined in [pkg/bitcoin/api/blockstream.ts:54](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/api/blockstream.ts#L54)*
+*Defined in [pkg/bitcoin/api/blockstream.ts:54](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/api/blockstream.ts#L54)*
 
 Get timestamp of block for given height
 
@@ -194,7 +194,7 @@ ___
 
 ▸ **getValueFromLastTransaction**(`address`: string): *Promise‹object›*
 
-*Defined in [pkg/bitcoin/api/blockstream.ts:134](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/api/blockstream.ts#L134)*
+*Defined in [pkg/bitcoin/api/blockstream.ts:135](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/api/blockstream.ts#L135)*
 
 Get value and transaction id from last transaction
 
@@ -216,7 +216,7 @@ ___
 
 ▸ **pushTX**(`txHex`: string): *Promise‹string›*
 
-*Defined in [pkg/bitcoin/api/blockstream.ts:78](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/api/blockstream.ts#L78)*
+*Defined in [pkg/bitcoin/api/blockstream.ts:78](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/api/blockstream.ts#L78)*
 
 Push transaction to the bitcoin network
 

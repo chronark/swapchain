@@ -1,12 +1,17 @@
-import { Secret } from "../pkg/secret/secret"
+/*eslint no-loop-func: "off"*/
+import { Secret } from "../secret/secret"
 import * as bitcoin from "bitcoinjs-lib"
-import { Apis as btsWebsocketApi } from "bitsharesjs-ws"
-import BitcoinHTLC from "../pkg/bitcoin/htlc/btcHTLC"
-import BitsharesHTLC from "../pkg/bitshares/htlc/btsHTLC"
-import { BlockStream } from "../pkg/bitcoin/api/blockstream"
+import BitcoinHTLC from "../bitcoin/htlc/btcHTLC"
+import BitsharesHTLC from "../bitshares/htlc/btsHTLC"
+import { BlockStream } from "../bitcoin/api/blockstream"
 import { Timer } from "./timer"
-import { getAccount } from "../pkg/bitshares/util"
+import { BitsharesAPI } from "../bitshares/api/api"
 
+/**
+ * Contains raw user input to run an ACCS. Needs to get parsed.
+ *
+ * @interface ACCSFields
+ */
 export interface ACCSFields {
   /**
    * The transaction mode. Either proposer or accepter.
@@ -72,10 +77,15 @@ export interface ACCSFields {
    * A secret object with a random preimage and its corresponding SHA256 hash.
    */
   secret: Secret
+
+  /**
+   * A secret SHA256 hash.
+   */
+  secretHash?: string
 }
 
 /**
- * Contains all necessary information to run an ACCS.
+ * Contains all necessary information to run an ACCS after parsing.
  *
  * @interface ACCSConfig
  */
@@ -96,9 +106,9 @@ export interface ACCSConfig {
   priority: number
 
   /**
-   * The user's own Bitshares account name.
+   * The user's own Bitshares account ID.
    */
-  bitsharesAccount: string
+  bitsharesAccountID: string
 
   /**
    * The user's own Bitshares private key.
@@ -106,9 +116,9 @@ export interface ACCSConfig {
   bitsharesPrivateKey: string
 
   /**
-   * The counterparty's Bitshares account name.
+   * The counterparty's Bitshares account ID.
    */
-  counterpartyBitsharesAccountName: string
+  counterpartyBitsharesAccountID: string
 
   /**
    * The amount of Bitshares in 1/100000 BTS.
@@ -169,6 +179,11 @@ export interface ACCSConfig {
    * The endpoint address of the Bitshares node to connect to.
    */
   bitsharesEndpoint: string
+
+  /**
+   * The interval in seconds the APIs get called.
+   */
+  checkAPIInterval: number
 }
 
 /**
@@ -195,24 +210,22 @@ export default class ACCS {
       config.bitsharesEndpoint = "wss://testnet.dex.trading/"
     }
 
+    const websocket = await BitsharesAPI.getInstance(config.bitsharesEndpoint)
+
     config.networkName = fields.networkToTrade
     config.mode = fields.mode
     config.type = fields.currencyToGive
     config.priority = fields.priority
-    config.bitsharesAccount = await getAccount(
-      fields.bitsharesPrivateKey,
-      config.bitsharesEndpoint,
-      fields.networkToTrade,
-    )
+    config.bitsharesAccountID = await websocket.toAccountID(fields.bitsharesPrivateKey, fields.networkToTrade)
     config.bitsharesPrivateKey = fields.bitsharesPrivateKey
-    config.counterpartyBitsharesAccountName = fields.counterpartyBitsharesAccountName
+    config.counterpartyBitsharesAccountID = await websocket.getAccountID(fields.counterpartyBitsharesAccountName)
 
     if (config.type === "BTC") {
-      config.amountBTSMini = fields.amountToReceive * 10e4
-      config.amountSatoshi = fields.amountToSend * 10e7
+      config.amountBTSMini = Math.round(fields.amountToReceive * 10e4)
+      config.amountSatoshi = Math.round(fields.amountToSend * 10e7)
     } else {
-      config.amountBTSMini = fields.amountToSend * 10e4
-      config.amountSatoshi = fields.amountToReceive * 10e7
+      config.amountBTSMini = Math.round(fields.amountToSend * 10e4)
+      config.amountSatoshi = Math.round(fields.amountToReceive * 10e7)
     }
 
     const keyPairBTC = bitcoin.ECPair.fromWIF(fields.bitcoinPrivateKey, config.network)
@@ -233,6 +246,8 @@ export default class ACCS {
     config.timelockBTS = await timer.toBTS() // seconds to wait
 
     config.secret = fields.secret
+
+    config.checkAPIInterval = 4 // This can be changed. It's a trade-off. Lower values might make swaping faster, but spam APIs.
 
     return config
   }
@@ -269,32 +284,36 @@ export default class ACCS {
 
     const htlcBTSProposer = new BitsharesHTLC(
       config.bitsharesEndpoint,
-      config.counterpartyBitsharesAccountName,
-      config.bitsharesAccount,
+      config.counterpartyBitsharesAccountID,
+      config.bitsharesAccountID,
     )
 
     let success = false
-    htlcBTSProposer.redeem(config.amountBTSMini, config.bitsharesPrivateKey, config.secret).then((s) => {
-      success = s
-    })
 
     const maxBlockHeight = htlcBTCProposer.getFundingTxBlockHeight()! + config.timelockBTC
     let currentBlockHeight = 0
     // If no HTLC found immediately, continue looking until timelock
     while (!success && currentBlockHeight < maxBlockHeight) {
+      await htlcBTSProposer
+        .redeem(config.amountBTSMini, config.bitsharesPrivateKey, config.secret)
+        /* eslint-disable-next-line */
+        .then((s) => {
+          success = s
+        })
+        .catch((err: Error) => {}) // This error is intentional and expected to occur for most iterations
+
       currentBlockHeight = (await htlcBTCProposer.bitcoinAPI.getLastBlock()).height
 
-      await new Promise((resolve) => setTimeout(resolve, 10_000))
+      await new Promise((resolve) => setTimeout(resolve, config.checkAPIInterval * 1_000))
     }
 
     if (!success) {
-      htlcBTSProposer.stopLooking()
       const refundTXId = await htlcBTCProposer.bitcoinAPI.pushTX(refundHex)
       throw new Error(
         `No HTLC found on Bitshares ${config.networkName}. Your HTLC was refunded with transaction ID ${refundTXId}.`,
       )
     }
-
+    // TODO: Seperate this message when Bitshares API is ready
     console.log(`Found the HTLC for you on Bitshares ${config.networkName}! Redeeming the HTLC...`)
   }
 
@@ -309,8 +328,8 @@ export default class ACCS {
     // Create BTS HTLC
     const htlcBTSProposer = new BitsharesHTLC(
       config.bitsharesEndpoint,
-      config.bitsharesAccount,
-      config.counterpartyBitsharesAccountName,
+      config.bitsharesAccountID,
+      config.counterpartyBitsharesAccountID,
     )
 
     await htlcBTSProposer.create({
@@ -338,12 +357,12 @@ export default class ACCS {
 
     const p2wsh = htlcBTCProposer.getP2WSH(config.secret.hash, config.timelockBTC)
 
-    let timeToWait = Math.round(config.timelockBTS / 2) // We only check API every 2 seconds
+    let timeToWait = Math.round(config.timelockBTS / config.checkAPIInterval) // We only check API every X seconds
 
     let txID: string | null = null
 
     while (txID === null && timeToWait > 0) {
-      htlcBTCProposer.bitcoinAPI
+      await htlcBTCProposer.bitcoinAPI
         .getValueFromLastTransaction(p2wsh.address!)
         // eslint-disable-next-line
         .then((res) => {
@@ -351,7 +370,7 @@ export default class ACCS {
         })
         .catch((err: Error) => {}) // This error is intentional and expected to occur for most iterations
 
-      await new Promise((resolve) => setTimeout(resolve, 2_000))
+      await new Promise((resolve) => setTimeout(resolve, config.checkAPIInterval * 1_000))
 
       timeToWait--
     }
@@ -361,7 +380,7 @@ export default class ACCS {
     }
 
     // redeem
-    await htlcBTCProposer.redeem(p2wsh, config.secret)
+    await htlcBTCProposer.redeem(p2wsh, config.amountSatoshi, config.secret)
   }
 
   /**
@@ -370,32 +389,48 @@ export default class ACCS {
    * @memberof ACCS
    */
   public static async takeBTSForBTC(config: ACCSConfig): Promise<void> {
+    const websocket = await BitsharesAPI.getInstance(config.bitsharesEndpoint)
+
     config.timelockBTC = Math.round(config.timelockBTC / 2)
 
     // Look for BTS HTLC and only continue if there is one
     const htlcBTSAccepter = new BitsharesHTLC(
       config.bitsharesEndpoint,
-      config.counterpartyBitsharesAccountName,
-      config.bitsharesAccount,
+      config.counterpartyBitsharesAccountID,
+      config.bitsharesAccountID,
     )
 
-    let timeToWait = 120 / 2 // We only check API every 2 seconds
+    // This can be changed, but 5 minutes waiting seem to be fine,
+    // since mining on Bitshares is fast.
+    // Must be a multiple of config.checkAPIInterval!
+    let timeToWait = 300
 
     console.log(
       `Looking for an HTLC for you on Bitshares ${config.networkName}. This can take up to ${timeToWait / 60} min.`,
     )
 
     let id = ""
-    htlcBTSAccepter.getID(config.amountBTSMini, config.secret.hash).then((res) => (id = res))
 
     while (!id && timeToWait > 0) {
-      await new Promise((resolve) => setTimeout(resolve, 2_000))
+      await websocket
+        .getID(
+          config.counterpartyBitsharesAccountID,
+          config.bitsharesAccountID,
+          config.amountBTSMini,
+          config.secret.hash,
+          config.timelockBTS,
+        )
+        /* eslint-disable-next-line */
+        .then((res) => (id = res))
+        .catch((err: Error) => {}) // This error is intentional and expected to occur for most iterations
 
-      timeToWait--
+      await new Promise((resolve) => setTimeout(resolve, config.checkAPIInterval * 1_000))
+
+      timeToWait -= config.checkAPIInterval
     }
 
+    // TODO: Improve user feedback, e. g. if looking fails due to wrong amount.
     if (!id) {
-      htlcBTSAccepter.stopLooking()
       throw new Error(`No HTLC found on Bitshares ${config.networkName}. Please contact proposer.`)
     }
 
@@ -428,12 +463,12 @@ export default class ACCS {
     while (preimageFromBlockchain === null && currentBlockHeight < maxBlockHeight) {
       currentBlockHeight = (await htlcBTCAccepter.bitcoinAPI.getLastBlock()).height
 
-      htlcBTCAccepter.bitcoinAPI
+      await htlcBTCAccepter.bitcoinAPI
         .getPreimageFromLastTransaction(p2wsh.address!)
         // eslint-disable-next-line
         .then((preimage) => (preimageFromBlockchain = preimage))
 
-      await new Promise((resolve) => setTimeout(resolve, 10_000))
+      await new Promise((resolve) => setTimeout(resolve, config.checkAPIInterval * 1_000))
     }
 
     if (preimageFromBlockchain === null) {
@@ -467,6 +502,8 @@ export default class ACCS {
    * @memberof ACCS
    */
   public static async takeBTCForBTS(config: ACCSConfig): Promise<void> {
+    const websocket = await BitsharesAPI.getInstance(config.bitsharesEndpoint)
+
     config.timelockBTS = Math.round(config.timelockBTS / 2)
     // Look for BTC HTLC and only continue if there is one
     // Use p2wsh address and fetch txs
@@ -478,34 +515,54 @@ export default class ACCS {
       BlockStream,
     )
 
-    let timeToWait = 120 / 2 // We only check API every 2 seconds
+    // This can be changed, but 30 minutes waiting seem to be fine,
+    // since it might take up to 20 mins on Bitcoin testnet for the next block to get mined.
+    // Must be a multiple of config.checkAPIInterval!
+    let timeToWait = 1800
 
     console.log(
       `Looking for an HTLC for you on Bitcoin ${config.networkName}. This can take up to ${timeToWait / 60} min.`,
     )
 
     const p2wsh = htlcBTCAccepter.getP2WSH(config.secret.hash, config.timelockBTC)
+
     let txID: string | null = null
-    htlcBTCAccepter.bitcoinAPI.getValueFromLastTransaction(p2wsh.address!).then((res) => {
-      txID = res.txID
-    })
+    let value: number | null = null
 
     while (txID === null && timeToWait > 0) {
-      await new Promise((resolve) => setTimeout(resolve, 2_000))
+      await htlcBTCAccepter.bitcoinAPI
+        .getValueFromLastTransaction(p2wsh.address!)
+        .then((res) => {
+          /* eslint-disable-next-line */
+          txID = res.txID
+          /* eslint-disable-next-line */
+          value = res.value
+        })
+        .catch((err: Error) => {}) // This error is intentional and expected to occur for most iterations
 
-      timeToWait--
+      await new Promise((resolve) => setTimeout(resolve, config.checkAPIInterval * 1_000))
+
+      timeToWait -= config.checkAPIInterval
     }
 
     if (timeToWait === 0) {
       throw new Error(`No HTLC found on Bitcoin ${config.networkName}. Please contact proposer.`)
     }
 
+    // Check if amount of proposer's HTLC is sufficient
+    const fees = await htlcBTCAccepter.calculateFee()
+
+    if (value! < config.amountSatoshi - fees.max) {
+      throw new Error(`The amount of Satoshi sent (${value}) is not sufficient. Please contact proposer.`)
+    }
+
     console.log(`Found the HTLC for you on Bitcoin ${config.networkName}!`)
+
     // Create BTS HTLC
     const htlcBTSAccepter = new BitsharesHTLC(
       config.bitsharesEndpoint,
-      config.bitsharesAccount,
-      config.counterpartyBitsharesAccountName,
+      config.bitsharesAccountID,
+      config.counterpartyBitsharesAccountID,
     )
 
     await htlcBTSAccepter.create({
@@ -520,30 +577,18 @@ export default class ACCS {
 
     // Wait for Alice to redeem the BTS HTLC, then extract secret
     timeToWait = config.timelockBTS
-    const [bitsharesAccountObj, counterpartyBitsharesAccountNameObj] = await btsWebsocketApi.db.get_accounts([
-      config.bitsharesAccount,
-      config.counterpartyBitsharesAccountName,
-    ])
-    let htlc = []
 
-    while (htlc.length < 1) {
-      if (timeToWait === 0) {
-        throw new Error("HTLC was not redeemed in time by the counterparty. Your HTLC will be automatically refunded.")
-      }
-
-      const history = await btsWebsocketApi.history.get_relative_account_history(config.bitsharesAccount, 0, 100, 0)
-
-      /* eslint-disable @typescript-eslint/no-explicit-any */
-      htlc = history.filter((element: any) => {
-        return (
-          "preimage" in element.op[1] &&
-          element.op[1].from === bitsharesAccountObj.id &&
-          element.op[1].to === counterpartyBitsharesAccountNameObj.id &&
-          "htlc_preimage_hash" in element.op[1] &&
-          element.op[1].htlc_preimage_hash[1] === config.secret.hash.toString("hex")
+    let preimage = ""
+    while (!preimage && timeToWait > 0) {
+      await websocket
+        .getPreimageFromHTLC(
+          config.bitsharesAccountID,
+          config.counterpartyBitsharesAccountID,
+          config.secret.hash.toString("hex"),
         )
-      })
-      /* eslint-enable @typescript-eslint/camelcase */
+        // eslint-disable-next-line
+        .then((s: string) => (preimage = s))
+        .catch((err: Error) => {}) // This error is intentional and expected to occur for most iterations
 
       // Wait three secondes, then try again
       await new Promise((resolve) => setTimeout(resolve, 1_000))
@@ -551,14 +596,17 @@ export default class ACCS {
       timeToWait--
     }
 
-    config.secret.preimage = Buffer.from(htlc[0].op[1].preimage, "hex").toString()
+    if (!preimage) {
+      throw new Error("HTLC was not redeemed in time by the counterparty. Your HTLC will be automatically refunded.")
+    }
+    config.secret.preimage = preimage
 
     console.log(
       `Your Bitshares HTLC was redeemed by the counterparty using the secret "${config.secret.preimage}". Redeeming the Bitcoin HTLC...`,
     )
 
     // Redeem BTC HTLC
-    await htlcBTCAccepter.redeem(p2wsh, config.secret)
+    await htlcBTCAccepter.redeem(p2wsh, config.amountSatoshi, config.secret)
   }
 
   /**

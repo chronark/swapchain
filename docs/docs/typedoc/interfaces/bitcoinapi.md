@@ -41,7 +41,7 @@ Anything else returned from your api of choice can be ignored.
 
 • **getBlockHeight**: *function*
 
-*Defined in [pkg/types/bitcoinApi.ts:67](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/types/bitcoinApi.ts#L67)*
+*Defined in [pkg/types/bitcoinApi.ts:67](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L67)*
 
 Return the blockheight of a transaction.
 
@@ -65,7 +65,7 @@ ___
 
 • **getFeeEstimates**: *function*
 
-*Defined in [pkg/types/bitcoinApi.ts:75](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/types/bitcoinApi.ts#L75)*
+*Defined in [pkg/types/bitcoinApi.ts:75](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L75)*
 
 Get fee estimates
 
@@ -83,7 +83,7 @@ ___
 
 • **getLastBlock**: *function*
 
-*Defined in [pkg/types/bitcoinApi.ts:22](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/types/bitcoinApi.ts#L22)*
+*Defined in [pkg/types/bitcoinApi.ts:22](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L22)*
 
 Return height and timestamp of the last block.
 Used for timelock calculations.
@@ -98,7 +98,7 @@ ___
 
 • **getOutput**: *function*
 
-*Defined in [pkg/types/bitcoinApi.ts:59](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/types/bitcoinApi.ts#L59)*
+*Defined in [pkg/types/bitcoinApi.ts:59](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L59)*
 
 Return the vout and value of the transaction.
 
@@ -125,7 +125,7 @@ ___
 
 • **getPreimageFromLastTransaction**: *function*
 
-*Defined in [pkg/types/bitcoinApi.ts:43](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/types/bitcoinApi.ts#L43)*
+*Defined in [pkg/types/bitcoinApi.ts:43](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L43)*
 
 Returns the preimage of the last incoming transaction.
 
@@ -149,7 +149,7 @@ ___
 
 • **getTimestampAtHeight**: *function*
 
-*Defined in [pkg/types/bitcoinApi.ts:28](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/types/bitcoinApi.ts#L28)*
+*Defined in [pkg/types/bitcoinApi.ts:28](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L28)*
 
 Return the timestamp of a block defined by its height.
 Used for timelock calculations
@@ -170,7 +170,7 @@ ___
 
 • **getValueFromLastTransaction**: *function*
 
-*Defined in [pkg/types/bitcoinApi.ts:50](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/types/bitcoinApi.ts#L50)*
+*Defined in [pkg/types/bitcoinApi.ts:50](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L50)*
 
 Returns the outgoing transaction of an address.
 
@@ -194,7 +194,7 @@ ___
 
 • **pushTX**: *function*
 
-*Defined in [pkg/types/bitcoinApi.ts:35](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/types/bitcoinApi.ts#L35)*
+*Defined in [pkg/types/bitcoinApi.ts:35](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L35)*
 
 Pushes a transaction hex to the blockchain.
 Returns the transactionID on success.

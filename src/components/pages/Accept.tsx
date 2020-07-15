@@ -8,7 +8,7 @@ import { ReactComponent as Exclamation } from "../../icons/exclamation.svg"
 import { Spinner } from "../util/Spinner"
 import { RadioButton } from "../forms/RadioButton"
 import { State, Network, Priority, Currency } from "../util/enums"
-import ACCS from "../../accs/accs"
+import ACCS from "../../pkg/accs/accs"
 import {
   isValidBitcoinPrivateKey,
   isValidBitsharesPrivateKey,
@@ -19,7 +19,7 @@ import { ReactComponent as ShieldSuccess } from "../../icons/shield-check.svg"
 import { ReactComponent as ShieldFailure } from "../../icons/shield-exclamation.svg"
 
 export const Accept = () => {
-  // Application stae for handling the flow
+  // Application state for handling the flow
   const [state, setState] = useState(State.IDLE)
   const [isValid, setValid] = useState(false)
 
@@ -41,18 +41,23 @@ export const Accept = () => {
     bitcoinTxID: "",
     priority: Priority.HIGH,
     secret: {} as Secret,
-    hash: "",
+    secretHash: "",
   })
 
   //calculate received funds
   useEffect(() => {
-    if (fields.amountToReceive !== fields.amountToSend * fields.rate) {
+    if (
+      fields.rate > 0 &&
+      (fields.currencyToGive === Currency.BTC
+        ? fields.amountToReceive !== fields.amountToSend * fields.rate
+        : fields.amountToReceive !== fields.amountToSend / fields.rate)
+    ) {
       setFields({
         ...fields,
         amountToReceive:
           fields.currencyToGive === Currency.BTC
             ? fields.amountToSend * fields.rate
-            : fields.amountToReceive / fields.rate,
+            : fields.amountToSend / fields.rate,
       })
     }
   }, [fields])
@@ -86,8 +91,8 @@ export const Accept = () => {
     if (fields.currencyToGive === Currency.BTC && fields.bitcoinTxID.length !== 64) {
       return "Bitcoin Transaction ID to spend is invalid"
     }
-    if (fields.hash.length !== 64) {
-      return "Secret hash is invalid"
+    if (fields.secretHash.length !== 64) {
+      return "Secret secretHis invalid"
     }
     return ""
   }
@@ -95,12 +100,9 @@ export const Accept = () => {
   // Go back to idle when the user fixes their input errors.
   // Does nothing if the accs is already running
   useEffect(() => {
-    // Failure state is final
-    if (state !== State.FAILURE) {
-      if (state !== State.RUNNING && isValid) {
-        setErrorMessage("")
-        setState(State.IDLE)
-      }
+    if (state === State.ERROR && isValid) {
+      setErrorMessage("")
+      setState(State.IDLE)
     }
   }, [fields, state, isValid])
 
@@ -142,20 +144,18 @@ export const Accept = () => {
       return
     }
 
-    // Set the secret properly
-    setFields({
-      ...fields,
-      secret: {
-        preimage: undefined,
-        hash: Buffer.from(fields.hash),
-      },
-    })
+    fields.secret = {
+      preimage: undefined,
+      hash: Buffer.from(fields.secretHash, "hex"),
+    }
+
     setState(State.RUNNING)
+
     ACCS.run(fields)
       .then(() => {
         setState(State.SUCCESS)
       })
-      .catch((err) => {
+      .catch((err: Error) => {
         setState(State.FAILURE)
         setErrorMessage(err.toString())
       })
@@ -333,8 +333,8 @@ export const Accept = () => {
             <div className="block">
               <Label label="Secret hash from Counterparty"></Label>
               <Input
-                name="hash"
-                value={fields.hash}
+                name="secretHash"
+                value={fields.secretHash}
                 onChange={updateField}
                 type="text"
                 placeholder={fakeKey(30, fields.networkToTrade)}
