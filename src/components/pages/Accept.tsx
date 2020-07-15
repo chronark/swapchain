@@ -333,7 +333,7 @@ export const Accept = () => {
             <div className="block">
               <Label label="Secret hash from Counterparty"></Label>
               <Input
-                name="hash"
+                name="secretHash"
                 value={fields.secretHash}
                 onChange={updateField}
                 type="text"
