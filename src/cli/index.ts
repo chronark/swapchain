@@ -10,7 +10,7 @@ figlet("Swapchain", (err, banner) => {
   console.log(banner)
 })
 
-new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
+new Promise((resolve) => setTimeout(resolve, 100)).then(() => {
   console.log("")
   console.log("version: sprint-12-release")
   console.log("Welcome to swapchain-cli.")

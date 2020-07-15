@@ -55,11 +55,14 @@ export async function getUserInput(): Promise<ACCSFields> {
       errorHandler("Invalid Bitcoin public key.")
     } else if (!("counterpartyBitsharesAccountName" in fields)) {
       errorHandler("Invalid Bitshares account name.")
-    } else if (!("rate" in fields) || typeof fields.rate !== "number") {
+    } else if (!("rate" in fields) || typeof fields.rate !== "number" || fields.rate <= 0) {
       errorHandler("Invalid exchange rate.")
-    } else if (!("amountToSend" in fields) || typeof fields.amountToSend !== "number") {
+    } else if (!("amountToSend" in fields) || typeof fields.amountToSend !== "number" || fields.amountToSend <= 0) {
       errorHandler("Invalid amount to send.")
-    } else if ("amountToReceive" in fields && typeof fields.amountToReceive !== "number") {
+    } else if (
+      ("amountToReceive" in fields && typeof fields.amountToReceive !== "number") ||
+      fields.amountToReceive <= 0
+    ) {
       errorHandler("Invalid amount to receive.")
     } else if (fields.mode === "accepter" && (!("secretHash" in fields) || fields.secretHash!.length !== 64)) {
       errorHandler("Invalid secret hash.")
@@ -112,7 +115,7 @@ export async function getUserInput(): Promise<ACCSFields> {
         type: "input",
         name: "bitcoinPrivateKey",
         message: "Please enter your Bitcoin private key (WIF format):",
-        validate: (value: string, answers: inquirer.Answers) => {
+        validate: (value: string, answers: inquirer.Answers): boolean | string => {
           return isValidBitcoinPrivateKey(value, answers.networkToTrade) || "Invalid Bitcoin private key. Try again."
         },
       },
@@ -120,7 +123,7 @@ export async function getUserInput(): Promise<ACCSFields> {
         type: "input",
         name: "bitsharesPrivateKey",
         message: "Please enter your Bitshares private key (WIF format):",
-        validate: (value: string) => {
+        validate: (value: string): boolean | string => {
           return isValidBitsharesPrivateKey(value) || "Invalid Bitshares private key. Try again."
         },
       },
@@ -128,7 +131,7 @@ export async function getUserInput(): Promise<ACCSFields> {
         type: "input",
         name: "counterpartyBitcoinPublicKey",
         message: "Please enter the Bitcoin public key of the counterparty:",
-        validate: (value: string) => {
+        validate: (value: string): boolean | string => {
           return isValidBitcoinPublicKey(value) || "Invalid Bitcoin public key. Try again."
         },
       },
@@ -141,40 +144,61 @@ export async function getUserInput(): Promise<ACCSFields> {
         type: "input",
         name: "amountToSend",
         message: "Please enter the amount of BTC you want to give:",
-        when: (answers: inquirer.Answers) => {
+        validate: (value: string): boolean | string => {
+          return Number(value) > 0 || "Invalid amount to send. Try again."
+        },
+        when: (answers: inquirer.Answers): boolean => {
           return answers.currencyToGive === "BTC"
         },
-        filter: (value: string) => {
-          return Number(value)
+        filter: (value: string): number | string => {
+          if (!isNaN(Number(value))) {
+            return Number(value)
+          } else {
+            return value
+          }
         },
       },
       {
         type: "input",
         name: "amountToSend",
         message: "Please enter the amount of BTS you want to give:",
-        when: (answers: inquirer.Answers) => {
+        validate: (value: string): boolean | string => {
+          return Number(value) > 0 || "Invalid amount to send. Try again."
+        },
+        when: (answers: inquirer.Answers): boolean => {
           return answers.currencyToGive === "BTS"
         },
-        filter: (value: string) => {
-          return Number(value)
+        filter: (value: string): number | string => {
+          if (!isNaN(Number(value))) {
+            return Number(value)
+          } else {
+            return value
+          }
         },
       },
       {
         type: "input",
         name: "rate",
         message: "Please enter the exchange rate in BTS/BTC:",
-        filter: (value: string) => {
-          return Number(value)
+        validate: (value: string): boolean | string => {
+          return Number(value) > 0 || "Invalid exchange rate. Try again."
+        },
+        filter: (value: string): number | string => {
+          if (!isNaN(Number(value))) {
+            return Number(value)
+          } else {
+            return value
+          }
         },
       },
       {
         type: "input",
         name: "secretHash",
         message: "Please enter the secret hash you received from the proposer:",
-        validate: (value: string) => {
+        validate: (value: string): boolean | string => {
           return value.length === 64 || "Invalid secret hash. Try again."
         },
-        when: (answers: inquirer.Answers) => {
+        when: (answers: inquirer.Answers): boolean => {
           return answers.mode === "accepter"
         },
       },
@@ -182,10 +206,10 @@ export async function getUserInput(): Promise<ACCSFields> {
         type: "input",
         name: "bitcoinTxID",
         message: "Please enter the Bitcoin p2wpkh address' transaction ID which should be spent:",
-        validate: (value: string) => {
+        validate: (value: string): boolean | string => {
           return value.length === 64 || "Invalid Bitcoin Transaction ID. Try again."
         },
-        when: (answers: inquirer.Answers) => {
+        when: (answers: inquirer.Answers): boolean => {
           return answers.currencyToGive === "BTC"
         },
       },
