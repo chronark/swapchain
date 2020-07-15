@@ -39,7 +39,7 @@ The documentation will present a detailed analysis of the architecture of a plat
 
 Swapchain offers a command-line interface (CLI) and a basic UI which both follow the Clean Architecture pattern. Main reason to use this pattern is to separate functions into layers and thus, improve the maintainability and reusability. Figure 1 visualizes the Clean Architecture by using color-coded schemes.
 
-![](img/CleanArchitecture.svg)   
+![](/img/CleanArchitecture.svg)   
 Figure 1: The Clean Architecture (Martin, 2020) [3]
 
 So, in the context of our application:
@@ -79,7 +79,7 @@ The Verification contains the signature verification sub-component which is cons
    
 ### 3.1. UML Diagram
 
-![](img/UML.svg)   
+![](/img/UML.svg)   
 Figure 2: UML Diagram (Swapchain, 2020) [4]
 
    
@@ -91,7 +91,7 @@ The use case diagram is used to visualize the Swapchain application and its acto
 
 For the following use case diagram we assume that user 1 is in possession of Bitcoin while user 2 is in possession of Bitshares. Obviously, swapchain also supports swaps between these two cryptocurrencies that are vice versa, meaning user 1 proposes Bitshares in exchange for Bitcoin.
 
-![](img/UseCase.svg)     
+![](/img/UseCase.svg)     
 Figure 3: Use Case Diagram (Swapchain, 2020) [4]
    
 ### 4.2. Use Case Description
@@ -145,7 +145,7 @@ The implementation diagram is used to visualize the flow of control and the impl
    
 ### 7.1. Implementation Diagram
 
-![](img/Implementation.svg)   
+![](/img/Implementation.svg)   
 Figure 5: Implementation Diagram (Swapchain, 2020) [4]
    
 ### 7.2. Implementation Description
