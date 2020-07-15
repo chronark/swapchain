@@ -21,10 +21,12 @@
 
 ## Supported cryptocurrencies
 
-|           | mainnet            | testnet            | regtest |
-| --------- | ------------------ | ------------------ | ------- |
-| Bitcoin   | :heavy_check_mark: | :heavy_check_mark: | :x:     |
-| Bitshares | :heavy_check_mark: | :heavy_check_mark: | :x:     |
+|           | mainnet                  | testnet            |
+| --------- | ------------------------ | ------------------ |
+| Bitcoin   | :heavy_multiplication_x: | :heavy_check_mark: |
+| Bitshares | :heavy_multiplication_x: | :heavy_check_mark: |
+
+Mainnet is not tested yet but is expected to work.
 
 ## Installation
 
