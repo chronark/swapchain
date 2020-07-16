@@ -115,13 +115,18 @@ After finishing the AMOS course and therewith the project, the software will be 
 
 ### 6.1. Technology Stack Description
 
-All services will be running in an React app on Netlify. [1][2]
+The web app will run as a React app on Netlify. [1][2]
 
-Frontend:
+Web app:
 
-- JavaScript, CSS, HTML
-- React
+- JavaScript, TypeScript, CSS, HTML
+- React.js
 - Tailwind.css
+
+CLI:
+
+- JavaScript, TypeScript
+- node.js
 
 Blockchain Gateway:
 
@@ -129,10 +134,6 @@ Blockchain Gateway:
   - bitcoinjs-lib (junderw, 2020)
 - Bitshare libraries:
   - bitsharesjs
-
-HTLC:
-
-- Creates the HTLC on its own blockchain
 
 ## 7. Implementation
 
