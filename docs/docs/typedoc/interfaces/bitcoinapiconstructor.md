@@ -8,28 +8,28 @@ sidebar_label: "BitcoinAPIConstructor"
 
 ## Hierarchy
 
-* **BitcoinAPIConstructor**
+- **BitcoinAPIConstructor**
 
 ## Index
 
 ### Constructors
 
-* [constructor](bitcoinapiconstructor.md#constructor)
+- [constructor](bitcoinapiconstructor.md#constructor)
 
 ## Constructors
 
-###  constructor
+### constructor
 
-\+ **new BitcoinAPIConstructor**(`network`: string): *[BitcoinAPI](bitcoinapi.md)*
+\+ **new BitcoinAPIConstructor**(`network`: string): _[BitcoinAPI](bitcoinapi.md)_
 
-*Defined in [pkg/types/bitcoinApi.ts:1](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L1)*
+_Defined in [pkg/types/bitcoinApi.ts:1](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/types/bitcoinApi.ts#L1)_
 
 Creates an instance of BitcoinAPI.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`network` | string |
+| Name      | Type   |
+| --------- | ------ |
+| `network` | string |
 
-**Returns:** *[BitcoinAPI](bitcoinapi.md)*
+**Returns:** _[BitcoinAPI](bitcoinapi.md)_

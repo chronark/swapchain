@@ -10,686 +10,668 @@ sidebar_label: "Globals"
 
 ### Enumerations
 
-* [Currency](enums/currency.md)
-* [Network](enums/network.md)
-* [Priority](enums/priority.md)
-* [State](enums/state.md)
+- [Currency](enums/currency.md)
+- [Network](enums/network.md)
+- [Priority](enums/priority.md)
+- [State](enums/state.md)
 
 ### Classes
 
-* [ACCS](classes/accs.md)
-* [BitcoinHTLC](classes/bitcoinhtlc.md)
-* [BitsharesHTLC](classes/bitshareshtlc.md)
-* [BlockStream](classes/blockstream.md)
-* [Timer](classes/timer.md)
+- [ACCS](classes/accs.md)
+- [BitcoinHTLC](classes/bitcoinhtlc.md)
+- [BitsharesAPI](classes/bitsharesapi.md)
+- [BitsharesHTLC](classes/bitshareshtlc.md)
+- [BlockStream](classes/blockstream.md)
+- [Timer](classes/timer.md)
 
 ### Interfaces
 
-* [ACCSConfig](interfaces/accsconfig.md)
-* [ACCSFields](interfaces/accsfields.md)
-* [BTCAddress](interfaces/btcaddress.md)
-* [BTSAddress](interfaces/btsaddress.md)
-* [BitcoinAPI](interfaces/bitcoinapi.md)
-* [BitcoinAPIConstructor](interfaces/bitcoinapiconstructor.md)
-* [HTLCConfig](interfaces/htlcconfig.md)
-* [HTLCConfigBTC](interfaces/htlcconfigbtc.md)
-* [Order](interfaces/order.md)
-* [Secret](interfaces/secret.md)
+- [ACCSConfig](interfaces/accsconfig.md)
+- [ACCSFields](interfaces/accsfields.md)
+- [BTCAddress](interfaces/btcaddress.md)
+- [BTSAddress](interfaces/btsaddress.md)
+- [BitcoinAPI](interfaces/bitcoinapi.md)
+- [BitcoinAPIConstructor](interfaces/bitcoinapiconstructor.md)
+- [HTLCConfig](interfaces/htlcconfig.md)
+- [HTLCConfigBTC](interfaces/htlcconfigbtc.md)
+- [Order](interfaces/order.md)
+- [Secret](interfaces/secret.md)
 
 ### Type aliases
 
-* [Props](globals.md#props)
+- [Props](globals.md#props)
 
 ### Functions
 
-* [Accept](globals.md#const-accept)
-* [App](globals.md#const-app)
-* [ComponentPage](globals.md#const-componentpage)
-* [FilterButton](globals.md#const-filterbutton)
-* [Form](globals.md#const-form)
-* [Input](globals.md#const-input)
-* [Label](globals.md#const-label)
-* [LandingPage](globals.md#const-landingpage)
-* [Modal](globals.md#const-modal)
-* [Navbar](globals.md#const-navbar)
-* [Orderbook](globals.md#const-orderbook)
-* [OrderbookPage](globals.md#const-orderbookpage)
-* [Propose](globals.md#const-propose)
-* [RadioButton](globals.md#const-radiobutton)
-* [Row](globals.md#const-row)
-* [Spinner](globals.md#const-spinner)
-* [SubmitButton](globals.md#const-submitbutton)
-* [Table](globals.md#const-table)
-* [TradingPage](globals.md#const-tradingpage)
-* [errorHandler](globals.md#errorhandler)
-* [fakeKey](globals.md#const-fakekey)
-* [getAccount](globals.md#getaccount)
-* [getAddress](globals.md#getaddress)
-* [getBTCAddress](globals.md#getbtcaddress)
-* [getBTSAddress](globals.md#getbtsaddress)
-* [getSecret](globals.md#getsecret)
-* [getUserInput](globals.md#getuserinput)
-* [hash](globals.md#const-hash)
-* [isValidBitcoinPrivateKey](globals.md#isvalidbitcoinprivatekey)
-* [isValidBitcoinPublicKey](globals.md#isvalidbitcoinpublickey)
-* [isValidBitsharesPrivateKey](globals.md#isvalidbitsharesprivatekey)
-* [orderFactory](globals.md#const-orderfactory)
-* [toPublicKey](globals.md#const-topublickey)
-* [witnessStackToScriptWitness](globals.md#witnessstacktoscriptwitness)
+- [Accept](globals.md#const-accept)
+- [App](globals.md#const-app)
+- [ComponentPage](globals.md#const-componentpage)
+- [FilterButton](globals.md#const-filterbutton)
+- [Form](globals.md#const-form)
+- [Input](globals.md#const-input)
+- [Label](globals.md#const-label)
+- [LandingPage](globals.md#const-landingpage)
+- [Modal](globals.md#const-modal)
+- [Navbar](globals.md#const-navbar)
+- [Orderbook](globals.md#const-orderbook)
+- [OrderbookPage](globals.md#const-orderbookpage)
+- [Propose](globals.md#const-propose)
+- [RadioButton](globals.md#const-radiobutton)
+- [Row](globals.md#const-row)
+- [Spinner](globals.md#const-spinner)
+- [SubmitButton](globals.md#const-submitbutton)
+- [Table](globals.md#const-table)
+- [TradingPage](globals.md#const-tradingpage)
+- [errorHandler](globals.md#errorhandler)
+- [fakeKey](globals.md#const-fakekey)
+- [getAddress](globals.md#getaddress)
+- [getBTCAddress](globals.md#getbtcaddress)
+- [getBTSAddress](globals.md#getbtsaddress)
+- [getSecret](globals.md#getsecret)
+- [getUserInput](globals.md#getuserinput)
+- [hash](globals.md#const-hash)
+- [isValidBitcoinPrivateKey](globals.md#isvalidbitcoinprivatekey)
+- [isValidBitcoinPublicKey](globals.md#isvalidbitcoinpublickey)
+- [isValidBitsharesPrivateKey](globals.md#isvalidbitsharesprivatekey)
+- [orderFactory](globals.md#const-orderfactory)
+- [toPublicKey](globals.md#const-topublickey)
+- [witnessStackToScriptWitness](globals.md#witnessstacktoscriptwitness)
 
 ### Object literals
 
-* [status](globals.md#const-status)
+- [status](globals.md#const-status)
 
 ## Type aliases
 
-###  Props
+### Props
 
-Ƭ **Props**: *object*
+Ƭ **Props**: _object_
 
-*Defined in [components/forms/RadioButton.tsx:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/RadioButton.tsx#L3)*
+_Defined in [components/forms/RadioButton.tsx:3](https://github.com/chronark/swapchain/blob/9502eb6/src/components/forms/RadioButton.tsx#L3)_
 
-*Defined in [components/forms/Label.tsx:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/Label.tsx#L3)*
+_Defined in [components/forms/Label.tsx:3](https://github.com/chronark/swapchain/blob/9502eb6/src/components/forms/Label.tsx#L3)_
 
-*Defined in [components/forms/Input.tsx:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/Input.tsx#L3)*
+_Defined in [components/forms/Input.tsx:3](https://github.com/chronark/swapchain/blob/9502eb6/src/components/forms/Input.tsx#L3)_
 
-*Defined in [components/forms/SubmitButton.tsx:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/SubmitButton.tsx#L3)*
+_Defined in [components/forms/SubmitButton.tsx:3](https://github.com/chronark/swapchain/blob/9502eb6/src/components/forms/SubmitButton.tsx#L3)_
 
-*Defined in [components/forms/Form.tsx:2](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/Form.tsx#L2)*
+_Defined in [components/forms/Form.tsx:2](https://github.com/chronark/swapchain/blob/9502eb6/src/components/forms/Form.tsx#L2)_
 
-*Defined in [components/util/Spinner.tsx:5](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/Spinner.tsx#L5)*
+_Defined in [components/util/Spinner.tsx:5](https://github.com/chronark/swapchain/blob/9502eb6/src/components/util/Spinner.tsx#L5)_
 
-*Defined in [components/util/ComponentPage.tsx:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/ComponentPage.tsx#L3)*
+_Defined in [components/util/ComponentPage.tsx:3](https://github.com/chronark/swapchain/blob/9502eb6/src/components/util/ComponentPage.tsx#L3)_
 
-*Defined in [components/orderbook/Row.tsx:4](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Row.tsx#L4)*
+_Defined in [components/orderbook/Row.tsx:4](https://github.com/chronark/swapchain/blob/9502eb6/src/components/orderbook/Row.tsx#L4)_
 
-*Defined in [components/orderbook/Table.tsx:8](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Table.tsx#L8)*
+_Defined in [components/orderbook/Table.tsx:8](https://github.com/chronark/swapchain/blob/9502eb6/src/components/orderbook/Table.tsx#L8)_
 
-*Defined in [components/util/Modal.tsx:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/Modal.tsx#L3)*
+_Defined in [components/util/Modal.tsx:3](https://github.com/chronark/swapchain/blob/9502eb6/src/components/util/Modal.tsx#L3)_
 
-*Defined in [components/orderbook/FilterButton.tsx:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/FilterButton.tsx#L3)*
+_Defined in [components/orderbook/FilterButton.tsx:3](https://github.com/chronark/swapchain/blob/9502eb6/src/components/orderbook/FilterButton.tsx#L3)_
 
-*Defined in [components/orderbook/Orderbook.tsx:75](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L75)*
+_Defined in [components/orderbook/Orderbook.tsx:75](https://github.com/chronark/swapchain/blob/9502eb6/src/components/orderbook/Orderbook.tsx#L75)_
 
 #### Type declaration:
 
-* **orders**: *[Order](interfaces/order.md)[]*
+- **orders**: _[Order](interfaces/order.md)[]_
 
 ### `Optional` bg
 
-• **bg**? : *undefined | string*
+• **bg**? : _undefined | string_
 
-*Defined in [components/util/ComponentPage.tsx:6](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/ComponentPage.tsx#L6)*
+_Defined in [components/util/ComponentPage.tsx:6](https://github.com/chronark/swapchain/blob/9502eb6/src/components/util/ComponentPage.tsx#L6)_
 
-###  children
+### children
 
-• **children**: *any*
+• **children**: _any_
 
-*Defined in [components/util/ComponentPage.tsx:5](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/ComponentPage.tsx#L5)*
+_Defined in [components/util/ComponentPage.tsx:5](https://github.com/chronark/swapchain/blob/9502eb6/src/components/util/ComponentPage.tsx#L5)_
 
-###  footer
+### footer
 
-• **footer**: *ReactElement*
+• **footer**: _ReactElement_
 
-*Defined in [components/forms/Form.tsx:4](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/Form.tsx#L4)*
+_Defined in [components/forms/Form.tsx:4](https://github.com/chronark/swapchain/blob/9502eb6/src/components/forms/Form.tsx#L4)_
 
-###  main
+### main
 
-• **main**: *ReactElement*
+• **main**: _ReactElement_
 
-*Defined in [components/forms/Form.tsx:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/Form.tsx#L3)*
+_Defined in [components/forms/Form.tsx:3](https://github.com/chronark/swapchain/blob/9502eb6/src/components/forms/Form.tsx#L3)_
 
 ### `Optional` title
 
-• **title**? : *undefined | string*
+• **title**? : _undefined | string_
 
-*Defined in [components/util/ComponentPage.tsx:4](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/ComponentPage.tsx#L4)*
+_Defined in [components/util/ComponentPage.tsx:4](https://github.com/chronark/swapchain/blob/9502eb6/src/components/util/ComponentPage.tsx#L4)_
 
 ## Functions
 
 ### `Const` Accept
 
-▸ **Accept**(): *Element‹›*
+▸ **Accept**(): _Element‹›_
 
-*Defined in [components/pages/Accept.tsx:21](https://github.com/chronark/swapchain/blob/6beff0a/src/components/pages/Accept.tsx#L21)*
+_Defined in [components/pages/Accept.tsx:21](https://github.com/chronark/swapchain/blob/9502eb6/src/components/pages/Accept.tsx#L21)_
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` App
 
-▸ **App**(): *Element‹›*
+▸ **App**(): _Element‹›_
 
-*Defined in [App.tsx:11](https://github.com/chronark/swapchain/blob/6beff0a/src/App.tsx#L11)*
+_Defined in [App.tsx:11](https://github.com/chronark/swapchain/blob/9502eb6/src/App.tsx#L11)_
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` ComponentPage
 
-▸ **ComponentPage**(`props`: [Props](globals.md#props)): *Element‹›*
+▸ **ComponentPage**(`props`: [Props](globals.md#props)): _Element‹›_
 
-*Defined in [components/util/ComponentPage.tsx:9](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/ComponentPage.tsx#L9)*
+_Defined in [components/util/ComponentPage.tsx:9](https://github.com/chronark/swapchain/blob/9502eb6/src/components/util/ComponentPage.tsx#L9)_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`props` | [Props](globals.md#props) |
+| Name    | Type                      |
+| ------- | ------------------------- |
+| `props` | [Props](globals.md#props) |
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` FilterButton
 
-▸ **FilterButton**(`props`: [Props](globals.md#props)): *Element‹›*
+▸ **FilterButton**(`props`: [Props](globals.md#props)): _Element‹›_
 
-*Defined in [components/orderbook/FilterButton.tsx:8](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/FilterButton.tsx#L8)*
+_Defined in [components/orderbook/FilterButton.tsx:8](https://github.com/chronark/swapchain/blob/9502eb6/src/components/orderbook/FilterButton.tsx#L8)_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`props` | [Props](globals.md#props) |
+| Name    | Type                      |
+| ------- | ------------------------- |
+| `props` | [Props](globals.md#props) |
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` Form
 
-▸ **Form**(`props`: [Props](globals.md#props)): *Element‹›*
+▸ **Form**(`props`: [Props](globals.md#props)): _Element‹›_
 
-*Defined in [components/forms/Form.tsx:7](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/Form.tsx#L7)*
+_Defined in [components/forms/Form.tsx:7](https://github.com/chronark/swapchain/blob/9502eb6/src/components/forms/Form.tsx#L7)_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`props` | [Props](globals.md#props) |
+| Name    | Type                      |
+| ------- | ------------------------- |
+| `props` | [Props](globals.md#props) |
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` Input
 
-▸ **Input**(`props`: [Props](globals.md#props)): *Element‹›*
+▸ **Input**(`props`: [Props](globals.md#props)): _Element‹›_
 
-*Defined in [components/forms/Input.tsx:14](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/Input.tsx#L14)*
+_Defined in [components/forms/Input.tsx:14](https://github.com/chronark/swapchain/blob/9502eb6/src/components/forms/Input.tsx#L14)_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`props` | [Props](globals.md#props) |
+| Name    | Type                      |
+| ------- | ------------------------- |
+| `props` | [Props](globals.md#props) |
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` Label
 
-▸ **Label**(`props`: [Props](globals.md#props)): *Element‹›*
+▸ **Label**(`props`: [Props](globals.md#props)): _Element‹›_
 
-*Defined in [components/forms/Label.tsx:7](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/Label.tsx#L7)*
+_Defined in [components/forms/Label.tsx:7](https://github.com/chronark/swapchain/blob/9502eb6/src/components/forms/Label.tsx#L7)_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`props` | [Props](globals.md#props) |
+| Name    | Type                      |
+| ------- | ------------------------- |
+| `props` | [Props](globals.md#props) |
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` LandingPage
 
-▸ **LandingPage**(): *Element‹›*
+▸ **LandingPage**(): _Element‹›_
 
-*Defined in [components/pages/LandingPage.tsx:4](https://github.com/chronark/swapchain/blob/6beff0a/src/components/pages/LandingPage.tsx#L4)*
+_Defined in [components/pages/LandingPage.tsx:4](https://github.com/chronark/swapchain/blob/9502eb6/src/components/pages/LandingPage.tsx#L4)_
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` Modal
 
-▸ **Modal**(`props`: [Props](globals.md#props)): *Element‹›*
+▸ **Modal**(`props`: [Props](globals.md#props)): _Element‹›_
 
-*Defined in [components/util/Modal.tsx:10](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/Modal.tsx#L10)*
+_Defined in [components/util/Modal.tsx:10](https://github.com/chronark/swapchain/blob/9502eb6/src/components/util/Modal.tsx#L10)_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`props` | [Props](globals.md#props) |
+| Name    | Type                      |
+| ------- | ------------------------- |
+| `props` | [Props](globals.md#props) |
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` Navbar
 
-▸ **Navbar**(): *Element‹›*
+▸ **Navbar**(): _Element‹›_
 
-*Defined in [components/Navbar/Navbar.tsx:6](https://github.com/chronark/swapchain/blob/6beff0a/src/components/Navbar/Navbar.tsx#L6)*
+_Defined in [components/Navbar/Navbar.tsx:6](https://github.com/chronark/swapchain/blob/9502eb6/src/components/Navbar/Navbar.tsx#L6)_
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` Orderbook
 
-▸ **Orderbook**(`props`: [Props](globals.md#props)): *Element‹›*
+▸ **Orderbook**(`props`: [Props](globals.md#props)): _Element‹›_
 
-*Defined in [components/orderbook/Orderbook.tsx:79](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L79)*
+_Defined in [components/orderbook/Orderbook.tsx:79](https://github.com/chronark/swapchain/blob/9502eb6/src/components/orderbook/Orderbook.tsx#L79)_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`props` | [Props](globals.md#props) |
+| Name    | Type                      |
+| ------- | ------------------------- |
+| `props` | [Props](globals.md#props) |
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` OrderbookPage
 
-▸ **OrderbookPage**(): *Element‹›*
+▸ **OrderbookPage**(): _Element‹›_
 
-*Defined in [components/pages/OrderbookPage.tsx:4](https://github.com/chronark/swapchain/blob/6beff0a/src/components/pages/OrderbookPage.tsx#L4)*
+_Defined in [components/pages/OrderbookPage.tsx:4](https://github.com/chronark/swapchain/blob/9502eb6/src/components/pages/OrderbookPage.tsx#L4)_
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` Propose
 
-▸ **Propose**(): *Element‹›*
+▸ **Propose**(): _Element‹›_
 
-*Defined in [components/pages/Propose.tsx:21](https://github.com/chronark/swapchain/blob/6beff0a/src/components/pages/Propose.tsx#L21)*
+_Defined in [components/pages/Propose.tsx:21](https://github.com/chronark/swapchain/blob/9502eb6/src/components/pages/Propose.tsx#L21)_
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` RadioButton
 
-▸ **RadioButton**(`props`: [Props](globals.md#props)): *Element‹›*
+▸ **RadioButton**(`props`: [Props](globals.md#props)): _Element‹›_
 
-*Defined in [components/forms/RadioButton.tsx:12](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/RadioButton.tsx#L12)*
+_Defined in [components/forms/RadioButton.tsx:12](https://github.com/chronark/swapchain/blob/9502eb6/src/components/forms/RadioButton.tsx#L12)_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`props` | [Props](globals.md#props) |
+| Name    | Type                      |
+| ------- | ------------------------- |
+| `props` | [Props](globals.md#props) |
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` Row
 
-▸ **Row**(`props`: [Props](globals.md#props)): *Element‹›*
+▸ **Row**(`props`: [Props](globals.md#props)): _Element‹›_
 
-*Defined in [components/orderbook/Row.tsx:9](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Row.tsx#L9)*
+_Defined in [components/orderbook/Row.tsx:9](https://github.com/chronark/swapchain/blob/9502eb6/src/components/orderbook/Row.tsx#L9)_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`props` | [Props](globals.md#props) |
+| Name    | Type                      |
+| ------- | ------------------------- |
+| `props` | [Props](globals.md#props) |
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` Spinner
 
-▸ **Spinner**(`props`: [Props](globals.md#props)): *Element‹›*
+▸ **Spinner**(`props`: [Props](globals.md#props)): _Element‹›_
 
-*Defined in [components/util/Spinner.tsx:9](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/Spinner.tsx#L9)*
+_Defined in [components/util/Spinner.tsx:9](https://github.com/chronark/swapchain/blob/9502eb6/src/components/util/Spinner.tsx#L9)_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`props` | [Props](globals.md#props) |
+| Name    | Type                      |
+| ------- | ------------------------- |
+| `props` | [Props](globals.md#props) |
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` SubmitButton
 
-▸ **SubmitButton**(`props`: [Props](globals.md#props)): *Element‹›*
+▸ **SubmitButton**(`props`: [Props](globals.md#props)): _Element‹›_
 
-*Defined in [components/forms/SubmitButton.tsx:9](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/SubmitButton.tsx#L9)*
+_Defined in [components/forms/SubmitButton.tsx:9](https://github.com/chronark/swapchain/blob/9502eb6/src/components/forms/SubmitButton.tsx#L9)_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`props` | [Props](globals.md#props) |
+| Name    | Type                      |
+| ------- | ------------------------- |
+| `props` | [Props](globals.md#props) |
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` Table
 
-▸ **Table**(`props`: [Props](globals.md#props)): *Element‹›*
+▸ **Table**(`props`: [Props](globals.md#props)): _Element‹›_
 
-*Defined in [components/orderbook/Table.tsx:13](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Table.tsx#L13)*
+_Defined in [components/orderbook/Table.tsx:13](https://github.com/chronark/swapchain/blob/9502eb6/src/components/orderbook/Table.tsx#L13)_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`props` | [Props](globals.md#props) |
+| Name    | Type                      |
+| ------- | ------------------------- |
+| `props` | [Props](globals.md#props) |
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
 ### `Const` TradingPage
 
-▸ **TradingPage**(): *Element‹›*
+▸ **TradingPage**(): _Element‹›_
 
-*Defined in [components/pages/TradingPage.tsx:9](https://github.com/chronark/swapchain/blob/6beff0a/src/components/pages/TradingPage.tsx#L9)*
+_Defined in [components/pages/TradingPage.tsx:9](https://github.com/chronark/swapchain/blob/9502eb6/src/components/pages/TradingPage.tsx#L9)_
 
-**Returns:** *Element‹›*
+**Returns:** _Element‹›_
 
-___
+---
 
-###  errorHandler
+### errorHandler
 
-▸ **errorHandler**(`message`: string): *void*
+▸ **errorHandler**(`message`: string): _void_
 
-*Defined in [cli/getUserInput.ts:227](https://github.com/chronark/swapchain/blob/6beff0a/src/cli/getUserInput.ts#L227)*
+_Defined in [cli/getUserInput.ts:257](https://github.com/chronark/swapchain/blob/9502eb6/src/cli/getUserInput.ts#L257)_
 
 An errorhandler for errors in CLI.
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`message` | string | The message to print.  |
+| Name      | Type   | Description           |
+| --------- | ------ | --------------------- |
+| `message` | string | The message to print. |
 
-**Returns:** *void*
+**Returns:** _void_
 
-___
+---
 
 ### `Const` fakeKey
 
-▸ **fakeKey**(`length`: number, `network?`: undefined | string): *string*
+▸ **fakeKey**(`length`: number, `network?`: undefined | string): _string_
 
-*Defined in [pkg/util/util.ts:3](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/util/util.ts#L3)*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`length` | number |
-`network?` | undefined &#124; string |
-
-**Returns:** *string*
-
-___
-
-###  getAccount
-
-▸ **getAccount**(`privateKey`: string, `node`: string, `network`: string): *Promise‹string›*
-
-*Defined in [pkg/bitshares/util.ts:4](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/util.ts#L4)*
+_Defined in [pkg/util/util.ts:3](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/util/util.ts#L3)_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`privateKey` | string |
-`node` | string |
-`network` | string |
+| Name       | Type                    |
+| ---------- | ----------------------- |
+| `length`   | number                  |
+| `network?` | undefined &#124; string |
 
-**Returns:** *Promise‹string›*
+**Returns:** _string_
 
-___
+---
 
-###  getAddress
+### getAddress
 
-▸ **getAddress**(`processArgv`: string[]): *void*
+▸ **getAddress**(`processArgv`: string[]): _void_
 
-*Defined in [pkg/address/getAddress.ts:8](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/getAddress.ts#L8)*
+_Defined in [pkg/address/getAddress.ts:8](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/address/getAddress.ts#L8)_
 
 Get address pair and print to stdout
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`processArgv` | string[] | The argument array.  |
+| Name          | Type     | Description         |
+| ------------- | -------- | ------------------- |
+| `processArgv` | string[] | The argument array. |
 
-**Returns:** *void*
+**Returns:** _void_
 
-___
+---
 
-###  getBTCAddress
+### getBTCAddress
 
-▸ **getBTCAddress**(`network`: string): *[BTCAddress](interfaces/btcaddress.md)*
+▸ **getBTCAddress**(`network`: string): _[BTCAddress](interfaces/btcaddress.md)_
 
-*Defined in [pkg/address/address.ts:29](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/address.ts#L29)*
+_Defined in [pkg/address/address.ts:29](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/address/address.ts#L29)_
 
 A function for generating a random Bitcoin address with its corresponding private key
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`network` | string | A string with the requested network type. |
+| Name      | Type   | Description                               |
+| --------- | ------ | ----------------------------------------- |
+| `network` | string | A string with the requested network type. |
 
-**Returns:** *[BTCAddress](interfaces/btcaddress.md)*
+**Returns:** _[BTCAddress](interfaces/btcaddress.md)_
 
 A BTCAddress interface with a privatekey/address pair.
 
-___
+---
 
-###  getBTSAddress
+### getBTSAddress
 
-▸ **getBTSAddress**(`network`: string): *[BTSAddress](interfaces/btsaddress.md)*
+▸ **getBTSAddress**(`network`: string): _[BTSAddress](interfaces/btsaddress.md)_
 
-*Defined in [pkg/address/address.ts:63](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/address.ts#L63)*
+_Defined in [pkg/address/address.ts:63](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/address/address.ts#L63)_
 
 A function for generating a random Bitshares address (PublicKey) with its corresponding private key
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`network` | string | A string with the requested network type. |
+| Name      | Type   | Description                               |
+| --------- | ------ | ----------------------------------------- |
+| `network` | string | A string with the requested network type. |
 
-**Returns:** *[BTSAddress](interfaces/btsaddress.md)*
+**Returns:** _[BTSAddress](interfaces/btsaddress.md)_
 
 An Address interface with a private key and address.
 
-___
+---
 
-###  getSecret
+### getSecret
 
-▸ **getSecret**(): *[Secret](interfaces/secret.md)*
+▸ **getSecret**(): _[Secret](interfaces/secret.md)_
 
-*Defined in [pkg/secret/secret.ts:18](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/secret/secret.ts#L18)*
+_Defined in [pkg/secret/secret.ts:18](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/secret/secret.ts#L18)_
 
 A function for generating and hashing a crypto random string with a length of 32.
 The length of the secret can not be changed!
 
-**Returns:** *[Secret](interfaces/secret.md)*
+**Returns:** _[Secret](interfaces/secret.md)_
 
 An Secret object.
 
-___
+---
 
-###  getUserInput
+### getUserInput
 
-▸ **getUserInput**(): *Promise‹[ACCSFields](interfaces/accsfields.md)›*
+▸ **getUserInput**(): _Promise‹[ACCSFields](interfaces/accsfields.md)›_
 
-*Defined in [cli/getUserInput.ts:13](https://github.com/chronark/swapchain/blob/6beff0a/src/cli/getUserInput.ts#L13)*
+_Defined in [cli/getUserInput.ts:13](https://github.com/chronark/swapchain/blob/9502eb6/src/cli/getUserInput.ts#L13)_
 
 Get user input from JSON config file or stdin and store everything in a fields object.
 
-**Returns:** *Promise‹[ACCSFields](interfaces/accsfields.md)›*
+**Returns:** _Promise‹[ACCSFields](interfaces/accsfields.md)›_
 
 The raw user input fields object.
 
-___
+---
 
 ### `Const` hash
 
-▸ **hash**(`s`: string): *string*
+▸ **hash**(`s`: string): _string_
 
-*Defined in [pkg/util/util.ts:14](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/util/util.ts#L14)*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`s` | string |
-
-**Returns:** *string*
-
-___
-
-###  isValidBitcoinPrivateKey
-
-▸ **isValidBitcoinPrivateKey**(`privateKey`: string, `network`: string): *boolean*
-
-*Defined in [pkg/address/validator.ts:1](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/validator.ts#L1)*
+_Defined in [pkg/util/util.ts:14](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/util/util.ts#L14)_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`privateKey` | string |
-`network` | string |
+| Name | Type   |
+| ---- | ------ |
+| `s`  | string |
 
-**Returns:** *boolean*
+**Returns:** _string_
 
-___
+---
 
-###  isValidBitcoinPublicKey
+### isValidBitcoinPrivateKey
 
-▸ **isValidBitcoinPublicKey**(`publicKey`: string): *boolean*
+▸ **isValidBitcoinPrivateKey**(`privateKey`: string, `network`: string): _boolean_
 
-*Defined in [pkg/address/validator.ts:17](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/validator.ts#L17)*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`publicKey` | string |
-
-**Returns:** *boolean*
-
-___
-
-###  isValidBitsharesPrivateKey
-
-▸ **isValidBitsharesPrivateKey**(`privateKey`: string): *boolean*
-
-*Defined in [pkg/address/validator.ts:21](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/validator.ts#L21)*
+_Defined in [pkg/address/validator.ts:1](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/address/validator.ts#L1)_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`privateKey` | string |
+| Name         | Type   |
+| ------------ | ------ |
+| `privateKey` | string |
+| `network`    | string |
 
-**Returns:** *boolean*
+**Returns:** _boolean_
 
-___
+---
+
+### isValidBitcoinPublicKey
+
+▸ **isValidBitcoinPublicKey**(`publicKey`: string): _boolean_
+
+_Defined in [pkg/address/validator.ts:17](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/address/validator.ts#L17)_
+
+**Parameters:**
+
+| Name        | Type   |
+| ----------- | ------ |
+| `publicKey` | string |
+
+**Returns:** _boolean_
+
+---
+
+### isValidBitsharesPrivateKey
+
+▸ **isValidBitsharesPrivateKey**(`privateKey`: string): _boolean_
+
+_Defined in [pkg/address/validator.ts:21](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/address/validator.ts#L21)_
+
+**Parameters:**
+
+| Name         | Type   |
+| ------------ | ------ |
+| `privateKey` | string |
+
+**Returns:** _boolean_
+
+---
 
 ### `Const` orderFactory
 
-▸ **orderFactory**(`count`: number): *[Order](interfaces/order.md)[]*
+▸ **orderFactory**(`count`: number): _[Order](interfaces/order.md)[]_
 
-*Defined in [components/orderbook/Orderbook.tsx:46](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L46)*
+_Defined in [components/orderbook/Orderbook.tsx:46](https://github.com/chronark/swapchain/blob/9502eb6/src/components/orderbook/Orderbook.tsx#L46)_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`count` | number |
+| Name    | Type   |
+| ------- | ------ |
+| `count` | number |
 
-**Returns:** *[Order](interfaces/order.md)[]*
+**Returns:** _[Order](interfaces/order.md)[]_
 
-___
+---
 
 ### `Const` toPublicKey
 
-▸ **toPublicKey**(`privateKey`: string): *string*
+▸ **toPublicKey**(`privateKey`: string): _string_
 
-*Defined in [pkg/util/util.ts:18](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/util/util.ts#L18)*
+_Defined in [pkg/util/util.ts:18](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/util/util.ts#L18)_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`privateKey` | string |
+| Name         | Type   |
+| ------------ | ------ |
+| `privateKey` | string |
 
-**Returns:** *string*
+**Returns:** _string_
 
-___
+---
 
-###  witnessStackToScriptWitness
+### witnessStackToScriptWitness
 
-▸ **witnessStackToScriptWitness**(`witness`: Buffer[]): *Buffer*
+▸ **witnessStackToScriptWitness**(`witness`: Buffer[]): _Buffer_
 
-*Defined in [pkg/bitcoin/htlc/witnessStack.ts:10](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/witnessStack.ts#L10)*
+_Defined in [pkg/bitcoin/htlc/witnessStack.ts:10](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/bitcoin/htlc/witnessStack.ts#L10)_
 
 Helperfunction to serialize the final witness script
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`witness` | Buffer[] |   |
+| Name      | Type     | Description |
+| --------- | -------- | ----------- |
+| `witness` | Buffer[] |             |
 
-**Returns:** *Buffer*
+**Returns:** _Buffer_
 
 ## Object literals
 
 ### `Const` status
 
-### ▪ **status**: *object*
+### ▪ **status**: _object_
 
-*Defined in [components/orderbook/Orderbook.tsx:14](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L14)*
+_Defined in [components/orderbook/Orderbook.tsx:14](https://github.com/chronark/swapchain/blob/9502eb6/src/components/orderbook/Orderbook.tsx#L14)_
 
-▪ **active**: *object*
+▪ **active**: _object_
 
-*Defined in [components/orderbook/Orderbook.tsx:15](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L15)*
+_Defined in [components/orderbook/Orderbook.tsx:15](https://github.com/chronark/swapchain/blob/9502eb6/src/components/orderbook/Orderbook.tsx#L15)_
 
-* **color**: *string* = "teal"
+- **color**: _string_ = "teal"
 
-* **label**: *string* = "active"
+- **label**: _string_ = "active"
 
-▪ **expired**: *object*
+▪ **expired**: _object_
 
-*Defined in [components/orderbook/Orderbook.tsx:23](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L23)*
+_Defined in [components/orderbook/Orderbook.tsx:23](https://github.com/chronark/swapchain/blob/9502eb6/src/components/orderbook/Orderbook.tsx#L23)_
 
-* **color**: *string* = "gray"
+- **color**: _string_ = "gray"
 
-* **label**: *string* = "expired"
+- **label**: _string_ = "expired"
 
-▪ **fulfilled**: *object*
+▪ **fulfilled**: _object_
 
-*Defined in [components/orderbook/Orderbook.tsx:19](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L19)*
+_Defined in [components/orderbook/Orderbook.tsx:19](https://github.com/chronark/swapchain/blob/9502eb6/src/components/orderbook/Orderbook.tsx#L19)_
 
-* **color**: *string* = "gray"
+- **color**: _string_ = "gray"
 
-* **label**: *string* = "fulfilled"
+- **label**: _string_ = "fulfilled"

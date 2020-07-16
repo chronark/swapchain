@@ -10,36 +10,36 @@ An interface for a Bitcoin key/address pair
 
 ## Hierarchy
 
-* **BTCAddress**
+- **BTCAddress**
 
 ## Index
 
 ### Properties
 
-* [address](btcaddress.md#address)
-* [privateKey](btcaddress.md#privatekey)
-* [publicKey](btcaddress.md#publickey)
+- [address](btcaddress.md#address)
+- [privateKey](btcaddress.md#privatekey)
+- [publicKey](btcaddress.md#publickey)
 
 ## Properties
 
-###  address
+### address
 
-• **address**: *string*
+• **address**: _string_
 
-*Defined in [pkg/address/address.ts:12](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/address.ts#L12)*
+_Defined in [pkg/address/address.ts:12](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/address/address.ts#L12)_
 
-___
+---
 
-###  privateKey
+### privateKey
 
-• **privateKey**: *string*
+• **privateKey**: _string_
 
-*Defined in [pkg/address/address.ts:10](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/address.ts#L10)*
+_Defined in [pkg/address/address.ts:10](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/address/address.ts#L10)_
 
-___
+---
 
-###  publicKey
+### publicKey
 
-• **publicKey**: *string*
+• **publicKey**: _string_
 
-*Defined in [pkg/address/address.ts:11](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/address.ts#L11)*
+_Defined in [pkg/address/address.ts:11](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/address/address.ts#L11)_

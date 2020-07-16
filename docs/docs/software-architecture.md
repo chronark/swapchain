@@ -7,15 +7,15 @@ sidebar_label: Swapchain Software Architecture
 ## 1. Introduction
 
 Swapchain is a platform that enables users to perform atomic cross-chain swaps between Bitcoins and Bitshares and vice versa. It caters to the need of users who want to carry out OTC (over-the-counter) transactions between the Bitcoin and the Bitshares blockchains. The platform helps users to submit desired swap orders and perform a Hashed Time Lock Contract to safely carry out the swap. Furthermore, it provides the functionality of a simple user interface to track the transactions made by the user. The use of an atomic cross-chain swap helps avoiding counterparty risks and high fees charged by other intermediaries. [5]
-   
+
 ### 1.1 Purpose
 
 This document provides a comprehensive architectural overview of the Swapchain platform, using specific diagrams and an architectural representation to explain different aspects of the platform. It is intended to capture and convey the significant architectural decisions which have been made for the platform design.
-   
+
 ### 1.2 Scope
 
 The Swapchain platform is being developed by a group of students from Friedrich-Alexander University Erlangen to support cross-chain atomic swaps as part of an AMOS project. This software architecture document applies to each static and dynamic aspect of the platform. It includes an architectural model to explain the different processes that happen. Furthermore, it also discusses deployment and implementation issues.
-   
+
 ### 1.3 Definitions, Acronyms, Abbreviations
 
 AMOS - Agile methods and Open-Source Software  
@@ -29,17 +29,16 @@ API - Application Programming Interface
 UI - User Interface  
 BOM - Bill of materials  
 CLI - Command-line interface
-   
+
 ### 1.4 Overview
 
 The documentation will present a detailed analysis of the architecture of a platform enabling ACCS between BTC and BTS. Initial sections of the document cover the architectural goals and constraints, use case realizations, and architectural representation. The later sections cover the specific details of the implementation and deployment of the platform. Furthermore, the document also describes the performance and quality.
 
-   
 ## 2. Architectural Representation
 
 Swapchain offers a command-line interface (CLI) and a basic UI which both follow the Clean Architecture pattern. Main reason to use this pattern is to separate functions into layers and thus, improve the maintainability and reusability. Figure 1 visualizes the Clean Architecture by using color-coded schemes.
 
-![](/img/CleanArchitecture.svg)   
+![](/img/CleanArchitecture.svg)  
 Figure 1: The Clean Architecture (Martin, 2020) [3]
 
 So, in the context of our application:
@@ -49,58 +48,56 @@ So, in the context of our application:
 3. Green Layer: This layer is used to separate the Red layer from the Blue layer. It has the framework specific code which is to be used by the application.
 4. Blue Layer: This layer (framework and drivers) contains the graphical UI and CLI.
 
-| Clean Architecture Layers | Entities                                    | Use Cases                                | Controllers, Gateways, Presenters                           | UI, Web, Devices, DB              |
-| ------------------------- | ------------------------------------------- | ---------------------------------------- | ----------------------------------------------------------- | --------------------------------- |
-| General Description       | Main features of the application            | Application of the main ideas            | Encapsulates framework-specific code                        | Contains frameworks and tools     |
-| Swapchain Specific        | Atomic cross-chain swap of cryptocurrencies | Cross-chain swaps, cross-consensus swaps | Interaction, libraries, data-structures from UI to use case | CLI, Web UI |
+| Clean Architecture Layers | Entities                                    | Use Cases                                | Controllers, Gateways, Presenters                           | UI, Web, Devices, DB          |
+| ------------------------- | ------------------------------------------- | ---------------------------------------- | ----------------------------------------------------------- | ----------------------------- |
+| General Description       | Main features of the application            | Application of the main ideas            | Encapsulates framework-specific code                        | Contains frameworks and tools |
+| Swapchain Specific        | Atomic cross-chain swap of cryptocurrencies | Cross-chain swaps, cross-consensus swaps | Interaction, libraries, data-structures from UI to use case | CLI, Web UI                   |
 
 A significant feature of this architecture is the flow of dependencies, which can be seen by the arrows moving in from the blue layer to the yellow layer in figure 1. This signifies that an outer layer can depend on an inner layer, but an inner layer cannot depend on an outer layer. The things that are most likely to change are kept on the outer layers and the things are less likely to change are kept on the inner most layers, helping the application to ensure possible changes that come over time due to technology changes etc. This makes the inner layers much more stable than the outer layers thus, the tools used to build the application can be modified easily (blue layer) but the core concepts and ideas behind the application are less likely to change (yellow layer). [3]
 
-   
 ## 3. Logical and Code Component Overview
 
 The logical view of Swapchain is comprised of 4 main components:
-- User Interface   
-- ACCS Class   
-- HTLC   
-- and Verification.   
 
-UI:   
+- User Interface
+- ACCS Class
+- HTLC
+- and Verification.
+
+UI:  
 The web UI contains an interface for the user to propose or accept a swap. Also a command-line tool has been developed which offers the exact same functionality of conducting an ACCS.
 
-ACCS Class:   
+ACCS Class:  
 The ACCS class is the interface between the UI and the HTLC. Values set in the UI are respectively set in the config of the ACCS class needed to perform a swap.
 
-HTLC:   
+HTLC:  
 The HTLC contains several sub-components. A crucial part here is the secret and hash generator that first generates a random secret that is then cryptographically hashed. In order to further conduct the swap, a hash lock sub-component and a time lock sub-component need to be set up. The hash lock accesses the hash generator to retrieve the hashed password, while the time lock cooperates with the refund process, so as soon as the time lock expires, the refund process will be started.
 
-Verification:   
+Verification:  
 The Verification contains the signature verification sub-component which is consulted to verify the swap partners’ signatures. This sub-component comprises of a sign-transaction interface which locally compares the private key to the public key in the browser. If the verification is successful, the swap is executed. If not, the verification fails, and the refund process will be initiated.
-   
+
 ### 3.1. UML Diagram
 
-![](/img/UML.svg)   
+![](/img/UML.svg)  
 Figure 2: UML Diagram (Swapchain, 2020) [4]
 
-   
 ## 4. Use Case
 
 The use case diagram is used to visualize the Swapchain application and its actors.
-   
+
 ### 4.1. Use Case Diagram
 
 For the following use case diagram we assume that user 1 is in possession of Bitcoin while user 2 is in possession of Bitshares. Obviously, swapchain also supports swaps between these two cryptocurrencies that are vice versa, meaning user 1 proposes Bitshares in exchange for Bitcoin.
 
-![](/img/UseCase.svg)     
+![](/img/UseCase.svg)  
 Figure 3: Use Case Diagram (Swapchain, 2020) [4]
-   
+
 ### 4.2. Use Case Description
 
-| Use Case Name           | Scenario                               | Triggering Event                   | Actors            | Related Use Case | Preconditions                                                                                                                                       | Post Conditions                                                     | Flow of Events                                                                                                                                                                                                           | Exception Conditions                                          |
-| ----------------------- | -------------------------------------- | ---------------------------------- | ----------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
-| Atomic cross-chain swap | Two users want to exchange BTC and BTS | Two HTLCs are created in the respective blockchains which are locked by the same secret hash provided by the proposer/proposing party | User 1 and User 2 | None             | - Users should be in possession of the cryptocurrency that is desired by the other party  - Users should create an HTLC in their respective Blockchains by signing their transactions | - Validating the user  - Hash and time lock conditions should be met | - Start an HTLC  - Fund and redeem a swap  - Key pair generator  - Verification process of validity between private and public keys  - Transaction successful or funds are refunded | - Network failure  - App crashing   - Too much market volatility |
+| Use Case Name           | Scenario                               | Triggering Event                                                                                                                      | Actors            | Related Use Case | Preconditions                                                                                                                                                                        | Post Conditions                                                     | Flow of Events                                                                                                                                                                  | Exception Conditions                                          |
+| ----------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Atomic cross-chain swap | Two users want to exchange BTC and BTS | Two HTLCs are created in the respective blockchains which are locked by the same secret hash provided by the proposer/proposing party | User 1 and User 2 | None             | - Users should be in possession of the cryptocurrency that is desired by the other party - Users should create an HTLC in their respective Blockchains by signing their transactions | - Validating the user - Hash and time lock conditions should be met | - Start an HTLC - Fund and redeem a swap - Key pair generator - Verification process of validity between private and public keys - Transaction successful or funds are refunded | - Network failure - App crashing - Too much market volatility |
 
-   
 ## 5. Architectural Goals and Constraints
 
 There are some key requirements and system constraints that have a significant bearing on the architecture. They are:
@@ -111,52 +108,49 @@ There are some key requirements and system constraints that have a significant b
 - All private and public information of the clients using the platform should be secured safely.
 - The Swapchain platform will be implemented as a client-server system. The client portion resides on PCs and the server portion must operate on the APIs used.
 
-   
 ## 6. Deployment
 
 This UI is hosted on Netlify. For users interested in the CLI, they can download the repository from Github and build it from source. A documentation for the is provided om the README.
 After finishing the AMOS course and therewith the project, the software will be hosted by ChainSquad. Atomic transactions are conducted in the backend, so that the client computer does not have to spend much of CPU power.
-   
+
 ### 6.1. Technology Stack Description
 
 All services will be running in an React app on Netlify. [1][2]
 
-Frontend:   
+Frontend:
 
 - JavaScript, CSS, HTML
 - React
 - Tailwind.css
 
-Blockchain Gateway:   
+Blockchain Gateway:
 
 - Bitcoin libraries:
   - bitcoinjs-lib (junderw, 2020)
 - Bitshare libraries:
   - bitsharesjs
 
-HTLC:   
+HTLC:
 
 - Creates the HTLC on its own blockchain
 
-   
 ## 7. Implementation
 
 The implementation diagram is used to visualize the flow of control and the implementation description elaborates further on the processes taking place.
-   
+
 ### 7.1. Implementation Diagram
 
-![](/img/Implementation.svg)   
+![](/img/Implementation.svg)  
 Figure 5: Implementation Diagram (Swapchain, 2020) [4]
-   
+
 ### 7.2. Implementation Description
 
-End-User:   
+End-User:  
 The user interacts with the Swapchain UI without signing-up or authenticating an account. For now, we assume that proposer and accepter already know each other. Next, both exchange partners have to fill out a form to either accept or propose an atomic cross-chain swap. The user initiates the atomic swap by submitting the respective form and therewith opening an HTLC.
 
-System:   
+System:  
 After the system receives the proposal created by the user, a swap request is carried out using an HTLC. Therefore, the signatures are verified so that the private key matches the public key for the swap to take place. As soon as all required conditions are met it relays back and responds to the system to successfully transfer the funds. The involved users will receive a error message if the transaction was unsuccessful. In this case the users will be receiving the refund.
 
-   
 ## 8. Size and Performance
 
 The chosen software architecture supports the following requirements:
@@ -164,7 +158,6 @@ The chosen software architecture supports the following requirements:
 1. The system shall support at least two simultaneous users at a time (thousands of requests can be supported since netlifies CDN is used).
 2. The system shall be able to complete an ACCS transaction within a reasonable time once all HTLC requirements are met. The exact time, however, depends on the miners.
 
-   
 ## 9. Quality
 
 The software architecture supports the following quality requirements:
@@ -172,15 +165,14 @@ The software architecture supports the following quality requirements:
 1. The UI of the Swapchain platform will be designed for ease-of-use and shall be appropriate for a computer-literate user community with some knowledge of cryptocurrency exchanges.
 2. The Swapchain platform will be available 24 hours a day, 7 days a week. However, it can not be guaranteed that Netlify and even a Blockchain node that is used are never down. This would obviously affect Swapchain's services.
 
-
 ## 10. References
 
 1. Github. (2020, May 2). Github swapchain repository. Retrieved from https://github.com/chronark/swapchain
-   
+
 2. junderw. (2020, May 5). Github bitcoinjs-lib. Retrieved from https://github.com/bitcoinjs/bitcoinjs-lib
-   
+
 3. Martin, R. C. (2020, May 4). The Clean Code Blog. Retrieved from https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
-   
+
 4. Swapchain. (2020, May 4). draw.io. Retrieved from https://www.draw.io/
-   
+
 5. Zipkin, M. (2020, May 3). bcoin. Retrieved from https://bcoin.io/guides/swaps.html
