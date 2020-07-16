@@ -29,7 +29,7 @@ sidebar_label: "BitcoinHTLC"
 
 ### Methods
 
-* [calculateFee](bitcoinhtlc.md#private-calculatefee)
+* [calculateFee](bitcoinhtlc.md#calculatefee)
 * [create](bitcoinhtlc.md#create)
 * [getFinalScriptsRedeem](bitcoinhtlc.md#private-getfinalscriptsredeem)
 * [getFinalScriptsRefund](bitcoinhtlc.md#private-getfinalscriptsrefund)
@@ -48,7 +48,7 @@ sidebar_label: "BitcoinHTLC"
 
 \+ **new BitcoinHTLC**(`network`: string, `sender`: ECPairInterface, `receiver`: ECPairInterface, `priority`: number, `BitcoinAPIConstructor`: [BitcoinAPIConstructor](../interfaces/bitcoinapiconstructor.md)): *[BitcoinHTLC](bitcoinhtlc.md)*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:54](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L54)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:54](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L54)*
 
 Creates an instance of BitcoinHTLC.
 
@@ -72,7 +72,7 @@ Name | Type | Default | Description |
 
 • **amountAfterFees**: *number*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:53](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L53)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:53](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L53)*
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 • **bitcoinAPI**: *[BitcoinAPI](../interfaces/bitcoinapi.md)*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:54](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L54)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:54](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L54)*
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 • **fundingTxBlockHeight**: *number | undefined*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:51](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L51)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:51](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L51)*
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 • **network**: *Network*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:47](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L47)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:47](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L47)*
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 • **preimage**: *string*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:52](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L52)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:52](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L52)*
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 • **priority**: *number*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:50](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L50)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:50](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L50)*
 
 ___
 
@@ -120,7 +120,7 @@ ___
 
 • **receiver**: *ECPairInterface*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:49](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L49)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:49](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L49)*
 
 ___
 
@@ -128,23 +128,23 @@ ___
 
 • **sender**: *ECPairInterface*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:48](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L48)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:48](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L48)*
 
 ## Methods
 
-### `Private` calculateFee
+###  calculateFee
 
-▸ **calculateFee**(): *Promise‹number›*
+▸ **calculateFee**(): *Promise‹object›*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:301](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L301)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:301](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L301)*
 
-Get fee estimates and calculate fee depending on priority
+Get wanted and max fee.
 
 **`memberof`** BitcoinHTLC
 
-**Returns:** *Promise‹number›*
+**Returns:** *Promise‹object›*
 
-Fee for a single transaction in Satoshi.
+A fee object with a max fee, which is the maximum fee the redeemer of the HTLC should accept and a want fee, which is the desired fee according to the selected priority.
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 ▸ **create**(`config`: [HTLCConfigBTC](../interfaces/htlcconfigbtc.md)): *Promise‹string›*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:341](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L341)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:354](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L354)*
 
 Creates an HTLC.
 
@@ -174,7 +174,7 @@ ___
 
 ▸ **getFinalScriptsRedeem**(`inputIndex`: number, `input`: PsbtInput, `script`: Buffer, `isSegwit`: boolean, `isP2SH`: boolean, `isP2WSH`: boolean): *object*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:173](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L173)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:173](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L173)*
 
 Finalize an HTLC redeem transaction using PSBT.
 
@@ -203,7 +203,7 @@ ___
 
 ▸ **getFinalScriptsRefund**(`inputIndex`: number, `input`: PsbtInput, `script`: Buffer, `isSegwit`: boolean, `isP2SH`: boolean, `isP2WSH`: boolean): *object*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:131](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L131)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:131](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L131)*
 
 Finalize an HTLC refund transaction using PSBT.
 
@@ -232,7 +232,7 @@ ___
 
 ▸ **getFundingTxBlockHeight**(): *number | undefined*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:88](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L88)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:88](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L88)*
 
 Get block height of funding transaction
 
@@ -248,7 +248,7 @@ ___
 
 ▸ **getP2WSH**(`hash`: Buffer, `sequence`: number): *Payment*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:230](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L230)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:230](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L230)*
 
 Calculate the p2wsh to send our money to before creating the timelock refund operation.
 
@@ -271,7 +271,7 @@ ___
 
 ▸ **getRedeemHex**(`transactionID`: string, `p2wsh`: Payment): *Promise‹string›*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:439](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L439)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:443](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L443)*
 
 Redeems the HTLC.
 
@@ -294,7 +294,7 @@ ___
 
 ▸ **getRefundHex**(`transactionID`: string, `sequence`: number, `p2wsh`: Payment): *Promise‹string›*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:402](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L402)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:406](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L406)*
 
 Refunds the HTLC to sender.
 
@@ -318,7 +318,7 @@ ___
 
 ▸ **getWitnessPublicKeyHash**(`keyPair`: ECPairInterface): *Payment*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:216](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L216)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:216](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L216)*
 
 Helperfunction to get the public key from an ECPair
 
@@ -338,9 +338,9 @@ ___
 
 ###  redeem
 
-▸ **redeem**(`p2wsh`: Payment, `secret`: [Secret](../interfaces/secret.md)): *Promise‹void›*
+▸ **redeem**(`p2wsh`: Payment, `amount`: number, `secret`: [Secret](../interfaces/secret.md)): *Promise‹void›*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:316](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L316)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:325](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L325)*
 
 Redeems an HTLC.
 
@@ -351,6 +351,7 @@ Redeems an HTLC.
 Name | Type | Description |
 ------ | ------ | ------ |
 `p2wsh` | Payment | The Pay-to-witness-script-hash object to redeem. |
+`amount` | number | The amount of satoshi to exchange. |
 `secret` | [Secret](../interfaces/secret.md) | The secret object with the correct preimage inside. |
 
 **Returns:** *Promise‹void›*
@@ -361,7 +362,7 @@ ___
 
 ▸ **redeemScript**(`hash`: Buffer, `sequence`: number): *Buffer*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:101](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L101)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:101](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L101)*
 
 Create the redeem script in bitcoin's scripting language.
 
@@ -384,7 +385,7 @@ ___
 
 ▸ **sendToP2WSHAddress**(`p2wsh`: Payment, `transactionID`: string, `amount`: number): *Promise‹string›*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:249](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L249)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:249](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L249)*
 
 Send funds to a pay2witnessScripthash address to be used in the timelock refund operation.
 

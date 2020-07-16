@@ -34,7 +34,7 @@ Handler to transform timelocks between blockchains.
 
 \+ **new Timer**(`blockSequence`: number, `network`: string, `BitcoinAPIConstructor`: [BitcoinAPIConstructor](../interfaces/bitcoinapiconstructor.md)): *[Timer](timer.md)*
 
-*Defined in [accs/timer.ts:9](https://github.com/chronark/swapchain/blob/11f7027/src/accs/timer.ts#L9)*
+*Defined in [pkg/accs/timer.ts:9](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/timer.ts#L9)*
 
 Creates an instance of Timer
 
@@ -54,7 +54,7 @@ Name | Type | Description |
 
 • **bitcoinAPI**: *[BitcoinAPI](../interfaces/bitcoinapi.md)*
 
-*Defined in [accs/timer.ts:8](https://github.com/chronark/swapchain/blob/11f7027/src/accs/timer.ts#L8)*
+*Defined in [pkg/accs/timer.ts:8](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/timer.ts#L8)*
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 • **blockSequence**: *number*
 
-*Defined in [accs/timer.ts:9](https://github.com/chronark/swapchain/blob/11f7027/src/accs/timer.ts#L9)*
+*Defined in [pkg/accs/timer.ts:9](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/timer.ts#L9)*
 
 ## Methods
 
@@ -70,7 +70,7 @@ ___
 
 ▸ **toBTC**(): *number*
 
-*Defined in [accs/timer.ts:34](https://github.com/chronark/swapchain/blob/11f7027/src/accs/timer.ts#L34)*
+*Defined in [pkg/accs/timer.ts:34](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/timer.ts#L34)*
 
 Get Bitcoin timelock.
 
@@ -84,7 +84,7 @@ ___
 
 ▸ **toBTS**(`blockHeightDifference`: number): *Promise‹number›*
 
-*Defined in [accs/timer.ts:44](https://github.com/chronark/swapchain/blob/11f7027/src/accs/timer.ts#L44)*
+*Defined in [pkg/accs/timer.ts:44](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/timer.ts#L44)*
 
 Calculate Bitshares timelock based on bitcoin blockchain mining speed.
 

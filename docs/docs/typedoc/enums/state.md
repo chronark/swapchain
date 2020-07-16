@@ -22,9 +22,9 @@ sidebar_label: "State"
 
 • **ERROR**:
 
-*Defined in [components/util/enums.ts:5](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/enums.ts#L5)*
+*Defined in [components/util/enums.ts:5](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/enums.ts#L5)*
 
-*Defined in [components/forms/enums.ts:5](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/enums.ts#L5)*
+*Defined in [components/forms/enums.ts:5](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/enums.ts#L5)*
 
 ___
 
@@ -32,9 +32,9 @@ ___
 
 • **FAILURE**:
 
-*Defined in [components/util/enums.ts:6](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/enums.ts#L6)*
+*Defined in [components/util/enums.ts:6](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/enums.ts#L6)*
 
-*Defined in [components/forms/enums.ts:6](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/enums.ts#L6)*
+*Defined in [components/forms/enums.ts:6](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/enums.ts#L6)*
 
 ___
 
@@ -42,9 +42,9 @@ ___
 
 • **IDLE**:
 
-*Defined in [components/util/enums.ts:2](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/enums.ts#L2)*
+*Defined in [components/util/enums.ts:2](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/enums.ts#L2)*
 
-*Defined in [components/forms/enums.ts:2](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/enums.ts#L2)*
+*Defined in [components/forms/enums.ts:2](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/enums.ts#L2)*
 
 ___
 
@@ -52,9 +52,9 @@ ___
 
 • **RUNNING**:
 
-*Defined in [components/util/enums.ts:3](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/enums.ts#L3)*
+*Defined in [components/util/enums.ts:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/enums.ts#L3)*
 
-*Defined in [components/forms/enums.ts:3](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/enums.ts#L3)*
+*Defined in [components/forms/enums.ts:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/enums.ts#L3)*
 
 ___
 
@@ -62,6 +62,6 @@ ___
 
 • **SUCCESS**:
 
-*Defined in [components/util/enums.ts:4](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/enums.ts#L4)*
+*Defined in [components/util/enums.ts:4](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/enums.ts#L4)*
 
-*Defined in [components/forms/enums.ts:4](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/enums.ts#L4)*
+*Defined in [components/forms/enums.ts:4](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/enums.ts#L4)*

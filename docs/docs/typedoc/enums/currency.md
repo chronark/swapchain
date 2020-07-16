@@ -19,9 +19,9 @@ sidebar_label: "Currency"
 
 • **BTC**: = "BTC"
 
-*Defined in [components/util/enums.ts:10](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/enums.ts#L10)*
+*Defined in [components/util/enums.ts:10](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/enums.ts#L10)*
 
-*Defined in [components/forms/enums.ts:10](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/enums.ts#L10)*
+*Defined in [components/forms/enums.ts:10](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/enums.ts#L10)*
 
 ___
 
@@ -29,6 +29,6 @@ ___
 
 • **BTS**: = "BTS"
 
-*Defined in [components/util/enums.ts:11](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/enums.ts#L11)*
+*Defined in [components/util/enums.ts:11](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/enums.ts#L11)*
 
-*Defined in [components/forms/enums.ts:11](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/enums.ts#L11)*
+*Defined in [components/forms/enums.ts:11](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/enums.ts#L11)*

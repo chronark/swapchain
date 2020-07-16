@@ -30,7 +30,7 @@ Contains all necessary information to create an HTLC on Bitshares blockchain
 
 • **amount**: *number*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:16](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L16)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:16](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L16)*
 
 How much you want to send.
 
@@ -42,7 +42,7 @@ ___
 
 • **asset**: *string*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:23](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L23)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:23](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L23)*
 
 The type/currency you want to send.
 
@@ -54,7 +54,7 @@ ___
 
 • **hash**: *Buffer*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:37](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L37)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:37](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L37)*
 
 SHA256 hash of the secret.
 
@@ -66,7 +66,7 @@ ___
 
 • **privateKey**: *string*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:45](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L45)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:45](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L45)*
 
 Private key of the creator in WIF format.
 
@@ -78,7 +78,7 @@ ___
 
 • **time**: *number*
 
-*Defined in [pkg/bitshares/htlc/btsHTLC.ts:30](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/htlc/btsHTLC.ts#L30)*
+*Defined in [pkg/bitshares/htlc/btsHTLC.ts:30](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/htlc/btsHTLC.ts#L30)*
 
 TTL for the timelock in seconds. After this time passes the contract will be automatically redeemed by the sender.
 
