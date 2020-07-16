@@ -16,32 +16,32 @@ Anything else returned from your api of choice can be ignored.
 
 ## Hierarchy
 
-* **BitcoinAPI**
+- **BitcoinAPI**
 
 ## Implemented by
 
-* [BlockStream](../classes/blockstream.md)
+- [BlockStream](../classes/blockstream.md)
 
 ## Index
 
 ### Properties
 
-* [getBlockHeight](bitcoinapi.md#getblockheight)
-* [getFeeEstimates](bitcoinapi.md#getfeeestimates)
-* [getLastBlock](bitcoinapi.md#getlastblock)
-* [getOutput](bitcoinapi.md#getoutput)
-* [getPreimageFromLastTransaction](bitcoinapi.md#getpreimagefromlasttransaction)
-* [getTimestampAtHeight](bitcoinapi.md#gettimestampatheight)
-* [getValueFromLastTransaction](bitcoinapi.md#getvaluefromlasttransaction)
-* [pushTX](bitcoinapi.md#pushtx)
+- [getBlockHeight](bitcoinapi.md#getblockheight)
+- [getFeeEstimates](bitcoinapi.md#getfeeestimates)
+- [getLastBlock](bitcoinapi.md#getlastblock)
+- [getOutput](bitcoinapi.md#getoutput)
+- [getPreimageFromLastTransaction](bitcoinapi.md#getpreimagefromlasttransaction)
+- [getTimestampAtHeight](bitcoinapi.md#gettimestampatheight)
+- [getValueFromLastTransaction](bitcoinapi.md#getvaluefromlasttransaction)
+- [pushTX](bitcoinapi.md#pushtx)
 
 ## Properties
 
-###  getBlockHeight
+### getBlockHeight
 
-• **getBlockHeight**: *function*
+• **getBlockHeight**: _function_
 
-*Defined in [pkg/types/bitcoinApi.ts:67](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L67)*
+_Defined in [pkg/types/bitcoinApi.ts:67](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/types/bitcoinApi.ts#L67)_
 
 Return the blockheight of a transaction.
 
@@ -51,21 +51,21 @@ Return the blockheight of a transaction.
 
 #### Type declaration:
 
-▸ (`transactionID`: string): *Promise‹number | undefined›*
+▸ (`transactionID`: string): _Promise‹number | undefined›_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`transactionID` | string |
+| Name            | Type   |
+| --------------- | ------ |
+| `transactionID` | string |
 
-___
+---
 
-###  getFeeEstimates
+### getFeeEstimates
 
-• **getFeeEstimates**: *function*
+• **getFeeEstimates**: _function_
 
-*Defined in [pkg/types/bitcoinApi.ts:75](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L75)*
+_Defined in [pkg/types/bitcoinApi.ts:75](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/types/bitcoinApi.ts#L75)_
 
 Get fee estimates
 
@@ -75,30 +75,30 @@ Get fee estimates
 
 #### Type declaration:
 
-▸ (): *Promise‹number[]›*
+▸ (): _Promise‹number[]›_
 
-___
+---
 
-###  getLastBlock
+### getLastBlock
 
-• **getLastBlock**: *function*
+• **getLastBlock**: _function_
 
-*Defined in [pkg/types/bitcoinApi.ts:22](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L22)*
+_Defined in [pkg/types/bitcoinApi.ts:22](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/types/bitcoinApi.ts#L22)_
 
 Return height and timestamp of the last block.
 Used for timelock calculations.
 
 #### Type declaration:
 
-▸ (): *Promise‹object›*
+▸ (): _Promise‹object›_
 
-___
+---
 
-###  getOutput
+### getOutput
 
-• **getOutput**: *function*
+• **getOutput**: _function_
 
-*Defined in [pkg/types/bitcoinApi.ts:59](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L59)*
+_Defined in [pkg/types/bitcoinApi.ts:59](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/types/bitcoinApi.ts#L59)_
 
 Return the vout and value of the transaction.
 
@@ -110,22 +110,22 @@ Return the vout and value of the transaction.
 
 #### Type declaration:
 
-▸ (`transactionID`: string, `address`: string): *Promise‹object›*
+▸ (`transactionID`: string, `address`: string): _Promise‹object›_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`transactionID` | string |
-`address` | string |
+| Name            | Type   |
+| --------------- | ------ |
+| `transactionID` | string |
+| `address`       | string |
 
-___
+---
 
-###  getPreimageFromLastTransaction
+### getPreimageFromLastTransaction
 
-• **getPreimageFromLastTransaction**: *function*
+• **getPreimageFromLastTransaction**: _function_
 
-*Defined in [pkg/types/bitcoinApi.ts:43](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L43)*
+_Defined in [pkg/types/bitcoinApi.ts:43](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/types/bitcoinApi.ts#L43)_
 
 Returns the preimage of the last incoming transaction.
 
@@ -135,42 +135,42 @@ Returns the preimage of the last incoming transaction.
 
 #### Type declaration:
 
-▸ (`address`: string): *Promise‹string›*
+▸ (`address`: string): _Promise‹string›_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`address` | string |
+| Name      | Type   |
+| --------- | ------ |
+| `address` | string |
 
-___
+---
 
-###  getTimestampAtHeight
+### getTimestampAtHeight
 
-• **getTimestampAtHeight**: *function*
+• **getTimestampAtHeight**: _function_
 
-*Defined in [pkg/types/bitcoinApi.ts:28](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L28)*
+_Defined in [pkg/types/bitcoinApi.ts:28](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/types/bitcoinApi.ts#L28)_
 
 Return the timestamp of a block defined by its height.
 Used for timelock calculations
 
 #### Type declaration:
 
-▸ (`n`: number): *Promise‹number›*
+▸ (`n`: number): _Promise‹number›_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`n` | number |
+| Name | Type   |
+| ---- | ------ |
+| `n`  | number |
 
-___
+---
 
-###  getValueFromLastTransaction
+### getValueFromLastTransaction
 
-• **getValueFromLastTransaction**: *function*
+• **getValueFromLastTransaction**: _function_
 
-*Defined in [pkg/types/bitcoinApi.ts:50](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L50)*
+_Defined in [pkg/types/bitcoinApi.ts:50](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/types/bitcoinApi.ts#L50)_
 
 Returns the outgoing transaction of an address.
 
@@ -180,21 +180,21 @@ Returns the outgoing transaction of an address.
 
 #### Type declaration:
 
-▸ (`address`: string): *Promise‹object›*
+▸ (`address`: string): _Promise‹object›_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`address` | string |
+| Name      | Type   |
+| --------- | ------ |
+| `address` | string |
 
-___
+---
 
-###  pushTX
+### pushTX
 
-• **pushTX**: *function*
+• **pushTX**: _function_
 
-*Defined in [pkg/types/bitcoinApi.ts:35](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/types/bitcoinApi.ts#L35)*
+_Defined in [pkg/types/bitcoinApi.ts:35](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/types/bitcoinApi.ts#L35)_
 
 Pushes a transaction hex to the blockchain.
 Returns the transactionID on success.
@@ -202,10 +202,10 @@ Throws on failure
 
 #### Type declaration:
 
-▸ (`transactionHex`: string): *Promise‹string›*
+▸ (`transactionHex`: string): _Promise‹string›_
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`transactionHex` | string |
+| Name             | Type   |
+| ---------------- | ------ |
+| `transactionHex` | string |

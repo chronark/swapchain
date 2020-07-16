@@ -5,4 +5,3 @@ sidebar_label: "Globals"
 ---
 
 [swapchain documentation](globals.md)
-

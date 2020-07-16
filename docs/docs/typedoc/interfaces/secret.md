@@ -10,27 +10,27 @@ An interface for a secret/hash pair
 
 ## Hierarchy
 
-* **Secret**
+- **Secret**
 
 ## Index
 
 ### Properties
 
-* [hash](secret.md#hash)
-* [preimage](secret.md#optional-preimage)
+- [hash](secret.md#hash)
+- [preimage](secret.md#optional-preimage)
 
 ## Properties
 
-###  hash
+### hash
 
-• **hash**: *Buffer*
+• **hash**: _Buffer_
 
-*Defined in [pkg/secret/secret.ts:9](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/secret/secret.ts#L9)*
+_Defined in [pkg/secret/secret.ts:9](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/secret/secret.ts#L9)_
 
-___
+---
 
 ### `Optional` preimage
 
-• **preimage**? : *undefined | string*
+• **preimage**? : _undefined | string_
 
-*Defined in [pkg/secret/secret.ts:8](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/secret/secret.ts#L8)*
+_Defined in [pkg/secret/secret.ts:8](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/secret/secret.ts#L8)_

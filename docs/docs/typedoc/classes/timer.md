@@ -10,90 +10,90 @@ Handler to transform timelocks between blockchains.
 
 ## Hierarchy
 
-* **Timer**
+- **Timer**
 
 ## Index
 
 ### Constructors
 
-* [constructor](timer.md#constructor)
+- [constructor](timer.md#constructor)
 
 ### Properties
 
-* [bitcoinAPI](timer.md#private-bitcoinapi)
-* [blockSequence](timer.md#private-blocksequence)
+- [bitcoinAPI](timer.md#private-bitcoinapi)
+- [blockSequence](timer.md#private-blocksequence)
 
 ### Methods
 
-* [toBTC](timer.md#tobtc)
-* [toBTS](timer.md#tobts)
+- [toBTC](timer.md#tobtc)
+- [toBTS](timer.md#tobts)
 
 ## Constructors
 
-###  constructor
+### constructor
 
-\+ **new Timer**(`blockSequence`: number, `network`: string, `BitcoinAPIConstructor`: [BitcoinAPIConstructor](../interfaces/bitcoinapiconstructor.md)): *[Timer](timer.md)*
+\+ **new Timer**(`blockSequence`: number, `network`: string, `BitcoinAPIConstructor`: [BitcoinAPIConstructor](../interfaces/bitcoinapiconstructor.md)): _[Timer](timer.md)_
 
-*Defined in [pkg/accs/timer.ts:9](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/timer.ts#L9)*
+_Defined in [pkg/accs/timer.ts:9](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/accs/timer.ts#L9)_
 
 Creates an instance of Timer
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`blockSequence` | number | - |
-`network` | string | - |
-`BitcoinAPIConstructor` | [BitcoinAPIConstructor](../interfaces/bitcoinapiconstructor.md) |   |
+| Name                    | Type                                                            | Description |
+| ----------------------- | --------------------------------------------------------------- | ----------- |
+| `blockSequence`         | number                                                          | -           |
+| `network`               | string                                                          | -           |
+| `BitcoinAPIConstructor` | [BitcoinAPIConstructor](../interfaces/bitcoinapiconstructor.md) |             |
 
-**Returns:** *[Timer](timer.md)*
+**Returns:** _[Timer](timer.md)_
 
 ## Properties
 
 ### `Private` bitcoinAPI
 
-• **bitcoinAPI**: *[BitcoinAPI](../interfaces/bitcoinapi.md)*
+• **bitcoinAPI**: _[BitcoinAPI](../interfaces/bitcoinapi.md)_
 
-*Defined in [pkg/accs/timer.ts:8](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/timer.ts#L8)*
+_Defined in [pkg/accs/timer.ts:8](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/accs/timer.ts#L8)_
 
-___
+---
 
 ### `Private` blockSequence
 
-• **blockSequence**: *number*
+• **blockSequence**: _number_
 
-*Defined in [pkg/accs/timer.ts:9](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/timer.ts#L9)*
+_Defined in [pkg/accs/timer.ts:9](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/accs/timer.ts#L9)_
 
 ## Methods
 
-###  toBTC
+### toBTC
 
-▸ **toBTC**(): *number*
+▸ **toBTC**(): _number_
 
-*Defined in [pkg/accs/timer.ts:34](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/timer.ts#L34)*
+_Defined in [pkg/accs/timer.ts:34](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/accs/timer.ts#L34)_
 
 Get Bitcoin timelock.
 
-**Returns:** *number*
+**Returns:** _number_
 
 Bitcoin timelock in number of blocks.
 
-___
+---
 
-###  toBTS
+### toBTS
 
-▸ **toBTS**(`blockHeightDifference`: number): *Promise‹number›*
+▸ **toBTS**(`blockHeightDifference`: number): _Promise‹number›_
 
-*Defined in [pkg/accs/timer.ts:44](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/timer.ts#L44)*
+_Defined in [pkg/accs/timer.ts:44](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/accs/timer.ts#L44)_
 
 Calculate Bitshares timelock based on bitcoin blockchain mining speed.
 
 **Parameters:**
 
-Name | Type | Default | Description |
------- | ------ | ------ | ------ |
-`blockHeightDifference` | number | 10 | The number of blocks to calculate mean. |
+| Name                    | Type   | Default | Description                             |
+| ----------------------- | ------ | ------- | --------------------------------------- |
+| `blockHeightDifference` | number | 10      | The number of blocks to calculate mean. |
 
-**Returns:** *Promise‹number›*
+**Returns:** _Promise‹number›_
 
 Bitshares timelock in seconds.
