@@ -1,10 +1,3 @@
-const jsdocRules = {
-  "jsdoc/require-param-type": "off",
-  "jsdoc/require-returns-type": "off",
-  "jsdoc/no-types": "error",
-  "jsdoc/require-jsdoc": "error",
-}
-
 module.exports = {
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint"],
@@ -15,6 +8,7 @@ module.exports = {
     "prettier/@typescript-eslint",
     "plugin:jest/recommended",
     "plugin:jsdoc/recommended",
+    "react-app",
   ],
   parserOptions: {
     project: "./tsconfig.json",
@@ -25,7 +19,11 @@ module.exports = {
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "no-unmodified-loop-condition": "off",
-    ...jsdocRules,
+    "jsdoc/require-param-type": "off",
+    "jsdoc/require-returns-type": "off",
+    "jsdoc/no-types": "error",
+    "jsdoc/require-jsdoc": "error",
+    "no-loop-func": "off",
   },
   overrides: [
     {

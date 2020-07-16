@@ -21,10 +21,12 @@
 
 ## Supported cryptocurrencies
 
-|           | mainnet            | testnet            | regtest |
-| --------- | ------------------ | ------------------ | ------- |
-| Bitcoin   | :white_check_mark: | :white_check_mark: | :x:     |
-| Bitshares | :white_check_mark: | :white_check_mark: | :x:     |
+|           | mainnet                  | testnet            |
+| --------- | ------------------------ | ------------------ |
+| Bitcoin   | :heavy_multiplication_x: | :heavy_check_mark: |
+| Bitshares | :heavy_multiplication_x: | :heavy_check_mark: |
+
+Mainnet is not tested yet but is expected to work.
 
 ## Installation
 
@@ -36,8 +38,6 @@ git clone https://github.com/chronark/swapchain.git
 cd swapchain
 
 npm install
-
-npm run build
 ```
 
 ### CLI
@@ -45,21 +45,30 @@ npm run build
 Command-line tool to swap cryptocurrencies with a known counterparty.
 
 ```bash
-node dist/srv/accs/index.js testnet // Either testnet or mainnet
+npm run build:cli
+
+node build/cli/index.js --help
 ```
 
 Or use the npm script:
 
 ```bash
-npm run cli -- testnet
+npm run cli -- --help
+```
+
+### Web
+
+Web app to swap cryptocurrencies with a known counterparty.
+
+```bash
+npm run build:web
+
+npx serve ./build
 ```
 
 ## Documentation
 
-You can see the stable and development versions here:
-
-- [stable](https://swapchain.netlify.app)
-- [dev](https://swapchain-dev.netlify.app)
+You can see our docs [here](https://swapchain-docs.netlify.app).
 
 ## Development setup
 

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly with bg 1`] = `
+<div
+  className="container mx-auto"
+>
+  <main
+    className="pb-10 mx-auto bg-red-200 shadow-sm  p-4 sm:px-6 lg:px-8"
+  >
+    <h1
+      className="py-4 text-3xl font-semibold leading-tight text-gray-900"
+    >
+      title
+    </h1>
+    <h1>
+      Hello World
+    </h1>
+  </main>
+</div>
+`;
+
+exports[`renders correctly without bg 1`] = `
+<div
+  className="container mx-auto"
+>
+  <main
+    className="pb-10 mx-auto undefined   p-4 sm:px-6 lg:px-8"
+  >
+    <h1
+      className="py-4 text-3xl font-semibold leading-tight text-gray-900"
+    >
+      title
+    </h1>
+    <h1>
+      Hello World
+    </h1>
+  </main>
+</div>
+`;
