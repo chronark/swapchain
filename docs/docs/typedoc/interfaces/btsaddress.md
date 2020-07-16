@@ -25,7 +25,7 @@ An interface for a Bitshares privatekey/address pair
 
 • **address**: _string_
 
-_Defined in [pkg/address/address.ts:20](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/address.ts#L20)_
+_Defined in [pkg/address/address.ts:20](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/address/address.ts#L20)_
 
 ---
 
@@ -33,4 +33,4 @@ _Defined in [pkg/address/address.ts:20](https://github.com/chronark/swapchain/bl
 
 • **privateKey**: _string_
 
-_Defined in [pkg/address/address.ts:19](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/address.ts#L19)_
+_Defined in [pkg/address/address.ts:19](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/address/address.ts#L19)_
