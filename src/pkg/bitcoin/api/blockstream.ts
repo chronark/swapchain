@@ -120,7 +120,8 @@ export class BlockStream implements BitcoinAPI {
         }
       }
     }
-    // This can actually never occur but otherwise typescript will cry.
+
+    // No address found. This should actually not occur.
     throw new Error("Could not find matching address.")
   }
 
@@ -138,6 +139,9 @@ export class BlockStream implements BitcoinAPI {
         scriptpubkey_address: string
         value: number
       }[]
+      status: {
+        confirmed: boolean
+      }
     }
 
     const res = await axios.get(`${this.baseURL}/address/${address}/txs`)
@@ -150,13 +154,13 @@ export class BlockStream implements BitcoinAPI {
       const tx = transactions[i]
 
       for (let j = 0; j < tx.vout.length; j++) {
-        if (tx.vout[j].scriptpubkey_address === address) {
+        if (tx.vout[j].scriptpubkey_address === address && tx.status.confirmed) {
           return { value: tx.vout[j].value, txID: tx.txid }
         }
       }
     }
 
-    // This can actually never occur but otherwise typescript will cry.
+    // No address found yet
     throw new Error("Could not find matching address.")
   }
 
@@ -216,6 +220,11 @@ export class BlockStream implements BitcoinAPI {
    * @memberof BlockStream
    */
   public async getFeeEstimates(): Promise<number[]> {
+    // It's not necessary to call API on testnet since the fee estimates should always return 1.0 sat/vB on testnet
+    if (this.baseURL.endsWith("testnet/api")) {
+      return [1.0]
+    }
+
     const res = await axios.get(`${this.baseURL}/fee-estimates`)
 
     if (res.status !== 200) {

@@ -13,13 +13,13 @@ import {
   isValidBitsharesPrivateKey,
   isValidBitcoinPublicKey,
 } from "../../pkg/address/validator"
-import ACCS from "../../accs/accs"
+import ACCS from "../../pkg/accs/accs"
 import { getSecret } from "../../pkg/secret/secret"
 import { toPublicKey } from "../../pkg/util/util"
 import { ReactComponent as ShieldSuccess } from "../../icons/shield-check.svg"
 import { ReactComponent as ShieldFailure } from "../../icons/shield-exclamation.svg"
 export const Propose = () => {
-  // Application stae for handling the flow
+  // Application state for handling the flow
   const [state, setState] = useState(State.IDLE)
   const [isValid, setValid] = useState(false)
   const [copyButtonLabel, setCopyButtonLabel] = useState("Copy all")
@@ -46,13 +46,18 @@ export const Propose = () => {
 
   //calculate received funds
   useEffect(() => {
-    if (fields.amountToReceive !== fields.amountToSend * fields.rate) {
+    if (
+      fields.rate > 0 &&
+      (fields.currencyToGive === Currency.BTC
+        ? fields.amountToReceive !== fields.amountToSend * fields.rate
+        : fields.amountToReceive !== fields.amountToSend / fields.rate)
+    ) {
       setFields({
         ...fields,
         amountToReceive:
           fields.currencyToGive === Currency.BTC
             ? fields.amountToSend * fields.rate
-            : fields.amountToReceive / fields.rate,
+            : fields.amountToSend / fields.rate,
       })
     }
   }, [fields])
@@ -159,7 +164,7 @@ export const Propose = () => {
       .then(() => {
         setState(State.SUCCESS)
       })
-      .catch((err) => {
+      .catch((err: Error) => {
         setState(State.FAILURE)
         setErrorMessage(err.toString())
       })

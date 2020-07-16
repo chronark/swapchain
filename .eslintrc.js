@@ -23,6 +23,7 @@ module.exports = {
     "jsdoc/require-returns-type": "off",
     "jsdoc/no-types": "error",
     "jsdoc/require-jsdoc": "error",
+    "no-loop-func": "off",
   },
   overrides: [
     {

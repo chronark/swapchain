@@ -40,10 +40,6 @@ sidebar_label: "Globals"
 
 * [Props](globals.md#props)
 
-### Variables
-
-* [read](globals.md#const-read)
-
 ### Functions
 
 * [Accept](globals.md#const-accept)
@@ -65,7 +61,7 @@ sidebar_label: "Globals"
 * [SubmitButton](globals.md#const-submitbutton)
 * [Table](globals.md#const-table)
 * [TradingPage](globals.md#const-tradingpage)
-* [askUser](globals.md#askuser)
+* [errorHandler](globals.md#errorhandler)
 * [fakeKey](globals.md#const-fakekey)
 * [getAccount](globals.md#getaccount)
 * [getAddress](globals.md#getaddress)
@@ -91,29 +87,29 @@ sidebar_label: "Globals"
 
 Ƭ **Props**: *object*
 
-*Defined in [components/forms/RadioButton.tsx:3](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/RadioButton.tsx#L3)*
+*Defined in [components/forms/RadioButton.tsx:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/RadioButton.tsx#L3)*
 
-*Defined in [components/forms/Label.tsx:3](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/Label.tsx#L3)*
+*Defined in [components/forms/Label.tsx:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/Label.tsx#L3)*
 
-*Defined in [components/forms/Input.tsx:3](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/Input.tsx#L3)*
+*Defined in [components/forms/Input.tsx:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/Input.tsx#L3)*
 
-*Defined in [components/forms/SubmitButton.tsx:3](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/SubmitButton.tsx#L3)*
+*Defined in [components/forms/SubmitButton.tsx:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/SubmitButton.tsx#L3)*
 
-*Defined in [components/forms/Form.tsx:2](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/Form.tsx#L2)*
+*Defined in [components/forms/Form.tsx:2](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/Form.tsx#L2)*
 
-*Defined in [components/util/Spinner.tsx:5](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/Spinner.tsx#L5)*
+*Defined in [components/util/Spinner.tsx:5](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/Spinner.tsx#L5)*
 
-*Defined in [components/util/ComponentPage.tsx:3](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/ComponentPage.tsx#L3)*
+*Defined in [components/util/ComponentPage.tsx:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/ComponentPage.tsx#L3)*
 
-*Defined in [components/orderbook/Row.tsx:4](https://github.com/chronark/swapchain/blob/11f7027/src/components/orderbook/Row.tsx#L4)*
+*Defined in [components/orderbook/Row.tsx:4](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Row.tsx#L4)*
 
-*Defined in [components/orderbook/Table.tsx:8](https://github.com/chronark/swapchain/blob/11f7027/src/components/orderbook/Table.tsx#L8)*
+*Defined in [components/orderbook/Table.tsx:8](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Table.tsx#L8)*
 
-*Defined in [components/util/Modal.tsx:3](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/Modal.tsx#L3)*
+*Defined in [components/util/Modal.tsx:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/Modal.tsx#L3)*
 
-*Defined in [components/orderbook/FilterButton.tsx:3](https://github.com/chronark/swapchain/blob/11f7027/src/components/orderbook/FilterButton.tsx#L3)*
+*Defined in [components/orderbook/FilterButton.tsx:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/FilterButton.tsx#L3)*
 
-*Defined in [components/orderbook/Orderbook.tsx:75](https://github.com/chronark/swapchain/blob/11f7027/src/components/orderbook/Orderbook.tsx#L75)*
+*Defined in [components/orderbook/Orderbook.tsx:75](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L75)*
 
 #### Type declaration:
 
@@ -123,42 +119,31 @@ sidebar_label: "Globals"
 
 • **bg**? : *undefined | string*
 
-*Defined in [components/util/ComponentPage.tsx:6](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/ComponentPage.tsx#L6)*
+*Defined in [components/util/ComponentPage.tsx:6](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/ComponentPage.tsx#L6)*
 
 ###  children
 
 • **children**: *any*
 
-*Defined in [components/util/ComponentPage.tsx:5](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/ComponentPage.tsx#L5)*
+*Defined in [components/util/ComponentPage.tsx:5](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/ComponentPage.tsx#L5)*
 
 ###  footer
 
 • **footer**: *ReactElement*
 
-*Defined in [components/forms/Form.tsx:4](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/Form.tsx#L4)*
+*Defined in [components/forms/Form.tsx:4](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/Form.tsx#L4)*
 
 ###  main
 
 • **main**: *ReactElement*
 
-*Defined in [components/forms/Form.tsx:3](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/Form.tsx#L3)*
+*Defined in [components/forms/Form.tsx:3](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/Form.tsx#L3)*
 
 ### `Optional` title
 
 • **title**? : *undefined | string*
 
-*Defined in [components/util/ComponentPage.tsx:4](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/ComponentPage.tsx#L4)*
-
-## Variables
-
-### `Const` read
-
-• **read**: *Interface‹›* = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-})
-
-*Defined in [cli/index.ts:6](https://github.com/chronark/swapchain/blob/11f7027/src/cli/index.ts#L6)*
+*Defined in [components/util/ComponentPage.tsx:4](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/ComponentPage.tsx#L4)*
 
 ## Functions
 
@@ -166,7 +151,7 @@ sidebar_label: "Globals"
 
 ▸ **Accept**(): *Element‹›*
 
-*Defined in [components/pages/Accept.tsx:21](https://github.com/chronark/swapchain/blob/11f7027/src/components/pages/Accept.tsx#L21)*
+*Defined in [components/pages/Accept.tsx:21](https://github.com/chronark/swapchain/blob/6beff0a/src/components/pages/Accept.tsx#L21)*
 
 **Returns:** *Element‹›*
 
@@ -176,7 +161,7 @@ ___
 
 ▸ **App**(): *Element‹›*
 
-*Defined in [App.tsx:11](https://github.com/chronark/swapchain/blob/11f7027/src/App.tsx#L11)*
+*Defined in [App.tsx:11](https://github.com/chronark/swapchain/blob/6beff0a/src/App.tsx#L11)*
 
 **Returns:** *Element‹›*
 
@@ -186,7 +171,7 @@ ___
 
 ▸ **ComponentPage**(`props`: [Props](globals.md#props)): *Element‹›*
 
-*Defined in [components/util/ComponentPage.tsx:9](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/ComponentPage.tsx#L9)*
+*Defined in [components/util/ComponentPage.tsx:9](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/ComponentPage.tsx#L9)*
 
 **Parameters:**
 
@@ -202,7 +187,7 @@ ___
 
 ▸ **FilterButton**(`props`: [Props](globals.md#props)): *Element‹›*
 
-*Defined in [components/orderbook/FilterButton.tsx:8](https://github.com/chronark/swapchain/blob/11f7027/src/components/orderbook/FilterButton.tsx#L8)*
+*Defined in [components/orderbook/FilterButton.tsx:8](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/FilterButton.tsx#L8)*
 
 **Parameters:**
 
@@ -218,7 +203,7 @@ ___
 
 ▸ **Form**(`props`: [Props](globals.md#props)): *Element‹›*
 
-*Defined in [components/forms/Form.tsx:7](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/Form.tsx#L7)*
+*Defined in [components/forms/Form.tsx:7](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/Form.tsx#L7)*
 
 **Parameters:**
 
@@ -234,7 +219,7 @@ ___
 
 ▸ **Input**(`props`: [Props](globals.md#props)): *Element‹›*
 
-*Defined in [components/forms/Input.tsx:14](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/Input.tsx#L14)*
+*Defined in [components/forms/Input.tsx:14](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/Input.tsx#L14)*
 
 **Parameters:**
 
@@ -250,7 +235,7 @@ ___
 
 ▸ **Label**(`props`: [Props](globals.md#props)): *Element‹›*
 
-*Defined in [components/forms/Label.tsx:7](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/Label.tsx#L7)*
+*Defined in [components/forms/Label.tsx:7](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/Label.tsx#L7)*
 
 **Parameters:**
 
@@ -266,7 +251,7 @@ ___
 
 ▸ **LandingPage**(): *Element‹›*
 
-*Defined in [components/pages/LandingPage.tsx:4](https://github.com/chronark/swapchain/blob/11f7027/src/components/pages/LandingPage.tsx#L4)*
+*Defined in [components/pages/LandingPage.tsx:4](https://github.com/chronark/swapchain/blob/6beff0a/src/components/pages/LandingPage.tsx#L4)*
 
 **Returns:** *Element‹›*
 
@@ -276,7 +261,7 @@ ___
 
 ▸ **Modal**(`props`: [Props](globals.md#props)): *Element‹›*
 
-*Defined in [components/util/Modal.tsx:10](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/Modal.tsx#L10)*
+*Defined in [components/util/Modal.tsx:10](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/Modal.tsx#L10)*
 
 **Parameters:**
 
@@ -292,7 +277,7 @@ ___
 
 ▸ **Navbar**(): *Element‹›*
 
-*Defined in [components/Navbar/Navbar.tsx:6](https://github.com/chronark/swapchain/blob/11f7027/src/components/Navbar/Navbar.tsx#L6)*
+*Defined in [components/Navbar/Navbar.tsx:6](https://github.com/chronark/swapchain/blob/6beff0a/src/components/Navbar/Navbar.tsx#L6)*
 
 **Returns:** *Element‹›*
 
@@ -302,7 +287,7 @@ ___
 
 ▸ **Orderbook**(`props`: [Props](globals.md#props)): *Element‹›*
 
-*Defined in [components/orderbook/Orderbook.tsx:79](https://github.com/chronark/swapchain/blob/11f7027/src/components/orderbook/Orderbook.tsx#L79)*
+*Defined in [components/orderbook/Orderbook.tsx:79](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L79)*
 
 **Parameters:**
 
@@ -318,7 +303,7 @@ ___
 
 ▸ **OrderbookPage**(): *Element‹›*
 
-*Defined in [components/pages/OrderbookPage.tsx:4](https://github.com/chronark/swapchain/blob/11f7027/src/components/pages/OrderbookPage.tsx#L4)*
+*Defined in [components/pages/OrderbookPage.tsx:4](https://github.com/chronark/swapchain/blob/6beff0a/src/components/pages/OrderbookPage.tsx#L4)*
 
 **Returns:** *Element‹›*
 
@@ -328,7 +313,7 @@ ___
 
 ▸ **Propose**(): *Element‹›*
 
-*Defined in [components/pages/Propose.tsx:21](https://github.com/chronark/swapchain/blob/11f7027/src/components/pages/Propose.tsx#L21)*
+*Defined in [components/pages/Propose.tsx:21](https://github.com/chronark/swapchain/blob/6beff0a/src/components/pages/Propose.tsx#L21)*
 
 **Returns:** *Element‹›*
 
@@ -338,7 +323,7 @@ ___
 
 ▸ **RadioButton**(`props`: [Props](globals.md#props)): *Element‹›*
 
-*Defined in [components/forms/RadioButton.tsx:12](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/RadioButton.tsx#L12)*
+*Defined in [components/forms/RadioButton.tsx:12](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/RadioButton.tsx#L12)*
 
 **Parameters:**
 
@@ -354,7 +339,7 @@ ___
 
 ▸ **Row**(`props`: [Props](globals.md#props)): *Element‹›*
 
-*Defined in [components/orderbook/Row.tsx:9](https://github.com/chronark/swapchain/blob/11f7027/src/components/orderbook/Row.tsx#L9)*
+*Defined in [components/orderbook/Row.tsx:9](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Row.tsx#L9)*
 
 **Parameters:**
 
@@ -370,7 +355,7 @@ ___
 
 ▸ **Spinner**(`props`: [Props](globals.md#props)): *Element‹›*
 
-*Defined in [components/util/Spinner.tsx:9](https://github.com/chronark/swapchain/blob/11f7027/src/components/util/Spinner.tsx#L9)*
+*Defined in [components/util/Spinner.tsx:9](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/Spinner.tsx#L9)*
 
 **Parameters:**
 
@@ -386,7 +371,7 @@ ___
 
 ▸ **SubmitButton**(`props`: [Props](globals.md#props)): *Element‹›*
 
-*Defined in [components/forms/SubmitButton.tsx:9](https://github.com/chronark/swapchain/blob/11f7027/src/components/forms/SubmitButton.tsx#L9)*
+*Defined in [components/forms/SubmitButton.tsx:9](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/SubmitButton.tsx#L9)*
 
 **Parameters:**
 
@@ -402,7 +387,7 @@ ___
 
 ▸ **Table**(`props`: [Props](globals.md#props)): *Element‹›*
 
-*Defined in [components/orderbook/Table.tsx:13](https://github.com/chronark/swapchain/blob/11f7027/src/components/orderbook/Table.tsx#L13)*
+*Defined in [components/orderbook/Table.tsx:13](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Table.tsx#L13)*
 
 **Parameters:**
 
@@ -418,30 +403,27 @@ ___
 
 ▸ **TradingPage**(): *Element‹›*
 
-*Defined in [components/pages/TradingPage.tsx:9](https://github.com/chronark/swapchain/blob/11f7027/src/components/pages/TradingPage.tsx#L9)*
+*Defined in [components/pages/TradingPage.tsx:9](https://github.com/chronark/swapchain/blob/6beff0a/src/components/pages/TradingPage.tsx#L9)*
 
 **Returns:** *Element‹›*
 
 ___
 
-###  askUser
+###  errorHandler
 
-▸ **askUser**(`read`: Interface, `str`: string): *Promise‹string›*
+▸ **errorHandler**(`message`: string): *void*
 
-*Defined in [cli/util.ts:9](https://github.com/chronark/swapchain/blob/11f7027/src/cli/util.ts#L9)*
+*Defined in [cli/getUserInput.ts:227](https://github.com/chronark/swapchain/blob/6beff0a/src/cli/getUserInput.ts#L227)*
 
-Get input from stdin
+An errorhandler for errors in CLI.
 
 **Parameters:**
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`read` | Interface | - |
-`str` | string | A question to ask the user. |
+`message` | string | The message to print.  |
 
-**Returns:** *Promise‹string›*
-
-answer from the user
+**Returns:** *void*
 
 ___
 
@@ -449,7 +431,7 @@ ___
 
 ▸ **fakeKey**(`length`: number, `network?`: undefined | string): *string*
 
-*Defined in [pkg/util/util.ts:3](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/util/util.ts#L3)*
+*Defined in [pkg/util/util.ts:3](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/util/util.ts#L3)*
 
 **Parameters:**
 
@@ -466,7 +448,7 @@ ___
 
 ▸ **getAccount**(`privateKey`: string, `node`: string, `network`: string): *Promise‹string›*
 
-*Defined in [pkg/bitshares/util.ts:4](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitshares/util.ts#L4)*
+*Defined in [pkg/bitshares/util.ts:4](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitshares/util.ts#L4)*
 
 **Parameters:**
 
@@ -484,7 +466,7 @@ ___
 
 ▸ **getAddress**(`processArgv`: string[]): *void*
 
-*Defined in [pkg/address/getAddress.ts:8](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/address/getAddress.ts#L8)*
+*Defined in [pkg/address/getAddress.ts:8](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/getAddress.ts#L8)*
 
 Get address pair and print to stdout
 
@@ -502,7 +484,7 @@ ___
 
 ▸ **getBTCAddress**(`network`: string): *[BTCAddress](interfaces/btcaddress.md)*
 
-*Defined in [pkg/address/address.ts:29](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/address/address.ts#L29)*
+*Defined in [pkg/address/address.ts:29](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/address.ts#L29)*
 
 A function for generating a random Bitcoin address with its corresponding private key
 
@@ -522,7 +504,7 @@ ___
 
 ▸ **getBTSAddress**(`network`: string): *[BTSAddress](interfaces/btsaddress.md)*
 
-*Defined in [pkg/address/address.ts:63](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/address/address.ts#L63)*
+*Defined in [pkg/address/address.ts:63](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/address.ts#L63)*
 
 A function for generating a random Bitshares address (PublicKey) with its corresponding private key
 
@@ -542,7 +524,7 @@ ___
 
 ▸ **getSecret**(): *[Secret](interfaces/secret.md)*
 
-*Defined in [pkg/secret/secret.ts:18](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/secret/secret.ts#L18)*
+*Defined in [pkg/secret/secret.ts:18](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/secret/secret.ts#L18)*
 
 A function for generating and hashing a crypto random string with a length of 32.
 The length of the secret can not be changed!
@@ -555,17 +537,11 @@ ___
 
 ###  getUserInput
 
-▸ **getUserInput**(`read`: Interface): *Promise‹[ACCSFields](interfaces/accsfields.md)›*
+▸ **getUserInput**(): *Promise‹[ACCSFields](interfaces/accsfields.md)›*
 
-*Defined in [cli/getUserInput.ts:12](https://github.com/chronark/swapchain/blob/11f7027/src/cli/getUserInput.ts#L12)*
+*Defined in [cli/getUserInput.ts:13](https://github.com/chronark/swapchain/blob/6beff0a/src/cli/getUserInput.ts#L13)*
 
-Get user input from stdin and store everything in a fields object.
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`read` | Interface |
+Get user input from JSON config file or stdin and store everything in a fields object.
 
 **Returns:** *Promise‹[ACCSFields](interfaces/accsfields.md)›*
 
@@ -577,7 +553,7 @@ ___
 
 ▸ **hash**(`s`: string): *string*
 
-*Defined in [pkg/util/util.ts:14](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/util/util.ts#L14)*
+*Defined in [pkg/util/util.ts:14](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/util/util.ts#L14)*
 
 **Parameters:**
 
@@ -593,7 +569,7 @@ ___
 
 ▸ **isValidBitcoinPrivateKey**(`privateKey`: string, `network`: string): *boolean*
 
-*Defined in [pkg/address/validator.ts:1](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/address/validator.ts#L1)*
+*Defined in [pkg/address/validator.ts:1](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/validator.ts#L1)*
 
 **Parameters:**
 
@@ -610,7 +586,7 @@ ___
 
 ▸ **isValidBitcoinPublicKey**(`publicKey`: string): *boolean*
 
-*Defined in [pkg/address/validator.ts:17](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/address/validator.ts#L17)*
+*Defined in [pkg/address/validator.ts:17](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/validator.ts#L17)*
 
 **Parameters:**
 
@@ -626,7 +602,7 @@ ___
 
 ▸ **isValidBitsharesPrivateKey**(`privateKey`: string): *boolean*
 
-*Defined in [pkg/address/validator.ts:21](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/address/validator.ts#L21)*
+*Defined in [pkg/address/validator.ts:21](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/validator.ts#L21)*
 
 **Parameters:**
 
@@ -642,7 +618,7 @@ ___
 
 ▸ **orderFactory**(`count`: number): *[Order](interfaces/order.md)[]*
 
-*Defined in [components/orderbook/Orderbook.tsx:46](https://github.com/chronark/swapchain/blob/11f7027/src/components/orderbook/Orderbook.tsx#L46)*
+*Defined in [components/orderbook/Orderbook.tsx:46](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L46)*
 
 **Parameters:**
 
@@ -658,7 +634,7 @@ ___
 
 ▸ **toPublicKey**(`privateKey`: string): *string*
 
-*Defined in [pkg/util/util.ts:18](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/util/util.ts#L18)*
+*Defined in [pkg/util/util.ts:18](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/util/util.ts#L18)*
 
 **Parameters:**
 
@@ -674,7 +650,7 @@ ___
 
 ▸ **witnessStackToScriptWitness**(`witness`: Buffer[]): *Buffer*
 
-*Defined in [pkg/bitcoin/htlc/witnessStack.ts:10](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/witnessStack.ts#L10)*
+*Defined in [pkg/bitcoin/htlc/witnessStack.ts:10](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/witnessStack.ts#L10)*
 
 Helperfunction to serialize the final witness script
 
@@ -692,11 +668,11 @@ Name | Type | Description |
 
 ### ▪ **status**: *object*
 
-*Defined in [components/orderbook/Orderbook.tsx:14](https://github.com/chronark/swapchain/blob/11f7027/src/components/orderbook/Orderbook.tsx#L14)*
+*Defined in [components/orderbook/Orderbook.tsx:14](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L14)*
 
 ▪ **active**: *object*
 
-*Defined in [components/orderbook/Orderbook.tsx:15](https://github.com/chronark/swapchain/blob/11f7027/src/components/orderbook/Orderbook.tsx#L15)*
+*Defined in [components/orderbook/Orderbook.tsx:15](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L15)*
 
 * **color**: *string* = "teal"
 
@@ -704,7 +680,7 @@ Name | Type | Description |
 
 ▪ **expired**: *object*
 
-*Defined in [components/orderbook/Orderbook.tsx:23](https://github.com/chronark/swapchain/blob/11f7027/src/components/orderbook/Orderbook.tsx#L23)*
+*Defined in [components/orderbook/Orderbook.tsx:23](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L23)*
 
 * **color**: *string* = "gray"
 
@@ -712,7 +688,7 @@ Name | Type | Description |
 
 ▪ **fulfilled**: *object*
 
-*Defined in [components/orderbook/Orderbook.tsx:19](https://github.com/chronark/swapchain/blob/11f7027/src/components/orderbook/Orderbook.tsx#L19)*
+*Defined in [components/orderbook/Orderbook.tsx:19](https://github.com/chronark/swapchain/blob/6beff0a/src/components/orderbook/Orderbook.tsx#L19)*
 
 * **color**: *string* = "gray"
 

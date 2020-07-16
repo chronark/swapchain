@@ -29,7 +29,7 @@ Contains all necessary information to create an HTLC on Bitcoin blockchain
 
 • **amount**: *number*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:26](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L26)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:26](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L26)*
 
 The amount of satoshi to exchange.
 
@@ -41,7 +41,7 @@ ___
 
 • **hash**: *Buffer*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:40](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L40)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:40](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L40)*
 
 SHA256 hash of the secret.
 
@@ -53,7 +53,7 @@ ___
 
 • **sequence**: *number*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:33](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L33)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:33](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L33)*
 
 How many blocks need to be mined before refund is possible.
 
@@ -65,7 +65,7 @@ ___
 
 • **transactionID**: *string*
 
-*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:19](https://github.com/chronark/swapchain/blob/11f7027/src/pkg/bitcoin/htlc/btcHTLC.ts#L19)*
+*Defined in [pkg/bitcoin/htlc/btcHTLC.ts:19](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/bitcoin/htlc/btcHTLC.ts#L19)*
 
 The transaction id from the preceeding transaction.
 

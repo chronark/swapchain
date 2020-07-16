@@ -1,0 +1,12 @@
+{
+  "mode": "proposer",
+  "networkToTrade": "testnet",
+  "currencyToGive": "BTS",
+  "priority": 0,
+  "bitcoinPrivateKey": "cVPwsbE8HNMCoLGz8N4R2SfyQTMQzznL9x3vEHJqPtuZ1rhBkTo7",
+  "bitsharesPrivateKey": "5T54Ve18ttnu7Ymd1nnCMsnGkfZz4KQnsfFrYEz7Cmw39FAMOSN",
+  "counterpartyBitcoinPublicKey": "034c7ddacc16fa5e53aa5dc19748e3877ba07b981fdbbcdb97b8b19de240241f61",
+  "counterpartyBitsharesAccountName": "otherBitsharesAccount",
+  "rate": 200000,
+  "amountToSend": 200
+}
