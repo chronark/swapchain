@@ -148,11 +148,9 @@ Figure 2: Product feature diagram (Swapchain, 2020c) [5]
 
 ### 3.2. Tutorials
 
-#### 3.2.1 Interface functionality explanation
+#### 3.2.1 Web App Interface functionality explanation
 
-**// Further screenshots to be added once layout is finalised**
-
-![Landing Page Interface](img/UI_screenshot_landingPage_small.svg)
+![Landing Page Interface](img/UI_screenshot_landingPage.svg)
 
 Figure 3: Screenshot of the landing page interface (Swapchain, 2020d) [6]
 
@@ -164,14 +162,22 @@ Figure 3: Screenshot of the landing page interface (Swapchain, 2020d) [6]
 6. Button to start trading either as a proposer or an acceptor
 7. Link leading to GitHub repository
 
-// Choose Trade Mode Page
+---
+
+![Choose Trade Mode Interface](img/UI_screenshot_chooseTradeMode.svg)
+
+Figure 4: Screenshot of the trade mode choice interface (Swapchain, 2020e) [7]
 
 1. Home Button
 2. ACCS Proposer Mode Choice
 3. ACCS Accepter Mode Choice
 4. Button to confirm mode choice and lead the user to the respective form
 
-// Proposer Form
+---
+
+![Proposer Form Interface](img/UI_screenshot_proposerForm.svg)
+
+Figure 5: Screenshot of the proposer form interface (Swapchain, 2020f) [8]
 
 1. Setting up the HTLC on the mainnet.
 2. Seeting up the HTLC on the testnet.
@@ -183,17 +189,21 @@ Figure 3: Screenshot of the landing page interface (Swapchain, 2020d) [6]
    **Your Data:**
 8. Insert field for your Bitcoin private key to validate the set up of an HTLC.
 9. Insert field for your Bitshares private key used to validate the receival of Bitshares from a swap partner's HTLC.
-10. Insert field for Bitcoin Transaction ID to identify the transaction's output supposed to be used as the input for the HTLC (applies only for the partner giving away Bitcoin).
+10. Insert field for Bitcoin Transaction ID to identify the transaction's output supposed to be used as the input for the HTLC.
     **Counterparty Data:**
 11. Insert field for the counterparty's Bitcoin Public Key as the destination for HTLC's funds.
 12. Insert field for the counterparty's Bitshares account name as the destination for the HTLC's funds.
 13. Choice of priority and speed of transaction processing via choosing either a high, medium or low amount of transaction fees.
 14. Submit the information to create the HTLC on the blockchain.
 
-// Accepter Form
+---
+
+![Accepter Form Interface](img/UI_screenshot_accepterForm.svg)
+
+Figure 6: Screenshot of the accepter form interface (Swapchain, 2020g) [9]
 
 1. Setting up the HTLC on the mainnet.
-2. Seeting up the HTLC on the testnet.
+2. Setting up the HTLC on the testnet.
 3. Giving away Bitcoin to receive Bitshares from the swap partner.
 4. Giving away Bitshares to receive Bitcoin from the swap partner.
 5. The amount of Bitshares that you wish to exchange.
@@ -202,33 +212,98 @@ Figure 3: Screenshot of the landing page interface (Swapchain, 2020d) [6]
    **Your Data:**
 8. Insert field for your Bitcoin private key used to validate the receival of Bitshares from a swap partner's HTLC.
 9. Insert field for your Bitshares private key to validate the set up of an HTLC.
-   **Counterparty Data:**
-10. Insert field for the counterparty's Bitcoin Public Key as the destination for HTLC's funds.
-11. Insert field for the counterparty's Bitshares account name as the destination for the HTLC's funds.
-12. Insert field for secret hash given to you by your swap partner to set up an HTLC with the same secret hash.
-13. Choice of priority and speed of transaction processing via choosing either a high, medium or low amount of transaction fees.
-14. Submit the information to create the HTLC on the blockchain.
+10. Insert field for Bitcoin Transaction ID to identify the transaction's output supposed to be used as the input for the HTLC.
+    **Counterparty Data:**
+11. Insert field for the counterparty's Bitcoin Public Key as the destination for HTLC's funds.
+12. Insert field for the counterparty's Bitshares account name as the destination for the HTLC's funds.
+13. Insert field for secret hash given to youby your swap partner to set up an HTLC with the same secret hash.
+14. Choice of priority and speed of transaction processing via choosing either a high, medium or low amount of transaction fees.
+15. Submit the information to create the HTLC on the blockchain.
 
-// Information-for-Partner Page
+---
+
+![Information for Partner Interface](img/UI_screenshot_infoToPartner.svg)
+
+Figure 7: Screenshot of the information for partner interface (Swapchain, 2020h) [10]
 
 1. The secret hash you have to pass to your swap partner in order for him/her to set up an HTLC with the same secret hash.
 2. Your Bitcoin Public Key as information for your partner in order to set up the counter-HTLC.
-3. //ggf. Your Bitshares account name as information for your partner in order to set up the counter-HTLC.
-4. Button to copy all the information to easily send it to your swap partner via any means of communication.
+3. Button to copy all the information to easily send it to your swap partner via any means of communication.
 
-// Transaction Processing Page
+---
 
-1. Don't leave the browser until you do not get shown a success of failure notification. Your transaction is being processed.
+![Transaction Processing Interface](img/UI_screenshot_transactionProcessing.svg)
 
-// Success notification page
+Figure 8: Screenshot of the transaction processing interface (Swapchain, 2020i) [11]
+
+1. Don't leave the browser until you do get shown a success of failure notification. Your transaction is being processed.
+
+---
+
+![Success Notification Page Interface](img/UI_screenshot_success.svg)
+
+Figure 9: Screenshot of the success notification interface (Swapchain, 2020j) [12]
 
 1. Your transaction was successfully processed and can be seen on the blockchain.
 
-// Failure notification page
+---
+
+![Failure Notification Page Interface](img/UI_screenshot_failure.svg)
+
+Figure 10: Screenshot of the failure notification interface (Swapchain, 2020k) [13]
 
 1. Something went wrong during the transaction processing. Funds previously sent to the HTLC are refunded. If not, you may refund them manually.
 
-**// Screencast video - to be added**
+#### 3.2.2 Command Line Interface functionality explanation
+
+![Starting Page Command Line Interface](img/CLI_screenshot_startingPage.svg)
+
+Figure 11: Screenshot of the command line interface starting page (Swapchain, 2020l) [14]
+
+1. You can start the CLI with:
+   - A. "npm run build:cli"
+   - B. "node build/cli/index.js --help" (the help flag shows you the different options to interact with the CLI).
+   - Running the command without the help flag starts the tool in the interactive mode (as default).
+
+---
+
+![User type Choice Command Line Interface](img/CLI_screenshot_proposerAccepter.svg)
+
+Figure 12: Screenshot of the command line interface user type choice (Swapchain, 2020m) [15]
+
+1. Using the arrow keys, you can choose between proposer and accepter mode. Hitting enter makes the CLI go to the next step.
+
+---
+
+![User Input Check Command Line Interface](img/CLI_screenshot_checkInput.svg)
+
+Figure 13: Screenshot of the command line interface user input check (Swapchain, 2020n) [16]
+
+1. The CLI checks the validity of the information you enter and eventually makes you submit correct data.
+
+---
+
+![Proposer Hash Pass Command Line Interface](img/CLI_screenshot_passHash.svg)
+
+Figure 14: Screenshot of the command line interface proposer hash pass (Swapchain, 2020o) [17]
+
+1. Once you submitted all the information, stay in the CLI until you get a notification about the ACCS completion and pass the secret hash along with your Bitcoin public key and Bitshares account.
+
+---
+
+![Accepter Hash Pass Command Line Interface](img/CLI_screenshot_passHash2.svg)
+
+Figure 15: Screenshot of the command line interface accepter hash pass (Swapchain, 2020p) [18]
+
+1. Proposer and accepter steps are basically the same, with the different that as an accepter you have to pass the secret hash given to you by the swap partner.
+
+---
+
+![Success Page Command Line Interface](img/CLI_screenshot_success.svg)
+
+Figure 16: Screenshot of the command line interface success page (Swapchain, 2020q) [19]
+
+1. As soon as the swap took place, both users are notified about the successful swap. After this notification, the users are free to close the CLI.
 
 ### 3.3. User guides
 
@@ -244,7 +319,7 @@ To trade cryptocurrency with Swapchain no user account is needed. You just enter
 #### 3.3.3 What parameters can I set?
 
 - Bid Amount: The amount of currency you want to give away.
-- Ask Amount: the amount of currency you want to receive.
+- Ask Amount: The amount of currency you want to receive.
 - Bid Type: The type of cryptocurrency you want to give away (BTC/BTS).
 - Ask Type: The type of cryptocurrency you want to receive (BTC/BTS).
 - Transaction fee priority: Transaction fees you want to pay for your order to be processed. The lower the transaction fee the longer the transaction will take (Low/Medium/High priority and transaction fees respectively).
@@ -287,3 +362,29 @@ In any case of system errors or malfunctions, please [open a new issue on github
 5. Swapchain (2020c). Product feature diagram. Retrieved from https://github.com/chronark/swapchain/tree/master/docs/docs/img
 
 6. Swapchain (2020d). Screenshot of the landing page interface. Retrieved from https://github.com/chronark/swapchain/tree/master/docs/docs/img
+
+7. Swapchain (2020e). Screenshot of the trade mode choice interface. Retrieved from https://github.com/chronark/swapchain/tree/master/docs/docs/img
+
+8. Swapchain (2020f). Screenshot of the proposer form interface. Retrieved from https://github.com/chronark/swapchain/tree/master/docs/docs/img
+
+9. Swapchain (2020g). Screenshot of the accepter form interface. Retrieved from https://github.com/chronark/swapchain/tree/master/docs/docs/img
+
+10. Swapchain (2020h). Screenshot of the information for partner interface. Retrieved from https://github.com/chronark/swapchain/tree/master/docs/docs/img
+
+11. Swapchain (2020i). Screenshot of the transaction processing interface. Retrieved from https://github.com/chronark/swapchain/tree/master/docs/docs/img
+
+12. Swapchain (2020j). Screenshot of the success notification interface. Retrieved from https://github.com/chronark/swapchain/tree/master/docs/docs/img
+
+13. Swapchain (2020k). Screenshot of the failure notification interface. Retrieved from https://github.com/chronark/swapchain/tree/master/docs/docs/img
+
+14. Swapchain (2020l). Screenshot of the command line interface starting page. Retrieved from https://github.com/chronark/swapchain/tree/master/docs/docs/img
+
+15. Swapchain (2020m). Screenshot of the command line interface user type choice. Retrieved from https://github.com/chronark/swapchain/tree/master/docs/docs/img
+
+16. Swapchain (2020n). Screenshot of the command line interface user input check. Retrieved from https://github.com/chronark/swapchain/tree/master/docs/docs/img
+
+17. Swapchain (2020o). Screenshot of the command line interface proposer hash pass. Retrieved from https://github.com/chronark/swapchain/tree/master/docs/docs/img
+
+18. Swapchain (2020p). Screenshot of the command line interface accepter hash pass. Retrieved from https://github.com/chronark/swapchain/tree/master/docs/docs/img
+
+19. Swapchain (2020q). Screenshot of the command line interface success page. Retrieved from https://github.com/chronark/swapchain/tree/master/docs/docs/img
