@@ -58,24 +58,25 @@ A significant feature of this architecture is the flow of dependencies, which ca
 
 ## 3. Logical and Code Component Overview
 
-The logical view of Swapchain is comprised of 4 main components:
+The logical view of Swapchain is comprised of 5 main components:
 
-- User Interface
-- ACCS Class
-- HTLC
-- and Verification.
+- Web app
+- CLI
+- ACCS class
+- BitcoinHTLC class
+- BitsharesHTLC class
 
-UI:  
-The web UI contains an interface for the user to propose or accept a swap. Also a command-line tool has been developed which offers the exact same functionality of conducting an ACCS.
+Web app:  
+The web app contains an interface for the user to propose or accept a swap. The web app sets the fields and calls the static method "run" to run the ACCS.
 
-ACCS Class:  
-The ACCS class is the interface between the UI and the HTLC. Values set in the UI are respectively set in the config of the ACCS class needed to perform a swap.
+CLI:
+The CLI offers the same functionalities as the web app. From the logical perspective, it works exactly like the web app. It is also possible to load JSON config files with the required data and use them for an ACCS.
 
-HTLC:  
-The HTLC contains several sub-components. A crucial part here is the secret and hash generator that first generates a random secret that is then cryptographically hashed. In order to further conduct the swap, a hash lock sub-component and a time lock sub-component need to be set up. The hash lock accesses the hash generator to retrieve the hashed password, while the time lock cooperates with the refund process, so as soon as the time lock expires, the refund process will be started.
+ACCS class:
+The ACCS class is the interface between the UIs and the HTLCs. Values set in the UI get parsed to a config using the parseUserInput method of the ACCS class. With this config, the ACCS class creates and redeems the respective HTLCs.
 
-Verification:  
-The Verification contains the signature verification sub-component which is consulted to verify the swap partners’ signatures. This sub-component comprises of a sign-transaction interface which locally compares the private key to the public key in the browser. If the verification is successful, the swap is executed. If not, the verification fails, and the refund process will be initiated.
+HTLC classes:
+The HTLC classes have two main public methods. One to create and one to redeem an HTLC. The HTLC classes are supplemented by API classes to communicate with the corresponding nodes of the networks.
 
 ### 3.1. UML Diagram
 
@@ -101,13 +102,12 @@ Figure 3: Use Case Diagram (Swapchain, 2020) [4]
 
 ## 5. Architectural Goals and Constraints
 
-There are some key requirements and system constraints that have a significant bearing on the architecture. They are:
+There are some key requirements and system constraints that have a significant bearing on the architecture:
 
 - The Swapchain platform should satisfy all requirements set by the AMOS project, i.e. licenses, schedule, tools, etc.
 - The BOM should be within a reasonable amount.
-- Swapchain platform should be accessible with local and remote PCs.
-- All private and public information of the clients using the platform should be secured safely.
-- The Swapchain platform will be implemented as a client-server system. The client portion resides on PCs and the server portion must operate on the APIs used.
+- All private information of the users (e.g. private keys) using the application should be processed safely.
+- The Swapchain application will be implemented as a client system.
 
 ## 6. Deployment
 
