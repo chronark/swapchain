@@ -110,7 +110,7 @@ The users can choose the cryptocurrencies they wish to swap, as well as the fees
 
 #### 2.2.1. User personas
 
-![Description of user persona pathway](img/UserPersona.jpg)
+![Description of user persona pathway](/img/UserPersona.jpg)
 
 Figure 1: User Persona Pathway Diagram (Swapchain, 2020a) [3]
 
@@ -142,7 +142,7 @@ The user documentation is intended to explain in the shortest way possible how t
 
 ### 3.1. Product feature description
 
-![Description of product feature](img/Features.jpg)
+![Description of product feature](/img/Features.jpg)
 
 Figure 2: Product feature diagram (Swapchain, 2020c) [5]
 
@@ -150,7 +150,7 @@ Figure 2: Product feature diagram (Swapchain, 2020c) [5]
 
 #### 3.2.1 Web App Interface functionality explanation
 
-![Landing Page Interface](img/UI_screenshot_landingPage.svg)
+![Landing Page Interface](/img/UI_screenshot_landingPage.svg)
 
 Figure 3: Screenshot of the landing page interface (Swapchain, 2020d) [6]
 
@@ -164,7 +164,7 @@ Figure 3: Screenshot of the landing page interface (Swapchain, 2020d) [6]
 
 ---
 
-![Choose Trade Mode Interface](img/UI_screenshot_chooseTradeMode.svg)
+![Choose Trade Mode Interface](/img/UI_screenshot_chooseTradeMode.svg)
 
 Figure 4: Screenshot of the trade mode choice interface (Swapchain, 2020e) [7]
 
@@ -175,7 +175,7 @@ Figure 4: Screenshot of the trade mode choice interface (Swapchain, 2020e) [7]
 
 ---
 
-![Proposer Form Interface](img/UI_screenshot_proposerForm.svg)
+![Proposer Form Interface](/img/UI_screenshot_proposerForm.svg)
 
 Figure 5: Screenshot of the proposer form interface (Swapchain, 2020f) [8]
 
@@ -198,7 +198,7 @@ Figure 5: Screenshot of the proposer form interface (Swapchain, 2020f) [8]
 
 ---
 
-![Accepter Form Interface](img/UI_screenshot_accepterForm.svg)
+![Accepter Form Interface](/img/UI_screenshot_accepterForm.svg)
 
 Figure 6: Screenshot of the accepter form interface (Swapchain, 2020g) [9]
 
@@ -216,13 +216,13 @@ Figure 6: Screenshot of the accepter form interface (Swapchain, 2020g) [9]
     **Counterparty Data:**
 11. Insert field for the counterparty's Bitcoin Public Key as the destination for HTLC's funds.
 12. Insert field for the counterparty's Bitshares account name as the destination for the HTLC's funds.
-13. Insert field for secret hash given to youby your swap partner to set up an HTLC with the same secret hash.
+13. Insert field for secret hash given to you by your swap partner to set up an HTLC with the same secret hash.
 14. Choice of priority and speed of transaction processing via choosing either a high, medium or low amount of transaction fees.
 15. Submit the information to create the HTLC on the blockchain.
 
 ---
 
-![Information for Partner Interface](img/UI_screenshot_infoToPartner.svg)
+![Information for Partner Interface](/img/UI_screenshot_infoToPartner.svg)
 
 Figure 7: Screenshot of the information for partner interface (Swapchain, 2020h) [10]
 
@@ -232,7 +232,7 @@ Figure 7: Screenshot of the information for partner interface (Swapchain, 2020h)
 
 ---
 
-![Transaction Processing Interface](img/UI_screenshot_transactionProcessing.svg)
+![Transaction Processing Interface](/img/UI_screenshot_transactionProcessing.svg)
 
 Figure 8: Screenshot of the transaction processing interface (Swapchain, 2020i) [11]
 
@@ -240,7 +240,7 @@ Figure 8: Screenshot of the transaction processing interface (Swapchain, 2020i) 
 
 ---
 
-![Success Notification Page Interface](img/UI_screenshot_success.svg)
+![Success Notification Page Interface](/img/UI_screenshot_success.svg)
 
 Figure 9: Screenshot of the success notification interface (Swapchain, 2020j) [12]
 
@@ -248,7 +248,7 @@ Figure 9: Screenshot of the success notification interface (Swapchain, 2020j) [1
 
 ---
 
-![Failure Notification Page Interface](img/UI_screenshot_failure.svg)
+![Failure Notification Page Interface](/img/UI_screenshot_failure.svg)
 
 Figure 10: Screenshot of the failure notification interface (Swapchain, 2020k) [13]
 
@@ -256,7 +256,7 @@ Figure 10: Screenshot of the failure notification interface (Swapchain, 2020k) [
 
 #### 3.2.2 Command Line Interface functionality explanation
 
-![Starting Page Command Line Interface](img/CLI_screenshot_startingPage.svg)
+![Starting Page Command Line Interface](/img/CLI_screenshot_startingPage.svg)
 
 Figure 11: Screenshot of the command line interface starting page (Swapchain, 2020l) [14]
 
@@ -267,7 +267,7 @@ Figure 11: Screenshot of the command line interface starting page (Swapchain, 20
 
 ---
 
-![User type Choice Command Line Interface](img/CLI_screenshot_proposerAccepter.svg)
+![User type Choice Command Line Interface](/img/CLI_screenshot_proposerAccepter.svg)
 
 Figure 12: Screenshot of the command line interface user type choice (Swapchain, 2020m) [15]
 
@@ -275,7 +275,7 @@ Figure 12: Screenshot of the command line interface user type choice (Swapchain,
 
 ---
 
-![User Input Check Command Line Interface](img/CLI_screenshot_checkInput.svg)
+![User Input Check Command Line Interface](/img/CLI_screenshot_checkInput.svg)
 
 Figure 13: Screenshot of the command line interface user input check (Swapchain, 2020n) [16]
 
@@ -283,7 +283,7 @@ Figure 13: Screenshot of the command line interface user input check (Swapchain,
 
 ---
 
-![Proposer Hash Pass Command Line Interface](img/CLI_screenshot_passHash.svg)
+![Proposer Hash Pass Command Line Interface](/img/CLI_screenshot_passHash.svg)
 
 Figure 14: Screenshot of the command line interface proposer hash pass (Swapchain, 2020o) [17]
 
@@ -291,7 +291,7 @@ Figure 14: Screenshot of the command line interface proposer hash pass (Swapchai
 
 ---
 
-![Accepter Hash Pass Command Line Interface](img/CLI_screenshot_passHash2.svg)
+![Accepter Hash Pass Command Line Interface](/img/CLI_screenshot_passHash2.svg)
 
 Figure 15: Screenshot of the command line interface accepter hash pass (Swapchain, 2020p) [18]
 
@@ -299,7 +299,7 @@ Figure 15: Screenshot of the command line interface accepter hash pass (Swapchai
 
 ---
 
-![Success Page Command Line Interface](img/CLI_screenshot_success.svg)
+![Success Page Command Line Interface](/img/CLI_screenshot_success.svg)
 
 Figure 16: Screenshot of the command line interface success page (Swapchain, 2020q) [19]
 
