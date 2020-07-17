@@ -107,16 +107,12 @@ There are some key requirements and system constraints that have a significant b
 - The Swapchain platform should satisfy all requirements set by the AMOS project, i.e. licenses, schedule, tools, etc.
 - The BOM should be within a reasonable amount.
 - All private information of the users (e.g. private keys) using the application should be processed safely.
-- The Swapchain application will be implemented as a client system.
 
 ## 6. Deployment
 
-This UI is hosted on Netlify. For users interested in the CLI, they can download the repository from Github and build it from source. A documentation for the is provided om the README.
-After finishing the AMOS course and therewith the project, the software will be hosted by ChainSquad. Atomic transactions are conducted in the backend, so that the client computer does not have to spend much of CPU power.
+This web app is hosted on [Netlify](https://swapchain.netlify.app). Instructions on how to use the CLI can be found in the README of our GitHub repository.
 
 ### 6.1. Technology Stack Description
-
-The web app will run as a React app on Netlify. [1][2]
 
 Web app:
 
@@ -132,9 +128,11 @@ CLI:
 Blockchain Gateway:
 
 - Bitcoin libraries:
-  - bitcoinjs-lib (junderw, 2020)
+  - bitcoinjs-lib [2]
 - Bitshare libraries:
   - bitsharesjs
+
+A detailed list of the libraries we use can be found in the BOM.
 
 ## 7. Implementation
 
@@ -148,24 +146,24 @@ Figure 5: Implementation Diagram (Swapchain, 2020) [4]
 ### 7.2. Implementation Description
 
 End-User:  
-The user interacts with the Swapchain UI without signing-up or authenticating an account. For now, we assume that proposer and accepter already know each other. Next, both exchange partners have to fill out a form to either accept or propose an atomic cross-chain swap. The user initiates the atomic swap by submitting the respective form and therewith opening an HTLC.
+The user interacts with the Swapchain UI without signing-up or authenticating an account. We assume that proposer and accepter already know each other. Next, both exchange partners have to fill out a form to either accept or propose an atomic cross-chain swap. The user initiates the atomic swap by submitting the respective form and therewith opening an ACCS.
 
 System:  
-After the system receives the proposal created by the user, a swap request is carried out using an HTLC. Therefore, the signatures are verified so that the private key matches the public key for the swap to take place. As soon as all required conditions are met it relays back and responds to the system to successfully transfer the funds. The involved users will receive a error message if the transaction was unsuccessful. In this case the users will be receiving the refund.
+After the system receives the proposal created by the user, a swap request is carried out using an HTLC. Therefore, the signatures are verified so that the private key matches the public key for the swap to take place. As soon as all required conditions are met it relays back and responds to the system to successfully transfer the funds. The involved users will receive an error message if the transaction was unsuccessful. In this case the users will be receiving the refund.
 
 ## 8. Size and Performance
 
 The chosen software architecture supports the following requirements:
 
-1. The system shall support at least two simultaneous users at a time (thousands of requests can be supported since netlifies CDN is used).
+1. Since the application runs locally, only the chosen blockchain network nodes limit the number of concurrent users.
 2. The system shall be able to complete an ACCS transaction within a reasonable time once all HTLC requirements are met. The exact time, however, depends on the miners.
 
 ## 9. Quality
 
 The software architecture supports the following quality requirements:
 
-1. The UI of the Swapchain platform will be designed for ease-of-use and shall be appropriate for a computer-literate user community with some knowledge of cryptocurrency exchanges.
-2. The Swapchain platform will be available 24 hours a day, 7 days a week. However, it can not be guaranteed that Netlify and even a Blockchain node that is used are never down. This would obviously affect Swapchain's services.
+1. The UI of the Swapchain platform will be designed for ease-of-use and shall be appropriate for a computer-literate user community with some knowledge of cryptocurrency technologies.
+2. The Swapchain application will be available 24/7. However, it can not be guaranteed that Netlify and even a Blockchain node that is used are never down. This would obviously affect Swapchain's services.
 
 ## 10. References
 
