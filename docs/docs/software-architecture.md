@@ -6,37 +6,38 @@ sidebar_label: Swapchain Software Architecture
 
 ## 1. Introduction
 
-Swapchain is a platform that enables users to perform atomic cross-chain swaps between Bitcoins and Bitshares and vice versa. It caters to the need of users who want to carry out OTC (over-the-counter) transactions between the Bitcoin and the Bitshares blockchains. The platform helps users to submit desired swap orders and perform a Hashed Time Lock Contract to safely carry out the swap. Furthermore, it provides the functionality of a simple user interface to track the transactions made by the user. The use of an atomic cross-chain swap helps avoiding counterparty risks and high fees charged by other intermediaries. [5]
+Swapchain is an application that enables users to perform atomic cross-chain swaps between Bitcoins and Bitshares and vice versa. It caters to the need of users who want to carry out OTC (over-the-counter) transactions between the Bitcoin and the Bitshares blockchains. The applicatiom helps users to submit desired swap orders and perform an hash time locked contract to safely carry out the swap. The use of an atomic cross-chain swap helps avoiding counterparty risks and high fees charged by other intermediaries and exchange venues. For the future it is planned to extend the application with an order book functionality to a trading platform. [5]
 
 ### 1.1 Purpose
 
-This document provides a comprehensive architectural overview of the Swapchain platform, using specific diagrams and an architectural representation to explain different aspects of the platform. It is intended to capture and convey the significant architectural decisions which have been made for the platform design.
+This document provides a comprehensive architectural overview of the Swapchain application, using specific diagrams and an architectural representation to explain different aspects of the application. It is intended to capture and convey the significant architectural decisions which have been made for the application design.
 
 ### 1.2 Scope
 
-The Swapchain platform is being developed by a group of students from Friedrich-Alexander University Erlangen to support cross-chain atomic swaps as part of an AMOS project. This software architecture document applies to each static and dynamic aspect of the platform. It includes an architectural model to explain the different processes that happen. Furthermore, it also discusses deployment and implementation issues.
+The Swapchain application is being developed by a group of students from Friedrich-Alexander University Erlangen-Nürnberg to support cross-chain atomic swaps as part of an AMOS project. This software architecture document applies to each static and dynamic aspect of the platform. It includes an architectural model to explain the different processes that happen. Furthermore, it also discusses deployment and implementation issues.
 
 ### 1.3 Definitions, Acronyms, Abbreviations
 
-AMOS - Agile methods and Open-Source Software  
-ACCS - Atomic cross-chain swaps  
-HTLC - Hash time locked contract  
-ECDSA - Elliptic Curve Digital Signature Algorithm  
-BTC - Bitcoin  
-BTS - Bitshare  
-OTC - Over the counter  
-API - Application Programming Interface  
-UI - User Interface  
-BOM - Bill of materials  
-CLI - Command-line interface
+- ACCS - Atomic cross-chain swaps
+- AMOS - Agile methods and Open-Source Software
+- API - Application Programming Interface
+- BOM - Bill of materials
+- BTC - Bitcoin
+- BTS - Bitshares
+- CLI - Command line interface
+- ECDSA - Elliptic Curve Digital Signature Algorithm
+- FAU - Friedrich-Alexander University Erlangen-Nürnberg
+- HTLC - Hash time locked contract
+- OTC - Over-the-counter
+- UI - User Interface
 
 ### 1.4 Overview
 
-The documentation will present a detailed analysis of the architecture of a platform enabling ACCS between BTC and BTS. Initial sections of the document cover the architectural goals and constraints, use case realizations, and architectural representation. The later sections cover the specific details of the implementation and deployment of the platform. Furthermore, the document also describes the performance and quality.
+The documentation will present a detailed analysis of the architecture of an application enabling ACCS between BTC and BTS. Initial sections of the document cover the architectural goals and constraints, use case realizations, and architectural representation. The later sections cover the specific details of the implementation and deployment of the platform. Furthermore, the document also describes the performance and quality.
 
 ## 2. Architectural Representation
 
-Swapchain offers a command-line interface (CLI) and a basic UI which both follow the Clean Architecture pattern. Main reason to use this pattern is to separate functions into layers and thus, improve the maintainability and reusability. Figure 1 visualizes the Clean Architecture by using color-coded schemes.
+Swapchain offers a CLI and a web app which both follow the Clean Architecture pattern. Main reason to use this pattern is to separate functions into layers and thus, improve the maintainability and reusability. Figure 1 visualizes the Clean Architecture by using color-coded schemes.
 
 ![](/img/CleanArchitecture.svg)  
 Figure 1: The Clean Architecture (Martin, 2020) [3]
@@ -46,12 +47,12 @@ So, in the context of our application:
 1. Yellow Layer: This layer is highly abstract, general, and thus very stable. Hence, in this case, the entity is the atomic swap of cryptocurrencies.
 2. Red Layer: This layer contains the Use-Case, which is the swapping between two parties of BTC to BTS and vice versa.
 3. Green Layer: This layer is used to separate the Red layer from the Blue layer. It has the framework specific code which is to be used by the application.
-4. Blue Layer: This layer (framework and drivers) contains the graphical UI and CLI.
+4. Blue Layer: This layer (framework and drivers) contains the web app and CLI.
 
 | Clean Architecture Layers | Entities                                    | Use Cases                                | Controllers, Gateways, Presenters                           | UI, Web, Devices, DB          |
 | ------------------------- | ------------------------------------------- | ---------------------------------------- | ----------------------------------------------------------- | ----------------------------- |
 | General Description       | Main features of the application            | Application of the main ideas            | Encapsulates framework-specific code                        | Contains frameworks and tools |
-| Swapchain Specific        | Atomic cross-chain swap of cryptocurrencies | Cross-chain swaps, cross-consensus swaps | Interaction, libraries, data-structures from UI to use case | CLI, Web UI                   |
+| Swapchain Specific        | Atomic cross-chain swap of cryptocurrencies | Cross-chain swaps, cross-consensus swaps | Interaction, libraries, data-structures from UI to use case | CLI, Web app                  |
 
 A significant feature of this architecture is the flow of dependencies, which can be seen by the arrows moving in from the blue layer to the yellow layer in figure 1. This signifies that an outer layer can depend on an inner layer, but an inner layer cannot depend on an outer layer. The things that are most likely to change are kept on the outer layers and the things are less likely to change are kept on the inner most layers, helping the application to ensure possible changes that come over time due to technology changes etc. This makes the inner layers much more stable than the outer layers thus, the tools used to build the application can be modified easily (blue layer) but the core concepts and ideas behind the application are less likely to change (yellow layer). [3]
 
