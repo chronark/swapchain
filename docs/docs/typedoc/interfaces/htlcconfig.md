@@ -30,7 +30,7 @@ Contains all necessary information to create an HTLC on Bitshares blockchain
 
 • **amount**: _number_
 
-_Defined in [pkg/bitshares/htlc/btsHTLC.ts:16](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/bitshares/htlc/btsHTLC.ts#L16)_
+_Defined in [pkg/bitshares/htlc/btsHTLC.ts:16](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/htlc/btsHTLC.ts#L16)_
 
 How much you want to send.
 
@@ -42,7 +42,7 @@ How much you want to send.
 
 • **asset**: _string_
 
-_Defined in [pkg/bitshares/htlc/btsHTLC.ts:23](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/bitshares/htlc/btsHTLC.ts#L23)_
+_Defined in [pkg/bitshares/htlc/btsHTLC.ts:23](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/htlc/btsHTLC.ts#L23)_
 
 The type/currency you want to send.
 
@@ -54,7 +54,7 @@ The type/currency you want to send.
 
 • **hash**: _Buffer_
 
-_Defined in [pkg/bitshares/htlc/btsHTLC.ts:37](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/bitshares/htlc/btsHTLC.ts#L37)_
+_Defined in [pkg/bitshares/htlc/btsHTLC.ts:37](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/htlc/btsHTLC.ts#L37)_
 
 SHA256 hash of the secret.
 
@@ -66,7 +66,7 @@ SHA256 hash of the secret.
 
 • **privateKey**: _string_
 
-_Defined in [pkg/bitshares/htlc/btsHTLC.ts:45](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/bitshares/htlc/btsHTLC.ts#L45)_
+_Defined in [pkg/bitshares/htlc/btsHTLC.ts:45](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/htlc/btsHTLC.ts#L45)_
 
 Private key of the creator in WIF format.
 
@@ -78,7 +78,7 @@ Private key of the creator in WIF format.
 
 • **time**: _number_
 
-_Defined in [pkg/bitshares/htlc/btsHTLC.ts:30](https://github.com/chronark/swapchain/blob/9502eb6/src/pkg/bitshares/htlc/btsHTLC.ts#L30)_
+_Defined in [pkg/bitshares/htlc/btsHTLC.ts:30](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/htlc/btsHTLC.ts#L30)_
 
 TTL for the timelock in seconds. After this time passes the contract will be automatically redeemed by the sender.
 

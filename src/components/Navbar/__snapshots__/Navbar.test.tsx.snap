@@ -100,6 +100,7 @@ exports[`renders correctly 1`] = `
           <a
             className="flex items-center px-6 text-gray-800 transition duration-300 ease-in-out hover:text-teal-400 focus:outline-none"
             href="https://github.com/chronark/swapchain"
+            target="blank"
           >
             <svg
               className="h-8 fill-current"
