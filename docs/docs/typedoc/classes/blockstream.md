@@ -45,7 +45,7 @@ Handler to fetch and push data from the Blockstream API.
 
 \+ **new BlockStream**(`network`: string): _[BlockStream](blockstream.md)_
 
-_Defined in [pkg/bitcoin/api/blockstream.ts:11](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/bitcoin/api/blockstream.ts#L11)_
+_Defined in [pkg/bitcoin/api/blockstream.ts:11](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitcoin/api/blockstream.ts#L11)_
 
 Creates an instance of BlockStream.
 
@@ -65,7 +65,7 @@ Creates an instance of BlockStream.
 
 • **baseURL**: _string_
 
-_Defined in [pkg/bitcoin/api/blockstream.ts:11](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/bitcoin/api/blockstream.ts#L11)_
+_Defined in [pkg/bitcoin/api/blockstream.ts:11](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitcoin/api/blockstream.ts#L11)_
 
 ## Methods
 
@@ -73,7 +73,7 @@ _Defined in [pkg/bitcoin/api/blockstream.ts:11](https://github.com/chronark/swap
 
 ▸ **getBlockHeight**(`transactionID`: string): _Promise‹number | undefined›_
 
-_Defined in [pkg/bitcoin/api/blockstream.ts:207](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/bitcoin/api/blockstream.ts#L207)_
+_Defined in [pkg/bitcoin/api/blockstream.ts:207](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitcoin/api/blockstream.ts#L207)_
 
 Return the block height of the transaction.
 
@@ -95,7 +95,7 @@ Blockheight or undefined if block is not mined/broadcasted yet.
 
 ▸ **getFeeEstimates**(): _Promise‹number[]›_
 
-_Defined in [pkg/bitcoin/api/blockstream.ts:222](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/bitcoin/api/blockstream.ts#L222)_
+_Defined in [pkg/bitcoin/api/blockstream.ts:222](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitcoin/api/blockstream.ts#L222)_
 
 Get fee estimates
 
@@ -111,7 +111,7 @@ Array with fee estimates for high, mid and low priority in satoshis/vbyte. If fe
 
 ▸ **getLastBlock**(): _Promise‹object›_
 
-_Defined in [pkg/bitcoin/api/blockstream.ts:29](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/bitcoin/api/blockstream.ts#L29)_
+_Defined in [pkg/bitcoin/api/blockstream.ts:29](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitcoin/api/blockstream.ts#L29)_
 
 Get information of last block broadcasted
 
@@ -127,7 +127,7 @@ Height and timestamp of the last block.
 
 ▸ **getOutput**(`transactionID`: string, `address`: string): _Promise‹object›_
 
-_Defined in [pkg/bitcoin/api/blockstream.ts:175](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/bitcoin/api/blockstream.ts#L175)_
+_Defined in [pkg/bitcoin/api/blockstream.ts:175](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitcoin/api/blockstream.ts#L175)_
 
 Return the vout and value of the transaction.
 
@@ -150,7 +150,7 @@ vout and value
 
 ▸ **getPreimageFromLastTransaction**(`address`: string): _Promise‹string›_
 
-_Defined in [pkg/bitcoin/api/blockstream.ts:98](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/bitcoin/api/blockstream.ts#L98)_
+_Defined in [pkg/bitcoin/api/blockstream.ts:98](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitcoin/api/blockstream.ts#L98)_
 
 Return the Preimage of the last transacction.
 
@@ -172,7 +172,7 @@ Preimage where address was found in vin.
 
 ▸ **getTimestampAtHeight**(`blockHeight`: number): _Promise‹number›_
 
-_Defined in [pkg/bitcoin/api/blockstream.ts:54](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/bitcoin/api/blockstream.ts#L54)_
+_Defined in [pkg/bitcoin/api/blockstream.ts:54](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitcoin/api/blockstream.ts#L54)_
 
 Get timestamp of block for given height
 
@@ -194,7 +194,7 @@ Timestamp of a block defined by its height.
 
 ▸ **getValueFromLastTransaction**(`address`: string): _Promise‹object›_
 
-_Defined in [pkg/bitcoin/api/blockstream.ts:135](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/bitcoin/api/blockstream.ts#L135)_
+_Defined in [pkg/bitcoin/api/blockstream.ts:135](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitcoin/api/blockstream.ts#L135)_
 
 Get value and transaction id from last transaction
 
@@ -216,7 +216,7 @@ Spendable value and the transaction id where the address occured in vout.
 
 ▸ **pushTX**(`txHex`: string): _Promise‹string›_
 
-_Defined in [pkg/bitcoin/api/blockstream.ts:78](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/bitcoin/api/blockstream.ts#L78)_
+_Defined in [pkg/bitcoin/api/blockstream.ts:78](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitcoin/api/blockstream.ts#L78)_
 
 Push transaction to the bitcoin network
 

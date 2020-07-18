@@ -20,9 +20,9 @@ sidebar_label: "Priority"
 
 • **HIGH**:
 
-_Defined in [components/util/enums.ts:20](https://github.com/chronark/swapchain/blob/281c0f2/src/components/util/enums.ts#L20)_
+_Defined in [components/util/enums.ts:20](https://github.com/chronark/swapchain/blob/c023355/src/components/util/enums.ts#L20)_
 
-_Defined in [components/forms/enums.ts:20](https://github.com/chronark/swapchain/blob/281c0f2/src/components/forms/enums.ts#L20)_
+_Defined in [components/forms/enums.ts:20](https://github.com/chronark/swapchain/blob/c023355/src/components/forms/enums.ts#L20)_
 
 ---
 
@@ -30,9 +30,9 @@ _Defined in [components/forms/enums.ts:20](https://github.com/chronark/swapchain
 
 • **LOW**:
 
-_Defined in [components/util/enums.ts:22](https://github.com/chronark/swapchain/blob/281c0f2/src/components/util/enums.ts#L22)_
+_Defined in [components/util/enums.ts:22](https://github.com/chronark/swapchain/blob/c023355/src/components/util/enums.ts#L22)_
 
-_Defined in [components/forms/enums.ts:22](https://github.com/chronark/swapchain/blob/281c0f2/src/components/forms/enums.ts#L22)_
+_Defined in [components/forms/enums.ts:22](https://github.com/chronark/swapchain/blob/c023355/src/components/forms/enums.ts#L22)_
 
 ---
 
@@ -40,6 +40,6 @@ _Defined in [components/forms/enums.ts:22](https://github.com/chronark/swapchain
 
 • **MEDIUM**:
 
-_Defined in [components/util/enums.ts:21](https://github.com/chronark/swapchain/blob/281c0f2/src/components/util/enums.ts#L21)_
+_Defined in [components/util/enums.ts:21](https://github.com/chronark/swapchain/blob/c023355/src/components/util/enums.ts#L21)_
 
-_Defined in [components/forms/enums.ts:21](https://github.com/chronark/swapchain/blob/281c0f2/src/components/forms/enums.ts#L21)_
+_Defined in [components/forms/enums.ts:21](https://github.com/chronark/swapchain/blob/c023355/src/components/forms/enums.ts#L21)_

@@ -25,7 +25,7 @@ An interface for a secret/hash pair
 
 • **hash**: _Buffer_
 
-_Defined in [pkg/secret/secret.ts:9](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/secret/secret.ts#L9)_
+_Defined in [pkg/secret/secret.ts:9](https://github.com/chronark/swapchain/blob/c023355/src/pkg/secret/secret.ts#L9)_
 
 ---
 
@@ -33,4 +33,4 @@ _Defined in [pkg/secret/secret.ts:9](https://github.com/chronark/swapchain/blob/
 
 • **preimage**? : _undefined | string_
 
-_Defined in [pkg/secret/secret.ts:8](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/secret/secret.ts#L8)_
+_Defined in [pkg/secret/secret.ts:8](https://github.com/chronark/swapchain/blob/c023355/src/pkg/secret/secret.ts#L8)_
