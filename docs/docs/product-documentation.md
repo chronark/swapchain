@@ -163,7 +163,7 @@ OP_ENDIF
 Without going deep into details, this script implements the HTLCs for Bitcoin. As can be seen from `OP_CHECKSIG`, a valid signature must always be present for redeeming in addition to opening the hash or timelock. In addition, a 32-character cryptographically random secret ensures high security.
 Combined with full use of segwit, we can offer our users a safe, fast and cheap way to exchange Bitcoin and Bitshares.
 
-![Description of product feature](../static/img/Features.jpg)
+![Description of product feature](/img/Features.jpg)
 
 Figure 2: Product feature diagram (Swapchain, 2020c) [5]
 
