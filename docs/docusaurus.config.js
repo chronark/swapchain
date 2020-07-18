@@ -1,7 +1,7 @@
 module.exports = {
   title: "swapchain documentation",
   tagline:
-    "Swapchain is an application for performing ACCS (atomic cross chain swaps) via HTLCs (hash-time-locked contracts",
+    "Swapchain is an application that enables users to perform atomic cross-chain swaps (ACCS) between BTS and BTS and vice versa.",
   url: "https://chronark.github.io/swapchain",
   baseUrl: "/",
   favicon: "img/favicon.ico",
