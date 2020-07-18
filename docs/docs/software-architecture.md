@@ -6,7 +6,7 @@ sidebar_label: Swapchain Software Architecture
 
 ## 1. Introduction
 
-Swapchain is an application that enables users to perform atomic cross-chain swaps between Bitcoins and Bitshares and vice versa. It caters to the need of users who want to carry out OTC (over-the-counter) transactions between the Bitcoin and the Bitshares blockchains. The applicatiom helps users to submit desired swap orders and perform an hash time locked contract to safely carry out the swap. The use of an atomic cross-chain swap helps avoiding counterparty risks and high fees charged by other intermediaries and exchange venues. For the future it is planned to extend the application with an order book functionality to a trading platform. [5]
+Swapchain is an application that enables users to perform atomic cross-chain swaps between Bitcoins and Bitshares and vice versa. It caters to the need of users who want to carry out OTC (over-the-counter) transactions between the Bitcoin and the Bitshares blockchains. The applicatiom helps users to submit desired swap orders and perform an hash time locked contract to safely carry out the swap. The use of an atomic cross-chain swap helps avoiding counterparty risks and high fees charged by other intermediaries and exchange venues. For the future it is planned to extend the application with an order book functionality to a trading platform. (Zipkin, 2020) [5]
 
 ### 1.1 Purpose
 
@@ -157,7 +157,7 @@ CLI:
 Blockchain Gateway:
 
 - Bitcoin libraries:
-  - bitcoinjs-lib [2]
+  - bitcoinjs-lib (junderw, 2020) [2]
 - Bitshare libraries:
   - bitsharesjs
 
