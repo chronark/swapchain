@@ -142,7 +142,28 @@ The user documentation is intended to explain in the shortest way possible how t
 
 ### 3.1. Product feature description
 
-![Description of product feature](/img/Features.jpg)
+At its core, Swapchain makes use of HTLCs. Therefore theoretically any cryptocurrency can be exchanged whose blockchain supports HTLCs. While it is planned to support more currencies, only Bitcoin and Bitshares are currently offered as an exchange pair. Creating and redeeming HTLCs on Bitshares is fairly simple, since operations from the core software exist for this. This is not the case for Bitcoin. For the Bitcoin blockchain, Swapchain makes use of a custom redeemscript. The script looks similar to this: (Zipkin, 2020 [2])
+
+```
+OP_IF
+  OP_SHA256
+  <hash of secret>
+  OP_EQUALVERIFY
+  <pubKey of counterparty>
+  OP_CHECKSIG
+OP_ELSE
+  <relative locktime>
+  OP_CHECKSEQUENCEVERIFY
+  OP_DROP
+  <pubKey of refund>
+  OP_CHECKSIG
+OP_ENDIF
+```
+
+Without going deep into details, this script implements the HTLCs for Bitcoin. As can be seen from `OP_CHECKSIG`, a valid signature must always be present for redeeming in addition to opening the hash or timelock. In addition, a 32-character cryptographically random secret ensures high security.
+Combined with full use of segwit, we can offer our users a safe, fast and cheap way to exchange Bitcoin and Bitshares.
+
+![Description of product feature](../static/img/Features.jpg)
 
 Figure 2: Product feature diagram (Swapchain, 2020c) [5]
 
