@@ -118,7 +118,7 @@ Post Conditions:
 
 Flow of Events:   
 - Submit desired order
-- Start a HTLC
+- Start an HTLC
 - Fund and redeem a swap
 - Key pair generator
 - Verification process of validity between private and public keys
