@@ -16,15 +16,13 @@ module.exports = {
       },
       links: [
         {
-          to: "docs/architecture",
-          activeBasePath: "docs",
-          label: "SW Architecture",
+          to: "docs/product-documentation",
+          label: "Product Documentation",
           position: "left",
         },
         {
-          to: "docs/product-documentation",
-          activeBasePath: "docs",
-          label: "Product Documentation",
+          to: "docs/architecture",
+          label: "Software Architecture",
           position: "left",
         },
         { to: "docs/typedoc/globals", label: "Modules", position: "left" },
@@ -34,21 +32,6 @@ module.exports = {
           position: "right",
         },
       ],
-    },
-    footer: {
-      style: "dark",
-      links: [
-        {
-          title: "More",
-          items: [
-            {
-              label: "GitHub",
-              href: "https://github.com/chronark/swapchain",
-            },
-          ],
-        },
-      ],
-      copyright: "", //`Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
     },
   },
   presets: [
