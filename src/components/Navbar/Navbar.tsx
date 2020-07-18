@@ -60,6 +60,7 @@ export const Navbar = () => {
             <li>
               <a
                 className="flex items-center px-6 text-gray-800 transition duration-300 ease-in-out hover:text-teal-400 focus:outline-none"
+                target="blank"
                 href="https://github.com/chronark/swapchain"
               >
                 <GithubLogo className="h-8 fill-current"></GithubLogo>
