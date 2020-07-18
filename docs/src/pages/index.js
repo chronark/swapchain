@@ -8,12 +8,32 @@ import styles from "./styles.module.css"
 
 const features = [
   {
-    title: <>Atomic Cross-Chain Swaps</>,
-    //imageUrl: "img/undraw_docusaurus_mountain.svg",
+    title: <>You own your private keys</>,
+    imageUrl: "img/key.svg",
     description: (
       <>
-        swapchain enables users to exchange currencies across different blockchains in a safe way without trusting the
-        other party.
+        If you don't own the private keys, you don't own the coins. With swapchain your private keys belong to you. Your
+        private keys will never leave your browser or CLI, giving you full control over them.
+      </>
+    ),
+  },
+  {
+    title: <>Zero trust required</>,
+    imageUrl: "img/lock-closed.svg",
+    description: (
+      <>
+        Since Swapchain uses Hash TimeLock Contracts (HTLCs), there are no more counterparty risks. This means you don't
+        have to trust your exchange partner and can trade safely.
+      </>
+    ),
+  },
+  {
+    title: <>Trade crypto assets the way you like</>,
+    imageUrl: "img/collection.svg",
+    description: (
+      <>
+        With Swapchain, you can choose your preferred rate and priority, making your cryptocurrency transactions both
+        more flexible to your needs and safer.
       </>
     ),
   },

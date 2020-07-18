@@ -29,7 +29,7 @@ sidebar_label: "Order"
 
 • **addressHash**: _string_
 
-_Defined in [components/orderbook/Orderbook.tsx:31](https://github.com/chronark/swapchain/blob/e6681b5/src/components/orderbook/Orderbook.tsx#L31)_
+_Defined in [components/orderbook/Orderbook.tsx:31](https://github.com/chronark/swapchain/blob/281c0f2/src/components/orderbook/Orderbook.tsx#L31)_
 
 ---
 
@@ -37,7 +37,7 @@ _Defined in [components/orderbook/Orderbook.tsx:31](https://github.com/chronark/
 
 • **created**: _Date_
 
-_Defined in [components/orderbook/Orderbook.tsx:32](https://github.com/chronark/swapchain/blob/e6681b5/src/components/orderbook/Orderbook.tsx#L32)_
+_Defined in [components/orderbook/Orderbook.tsx:32](https://github.com/chronark/swapchain/blob/281c0f2/src/components/orderbook/Orderbook.tsx#L32)_
 
 ---
 
@@ -45,7 +45,7 @@ _Defined in [components/orderbook/Orderbook.tsx:32](https://github.com/chronark/
 
 • **exchangeRate**: _number_
 
-_Defined in [components/orderbook/Orderbook.tsx:39](https://github.com/chronark/swapchain/blob/e6681b5/src/components/orderbook/Orderbook.tsx#L39)_
+_Defined in [components/orderbook/Orderbook.tsx:39](https://github.com/chronark/swapchain/blob/281c0f2/src/components/orderbook/Orderbook.tsx#L39)_
 
 ---
 
@@ -53,7 +53,7 @@ _Defined in [components/orderbook/Orderbook.tsx:39](https://github.com/chronark/
 
 • **give**: _object_
 
-_Defined in [components/orderbook/Orderbook.tsx:35](https://github.com/chronark/swapchain/blob/e6681b5/src/components/orderbook/Orderbook.tsx#L35)_
+_Defined in [components/orderbook/Orderbook.tsx:35](https://github.com/chronark/swapchain/blob/281c0f2/src/components/orderbook/Orderbook.tsx#L35)_
 
 #### Type declaration:
 
@@ -67,7 +67,7 @@ _Defined in [components/orderbook/Orderbook.tsx:35](https://github.com/chronark/
 
 • **receive**: _object_
 
-_Defined in [components/orderbook/Orderbook.tsx:40](https://github.com/chronark/swapchain/blob/e6681b5/src/components/orderbook/Orderbook.tsx#L40)_
+_Defined in [components/orderbook/Orderbook.tsx:40](https://github.com/chronark/swapchain/blob/281c0f2/src/components/orderbook/Orderbook.tsx#L40)_
 
 #### Type declaration:
 
@@ -81,7 +81,7 @@ _Defined in [components/orderbook/Orderbook.tsx:40](https://github.com/chronark/
 
 • **selected**: _boolean_
 
-_Defined in [components/orderbook/Orderbook.tsx:30](https://github.com/chronark/swapchain/blob/e6681b5/src/components/orderbook/Orderbook.tsx#L30)_
+_Defined in [components/orderbook/Orderbook.tsx:30](https://github.com/chronark/swapchain/blob/281c0f2/src/components/orderbook/Orderbook.tsx#L30)_
 
 ---
 
@@ -89,7 +89,7 @@ _Defined in [components/orderbook/Orderbook.tsx:30](https://github.com/chronark/
 
 • **status**: _object_
 
-_Defined in [components/orderbook/Orderbook.tsx:34](https://github.com/chronark/swapchain/blob/e6681b5/src/components/orderbook/Orderbook.tsx#L34)_
+_Defined in [components/orderbook/Orderbook.tsx:34](https://github.com/chronark/swapchain/blob/281c0f2/src/components/orderbook/Orderbook.tsx#L34)_
 
 #### Type declaration:
 
@@ -103,4 +103,4 @@ _Defined in [components/orderbook/Orderbook.tsx:34](https://github.com/chronark/
 
 • **validUntil**: _Date_
 
-_Defined in [components/orderbook/Orderbook.tsx:33](https://github.com/chronark/swapchain/blob/e6681b5/src/components/orderbook/Orderbook.tsx#L33)_
+_Defined in [components/orderbook/Orderbook.tsx:33](https://github.com/chronark/swapchain/blob/281c0f2/src/components/orderbook/Orderbook.tsx#L33)_

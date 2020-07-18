@@ -44,7 +44,7 @@ Contains all necessary information to run an ACCS after parsing.
 
 • **amountBTSMini**: _number_
 
-_Defined in [pkg/accs/accs.ts:126](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L126)_
+_Defined in [pkg/accs/accs.ts:126](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L126)_
 
 The amount of Bitshares in 1/100000 BTS.
 
@@ -54,7 +54,7 @@ The amount of Bitshares in 1/100000 BTS.
 
 • **amountSatoshi**: _number_
 
-_Defined in [pkg/accs/accs.ts:131](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L131)_
+_Defined in [pkg/accs/accs.ts:131](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L131)_
 
 The amount of Bitcoin in Satoshi 1/100000000 BTC.
 
@@ -64,7 +64,7 @@ The amount of Bitcoin in Satoshi 1/100000000 BTC.
 
 • **bitcoinTxID**: _string_
 
-_Defined in [pkg/accs/accs.ts:161](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L161)_
+_Defined in [pkg/accs/accs.ts:161](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L161)_
 
 The Bitcoin transaction id the user wants to spend.
 
@@ -74,7 +74,7 @@ The Bitcoin transaction id the user wants to spend.
 
 • **bitsharesAccountID**: _string_
 
-_Defined in [pkg/accs/accs.ts:111](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L111)_
+_Defined in [pkg/accs/accs.ts:111](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L111)_
 
 The user's own Bitshares account ID.
 
@@ -84,7 +84,7 @@ The user's own Bitshares account ID.
 
 • **bitsharesAsset**: _string_
 
-_Defined in [pkg/accs/accs.ts:176](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L176)_
+_Defined in [pkg/accs/accs.ts:176](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L176)_
 
 The asset on Bitshares blockchain. Either BTS or TEST.
 
@@ -94,7 +94,7 @@ The asset on Bitshares blockchain. Either BTS or TEST.
 
 • **bitsharesEndpoint**: _string_
 
-_Defined in [pkg/accs/accs.ts:181](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L181)_
+_Defined in [pkg/accs/accs.ts:181](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L181)_
 
 The endpoint address of the Bitshares node to connect to.
 
@@ -104,7 +104,7 @@ The endpoint address of the Bitshares node to connect to.
 
 • **bitsharesPrivateKey**: _string_
 
-_Defined in [pkg/accs/accs.ts:116](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L116)_
+_Defined in [pkg/accs/accs.ts:116](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L116)_
 
 The user's own Bitshares private key.
 
@@ -114,7 +114,7 @@ The user's own Bitshares private key.
 
 • **checkAPIInterval**: _number_
 
-_Defined in [pkg/accs/accs.ts:186](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L186)_
+_Defined in [pkg/accs/accs.ts:186](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L186)_
 
 The interval in seconds the APIs get called.
 
@@ -124,7 +124,7 @@ The interval in seconds the APIs get called.
 
 • **counterpartyBitsharesAccountID**: _string_
 
-_Defined in [pkg/accs/accs.ts:121](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L121)_
+_Defined in [pkg/accs/accs.ts:121](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L121)_
 
 The counterparty's Bitshares account ID.
 
@@ -134,7 +134,7 @@ The counterparty's Bitshares account ID.
 
 • **counterpartyKeyPairCompressedBTC**: _ECPairInterface_
 
-_Defined in [pkg/accs/accs.ts:141](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L141)_
+_Defined in [pkg/accs/accs.ts:141](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L141)_
 
 The counterparty's Bitcoin compressed keypair. Only contains a public key!
 
@@ -144,7 +144,7 @@ The counterparty's Bitcoin compressed keypair. Only contains a public key!
 
 • **keyPairCompressedBTC**: _ECPairInterface_
 
-_Defined in [pkg/accs/accs.ts:136](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L136)_
+_Defined in [pkg/accs/accs.ts:136](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L136)_
 
 The user's own Bitcoin compressed keypair.
 
@@ -154,7 +154,7 @@ The user's own Bitcoin compressed keypair.
 
 • **mode**: _string_
 
-_Defined in [pkg/accs/accs.ts:96](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L96)_
+_Defined in [pkg/accs/accs.ts:96](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L96)_
 
 The transaction mode. Either proposer or accepter.
 
@@ -164,7 +164,7 @@ The transaction mode. Either proposer or accepter.
 
 • **network**: _Network_
 
-_Defined in [pkg/accs/accs.ts:166](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L166)_
+_Defined in [pkg/accs/accs.ts:166](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L166)_
 
 The Bitcoin network object.
 
@@ -174,7 +174,7 @@ The Bitcoin network object.
 
 • **networkName**: _string_
 
-_Defined in [pkg/accs/accs.ts:171](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L171)_
+_Defined in [pkg/accs/accs.ts:171](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L171)_
 
 The network name. Either mainnet or testnet.
 
@@ -184,7 +184,7 @@ The network name. Either mainnet or testnet.
 
 • **priority**: _number_
 
-_Defined in [pkg/accs/accs.ts:106](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L106)_
+_Defined in [pkg/accs/accs.ts:106](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L106)_
 
 The Bitcoin transaction priority (0 = high, 1 = medium, 2 = low)
 
@@ -194,7 +194,7 @@ The Bitcoin transaction priority (0 = high, 1 = medium, 2 = low)
 
 • **secret**: _[Secret](secret.md)_
 
-_Defined in [pkg/accs/accs.ts:156](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L156)_
+_Defined in [pkg/accs/accs.ts:156](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L156)_
 
 A secret object with a random preimage and its corresponding SHA256 hash.
 
@@ -204,7 +204,7 @@ A secret object with a random preimage and its corresponding SHA256 hash.
 
 • **timelockBTC**: _number_
 
-_Defined in [pkg/accs/accs.ts:146](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L146)_
+_Defined in [pkg/accs/accs.ts:146](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L146)_
 
 The timelock for the Bitcoin blockchain in blocks.
 
@@ -214,7 +214,7 @@ The timelock for the Bitcoin blockchain in blocks.
 
 • **timelockBTS**: _number_
 
-_Defined in [pkg/accs/accs.ts:151](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L151)_
+_Defined in [pkg/accs/accs.ts:151](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L151)_
 
 The timelock for the Bitshares blockchain in seconds.
 
@@ -224,6 +224,6 @@ The timelock for the Bitshares blockchain in seconds.
 
 • **type**: _string_
 
-_Defined in [pkg/accs/accs.ts:101](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L101)_
+_Defined in [pkg/accs/accs.ts:101](https://github.com/chronark/swapchain/blob/281c0f2/src/pkg/accs/accs.ts#L101)_
 
 The transaction type. Either BTC or BTS.
