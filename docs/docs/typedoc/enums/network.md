@@ -10,25 +10,25 @@ sidebar_label: "Network"
 
 ### Enumeration members
 
-* [MAINNET](network.md#mainnet)
-* [TESTNET](network.md#testnet)
+- [MAINNET](network.md#mainnet)
+- [TESTNET](network.md#testnet)
 
 ## Enumeration members
 
-###  MAINNET
+### MAINNET
 
 • **MAINNET**: = "mainnet"
 
-*Defined in [components/util/enums.ts:15](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/enums.ts#L15)*
+_Defined in [components/util/enums.ts:15](https://github.com/chronark/swapchain/blob/e6681b5/src/components/util/enums.ts#L15)_
 
-*Defined in [components/forms/enums.ts:15](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/enums.ts#L15)*
+_Defined in [components/forms/enums.ts:15](https://github.com/chronark/swapchain/blob/e6681b5/src/components/forms/enums.ts#L15)_
 
-___
+---
 
-###  TESTNET
+### TESTNET
 
 • **TESTNET**: = "testnet"
 
-*Defined in [components/util/enums.ts:16](https://github.com/chronark/swapchain/blob/6beff0a/src/components/util/enums.ts#L16)*
+_Defined in [components/util/enums.ts:16](https://github.com/chronark/swapchain/blob/e6681b5/src/components/util/enums.ts#L16)_
 
-*Defined in [components/forms/enums.ts:16](https://github.com/chronark/swapchain/blob/6beff0a/src/components/forms/enums.ts#L16)*
+_Defined in [components/forms/enums.ts:16](https://github.com/chronark/swapchain/blob/e6681b5/src/components/forms/enums.ts#L16)_

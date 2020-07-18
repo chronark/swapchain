@@ -10,44 +10,44 @@ Handler to create HTLCs on the respective blockchains to run an ACCS.
 
 ## Hierarchy
 
-* **ACCS**
+- **ACCS**
 
 ## Index
 
 ### Methods
 
-* [parseUserInput](accs.md#static-parseuserinput)
-* [proposeBTCForBTS](accs.md#static-proposebtcforbts)
-* [proposeBTSForBTC](accs.md#static-proposebtsforbtc)
-* [run](accs.md#static-run)
-* [takeBTCForBTS](accs.md#static-takebtcforbts)
-* [takeBTSForBTC](accs.md#static-takebtsforbtc)
+- [parseUserInput](accs.md#static-parseuserinput)
+- [proposeBTCForBTS](accs.md#static-proposebtcforbts)
+- [proposeBTSForBTC](accs.md#static-proposebtsforbtc)
+- [run](accs.md#static-run)
+- [takeBTCForBTS](accs.md#static-takebtcforbts)
+- [takeBTSForBTC](accs.md#static-takebtsforbtc)
 
 ## Methods
 
 ### `Static` parseUserInput
 
-▸ **parseUserInput**(`fields`: [ACCSFields](../interfaces/accsfields.md)): *Promise‹[ACCSConfig](../interfaces/accsconfig.md)›*
+▸ **parseUserInput**(`fields`: [ACCSFields](../interfaces/accsfields.md)): _Promise‹[ACCSConfig](../interfaces/accsconfig.md)›_
 
-*Defined in [pkg/accs/accs.ts:200](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L200)*
+_Defined in [pkg/accs/accs.ts:200](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L200)_
 
 Parse user input to create config
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`fields` | [ACCSFields](../interfaces/accsfields.md) |   |
+| Name     | Type                                      | Description |
+| -------- | ----------------------------------------- | ----------- |
+| `fields` | [ACCSFields](../interfaces/accsfields.md) |             |
 
-**Returns:** *Promise‹[ACCSConfig](../interfaces/accsconfig.md)›*
+**Returns:** _Promise‹[ACCSConfig](../interfaces/accsconfig.md)›_
 
-___
+---
 
 ### `Static` proposeBTCForBTS
 
-▸ **proposeBTCForBTS**(`config`: [ACCSConfig](../interfaces/accsconfig.md)): *Promise‹void›*
+▸ **proposeBTCForBTS**(`config`: [ACCSConfig](../interfaces/accsconfig.md)): _Promise‹void›_
 
-*Defined in [pkg/accs/accs.ts:323](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L323)*
+_Defined in [pkg/accs/accs.ts:325](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L325)_
 
 Handles ACCS for proposer who wants BTC for BTS.
 
@@ -55,19 +55,19 @@ Handles ACCS for proposer who wants BTC for BTS.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`config` | [ACCSConfig](../interfaces/accsconfig.md) |
+| Name     | Type                                      |
+| -------- | ----------------------------------------- |
+| `config` | [ACCSConfig](../interfaces/accsconfig.md) |
 
-**Returns:** *Promise‹void›*
+**Returns:** _Promise‹void›_
 
-___
+---
 
 ### `Static` proposeBTSForBTC
 
-▸ **proposeBTSForBTC**(`config`: [ACCSConfig](../interfaces/accsconfig.md)): *Promise‹void›*
+▸ **proposeBTSForBTC**(`config`: [ACCSConfig](../interfaces/accsconfig.md)): _Promise‹void›_
 
-*Defined in [pkg/accs/accs.ts:262](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L262)*
+_Defined in [pkg/accs/accs.ts:260](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L260)_
 
 Handles ACCS for proposer who wants BTS for BTC.
 
@@ -75,19 +75,19 @@ Handles ACCS for proposer who wants BTS for BTC.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`config` | [ACCSConfig](../interfaces/accsconfig.md) |
+| Name     | Type                                      |
+| -------- | ----------------------------------------- |
+| `config` | [ACCSConfig](../interfaces/accsconfig.md) |
 
-**Returns:** *Promise‹void›*
+**Returns:** _Promise‹void›_
 
-___
+---
 
 ### `Static` run
 
-▸ **run**(`fields`: [ACCSFields](../interfaces/accsfields.md)): *Promise‹void›*
+▸ **run**(`fields`: [ACCSFields](../interfaces/accsfields.md)): _Promise‹void›_
 
-*Defined in [pkg/accs/accs.ts:610](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L610)*
+_Defined in [pkg/accs/accs.ts:618](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L618)_
 
 Entrypoint for web app and CLI. Calls respective parse and swap methods.
 
@@ -95,19 +95,19 @@ Entrypoint for web app and CLI. Calls respective parse and swap methods.
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`fields` | [ACCSFields](../interfaces/accsfields.md) | The raw user input object. |
+| Name     | Type                                      | Description                |
+| -------- | ----------------------------------------- | -------------------------- |
+| `fields` | [ACCSFields](../interfaces/accsfields.md) | The raw user input object. |
 
-**Returns:** *Promise‹void›*
+**Returns:** _Promise‹void›_
 
-___
+---
 
 ### `Static` takeBTCForBTS
 
-▸ **takeBTCForBTS**(`config`: [ACCSConfig](../interfaces/accsconfig.md)): *Promise‹void›*
+▸ **takeBTCForBTS**(`config`: [ACCSConfig](../interfaces/accsconfig.md)): _Promise‹void›_
 
-*Defined in [pkg/accs/accs.ts:490](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L490)*
+_Defined in [pkg/accs/accs.ts:504](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L504)_
 
 Handles ACCS for accepter who wants BTC for BTS.
 
@@ -115,19 +115,19 @@ Handles ACCS for accepter who wants BTC for BTS.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`config` | [ACCSConfig](../interfaces/accsconfig.md) |
+| Name     | Type                                      |
+| -------- | ----------------------------------------- |
+| `config` | [ACCSConfig](../interfaces/accsconfig.md) |
 
-**Returns:** *Promise‹void›*
+**Returns:** _Promise‹void›_
 
-___
+---
 
 ### `Static` takeBTSForBTC
 
-▸ **takeBTSForBTC**(`config`: [ACCSConfig](../interfaces/accsconfig.md)): *Promise‹void›*
+▸ **takeBTSForBTC**(`config`: [ACCSConfig](../interfaces/accsconfig.md)): _Promise‹void›_
 
-*Defined in [pkg/accs/accs.ts:389](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L389)*
+_Defined in [pkg/accs/accs.ts:391](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L391)_
 
 Handles ACCS for accepter who wants BTS for BTC.
 
@@ -135,8 +135,8 @@ Handles ACCS for accepter who wants BTS for BTC.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`config` | [ACCSConfig](../interfaces/accsconfig.md) |
+| Name     | Type                                      |
+| -------- | ----------------------------------------- |
+| `config` | [ACCSConfig](../interfaces/accsconfig.md) |
 
-**Returns:** *Promise‹void›*
+**Returns:** _Promise‹void›_

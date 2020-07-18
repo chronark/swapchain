@@ -72,7 +72,7 @@ You can see our docs [here](https://swapchain-docs.netlify.app).
 
 ## Development setup
 
-Please see our [contribution guidelines](https://github.com/chronark/swapchain/blob/master/.github/CONTRIBUTING.md)
+Please see our [contribution guidelines](https://github.com/chronark/swapchain/blob/master/.github/CONTRIBUTING.md).
 
 ## License
 
