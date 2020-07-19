@@ -4,7 +4,7 @@ module.exports = {
     "Swapchain is an application that enables users to perform atomic cross-chain swaps (ACCS) between BTS and BTS and vice versa.",
   url: "https://chronark.github.io/swapchain",
   baseUrl: "/",
-  favicon: "img/favicon.ico",
+  favicon: "img/swapchainLogo.svg",
   organizationName: "chronark",
   projectName: "swapchain",
   themeConfig: {
