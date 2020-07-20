@@ -38,7 +38,6 @@ const features = [
     ),
   },
   {
-    title: <>Swapchain explanation video</>,
     description: (
       <iframe
         src="https://www.youtube.com/embed/u3svQcjLGrc"
