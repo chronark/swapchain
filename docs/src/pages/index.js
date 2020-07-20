@@ -37,6 +37,17 @@ const features = [
       </>
     ),
   },
+  {
+    title: <>Swapchain explanation video</>,
+    description: (
+      <iframe
+        src="https://www.youtube.com/embed/u3svQcjLGrc"
+        width="1080"
+        height="576"
+        allowfullscreen="allowfullscreen"
+      ></iframe>
+    ),
+  },
 ]
 
 function Feature({ imageUrl, title, description }) {
@@ -48,6 +59,7 @@ function Feature({ imageUrl, title, description }) {
           <img className={styles.featureImage} src={imgUrl} alt={title} />
         </div>
       )}
+
       <h3>{title}</h3>
       <p>{description}</p>
     </div>
