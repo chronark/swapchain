@@ -1,6 +1,6 @@
 ---
 id: "globals"
-title: "swapchain documentation"
+title: "Swapchain Documentation"
 sidebar_label: "Globals"
 ---
 
