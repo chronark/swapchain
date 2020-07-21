@@ -21,12 +21,12 @@ import { ReactComponent as ShieldFailure } from "../../icons/shield-exclamation.
 import { ReactComponent as LightBulb } from "../../icons/light-bulb.svg"
 export const Propose = () => {
   // Application state for handling the flow
-  const [state, setState] = useState(State.IDLE)
+  const [state, setState] = useState(State.FAILURE)
   const [isValid, setValid] = useState(false)
   const [copyButtonLabel, setCopyButtonLabel] = useState("Copy all")
 
   // Used to display helpful error messages to the user
-  const [errorMessage, setErrorMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState("Invalid hex string")
 
   // Collects the user input in one place
   const [fields, setFields] = useState({
