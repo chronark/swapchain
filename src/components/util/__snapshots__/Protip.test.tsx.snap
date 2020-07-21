@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly for mainnet 1`] = `
+<div
+  className="flex flex-col items-center px-3 py-2 space-x-1 md:flex-row"
+>
+  <div
+    className="flex items-center"
+  >
+    <svg
+      className="h-6 text-gray-600"
+    >
+      light-bulb.svg
+    </svg>
+    <span
+      className="font-semibold text-gray-900"
+    >
+      ProTip!
+    </span>
+  </div>
+  <div
+    className="flex flex-col items-center md:flex-row"
+  >
+    <span
+      className="text-center text-gray-700"
+    >
+      Check your transaction on the blockchain:
+    </span>
+    <div
+      className="flex px-2 space-x-2"
+    >
+      <a
+        className="text-blue-400"
+        href="https://blockstream.info/"
+        target="blank"
+      >
+        Bitcoin
+      </a>
+      <a
+        className="text-blue-400"
+        href="https://wallet.bitshares.org/#/"
+        target="blank"
+      >
+        Bitshares
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly for testnet 1`] = `
+<div
+  className="flex flex-col items-center px-3 py-2 space-x-1 md:flex-row"
+>
+  <div
+    className="flex items-center"
+  >
+    <svg
+      className="h-6 text-gray-600"
+    >
+      light-bulb.svg
+    </svg>
+    <span
+      className="font-semibold text-gray-900"
+    >
+      ProTip!
+    </span>
+  </div>
+  <div
+    className="flex flex-col items-center md:flex-row"
+  >
+    <span
+      className="text-center text-gray-700"
+    >
+      Check your transaction on the blockchain:
+    </span>
+    <div
+      className="flex px-2 space-x-2"
+    >
+      <a
+        className="text-blue-400"
+        href="https://blockstream.info/testnet/"
+        target="blank"
+      >
+        Bitcoin
+      </a>
+      <a
+        className="text-blue-400"
+        href="https://wallet.bitshares.org/#/"
+        target="blank"
+      >
+        Bitshares
+      </a>
+    </div>
+  </div>
+</div>
+`;

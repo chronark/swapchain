@@ -18,6 +18,7 @@ import { getSecret } from "../../pkg/secret/secret"
 import { toPublicKey } from "../../pkg/util/util"
 import { ReactComponent as ShieldSuccess } from "../../icons/shield-check.svg"
 import { ReactComponent as ShieldFailure } from "../../icons/shield-exclamation.svg"
+import { Protip } from "../util/Protip"
 export const Propose = () => {
   // Application state for handling the flow
   const [state, setState] = useState(State.IDLE)
@@ -385,6 +386,7 @@ export const Propose = () => {
           </p>
         </section>
       </div>
+      <Protip network={fields.networkToTrade}></Protip>
     </div>
   )
 
