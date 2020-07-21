@@ -3,6 +3,7 @@ module.exports = {
     Classes: [
       "typedoc/classes/accs",
       "typedoc/classes/bitcoinhtlc",
+      "typedoc/classes/bitsharesapi",
       "typedoc/classes/bitshareshtlc",
       "typedoc/classes/blockstream",
       "typedoc/classes/timer",

@@ -12,163 +12,163 @@ Contains raw user input to run an ACCS. Needs to get parsed.
 
 ## Hierarchy
 
-* **ACCSFields**
+- **ACCSFields**
 
 ## Index
 
 ### Properties
 
-* [amountToReceive](accsfields.md#amounttoreceive)
-* [amountToSend](accsfields.md#amounttosend)
-* [bitcoinPrivateKey](accsfields.md#bitcoinprivatekey)
-* [bitcoinTxID](accsfields.md#bitcointxid)
-* [bitsharesPrivateKey](accsfields.md#bitsharesprivatekey)
-* [counterpartyBitcoinPublicKey](accsfields.md#counterpartybitcoinpublickey)
-* [counterpartyBitsharesAccountName](accsfields.md#counterpartybitsharesaccountname)
-* [currencyToGive](accsfields.md#currencytogive)
-* [mode](accsfields.md#mode)
-* [networkToTrade](accsfields.md#networktotrade)
-* [priority](accsfields.md#priority)
-* [rate](accsfields.md#rate)
-* [secret](accsfields.md#secret)
-* [secretHash](accsfields.md#optional-secrethash)
+- [amountToReceive](accsfields.md#amounttoreceive)
+- [amountToSend](accsfields.md#amounttosend)
+- [bitcoinPrivateKey](accsfields.md#bitcoinprivatekey)
+- [bitcoinTxID](accsfields.md#bitcointxid)
+- [bitsharesPrivateKey](accsfields.md#bitsharesprivatekey)
+- [counterpartyBitcoinPublicKey](accsfields.md#counterpartybitcoinpublickey)
+- [counterpartyBitsharesAccountName](accsfields.md#counterpartybitsharesaccountname)
+- [currencyToGive](accsfields.md#currencytogive)
+- [mode](accsfields.md#mode)
+- [networkToTrade](accsfields.md#networktotrade)
+- [priority](accsfields.md#priority)
+- [rate](accsfields.md#rate)
+- [secret](accsfields.md#secret)
+- [secretHash](accsfields.md#optional-secrethash)
 
 ## Properties
 
-###  amountToReceive
+### amountToReceive
 
-• **amountToReceive**: *number*
+• **amountToReceive**: _number_
 
-*Defined in [pkg/accs/accs.ts:44](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L44)*
+_Defined in [pkg/accs/accs.ts:44](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L44)_
 
 The amount to receive.
 
-___
+---
 
-###  amountToSend
+### amountToSend
 
-• **amountToSend**: *number*
+• **amountToSend**: _number_
 
-*Defined in [pkg/accs/accs.ts:34](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L34)*
+_Defined in [pkg/accs/accs.ts:34](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L34)_
 
 The amount to send.
 
-___
+---
 
-###  bitcoinPrivateKey
+### bitcoinPrivateKey
 
-• **bitcoinPrivateKey**: *string*
+• **bitcoinPrivateKey**: _string_
 
-*Defined in [pkg/accs/accs.ts:49](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L49)*
+_Defined in [pkg/accs/accs.ts:49](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L49)_
 
 The Bitcoin private key.
 
-___
+---
 
-###  bitcoinTxID
+### bitcoinTxID
 
-• **bitcoinTxID**: *string*
+• **bitcoinTxID**: _string_
 
-*Defined in [pkg/accs/accs.ts:69](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L69)*
+_Defined in [pkg/accs/accs.ts:69](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L69)_
 
 The Bitcoin transaction ID to spend.
 
-___
+---
 
-###  bitsharesPrivateKey
+### bitsharesPrivateKey
 
-• **bitsharesPrivateKey**: *string*
+• **bitsharesPrivateKey**: _string_
 
-*Defined in [pkg/accs/accs.ts:54](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L54)*
+_Defined in [pkg/accs/accs.ts:54](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L54)_
 
 The Bitshares private key.
 
-___
+---
 
-###  counterpartyBitcoinPublicKey
+### counterpartyBitcoinPublicKey
 
-• **counterpartyBitcoinPublicKey**: *string*
+• **counterpartyBitcoinPublicKey**: _string_
 
-*Defined in [pkg/accs/accs.ts:59](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L59)*
+_Defined in [pkg/accs/accs.ts:59](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L59)_
 
 The Bitcoin public key of the counterparty.
 
-___
+---
 
-###  counterpartyBitsharesAccountName
+### counterpartyBitsharesAccountName
 
-• **counterpartyBitsharesAccountName**: *string*
+• **counterpartyBitsharesAccountName**: _string_
 
-*Defined in [pkg/accs/accs.ts:64](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L64)*
+_Defined in [pkg/accs/accs.ts:64](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L64)_
 
 The Bitshares account name of the counterparty.
 
-___
+---
 
-###  currencyToGive
+### currencyToGive
 
-• **currencyToGive**: *string*
+• **currencyToGive**: _string_
 
-*Defined in [pkg/accs/accs.ts:29](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L29)*
+_Defined in [pkg/accs/accs.ts:29](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L29)_
 
 The currency to give. Either BTC or BTS.
 
-___
+---
 
-###  mode
+### mode
 
-• **mode**: *string*
+• **mode**: _string_
 
-*Defined in [pkg/accs/accs.ts:19](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L19)*
+_Defined in [pkg/accs/accs.ts:19](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L19)_
 
 The transaction mode. Either proposer or accepter.
 
-___
+---
 
-###  networkToTrade
+### networkToTrade
 
-• **networkToTrade**: *string*
+• **networkToTrade**: _string_
 
-*Defined in [pkg/accs/accs.ts:24](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L24)*
+_Defined in [pkg/accs/accs.ts:24](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L24)_
 
 The network name. Either mainnet or testnet.
 
-___
+---
 
-###  priority
+### priority
 
-• **priority**: *number*
+• **priority**: _number_
 
-*Defined in [pkg/accs/accs.ts:74](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L74)*
+_Defined in [pkg/accs/accs.ts:74](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L74)_
 
 The priority of the transactions. Either 0 (high), 1 (medium) or 2 (low).
 
-___
+---
 
-###  rate
+### rate
 
-• **rate**: *number*
+• **rate**: _number_
 
-*Defined in [pkg/accs/accs.ts:39](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L39)*
+_Defined in [pkg/accs/accs.ts:39](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L39)_
 
 The exchange rate both parties agreed on.
 
-___
+---
 
-###  secret
+### secret
 
-• **secret**: *[Secret](secret.md)*
+• **secret**: _[Secret](secret.md)_
 
-*Defined in [pkg/accs/accs.ts:79](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L79)*
+_Defined in [pkg/accs/accs.ts:79](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L79)_
 
 A secret object with a random preimage and its corresponding SHA256 hash.
 
-___
+---
 
 ### `Optional` secretHash
 
-• **secretHash**? : *undefined | string*
+• **secretHash**? : _undefined | string_
 
-*Defined in [pkg/accs/accs.ts:84](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/accs/accs.ts#L84)*
+_Defined in [pkg/accs/accs.ts:84](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/accs/accs.ts#L84)_
 
 A secret SHA256 hash.

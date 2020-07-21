@@ -10,27 +10,27 @@ An interface for a Bitshares privatekey/address pair
 
 ## Hierarchy
 
-* **BTSAddress**
+- **BTSAddress**
 
 ## Index
 
 ### Properties
 
-* [address](btsaddress.md#address)
-* [privateKey](btsaddress.md#privatekey)
+- [address](btsaddress.md#address)
+- [privateKey](btsaddress.md#privatekey)
 
 ## Properties
 
-###  address
+### address
 
-• **address**: *string*
+• **address**: _string_
 
-*Defined in [pkg/address/address.ts:20](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/address.ts#L20)*
+_Defined in [pkg/address/address.ts:20](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/address/address.ts#L20)_
 
-___
+---
 
-###  privateKey
+### privateKey
 
-• **privateKey**: *string*
+• **privateKey**: _string_
 
-*Defined in [pkg/address/address.ts:19](https://github.com/chronark/swapchain/blob/6beff0a/src/pkg/address/address.ts#L19)*
+_Defined in [pkg/address/address.ts:19](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/address/address.ts#L19)_
