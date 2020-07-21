@@ -447,7 +447,7 @@ export const Propose = () => {
                 return submit
               case State.ERROR:
                 return <p className="py-4 text-red-500">{errorMessage}</p>
-              case (<State className="R"></State>):
+              case State.RUNNING:
                 return (
                   <SubmitButton
                     label={copyButtonLabel}

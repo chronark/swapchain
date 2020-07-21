@@ -9,6 +9,8 @@ import { Spinner } from "../util/Spinner"
 import { RadioButton } from "../forms/RadioButton"
 import { State, Network, Priority, Currency } from "../util/enums"
 import ACCS from "../../pkg/accs/accs"
+import { ReactComponent as LightBulb } from "../../icons/light-bulb.svg"
+
 import {
   isValidBitcoinPrivateKey,
   isValidBitsharesPrivateKey,
@@ -373,8 +375,30 @@ export const Accept = () => {
   const submit = <SubmitButton borderColor="teal" label="Submit" onClick={submitHandler}></SubmitButton>
 
   const running = (
-    <div className="flex flex-col items-center justify-center">
-      <Spinner className="h-40"></Spinner>
+    <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center justify-center">
+        <Spinner className="h-40"></Spinner>
+      </div>
+      <div className="flex flex-col items-center px-3 py-2 space-x-1 sm:flex-row">
+        <div className="flex items-center">
+          <LightBulb className="h-6 text-gray-600"></LightBulb>
+          <span className="font-semibold text-gray-900">ProTip!</span>
+        </div>
+        <span className="text-gray-700">Check your transaction on the blockchain</span>
+        <a
+          target="blank"
+          className="text-blue-400"
+          href={
+            fields.currencyToGive === Currency.BTC
+              ? fields.networkToTrade === Network.MAINNET
+                ? "https://blockstream.info/"
+                : "https://blockstream.info/testnet/"
+              : "https://wallet.bitshares.org/#/"
+          }
+        >
+          here
+        </a>
+      </div>
     </div>
   )
 
