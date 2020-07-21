@@ -18,7 +18,7 @@ import { getSecret } from "../../pkg/secret/secret"
 import { toPublicKey } from "../../pkg/util/util"
 import { ReactComponent as ShieldSuccess } from "../../icons/shield-check.svg"
 import { ReactComponent as ShieldFailure } from "../../icons/shield-exclamation.svg"
-import { ReactComponent as LightBulb } from "../../icons/light-bulb.svg"
+import { Protip } from "../util/Protip"
 export const Propose = () => {
   // Application state for handling the flow
   const [state, setState] = useState(State.IDLE)
@@ -386,26 +386,7 @@ export const Propose = () => {
           </p>
         </section>
       </div>
-      <div className="flex flex-col items-center px-3 py-2 space-x-1 sm:flex-row">
-        <div className="flex items-center">
-          <LightBulb className="h-6 text-gray-600"></LightBulb>
-          <span className="font-semibold text-gray-900">ProTip!</span>
-        </div>
-        <span className="text-gray-700">Check your transaction on the blockchain</span>
-        <a
-          target="blank"
-          className="text-blue-400"
-          href={
-            fields.currencyToGive === Currency.BTC
-              ? fields.networkToTrade === Network.MAINNET
-                ? "https://blockstream.info/"
-                : "https://blockstream.info/testnet/"
-              : "https://wallet.bitshares.org/#/"
-          }
-        >
-          here
-        </a>
-      </div>
+      <Protip network={fields.networkToTrade}></Protip>
     </div>
   )
 
