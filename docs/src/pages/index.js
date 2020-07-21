@@ -39,14 +39,20 @@ const features = [
   },
   {
     description: (
-      <iframe
-        src="https://www.youtube.com/embed/u3svQcjLGrc"
-        width="1080"
-        height="576"
-        allowfullscreen="allowfullscreen"
-      ></iframe>
+
+      <div style="width: 100%; height: 0; padding-bottom: 56.25%; position: relative">
+        <iframe 
+          style="position: absolute; width: 100%; height: 100%"
+          src="https://www.youtube.com/embed/u3svQcjLGrc"
+          width="1080" 
+          height="576" 
+          frameborder="0" 
+          allowfullscreen>
+        </iframe>
+      </div>
     ),
   },
+
 ]
 
 function Feature({ imageUrl, title, description }) {
@@ -61,7 +67,8 @@ function Feature({ imageUrl, title, description }) {
 
       <h3>{title}</h3>
       <p>{description}</p>
-    </div>
+      </div>
+
   )
 }
 
@@ -95,7 +102,7 @@ function Home() {
               </div>
             </div>
           </section>
-        )}
+          )}
       </main>
     </Layout>
   )
