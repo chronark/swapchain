@@ -11,17 +11,17 @@ exports[`renders correctly 1`] = `
       className="p-8"
     >
       <div
-        className="flex flex-col items-center justify-center mt-8 text-red-500"
+        className="flex flex-col items-center justify-center mt-8 text-teal-400"
       >
         <svg
           className="h-8 "
         >
-          shield-exclamation.svg
+          shield-check.svg
         </svg>
         <span
           className="text-xl font-bold "
         >
-          Failure
+          Success
         </span>
       </div>
     </div>
@@ -33,7 +33,7 @@ exports[`renders correctly 1`] = `
       <p
         className="py-4 font-semibold text-gray-700"
       >
-        Invalid hex string
+        Thank you for using swapchain
       </p>
     </div>
   </footer>

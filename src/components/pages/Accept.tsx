@@ -22,11 +22,11 @@ import { ReactComponent as ShieldFailure } from "../../icons/shield-exclamation.
 
 export const Accept = () => {
   // Application state for handling the flow
-  const [state, setState] = useState(State.FAILURE)
+  const [state, setState] = useState(State.SUCCESS)
   const [isValid, setValid] = useState(false)
 
   // Used to display helpful error messages to the user
-  const [errorMessage, setErrorMessage] = useState("Invalid hex string")
+  const [errorMessage, setErrorMessage] = useState("")
 
   // Collects the user input in one place
   const [fields, setFields] = useState({
