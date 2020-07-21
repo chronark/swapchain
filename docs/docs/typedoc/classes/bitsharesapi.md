@@ -40,7 +40,7 @@ Use getInstance to get an instance and not the constructor.
 
 \+ **new BitsharesAPI**(): _[BitsharesAPI](bitsharesapi.md)_
 
-_Defined in [pkg/bitshares/api/api.ts:11](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/api/api.ts#L11)_
+_Defined in [pkg/bitshares/api/api.ts:11](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitshares/api/api.ts#L11)_
 
 Do not use
 
@@ -55,7 +55,7 @@ Use getInstance instead.
 
 ▪ **instance**: _[BitsharesAPI](bitsharesapi.md)_
 
-_Defined in [pkg/bitshares/api/api.ts:11](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/api/api.ts#L11)_
+_Defined in [pkg/bitshares/api/api.ts:11](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitshares/api/api.ts#L11)_
 
 ## Methods
 
@@ -63,7 +63,7 @@ _Defined in [pkg/bitshares/api/api.ts:11](https://github.com/chronark/swapchain/
 
 ▸ **getAccountID**(`accountName`: string): _Promise‹string›_
 
-_Defined in [pkg/bitshares/api/api.ts:43](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/api/api.ts#L43)_
+_Defined in [pkg/bitshares/api/api.ts:43](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitshares/api/api.ts#L43)_
 
 Get account ID
 
@@ -83,7 +83,7 @@ The account ID.
 
 ▸ **getHistory**(`accountID`: string): _Promise‹Record‹string, any›[]›_
 
-_Defined in [pkg/bitshares/api/api.ts:54](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/api/api.ts#L54)_
+_Defined in [pkg/bitshares/api/api.ts:54](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitshares/api/api.ts#L54)_
 
 Get account history
 
@@ -103,7 +103,7 @@ An array of transaction objects.
 
 ▸ **getID**(`senderID`: string, `receiverID`: string, `amount`: number, `hash`: Buffer, `timelock?`: undefined | number): _Promise‹string›_
 
-_Defined in [pkg/bitshares/api/api.ts:70](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/api/api.ts#L70)_
+_Defined in [pkg/bitshares/api/api.ts:70](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitshares/api/api.ts#L70)_
 
 Get the HTLC BitShares ID
 
@@ -127,7 +127,7 @@ HTLC ID of an instance.
 
 ▸ **getPreimageFromHTLC**(`senderID`: string, `receiverID`: string, `secretHash`: string): _Promise‹string›_
 
-_Defined in [pkg/bitshares/api/api.ts:141](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/api/api.ts#L141)_
+_Defined in [pkg/bitshares/api/api.ts:141](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitshares/api/api.ts#L141)_
 
 Get preimage from HTLC on blockchain
 
@@ -151,7 +151,7 @@ Preimage from the HTLC.
 
 ▸ **toAccountID**(`privateKey`: string, `network`: string): _Promise‹string›_
 
-_Defined in [pkg/bitshares/api/api.ts:106](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/api/api.ts#L106)_
+_Defined in [pkg/bitshares/api/api.ts:106](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitshares/api/api.ts#L106)_
 
 Derive the account ID from a private key
 
@@ -172,7 +172,7 @@ The account ID for the private key.
 
 ▸ **getInstance**(`node`: string): _Promise‹[BitsharesAPI](bitsharesapi.md)›_
 
-_Defined in [pkg/bitshares/api/api.ts:28](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/api/api.ts#L28)_
+_Defined in [pkg/bitshares/api/api.ts:28](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitshares/api/api.ts#L28)_
 
 Initialize websocket if there is not already one
 

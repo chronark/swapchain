@@ -35,7 +35,7 @@ Handler to create HTLCs on the bitshares blockchain using a specified node.
 
 \+ **new BitsharesHTLC**(`node`: string, `senderID`: string, `receiverID`: string): _[BitsharesHTLC](bitshareshtlc.md)_
 
-_Defined in [pkg/bitshares/htlc/btsHTLC.ts:56](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/htlc/btsHTLC.ts#L56)_
+_Defined in [pkg/bitshares/htlc/btsHTLC.ts:56](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitshares/htlc/btsHTLC.ts#L56)_
 
 Creates an instance of BitsharesHTLC.
 
@@ -57,7 +57,7 @@ Creates an instance of BitsharesHTLC.
 
 • **node**: _string_
 
-_Defined in [pkg/bitshares/htlc/btsHTLC.ts:54](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/htlc/btsHTLC.ts#L54)_
+_Defined in [pkg/bitshares/htlc/btsHTLC.ts:54](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitshares/htlc/btsHTLC.ts#L54)_
 
 ---
 
@@ -65,7 +65,7 @@ _Defined in [pkg/bitshares/htlc/btsHTLC.ts:54](https://github.com/chronark/swapc
 
 • **receiverID**: _string_
 
-_Defined in [pkg/bitshares/htlc/btsHTLC.ts:56](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/htlc/btsHTLC.ts#L56)_
+_Defined in [pkg/bitshares/htlc/btsHTLC.ts:56](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitshares/htlc/btsHTLC.ts#L56)_
 
 ---
 
@@ -73,7 +73,7 @@ _Defined in [pkg/bitshares/htlc/btsHTLC.ts:56](https://github.com/chronark/swapc
 
 • **senderID**: _string_
 
-_Defined in [pkg/bitshares/htlc/btsHTLC.ts:55](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/htlc/btsHTLC.ts#L55)_
+_Defined in [pkg/bitshares/htlc/btsHTLC.ts:55](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitshares/htlc/btsHTLC.ts#L55)_
 
 ## Methods
 
@@ -81,7 +81,7 @@ _Defined in [pkg/bitshares/htlc/btsHTLC.ts:55](https://github.com/chronark/swapc
 
 ▸ **create**(`config`: [HTLCConfig](../interfaces/htlcconfig.md)): _Promise‹boolean›_
 
-_Defined in [pkg/bitshares/htlc/btsHTLC.ts:79](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/htlc/btsHTLC.ts#L79)_
+_Defined in [pkg/bitshares/htlc/btsHTLC.ts:79](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitshares/htlc/btsHTLC.ts#L79)_
 
 Create and send the actual HTLC.
 
@@ -103,7 +103,7 @@ Success status. Can be used for user feedback.
 
 ▸ **redeem**(`amount`: number, `privateKey`: string, `secret`: [Secret](../interfaces/secret.md)): _Promise‹boolean›_
 
-_Defined in [pkg/bitshares/htlc/btsHTLC.ts:117](https://github.com/chronark/swapchain/blob/e6681b5/src/pkg/bitshares/htlc/btsHTLC.ts#L117)_
+_Defined in [pkg/bitshares/htlc/btsHTLC.ts:117](https://github.com/chronark/swapchain/blob/c023355/src/pkg/bitshares/htlc/btsHTLC.ts#L117)_
 
 Redeem the actual HTLC.
 
