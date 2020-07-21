@@ -9,6 +9,8 @@ import { Spinner } from "../util/Spinner"
 import { RadioButton } from "../forms/RadioButton"
 import { State, Network, Priority, Currency } from "../util/enums"
 import ACCS from "../../pkg/accs/accs"
+import { Protip } from "../util/Protip"
+
 import {
   isValidBitcoinPrivateKey,
   isValidBitsharesPrivateKey,
@@ -373,8 +375,11 @@ export const Accept = () => {
   const submit = <SubmitButton borderColor="teal" label="Submit" onClick={submitHandler}></SubmitButton>
 
   const running = (
-    <div className="flex flex-col items-center justify-center">
-      <Spinner className="h-40"></Spinner>
+    <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center justify-center">
+        <Spinner className="h-40"></Spinner>
+      </div>
+      <Protip network={fields.networkToTrade}></Protip>
     </div>
   )
 

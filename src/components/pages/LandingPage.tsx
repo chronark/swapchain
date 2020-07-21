@@ -25,7 +25,7 @@ export const LandingPage = () => {
                 </Link>
                 <a
                   target="blank"
-                  href="https://github.com/chronark/swapchain"
+                  href="https://swapchain-docs.netlify.app/"
                   className="px-8 py-3 text-base font-medium leading-6 text-teal-700 transition duration-150 ease-in-out bg-teal-100 border border-transparent rounded-sm hover:text-teal-500 focus:outline-none md:py-4 md:text-lg md:px-10"
                 >
                   Learn more

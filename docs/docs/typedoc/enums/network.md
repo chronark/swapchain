@@ -19,9 +19,9 @@ sidebar_label: "Network"
 
 • **MAINNET**: = "mainnet"
 
-_Defined in [components/util/enums.ts:15](https://github.com/chronark/swapchain/blob/e6681b5/src/components/util/enums.ts#L15)_
+_Defined in [components/util/enums.ts:15](https://github.com/chronark/swapchain/blob/c023355/src/components/util/enums.ts#L15)_
 
-_Defined in [components/forms/enums.ts:15](https://github.com/chronark/swapchain/blob/e6681b5/src/components/forms/enums.ts#L15)_
+_Defined in [components/forms/enums.ts:15](https://github.com/chronark/swapchain/blob/c023355/src/components/forms/enums.ts#L15)_
 
 ---
 
@@ -29,6 +29,6 @@ _Defined in [components/forms/enums.ts:15](https://github.com/chronark/swapchain
 
 • **TESTNET**: = "testnet"
 
-_Defined in [components/util/enums.ts:16](https://github.com/chronark/swapchain/blob/e6681b5/src/components/util/enums.ts#L16)_
+_Defined in [components/util/enums.ts:16](https://github.com/chronark/swapchain/blob/c023355/src/components/util/enums.ts#L16)_
 
-_Defined in [components/forms/enums.ts:16](https://github.com/chronark/swapchain/blob/e6681b5/src/components/forms/enums.ts#L16)_
+_Defined in [components/forms/enums.ts:16](https://github.com/chronark/swapchain/blob/c023355/src/components/forms/enums.ts#L16)_
